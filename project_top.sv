@@ -278,6 +278,15 @@ eth_ddio ETH1_DDIO(
 	.dataout(ENET1_GTX_CLK)
 );
 
+// VGA Controller
+logic[9:0] VGA_DrawX, VGA_DrawY;
+
+VGA_controller VGA(
+	.Clk(CLOCK_50), .Reset(~RESET),
+	.VGA_HS, .VGA_VS, .VGA_CLK, .VGA_BLANK_N, .VGA_SYNC_N,
+	.DrawX(VGA_DrawX), .DrawY(VGA_DrawY)
+);
+
 // Main system
 
 ECE385 ECE385_sys(
@@ -299,13 +308,28 @@ ECE385 ECE385_sys(
 	.sdram_we_n(DRAM_WE_N),
 	.nios2_pll_sdram_clk(DRAM_CLK),
 	
+	.sram_sram_addr(SRAM_ADDR),
+	.sram_sram_ce_n(SRAM_CE_N),
+	.sram_sram_dq(SRAM_DQ),
+	.sram_sram_lb_n(SRAM_LB_N),
+	.sram_sram_oe_n(SRAM_OE_N),
+	.sram_sram_ub_n(SRAM_UB_N),
+	.sram_sram_we_n(SRAM_WE_N),
+	
+	.vga_vga_r(VGA_R),
+	.vga_vga_g(VGA_G),
+	.vga_vga_b(VGA_B),
+	.vga_vga_drawx(VGA_DrawX),
+	.vga_vga_drawy(VGA_DrawY),
+	.nios2_pll_vga_clk(VGA_CLK),
+	
 //	.eth0_mac_status_eth_mode(ETH0_MODE_1G),
 //	.eth0_mac_status_ena_10(ETH0_MODE_10M),
-	.eth0_mdio_mdc(ENET0_MDC),
-	.eth0_mdio_mdio_in(ETH0_MDIO_IN),
-	.eth0_mdio_mdio_out(ETH0_MDIO_OUT),
-	.eth0_mdio_mdio_oen(ETH0_MDIO_OEN),
-	.eth0_mdio_phy_addr(5'b10000),
+//	.eth0_mdio_mdc(ENET0_MDC),
+//	.eth0_mdio_mdio_in(ETH0_MDIO_IN),
+//	.eth0_mdio_mdio_out(ETH0_MDIO_OUT),
+//	.eth0_mdio_mdio_oen(ETH0_MDIO_OEN),
+//	.eth0_mdio_phy_addr(5'b10000),
 //	.eth0_rgmii_rgmii_in(ENET0_RX_DATA),
 //	.eth0_rgmii_rgmii_out(ENET0_TX_DATA),
 //	.eth0_rgmii_rx_control(ENET0_RX_DV),
@@ -315,11 +339,11 @@ ECE385 ECE385_sys(
 	
 //	.eth1_mac_status_eth_mode(ETH1_MODE_1G),
 //	.eth1_mac_status_ena_10(ETH1_MODE_10M),
-	.eth1_mdio_mdc(ENET1_MDC),
-	.eth1_mdio_mdio_in(ETH1_MDIO_IN),
-	.eth1_mdio_mdio_out(ETH1_MDIO_OUT),
-	.eth1_mdio_mdio_oen(ETH1_MDIO_OEN),
-	.eth1_mdio_phy_addr(5'b10001),
+//	.eth1_mdio_mdc(ENET1_MDC),
+//	.eth1_mdio_mdio_in(ETH1_MDIO_IN),
+//	.eth1_mdio_mdio_out(ETH1_MDIO_OUT),
+//	.eth1_mdio_mdio_oen(ETH1_MDIO_OEN),
+//	.eth1_mdio_phy_addr(5'b10001),
 //	.eth1_rgmii_rgmii_in(ENET1_RX_DATA),
 //	.eth1_rgmii_rgmii_out(ENET1_TX_DATA),
 //	.eth1_rgmii_rx_control(ENET1_RX_DV),
@@ -327,9 +351,9 @@ ECE385 ECE385_sys(
 //	.eth1_rx_clk_clk(ENET1_RX_CLK),
 //	.eth1_tx_clk_clk(ETH1_OUTPUT_CLK),
 	
-	.eth_pll_125_clk(ETH_CLK_125),
-	.eth_pll_25_clk(ETH_CLK_25),
-	.eth_pll_2_5_clk(ETH_CLK_2_5)
+//	.eth_pll_125_clk(ETH_CLK_125),
+//	.eth_pll_25_clk(ETH_CLK_25),
+//	.eth_pll_2_5_clk(ETH_CLK_2_5)
 );
 	
 endmodule

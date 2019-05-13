@@ -5,19 +5,6 @@
 `timescale 1 ps / 1 ps
 module ECE385 (
 		input  wire        clk_clk,                //             clk.clk
-		output wire        eth0_mdio_mdc,          //       eth0_mdio.mdc
-		input  wire        eth0_mdio_mdio_in,      //                .mdio_in
-		output wire        eth0_mdio_mdio_out,     //                .mdio_out
-		output wire        eth0_mdio_mdio_oen,     //                .mdio_oen
-		input  wire [4:0]  eth0_mdio_phy_addr,     //                .phy_addr
-		output wire        eth1_mdio_mdc,          //       eth1_mdio.mdc
-		input  wire        eth1_mdio_mdio_in,      //                .mdio_in
-		output wire        eth1_mdio_mdio_out,     //                .mdio_out
-		output wire        eth1_mdio_mdio_oen,     //                .mdio_oen
-		input  wire [4:0]  eth1_mdio_phy_addr,     //                .phy_addr
-		output wire        eth_pll_125_clk,        //     eth_pll_125.clk
-		output wire        eth_pll_25_clk,         //      eth_pll_25.clk
-		output wire        eth_pll_2_5_clk,        //     eth_pll_2_5.clk
 		output wire [31:0] io_hex_export,          //          io_hex.export
 		input  wire [3:0]  io_keys_export,         //         io_keys.export
 		output wire [8:0]  io_led_green_export,    //    io_led_green.export
@@ -25,6 +12,7 @@ module ECE385 (
 		input  wire [17:0] io_switches_export,     //     io_switches.export
 		output wire [7:0]  keycode_export,         //         keycode.export
 		output wire        nios2_pll_sdram_clk,    // nios2_pll_sdram.clk
+		output wire        nios2_pll_vga_clk,      //   nios2_pll_vga.clk
 		output wire [1:0]  otg_hpi_address_export, // otg_hpi_address.export
 		output wire        otg_hpi_cs_export,      //      otg_hpi_cs.export
 		input  wire [15:0] otg_hpi_data_in_port,   //    otg_hpi_data.in_port
@@ -41,10 +29,23 @@ module ECE385 (
 		inout  wire [31:0] sdram_dq,               //                .dq
 		output wire [3:0]  sdram_dqm,              //                .dqm
 		output wire        sdram_ras_n,            //                .ras_n
-		output wire        sdram_we_n              //                .we_n
+		output wire        sdram_we_n,             //                .we_n
+		output wire [19:0] sram_sram_addr,         //            sram.sram_addr
+		output wire        sram_sram_ce_n,         //                .sram_ce_n
+		inout  wire [15:0] sram_sram_dq,           //                .sram_dq
+		output wire        sram_sram_lb_n,         //                .sram_lb_n
+		output wire        sram_sram_oe_n,         //                .sram_oe_n
+		output wire        sram_sram_ub_n,         //                .sram_ub_n
+		output wire        sram_sram_we_n,         //                .sram_we_n
+		output wire [7:0]  vga_vga_r,              //             vga.vga_r
+		output wire [7:0]  vga_vga_g,              //                .vga_g
+		output wire [7:0]  vga_vga_b,              //                .vga_b
+		input  wire [9:0]  vga_vga_drawx,          //                .vga_drawx
+		input  wire [9:0]  vga_vga_drawy           //                .vga_drawy
 	);
 
-	wire         nios2_pll_c0_clk;                                                // nios2_pll:c0 -> [eth0_mdio:clk, eth1_mdio:clk, io_hex:clk, io_keys:clk, io_led_green:clk, io_led_red:clk, io_switches:clk, irq_mapper:clk, keycode:clk, mm_interconnect_0:nios2_pll_c0_clk, nios2_cpu:clk, nios2_jtag_uart:clk, nios2_onchip_mem:clk, nios2_sysid:clock, nios2_timer:clk, otg_hpi_address:clk, otg_hpi_cs:clk, otg_hpi_data:clk, otg_hpi_r:clk, otg_hpi_reset:clk, otg_hpi_w:clk, rst_controller:clk, rst_controller_002:clk, sdram:clk]
+	wire         nios2_pll_c0_clk;                                                // nios2_pll:c0 -> [io_hex:clk, io_keys:clk, io_led_green:clk, io_led_red:clk, io_switches:clk, irq_mapper:clk, keycode:clk, mm_interconnect_0:nios2_pll_c0_clk, nios2_cpu:clk, nios2_jtag_uart:clk, nios2_onchip_mem:clk, nios2_sysid:clock, nios2_timer:clk, otg_hpi_address:clk, otg_hpi_cs:clk, otg_hpi_data:clk, otg_hpi_r:clk, otg_hpi_reset:clk, otg_hpi_w:clk, rst_controller:clk, rst_controller_001:clk, sdram:clk, sram_multiplexer:CLK]
+	wire         nios2_pll_c2_clk;                                                // nios2_pll:c2 -> sram_multiplexer:CLK2
 	wire  [31:0] nios2_cpu_data_master_readdata;                                  // mm_interconnect_0:nios2_cpu_data_master_readdata -> nios2_cpu:d_readdata
 	wire         nios2_cpu_data_master_waitrequest;                               // mm_interconnect_0:nios2_cpu_data_master_waitrequest -> nios2_cpu:d_waitrequest
 	wire         nios2_cpu_data_master_debugaccess;                               // nios2_cpu:debug_mem_slave_debugaccess_to_roms -> mm_interconnect_0:nios2_cpu_data_master_debugaccess
@@ -64,18 +65,11 @@ module ECE385 (
 	wire         mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_read;        // mm_interconnect_0:nios2_jtag_uart_avalon_jtag_slave_read -> nios2_jtag_uart:av_read_n
 	wire         mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_write;       // mm_interconnect_0:nios2_jtag_uart_avalon_jtag_slave_write -> nios2_jtag_uart:av_write_n
 	wire  [31:0] mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_writedata;   // mm_interconnect_0:nios2_jtag_uart_avalon_jtag_slave_writedata -> nios2_jtag_uart:av_writedata
-	wire  [31:0] mm_interconnect_0_eth0_mdio_avalon_slave_readdata;               // eth0_mdio:avalon_slave_readdata -> mm_interconnect_0:eth0_mdio_avalon_slave_readdata
-	wire         mm_interconnect_0_eth0_mdio_avalon_slave_waitrequest;            // eth0_mdio:avalon_slave_waitrequest -> mm_interconnect_0:eth0_mdio_avalon_slave_waitrequest
-	wire   [4:0] mm_interconnect_0_eth0_mdio_avalon_slave_address;                // mm_interconnect_0:eth0_mdio_avalon_slave_address -> eth0_mdio:avalon_slave_address
-	wire         mm_interconnect_0_eth0_mdio_avalon_slave_read;                   // mm_interconnect_0:eth0_mdio_avalon_slave_read -> eth0_mdio:avalon_slave_read
-	wire         mm_interconnect_0_eth0_mdio_avalon_slave_write;                  // mm_interconnect_0:eth0_mdio_avalon_slave_write -> eth0_mdio:avalon_slave_write
-	wire  [31:0] mm_interconnect_0_eth0_mdio_avalon_slave_writedata;              // mm_interconnect_0:eth0_mdio_avalon_slave_writedata -> eth0_mdio:avalon_slave_writedata
-	wire  [31:0] mm_interconnect_0_eth1_mdio_avalon_slave_readdata;               // eth1_mdio:avalon_slave_readdata -> mm_interconnect_0:eth1_mdio_avalon_slave_readdata
-	wire         mm_interconnect_0_eth1_mdio_avalon_slave_waitrequest;            // eth1_mdio:avalon_slave_waitrequest -> mm_interconnect_0:eth1_mdio_avalon_slave_waitrequest
-	wire   [4:0] mm_interconnect_0_eth1_mdio_avalon_slave_address;                // mm_interconnect_0:eth1_mdio_avalon_slave_address -> eth1_mdio:avalon_slave_address
-	wire         mm_interconnect_0_eth1_mdio_avalon_slave_read;                   // mm_interconnect_0:eth1_mdio_avalon_slave_read -> eth1_mdio:avalon_slave_read
-	wire         mm_interconnect_0_eth1_mdio_avalon_slave_write;                  // mm_interconnect_0:eth1_mdio_avalon_slave_write -> eth1_mdio:avalon_slave_write
-	wire  [31:0] mm_interconnect_0_eth1_mdio_avalon_slave_writedata;              // mm_interconnect_0:eth1_mdio_avalon_slave_writedata -> eth1_mdio:avalon_slave_writedata
+	wire  [31:0] mm_interconnect_0_sram_multiplexer_avl_readdata;                 // sram_multiplexer:AVL_READDATA -> mm_interconnect_0:sram_multiplexer_avl_readdata
+	wire  [19:0] mm_interconnect_0_sram_multiplexer_avl_address;                  // mm_interconnect_0:sram_multiplexer_avl_address -> sram_multiplexer:AVL_ADDR
+	wire         mm_interconnect_0_sram_multiplexer_avl_read;                     // mm_interconnect_0:sram_multiplexer_avl_read -> sram_multiplexer:AVL_READ
+	wire         mm_interconnect_0_sram_multiplexer_avl_write;                    // mm_interconnect_0:sram_multiplexer_avl_write -> sram_multiplexer:AVL_WRITE
+	wire  [31:0] mm_interconnect_0_sram_multiplexer_avl_writedata;                // mm_interconnect_0:sram_multiplexer_avl_writedata -> sram_multiplexer:AVL_WRITEDATA
 	wire  [31:0] mm_interconnect_0_nios2_sysid_control_slave_readdata;            // nios2_sysid:readdata -> mm_interconnect_0:nios2_sysid_control_slave_readdata
 	wire   [0:0] mm_interconnect_0_nios2_sysid_control_slave_address;             // mm_interconnect_0:nios2_sysid_control_slave_address -> nios2_sysid:address
 	wire  [31:0] mm_interconnect_0_nios2_cpu_debug_mem_slave_readdata;            // nios2_cpu:debug_mem_slave_readdata -> mm_interconnect_0:nios2_cpu_debug_mem_slave_readdata
@@ -91,14 +85,9 @@ module ECE385 (
 	wire         mm_interconnect_0_nios2_pll_pll_slave_read;                      // mm_interconnect_0:nios2_pll_pll_slave_read -> nios2_pll:read
 	wire         mm_interconnect_0_nios2_pll_pll_slave_write;                     // mm_interconnect_0:nios2_pll_pll_slave_write -> nios2_pll:write
 	wire  [31:0] mm_interconnect_0_nios2_pll_pll_slave_writedata;                 // mm_interconnect_0:nios2_pll_pll_slave_writedata -> nios2_pll:writedata
-	wire  [31:0] mm_interconnect_0_eth_pll_pll_slave_readdata;                    // eth_pll:readdata -> mm_interconnect_0:eth_pll_pll_slave_readdata
-	wire   [1:0] mm_interconnect_0_eth_pll_pll_slave_address;                     // mm_interconnect_0:eth_pll_pll_slave_address -> eth_pll:address
-	wire         mm_interconnect_0_eth_pll_pll_slave_read;                        // mm_interconnect_0:eth_pll_pll_slave_read -> eth_pll:read
-	wire         mm_interconnect_0_eth_pll_pll_slave_write;                       // mm_interconnect_0:eth_pll_pll_slave_write -> eth_pll:write
-	wire  [31:0] mm_interconnect_0_eth_pll_pll_slave_writedata;                   // mm_interconnect_0:eth_pll_pll_slave_writedata -> eth_pll:writedata
 	wire         mm_interconnect_0_nios2_onchip_mem_s1_chipselect;                // mm_interconnect_0:nios2_onchip_mem_s1_chipselect -> nios2_onchip_mem:chipselect
 	wire  [31:0] mm_interconnect_0_nios2_onchip_mem_s1_readdata;                  // nios2_onchip_mem:readdata -> mm_interconnect_0:nios2_onchip_mem_s1_readdata
-	wire   [1:0] mm_interconnect_0_nios2_onchip_mem_s1_address;                   // mm_interconnect_0:nios2_onchip_mem_s1_address -> nios2_onchip_mem:address
+	wire  [13:0] mm_interconnect_0_nios2_onchip_mem_s1_address;                   // mm_interconnect_0:nios2_onchip_mem_s1_address -> nios2_onchip_mem:address
 	wire   [3:0] mm_interconnect_0_nios2_onchip_mem_s1_byteenable;                // mm_interconnect_0:nios2_onchip_mem_s1_byteenable -> nios2_onchip_mem:byteenable
 	wire         mm_interconnect_0_nios2_onchip_mem_s1_write;                     // mm_interconnect_0:nios2_onchip_mem_s1_write -> nios2_onchip_mem:write
 	wire  [31:0] mm_interconnect_0_nios2_onchip_mem_s1_writedata;                 // mm_interconnect_0:nios2_onchip_mem_s1_writedata -> nios2_onchip_mem:writedata
@@ -174,75 +163,12 @@ module ECE385 (
 	wire         irq_mapper_receiver0_irq;                                        // nios2_jtag_uart:av_irq -> irq_mapper:receiver0_irq
 	wire         irq_mapper_receiver1_irq;                                        // nios2_timer:irq -> irq_mapper:receiver1_irq
 	wire  [31:0] nios2_cpu_irq_irq;                                               // irq_mapper:sender_irq -> nios2_cpu:irq
-	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [eth0_mdio:reset, eth1_mdio:reset, io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, keycode:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_sysid:reset_n, nios2_timer:reset_n, otg_hpi_address:reset_n, otg_hpi_cs:reset_n, otg_hpi_data:reset_n, otg_hpi_r:reset_n, otg_hpi_reset:reset_n, otg_hpi_w:reset_n, rst_translator:in_reset, sdram:reset_n]
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, keycode:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_sysid:reset_n, nios2_timer:reset_n, otg_hpi_address:reset_n, otg_hpi_cs:reset_n, otg_hpi_data:reset_n, otg_hpi_r:reset_n, otg_hpi_reset:reset_n, otg_hpi_w:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET]
 	wire         rst_controller_reset_out_reset_req;                              // rst_controller:reset_req -> [nios2_onchip_mem:reset_req, rst_translator:reset_req_in]
-	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [eth_pll:reset, mm_interconnect_0:nios2_pll_inclk_interface_reset_reset_bridge_in_reset_reset, nios2_pll:reset]
-	wire         rst_controller_002_reset_out_reset;                              // rst_controller_002:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
-	wire         rst_controller_002_reset_out_reset_req;                          // rst_controller_002:reset_req -> [nios2_cpu:reset_req, rst_translator_001:reset_req_in]
-	wire         nios2_cpu_debug_reset_request_reset;                             // nios2_cpu:debug_reset_request -> rst_controller_002:reset_in1
-
-	lantian_mdio #(
-		.CLOCK_DIVIDER (40)
-	) eth0_mdio (
-		.avalon_slave_address     (mm_interconnect_0_eth0_mdio_avalon_slave_address),     // avalon_slave.address
-		.avalon_slave_read        (mm_interconnect_0_eth0_mdio_avalon_slave_read),        //             .read
-		.avalon_slave_write       (mm_interconnect_0_eth0_mdio_avalon_slave_write),       //             .write
-		.avalon_slave_readdata    (mm_interconnect_0_eth0_mdio_avalon_slave_readdata),    //             .readdata
-		.avalon_slave_writedata   (mm_interconnect_0_eth0_mdio_avalon_slave_writedata),   //             .writedata
-		.avalon_slave_waitrequest (mm_interconnect_0_eth0_mdio_avalon_slave_waitrequest), //             .waitrequest
-		.mdc                      (eth0_mdio_mdc),                                        //         mdio.mdc
-		.mdio_in                  (eth0_mdio_mdio_in),                                    //             .mdio_in
-		.mdio_out                 (eth0_mdio_mdio_out),                                   //             .mdio_out
-		.mdio_oen                 (eth0_mdio_mdio_oen),                                   //             .mdio_oen
-		.phy_addr                 (eth0_mdio_phy_addr),                                   //             .phy_addr
-		.reset                    (rst_controller_reset_out_reset),                       //        reset.reset
-		.clk                      (nios2_pll_c0_clk)                                      //          clk.clk
-	);
-
-	lantian_mdio #(
-		.CLOCK_DIVIDER (40)
-	) eth1_mdio (
-		.avalon_slave_address     (mm_interconnect_0_eth1_mdio_avalon_slave_address),     // avalon_slave.address
-		.avalon_slave_read        (mm_interconnect_0_eth1_mdio_avalon_slave_read),        //             .read
-		.avalon_slave_write       (mm_interconnect_0_eth1_mdio_avalon_slave_write),       //             .write
-		.avalon_slave_readdata    (mm_interconnect_0_eth1_mdio_avalon_slave_readdata),    //             .readdata
-		.avalon_slave_writedata   (mm_interconnect_0_eth1_mdio_avalon_slave_writedata),   //             .writedata
-		.avalon_slave_waitrequest (mm_interconnect_0_eth1_mdio_avalon_slave_waitrequest), //             .waitrequest
-		.mdc                      (eth1_mdio_mdc),                                        //         mdio.mdc
-		.mdio_in                  (eth1_mdio_mdio_in),                                    //             .mdio_in
-		.mdio_out                 (eth1_mdio_mdio_out),                                   //             .mdio_out
-		.mdio_oen                 (eth1_mdio_mdio_oen),                                   //             .mdio_oen
-		.phy_addr                 (eth1_mdio_phy_addr),                                   //             .phy_addr
-		.reset                    (rst_controller_reset_out_reset),                       //        reset.reset
-		.clk                      (nios2_pll_c0_clk)                                      //          clk.clk
-	);
-
-	ECE385_eth_pll eth_pll (
-		.clk                (clk_clk),                                       //       inclk_interface.clk
-		.reset              (rst_controller_001_reset_out_reset),            // inclk_interface_reset.reset
-		.read               (mm_interconnect_0_eth_pll_pll_slave_read),      //             pll_slave.read
-		.write              (mm_interconnect_0_eth_pll_pll_slave_write),     //                      .write
-		.address            (mm_interconnect_0_eth_pll_pll_slave_address),   //                      .address
-		.readdata           (mm_interconnect_0_eth_pll_pll_slave_readdata),  //                      .readdata
-		.writedata          (mm_interconnect_0_eth_pll_pll_slave_writedata), //                      .writedata
-		.inclk0             (clk_clk),                                       //                inclk0.clk
-		.c0                 (eth_pll_125_clk),                               //                    c0.clk
-		.c1                 (eth_pll_25_clk),                                //                    c1.clk
-		.c2                 (eth_pll_2_5_clk),                               //                    c2.clk
-		.c3                 (),                                              //                    c3.clk
-		.scandone           (),                                              //           (terminated)
-		.scandataout        (),                                              //           (terminated)
-		.areset             (1'b0),                                          //           (terminated)
-		.locked             (),                                              //           (terminated)
-		.phasedone          (),                                              //           (terminated)
-		.phasecounterselect (4'b0000),                                       //           (terminated)
-		.phaseupdown        (1'b0),                                          //           (terminated)
-		.phasestep          (1'b0),                                          //           (terminated)
-		.scanclk            (1'b0),                                          //           (terminated)
-		.scanclkena         (1'b0),                                          //           (terminated)
-		.scandata           (1'b0),                                          //           (terminated)
-		.configupdate       (1'b0)                                           //           (terminated)
-	);
+	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
+	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator_001:reset_req_in]
+	wire         nios2_cpu_debug_reset_request_reset;                             // nios2_cpu:debug_reset_request -> rst_controller_001:reset_in1
+	wire         rst_controller_002_reset_out_reset;                              // rst_controller_002:reset_out -> [mm_interconnect_0:nios2_pll_inclk_interface_reset_reset_bridge_in_reset_reset, nios2_pll:reset]
 
 	ECE385_io_hex io_hex (
 		.clk        (nios2_pll_c0_clk),                       //                 clk.clk
@@ -306,8 +232,8 @@ module ECE385 (
 
 	ECE385_nios2_cpu nios2_cpu (
 		.clk                                 (nios2_pll_c0_clk),                                        //                       clk.clk
-		.reset_n                             (~rst_controller_002_reset_out_reset),                     //                     reset.reset_n
-		.reset_req                           (rst_controller_002_reset_out_reset_req),                  //                          .reset_req
+		.reset_n                             (~rst_controller_001_reset_out_reset),                     //                     reset.reset_n
+		.reset_req                           (rst_controller_001_reset_out_reset_req),                  //                          .reset_req
 		.d_address                           (nios2_cpu_data_master_address),                           //               data_master.address
 		.d_byteenable                        (nios2_cpu_data_master_byteenable),                        //                          .byteenable
 		.d_read                              (nios2_cpu_data_master_read),                              //                          .read
@@ -362,7 +288,7 @@ module ECE385 (
 
 	ECE385_nios2_pll nios2_pll (
 		.clk                (clk_clk),                                         //       inclk_interface.clk
-		.reset              (rst_controller_001_reset_out_reset),              // inclk_interface_reset.reset
+		.reset              (rst_controller_002_reset_out_reset),              // inclk_interface_reset.reset
 		.read               (mm_interconnect_0_nios2_pll_pll_slave_read),      //             pll_slave.read
 		.write              (mm_interconnect_0_nios2_pll_pll_slave_write),     //                      .write
 		.address            (mm_interconnect_0_nios2_pll_pll_slave_address),   //                      .address
@@ -371,6 +297,8 @@ module ECE385 (
 		.inclk0             (clk_clk),                                         //                inclk0.clk
 		.c0                 (nios2_pll_c0_clk),                                //                    c0.clk
 		.c1                 (nios2_pll_sdram_clk),                             //                    c1.clk
+		.c2                 (nios2_pll_c2_clk),                                //                    c2.clk
+		.c3                 (nios2_pll_vga_clk),                               //                    c3.clk
 		.scandone           (),                                                //           (terminated)
 		.scandataout        (),                                                //           (terminated)
 		.areset             (1'b0),                                            //           (terminated)
@@ -493,12 +421,35 @@ module ECE385 (
 		.zs_we_n        (sdram_we_n)                                //      .export
 	);
 
+	SRAM_Multiplexer sram_multiplexer (
+		.CLK           (nios2_pll_c0_clk),                                 //  clock.clk
+		.RESET         (rst_controller_reset_out_reset),                   //  reset.reset
+		.AVL_READ      (mm_interconnect_0_sram_multiplexer_avl_read),      //    avl.read
+		.AVL_WRITE     (mm_interconnect_0_sram_multiplexer_avl_write),     //       .write
+		.AVL_WRITEDATA (mm_interconnect_0_sram_multiplexer_avl_writedata), //       .writedata
+		.AVL_READDATA  (mm_interconnect_0_sram_multiplexer_avl_readdata),  //       .readdata
+		.AVL_ADDR      (mm_interconnect_0_sram_multiplexer_avl_address),   //       .address
+		.SRAM_ADDR     (sram_sram_addr),                                   //   sram.sram_addr
+		.SRAM_CE_N     (sram_sram_ce_n),                                   //       .sram_ce_n
+		.SRAM_DQ       (sram_sram_dq),                                     //       .sram_dq
+		.SRAM_LB_N     (sram_sram_lb_n),                                   //       .sram_lb_n
+		.SRAM_OE_N     (sram_sram_oe_n),                                   //       .sram_oe_n
+		.SRAM_UB_N     (sram_sram_ub_n),                                   //       .sram_ub_n
+		.SRAM_WE_N     (sram_sram_we_n),                                   //       .sram_we_n
+		.VGA_R         (vga_vga_r),                                        //    vga.vga_r
+		.VGA_G         (vga_vga_g),                                        //       .vga_g
+		.VGA_B         (vga_vga_b),                                        //       .vga_b
+		.VGA_DrawX     (vga_vga_drawx),                                    //       .vga_drawx
+		.VGA_DrawY     (vga_vga_drawy),                                    //       .vga_drawy
+		.CLK2          (nios2_pll_c2_clk)                                  // clock2.clk
+	);
+
 	ECE385_mm_interconnect_0 mm_interconnect_0 (
 		.clk_0_clk_clk                                               (clk_clk),                                                         //                                             clk_0_clk.clk
 		.nios2_pll_c0_clk                                            (nios2_pll_c0_clk),                                                //                                          nios2_pll_c0.clk
-		.nios2_cpu_reset_reset_bridge_in_reset_reset                 (rst_controller_002_reset_out_reset),                              //                 nios2_cpu_reset_reset_bridge_in_reset.reset
+		.nios2_cpu_reset_reset_bridge_in_reset_reset                 (rst_controller_001_reset_out_reset),                              //                 nios2_cpu_reset_reset_bridge_in_reset.reset
 		.nios2_jtag_uart_reset_reset_bridge_in_reset_reset           (rst_controller_reset_out_reset),                                  //           nios2_jtag_uart_reset_reset_bridge_in_reset.reset
-		.nios2_pll_inclk_interface_reset_reset_bridge_in_reset_reset (rst_controller_001_reset_out_reset),                              // nios2_pll_inclk_interface_reset_reset_bridge_in_reset.reset
+		.nios2_pll_inclk_interface_reset_reset_bridge_in_reset_reset (rst_controller_002_reset_out_reset),                              // nios2_pll_inclk_interface_reset_reset_bridge_in_reset.reset
 		.nios2_cpu_data_master_address                               (nios2_cpu_data_master_address),                                   //                                 nios2_cpu_data_master.address
 		.nios2_cpu_data_master_waitrequest                           (nios2_cpu_data_master_waitrequest),                               //                                                      .waitrequest
 		.nios2_cpu_data_master_byteenable                            (nios2_cpu_data_master_byteenable),                                //                                                      .byteenable
@@ -511,23 +462,6 @@ module ECE385 (
 		.nios2_cpu_instruction_master_waitrequest                    (nios2_cpu_instruction_master_waitrequest),                        //                                                      .waitrequest
 		.nios2_cpu_instruction_master_read                           (nios2_cpu_instruction_master_read),                               //                                                      .read
 		.nios2_cpu_instruction_master_readdata                       (nios2_cpu_instruction_master_readdata),                           //                                                      .readdata
-		.eth0_mdio_avalon_slave_address                              (mm_interconnect_0_eth0_mdio_avalon_slave_address),                //                                eth0_mdio_avalon_slave.address
-		.eth0_mdio_avalon_slave_write                                (mm_interconnect_0_eth0_mdio_avalon_slave_write),                  //                                                      .write
-		.eth0_mdio_avalon_slave_read                                 (mm_interconnect_0_eth0_mdio_avalon_slave_read),                   //                                                      .read
-		.eth0_mdio_avalon_slave_readdata                             (mm_interconnect_0_eth0_mdio_avalon_slave_readdata),               //                                                      .readdata
-		.eth0_mdio_avalon_slave_writedata                            (mm_interconnect_0_eth0_mdio_avalon_slave_writedata),              //                                                      .writedata
-		.eth0_mdio_avalon_slave_waitrequest                          (mm_interconnect_0_eth0_mdio_avalon_slave_waitrequest),            //                                                      .waitrequest
-		.eth1_mdio_avalon_slave_address                              (mm_interconnect_0_eth1_mdio_avalon_slave_address),                //                                eth1_mdio_avalon_slave.address
-		.eth1_mdio_avalon_slave_write                                (mm_interconnect_0_eth1_mdio_avalon_slave_write),                  //                                                      .write
-		.eth1_mdio_avalon_slave_read                                 (mm_interconnect_0_eth1_mdio_avalon_slave_read),                   //                                                      .read
-		.eth1_mdio_avalon_slave_readdata                             (mm_interconnect_0_eth1_mdio_avalon_slave_readdata),               //                                                      .readdata
-		.eth1_mdio_avalon_slave_writedata                            (mm_interconnect_0_eth1_mdio_avalon_slave_writedata),              //                                                      .writedata
-		.eth1_mdio_avalon_slave_waitrequest                          (mm_interconnect_0_eth1_mdio_avalon_slave_waitrequest),            //                                                      .waitrequest
-		.eth_pll_pll_slave_address                                   (mm_interconnect_0_eth_pll_pll_slave_address),                     //                                     eth_pll_pll_slave.address
-		.eth_pll_pll_slave_write                                     (mm_interconnect_0_eth_pll_pll_slave_write),                       //                                                      .write
-		.eth_pll_pll_slave_read                                      (mm_interconnect_0_eth_pll_pll_slave_read),                        //                                                      .read
-		.eth_pll_pll_slave_readdata                                  (mm_interconnect_0_eth_pll_pll_slave_readdata),                    //                                                      .readdata
-		.eth_pll_pll_slave_writedata                                 (mm_interconnect_0_eth_pll_pll_slave_writedata),                   //                                                      .writedata
 		.io_hex_s1_address                                           (mm_interconnect_0_io_hex_s1_address),                             //                                             io_hex_s1.address
 		.io_hex_s1_write                                             (mm_interconnect_0_io_hex_s1_write),                               //                                                      .write
 		.io_hex_s1_readdata                                          (mm_interconnect_0_io_hex_s1_readdata),                            //                                                      .readdata
@@ -624,12 +558,17 @@ module ECE385 (
 		.sdram_s1_byteenable                                         (mm_interconnect_0_sdram_s1_byteenable),                           //                                                      .byteenable
 		.sdram_s1_readdatavalid                                      (mm_interconnect_0_sdram_s1_readdatavalid),                        //                                                      .readdatavalid
 		.sdram_s1_waitrequest                                        (mm_interconnect_0_sdram_s1_waitrequest),                          //                                                      .waitrequest
-		.sdram_s1_chipselect                                         (mm_interconnect_0_sdram_s1_chipselect)                            //                                                      .chipselect
+		.sdram_s1_chipselect                                         (mm_interconnect_0_sdram_s1_chipselect),                           //                                                      .chipselect
+		.sram_multiplexer_avl_address                                (mm_interconnect_0_sram_multiplexer_avl_address),                  //                                  sram_multiplexer_avl.address
+		.sram_multiplexer_avl_write                                  (mm_interconnect_0_sram_multiplexer_avl_write),                    //                                                      .write
+		.sram_multiplexer_avl_read                                   (mm_interconnect_0_sram_multiplexer_avl_read),                     //                                                      .read
+		.sram_multiplexer_avl_readdata                               (mm_interconnect_0_sram_multiplexer_avl_readdata),                 //                                                      .readdata
+		.sram_multiplexer_avl_writedata                              (mm_interconnect_0_sram_multiplexer_avl_writedata)                 //                                                      .writedata
 	);
 
 	ECE385_irq_mapper irq_mapper (
 		.clk           (nios2_pll_c0_clk),                   //       clk.clk
-		.reset         (rst_controller_002_reset_out_reset), // clk_reset.reset
+		.reset         (rst_controller_001_reset_out_reset), // clk_reset.reset
 		.receiver0_irq (irq_mapper_receiver0_irq),           // receiver0.irq
 		.receiver1_irq (irq_mapper_receiver1_irq),           // receiver1.irq
 		.sender_irq    (nios2_cpu_irq_irq)                   //    sender.irq
@@ -699,6 +638,69 @@ module ECE385 (
 	);
 
 	altera_reset_controller #(
+		.NUM_RESET_INPUTS          (2),
+		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
+		.SYNC_DEPTH                (2),
+		.RESET_REQUEST_PRESENT     (1),
+		.RESET_REQ_WAIT_TIME       (1),
+		.MIN_RST_ASSERTION_TIME    (3),
+		.RESET_REQ_EARLY_DSRT_TIME (1),
+		.USE_RESET_REQUEST_IN0     (0),
+		.USE_RESET_REQUEST_IN1     (0),
+		.USE_RESET_REQUEST_IN2     (0),
+		.USE_RESET_REQUEST_IN3     (0),
+		.USE_RESET_REQUEST_IN4     (0),
+		.USE_RESET_REQUEST_IN5     (0),
+		.USE_RESET_REQUEST_IN6     (0),
+		.USE_RESET_REQUEST_IN7     (0),
+		.USE_RESET_REQUEST_IN8     (0),
+		.USE_RESET_REQUEST_IN9     (0),
+		.USE_RESET_REQUEST_IN10    (0),
+		.USE_RESET_REQUEST_IN11    (0),
+		.USE_RESET_REQUEST_IN12    (0),
+		.USE_RESET_REQUEST_IN13    (0),
+		.USE_RESET_REQUEST_IN14    (0),
+		.USE_RESET_REQUEST_IN15    (0),
+		.ADAPT_RESET_REQUEST       (0)
+	) rst_controller_001 (
+		.reset_in0      (~reset_reset_n),                         // reset_in0.reset
+		.reset_in1      (nios2_cpu_debug_reset_request_reset),    // reset_in1.reset
+		.clk            (nios2_pll_c0_clk),                       //       clk.clk
+		.reset_out      (rst_controller_001_reset_out_reset),     // reset_out.reset
+		.reset_req      (rst_controller_001_reset_out_reset_req), //          .reset_req
+		.reset_req_in0  (1'b0),                                   // (terminated)
+		.reset_req_in1  (1'b0),                                   // (terminated)
+		.reset_in2      (1'b0),                                   // (terminated)
+		.reset_req_in2  (1'b0),                                   // (terminated)
+		.reset_in3      (1'b0),                                   // (terminated)
+		.reset_req_in3  (1'b0),                                   // (terminated)
+		.reset_in4      (1'b0),                                   // (terminated)
+		.reset_req_in4  (1'b0),                                   // (terminated)
+		.reset_in5      (1'b0),                                   // (terminated)
+		.reset_req_in5  (1'b0),                                   // (terminated)
+		.reset_in6      (1'b0),                                   // (terminated)
+		.reset_req_in6  (1'b0),                                   // (terminated)
+		.reset_in7      (1'b0),                                   // (terminated)
+		.reset_req_in7  (1'b0),                                   // (terminated)
+		.reset_in8      (1'b0),                                   // (terminated)
+		.reset_req_in8  (1'b0),                                   // (terminated)
+		.reset_in9      (1'b0),                                   // (terminated)
+		.reset_req_in9  (1'b0),                                   // (terminated)
+		.reset_in10     (1'b0),                                   // (terminated)
+		.reset_req_in10 (1'b0),                                   // (terminated)
+		.reset_in11     (1'b0),                                   // (terminated)
+		.reset_req_in11 (1'b0),                                   // (terminated)
+		.reset_in12     (1'b0),                                   // (terminated)
+		.reset_req_in12 (1'b0),                                   // (terminated)
+		.reset_in13     (1'b0),                                   // (terminated)
+		.reset_req_in13 (1'b0),                                   // (terminated)
+		.reset_in14     (1'b0),                                   // (terminated)
+		.reset_req_in14 (1'b0),                                   // (terminated)
+		.reset_in15     (1'b0),                                   // (terminated)
+		.reset_req_in15 (1'b0)                                    // (terminated)
+	);
+
+	altera_reset_controller #(
 		.NUM_RESET_INPUTS          (1),
 		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
 		.SYNC_DEPTH                (2),
@@ -723,10 +725,10 @@ module ECE385 (
 		.USE_RESET_REQUEST_IN14    (0),
 		.USE_RESET_REQUEST_IN15    (0),
 		.ADAPT_RESET_REQUEST       (0)
-	) rst_controller_001 (
+	) rst_controller_002 (
 		.reset_in0      (~reset_reset_n),                     // reset_in0.reset
 		.clk            (clk_clk),                            //       clk.clk
-		.reset_out      (rst_controller_001_reset_out_reset), // reset_out.reset
+		.reset_out      (rst_controller_002_reset_out_reset), // reset_out.reset
 		.reset_req      (),                                   // (terminated)
 		.reset_req_in0  (1'b0),                               // (terminated)
 		.reset_in1      (1'b0),                               // (terminated)
@@ -759,69 +761,6 @@ module ECE385 (
 		.reset_req_in14 (1'b0),                               // (terminated)
 		.reset_in15     (1'b0),                               // (terminated)
 		.reset_req_in15 (1'b0)                                // (terminated)
-	);
-
-	altera_reset_controller #(
-		.NUM_RESET_INPUTS          (2),
-		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
-		.SYNC_DEPTH                (2),
-		.RESET_REQUEST_PRESENT     (1),
-		.RESET_REQ_WAIT_TIME       (1),
-		.MIN_RST_ASSERTION_TIME    (3),
-		.RESET_REQ_EARLY_DSRT_TIME (1),
-		.USE_RESET_REQUEST_IN0     (0),
-		.USE_RESET_REQUEST_IN1     (0),
-		.USE_RESET_REQUEST_IN2     (0),
-		.USE_RESET_REQUEST_IN3     (0),
-		.USE_RESET_REQUEST_IN4     (0),
-		.USE_RESET_REQUEST_IN5     (0),
-		.USE_RESET_REQUEST_IN6     (0),
-		.USE_RESET_REQUEST_IN7     (0),
-		.USE_RESET_REQUEST_IN8     (0),
-		.USE_RESET_REQUEST_IN9     (0),
-		.USE_RESET_REQUEST_IN10    (0),
-		.USE_RESET_REQUEST_IN11    (0),
-		.USE_RESET_REQUEST_IN12    (0),
-		.USE_RESET_REQUEST_IN13    (0),
-		.USE_RESET_REQUEST_IN14    (0),
-		.USE_RESET_REQUEST_IN15    (0),
-		.ADAPT_RESET_REQUEST       (0)
-	) rst_controller_002 (
-		.reset_in0      (~reset_reset_n),                         // reset_in0.reset
-		.reset_in1      (nios2_cpu_debug_reset_request_reset),    // reset_in1.reset
-		.clk            (nios2_pll_c0_clk),                       //       clk.clk
-		.reset_out      (rst_controller_002_reset_out_reset),     // reset_out.reset
-		.reset_req      (rst_controller_002_reset_out_reset_req), //          .reset_req
-		.reset_req_in0  (1'b0),                                   // (terminated)
-		.reset_req_in1  (1'b0),                                   // (terminated)
-		.reset_in2      (1'b0),                                   // (terminated)
-		.reset_req_in2  (1'b0),                                   // (terminated)
-		.reset_in3      (1'b0),                                   // (terminated)
-		.reset_req_in3  (1'b0),                                   // (terminated)
-		.reset_in4      (1'b0),                                   // (terminated)
-		.reset_req_in4  (1'b0),                                   // (terminated)
-		.reset_in5      (1'b0),                                   // (terminated)
-		.reset_req_in5  (1'b0),                                   // (terminated)
-		.reset_in6      (1'b0),                                   // (terminated)
-		.reset_req_in6  (1'b0),                                   // (terminated)
-		.reset_in7      (1'b0),                                   // (terminated)
-		.reset_req_in7  (1'b0),                                   // (terminated)
-		.reset_in8      (1'b0),                                   // (terminated)
-		.reset_req_in8  (1'b0),                                   // (terminated)
-		.reset_in9      (1'b0),                                   // (terminated)
-		.reset_req_in9  (1'b0),                                   // (terminated)
-		.reset_in10     (1'b0),                                   // (terminated)
-		.reset_req_in10 (1'b0),                                   // (terminated)
-		.reset_in11     (1'b0),                                   // (terminated)
-		.reset_req_in11 (1'b0),                                   // (terminated)
-		.reset_in12     (1'b0),                                   // (terminated)
-		.reset_req_in12 (1'b0),                                   // (terminated)
-		.reset_in13     (1'b0),                                   // (terminated)
-		.reset_req_in13 (1'b0),                                   // (terminated)
-		.reset_in14     (1'b0),                                   // (terminated)
-		.reset_req_in14 (1'b0),                                   // (terminated)
-		.reset_in15     (1'b0),                                   // (terminated)
-		.reset_req_in15 (1'b0)                                    // (terminated)
 	);
 
 endmodule

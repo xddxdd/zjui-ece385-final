@@ -1,13 +1,5 @@
 	ECE385 u0 (
 		.clk_clk                (<connected-to-clk_clk>),                //             clk.clk
-		.eth0_mdio_mdc          (<connected-to-eth0_mdio_mdc>),          //       eth0_mdio.mdc
-		.eth0_mdio_mdio_in      (<connected-to-eth0_mdio_mdio_in>),      //                .mdio_in
-		.eth0_mdio_mdio_out     (<connected-to-eth0_mdio_mdio_out>),     //                .mdio_out
-		.eth0_mdio_mdio_oen     (<connected-to-eth0_mdio_mdio_oen>),     //                .mdio_oen
-		.eth0_mdio_phy_addr     (<connected-to-eth0_mdio_phy_addr>),     //                .phy_addr
-		.eth_pll_125_clk        (<connected-to-eth_pll_125_clk>),        //     eth_pll_125.clk
-		.eth_pll_25_clk         (<connected-to-eth_pll_25_clk>),         //      eth_pll_25.clk
-		.eth_pll_2_5_clk        (<connected-to-eth_pll_2_5_clk>),        //     eth_pll_2_5.clk
 		.io_hex_export          (<connected-to-io_hex_export>),          //          io_hex.export
 		.io_keys_export         (<connected-to-io_keys_export>),         //         io_keys.export
 		.io_led_green_export    (<connected-to-io_led_green_export>),    //    io_led_green.export
@@ -32,10 +24,18 @@
 		.sdram_dqm              (<connected-to-sdram_dqm>),              //                .dqm
 		.sdram_ras_n            (<connected-to-sdram_ras_n>),            //                .ras_n
 		.sdram_we_n             (<connected-to-sdram_we_n>),             //                .we_n
-		.eth1_mdio_mdc          (<connected-to-eth1_mdio_mdc>),          //       eth1_mdio.mdc
-		.eth1_mdio_mdio_in      (<connected-to-eth1_mdio_mdio_in>),      //                .mdio_in
-		.eth1_mdio_mdio_out     (<connected-to-eth1_mdio_mdio_out>),     //                .mdio_out
-		.eth1_mdio_mdio_oen     (<connected-to-eth1_mdio_mdio_oen>),     //                .mdio_oen
-		.eth1_mdio_phy_addr     (<connected-to-eth1_mdio_phy_addr>)      //                .phy_addr
+		.sram_sram_addr         (<connected-to-sram_sram_addr>),         //            sram.sram_addr
+		.sram_sram_ce_n         (<connected-to-sram_sram_ce_n>),         //                .sram_ce_n
+		.sram_sram_dq           (<connected-to-sram_sram_dq>),           //                .sram_dq
+		.sram_sram_lb_n         (<connected-to-sram_sram_lb_n>),         //                .sram_lb_n
+		.sram_sram_oe_n         (<connected-to-sram_sram_oe_n>),         //                .sram_oe_n
+		.sram_sram_ub_n         (<connected-to-sram_sram_ub_n>),         //                .sram_ub_n
+		.sram_sram_we_n         (<connected-to-sram_sram_we_n>),         //                .sram_we_n
+		.vga_vga_r              (<connected-to-vga_vga_r>),              //             vga.vga_r
+		.vga_vga_g              (<connected-to-vga_vga_g>),              //                .vga_g
+		.vga_vga_b              (<connected-to-vga_vga_b>),              //                .vga_b
+		.vga_vga_drawx          (<connected-to-vga_vga_drawx>),          //                .vga_drawx
+		.vga_vga_drawy          (<connected-to-vga_vga_drawy>),          //                .vga_drawy
+		.nios2_pll_vga_clk      (<connected-to-nios2_pll_vga_clk>)       //   nios2_pll_vga.clk
 	);
 

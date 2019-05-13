@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 7, 2019 6:22:58 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1557224578788</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 13, 2019 11:07:40 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1557760060549</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\xuyh0\Desktop\final\ECE385_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\ECE385.sopcinfo</SopcDesignFile>
@@ -146,7 +146,7 @@
                 <SettingName>hal.linker.exception_stack_memory_region_name</SettingName>
                 <Identifier>none</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>sdram</Value>
+                <Value>nios2_onchip_mem</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Name of the existing memory region that will be divided up to create the 'exception_stack' memory region. The selected region name will be adjusted automatically when the BSP is generated to create the 'exception_stack' memory region.</Description>
@@ -182,7 +182,7 @@
                 <SettingName>hal.linker.interrupt_stack_memory_region_name</SettingName>
                 <Identifier>none</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>sdram</Value>
+                <Value>nios2_onchip_mem</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Name of the existing memory region that will be divided up to create the 'interrupt_stack' memory region. The selected region name will be adjusted automatically when the BSP is generated to create the 'interrupt_stack' memory region.</Description>
@@ -386,7 +386,7 @@
                 <SettingName>hal.make.bsp_cflags_optimization</SettingName>
                 <Identifier>BSP_CFLAGS_OPTIMIZATION</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>-O0</Value>
+                <Value>-O2</Value>
                 <DefaultValue>-O0</DefaultValue>
                 <DestinationFile>makefile_variable</DestinationFile>
                 <Description>C/C++ compiler optimization level. "-O0" = no optimization,"-O2" = "normal" optimization, etc. "-O0" is recommended for code that you want to debug since compiler optimization can remove variables and produce non-sequential execution of code while debugging. This setting defines the value of BSP_CFLAGS_OPTIMIZATION in Makefile.</Description>
@@ -899,122 +899,110 @@
                 <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </Setting>
         <MemoryMap>
-                <slaveDescriptor>eth1_mdio</slaveDescriptor>
-                <addressRange>0x00001000 - 0x0000107F</addressRange>
-                <addressSpan>128</addressSpan>
+                <slaveDescriptor>sram_multiplexer</slaveDescriptor>
+                <addressRange>0x00000000 - 0x003FFFFF</addressRange>
+                <addressSpan>4194304</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>eth0_mdio</slaveDescriptor>
-                <addressRange>0x00001080 - 0x000010FF</addressRange>
-                <addressSpan>128</addressSpan>
-                <attributes/>
+                <slaveDescriptor>nios2_onchip_mem</slaveDescriptor>
+                <addressRange>0x00410000 - 0x0041FFFF</addressRange>
+                <addressSpan>65536</addressSpan>
+                <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_hex</slaveDescriptor>
-                <addressRange>0x00001100 - 0x0000111F</addressRange>
+                <addressRange>0x00421000 - 0x0042101F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_green</slaveDescriptor>
-                <addressRange>0x00001120 - 0x0000113F</addressRange>
+                <addressRange>0x00421020 - 0x0042103F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_timer</slaveDescriptor>
-                <addressRange>0x00001140 - 0x0000115F</addressRange>
+                <addressRange>0x00421040 - 0x0042105F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_red</slaveDescriptor>
-                <addressRange>0x00001160 - 0x0000117F</addressRange>
+                <addressRange>0x00421060 - 0x0042107F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_switches</slaveDescriptor>
-                <addressRange>0x000011A0 - 0x000011AF</addressRange>
+                <addressRange>0x00421090 - 0x0042109F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_keys</slaveDescriptor>
-                <addressRange>0x000011B0 - 0x000011BF</addressRange>
+                <addressRange>0x004210A0 - 0x004210AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_reset</slaveDescriptor>
-                <addressRange>0x000011C0 - 0x000011CF</addressRange>
+                <addressRange>0x004210B0 - 0x004210BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_cs</slaveDescriptor>
-                <addressRange>0x000011D0 - 0x000011DF</addressRange>
+                <addressRange>0x004210C0 - 0x004210CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_w</slaveDescriptor>
-                <addressRange>0x000011E0 - 0x000011EF</addressRange>
+                <addressRange>0x004210D0 - 0x004210DF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_r</slaveDescriptor>
-                <addressRange>0x000011F0 - 0x000011FF</addressRange>
+                <addressRange>0x004210E0 - 0x004210EF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_data</slaveDescriptor>
-                <addressRange>0x00001200 - 0x0000120F</addressRange>
+                <addressRange>0x004210F0 - 0x004210FF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_address</slaveDescriptor>
-                <addressRange>0x00001210 - 0x0000121F</addressRange>
+                <addressRange>0x00421100 - 0x0042110F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>keycode</slaveDescriptor>
-                <addressRange>0x00001220 - 0x0000122F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>nios2_onchip_mem</slaveDescriptor>
-                <addressRange>0x00001230 - 0x0000123F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>eth_pll</slaveDescriptor>
-                <addressRange>0x00001240 - 0x0000124F</addressRange>
+                <addressRange>0x00421110 - 0x0042111F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_pll</slaveDescriptor>
-                <addressRange>0x00001250 - 0x0000125F</addressRange>
+                <addressRange>0x00421120 - 0x0042112F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_sysid</slaveDescriptor>
-                <addressRange>0x00001268 - 0x0000126F</addressRange>
+                <addressRange>0x00421138 - 0x0042113F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_jtag_uart</slaveDescriptor>
-                <addressRange>0x00001270 - 0x00001277</addressRange>
+                <addressRange>0x00421140 - 0x00421147</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
@@ -1026,26 +1014,26 @@
         </MemoryMap>
         <LinkerSection>
                 <sectionName>.text</sectionName>
-                <regionName>sdram</regionName>
+                <regionName>nios2_onchip_mem</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rodata</sectionName>
-                <regionName>sdram</regionName>
+                <regionName>nios2_onchip_mem</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rwdata</sectionName>
-                <regionName>sdram</regionName>
+                <regionName>nios2_onchip_mem</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.bss</sectionName>
-                <regionName>sdram</regionName>
+                <regionName>nios2_onchip_mem</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.heap</sectionName>
-                <regionName>sdram</regionName>
+                <regionName>nios2_onchip_mem</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.stack</sectionName>
-                <regionName>sdram</regionName>
+                <regionName>nios2_onchip_mem</regionName>
         </LinkerSection>
 </sch:Settings>

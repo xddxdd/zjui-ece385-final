@@ -1,4 +1,4 @@
-//altpll_avalon avalon_use_separate_sysclk="YES" CBX_SINGLE_OUTPUT_FILE="ON" CBX_SUBMODULE_USED_PORTS="altpll:areset,clk,locked,inclk" address areset c0 c1 clk configupdate inclk0 locked phasecounterselect phasedone phasestep phaseupdown read readdata reset scanclk scanclkena scandata scandataout scandone write writedata bandwidth_type="AUTO" clk0_divide_by=1 clk0_duty_cycle=50 clk0_multiply_by=2 clk0_phase_shift="0" clk1_divide_by=1 clk1_duty_cycle=50 clk1_multiply_by=2 clk1_phase_shift="-3000" compensate_clock="CLK0" device_family="CYCLONEIVE" inclk0_input_frequency=20000 intended_device_family="Cyclone IV E" operation_mode="normal" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_UNUSED" port_clk3="PORT_UNUSED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_UNUSED" port_phasedone="PORT_UNUSED" port_scandata="PORT_UNUSED" port_scandataout="PORT_UNUSED" width_clock=5
+//altpll_avalon avalon_use_separate_sysclk="YES" CBX_SINGLE_OUTPUT_FILE="ON" CBX_SUBMODULE_USED_PORTS="altpll:areset,clk,locked,inclk" address areset c0 c1 c2 c3 clk configupdate inclk0 locked phasecounterselect phasedone phasestep phaseupdown read readdata reset scanclk scanclkena scandata scandataout scandone write writedata bandwidth_type="AUTO" clk0_divide_by=1 clk0_duty_cycle=50 clk0_multiply_by=1 clk0_phase_shift="0" clk1_divide_by=1 clk1_duty_cycle=50 clk1_multiply_by=1 clk1_phase_shift="-3000" clk2_divide_by=1 clk2_duty_cycle=50 clk2_multiply_by=2 clk2_phase_shift="0" clk3_divide_by=2 clk3_duty_cycle=50 clk3_multiply_by=1 clk3_phase_shift="0" compensate_clock="CLK0" device_family="CYCLONEIVE" inclk0_input_frequency=20000 intended_device_family="Cyclone IV E" operation_mode="normal" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_USED" port_clk3="PORT_USED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_UNUSED" port_phasedone="PORT_UNUSED" port_scandata="PORT_UNUSED" port_scandataout="PORT_UNUSED" width_clock=5
 //VERSION_BEGIN 18.1 cbx_altclkbuf 2018:09:12:13:04:24:SJ cbx_altiobuf_bidir 2018:09:12:13:04:24:SJ cbx_altiobuf_in 2018:09:12:13:04:24:SJ cbx_altiobuf_out 2018:09:12:13:04:24:SJ cbx_altpll 2018:09:12:13:04:24:SJ cbx_altpll_avalon 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_lpm_shiftreg 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
@@ -119,7 +119,7 @@ module  ECE385_nios2_pll_stdsync_sv6
 endmodule //ECE385_nios2_pll_stdsync_sv6
 
 
-//altpll bandwidth_type="AUTO" CBX_SINGLE_OUTPUT_FILE="ON" clk0_divide_by=1 clk0_duty_cycle=50 clk0_multiply_by=2 clk0_phase_shift="0" clk1_divide_by=1 clk1_duty_cycle=50 clk1_multiply_by=2 clk1_phase_shift="-3000" compensate_clock="CLK0" device_family="CYCLONEIVE" inclk0_input_frequency=20000 intended_device_family="Cyclone IV E" operation_mode="normal" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_UNUSED" port_clk3="PORT_UNUSED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_UNUSED" port_phasedone="PORT_UNUSED" port_scandata="PORT_UNUSED" port_scandataout="PORT_UNUSED" width_clock=5 areset clk inclk locked
+//altpll bandwidth_type="AUTO" CBX_SINGLE_OUTPUT_FILE="ON" clk0_divide_by=1 clk0_duty_cycle=50 clk0_multiply_by=1 clk0_phase_shift="0" clk1_divide_by=1 clk1_duty_cycle=50 clk1_multiply_by=1 clk1_phase_shift="-3000" clk2_divide_by=1 clk2_duty_cycle=50 clk2_multiply_by=2 clk2_phase_shift="0" clk3_divide_by=2 clk3_duty_cycle=50 clk3_multiply_by=1 clk3_phase_shift="0" compensate_clock="CLK0" device_family="CYCLONEIVE" inclk0_input_frequency=20000 intended_device_family="Cyclone IV E" operation_mode="normal" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_USED" port_clk3="PORT_USED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_UNUSED" port_phasedone="PORT_UNUSED" port_scandata="PORT_UNUSED" port_scandataout="PORT_UNUSED" width_clock=5 areset clk inclk locked
 //VERSION_BEGIN 18.1 cbx_altclkbuf 2018:09:12:13:04:24:SJ cbx_altiobuf_bidir 2018:09:12:13:04:24:SJ cbx_altiobuf_in 2018:09:12:13:04:24:SJ cbx_altiobuf_out 2018:09:12:13:04:24:SJ cbx_altpll 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 
 //synthesis_resources = cycloneive_pll 1 reg 1 
@@ -127,7 +127,7 @@ endmodule //ECE385_nios2_pll_stdsync_sv6
 `timescale 1 ps / 1 ps
 //synopsys translate_on
 (* ALTERA_ATTRIBUTE = {"SUPPRESS_DA_RULE_INTERNAL=C104;SUPPRESS_DA_RULE_INTERNAL=R101"} *)
-module  ECE385_nios2_pll_altpll_nqa2
+module  ECE385_nios2_pll_altpll_3tn2
 	( 
 	areset,
 	clk,
@@ -194,12 +194,20 @@ module  ECE385_nios2_pll_altpll_nqa2
 		pll7.bandwidth_type = "auto",
 		pll7.clk0_divide_by = 1,
 		pll7.clk0_duty_cycle = 50,
-		pll7.clk0_multiply_by = 2,
+		pll7.clk0_multiply_by = 1,
 		pll7.clk0_phase_shift = "0",
 		pll7.clk1_divide_by = 1,
 		pll7.clk1_duty_cycle = 50,
-		pll7.clk1_multiply_by = 2,
+		pll7.clk1_multiply_by = 1,
 		pll7.clk1_phase_shift = "-3000",
+		pll7.clk2_divide_by = 1,
+		pll7.clk2_duty_cycle = 50,
+		pll7.clk2_multiply_by = 2,
+		pll7.clk2_phase_shift = "0",
+		pll7.clk3_divide_by = 2,
+		pll7.clk3_duty_cycle = 50,
+		pll7.clk3_multiply_by = 1,
+		pll7.clk3_phase_shift = "0",
 		pll7.compensate_clock = "clk0",
 		pll7.inclk0_input_frequency = 20000,
 		pll7.operation_mode = "normal",
@@ -208,7 +216,7 @@ module  ECE385_nios2_pll_altpll_nqa2
 	assign
 		clk = {wire_pll7_clk[4:0]},
 		locked = (wire_pll7_locked & pll_lock_sync);
-endmodule //ECE385_nios2_pll_altpll_nqa2
+endmodule //ECE385_nios2_pll_altpll_3tn2
 
 //synthesis_resources = cycloneive_pll 1 reg 6 
 //synopsys translate_off
@@ -220,6 +228,8 @@ module  ECE385_nios2_pll
 	areset,
 	c0,
 	c1,
+	c2,
+	c3,
 	clk,
 	configupdate,
 	inclk0,
@@ -242,6 +252,8 @@ module  ECE385_nios2_pll
 	input   areset;
 	output   c0;
 	output   c1;
+	output   c2;
+	output   c3;
 	input   clk;
 	input   configupdate;
 	input   inclk0;
@@ -289,7 +301,7 @@ module  ECE385_nios2_pll
 	.din(wire_sd1_locked),
 	.dout(wire_stdsync2_dout),
 	.reset_n((~ reset)));
-	ECE385_nios2_pll_altpll_nqa2   sd1
+	ECE385_nios2_pll_altpll_3tn2   sd1
 	( 
 	.areset((w_pll_areset_in | areset)),
 	.clk(wire_sd1_clk),
@@ -314,6 +326,8 @@ module  ECE385_nios2_pll
 	assign
 		c0 = wire_sd1_clk[0],
 		c1 = wire_sd1_clk[1],
+		c2 = wire_sd1_clk[2],
+		c3 = wire_sd1_clk[3],
 		locked = wire_sd1_locked,
 		phasedone = 1'b0,
 		readdata = {{30{1'b0}}, (read & ((w_select_control & w_pfdena) | (w_select_status & w_phasedone))), (read & ((w_select_control & w_pll_areset_in) | (w_select_status & w_locked)))},

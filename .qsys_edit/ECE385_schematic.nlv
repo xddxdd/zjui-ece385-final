@@ -20,38 +20,38 @@ preplace inst ECE385.otg_hpi_data -pg 1 -lvl 6 -y 1350
 preplace inst ECE385.nios2_cpu -pg 1 -lvl 6 -y 400
 preplace inst ECE385.eth0_mdio -pg 1 -lvl 7 -y 30
 preplace inst ECE385.nios2_cpu.clock_bridge -pg 1
-preplace inst ECE385.nios2_timer -pg 1 -lvl 7 -y 570
+preplace inst ECE385.nios2_timer -pg 1 -lvl 7 -y 510
 preplace inst ECE385.io_hex -pg 1 -lvl 6 -y 730
 preplace inst ECE385.eth1_mdio -pg 1 -lvl 7 -y 130
 preplace inst ECE385.otg_hpi_w -pg 1 -lvl 6 -y 1990
 preplace inst ECE385.otg_hpi_cs -pg 1 -lvl 6 -y 1250
 preplace inst ECE385.otg_hpi_reset -pg 1 -lvl 6 -y 1550
 preplace inst ECE385.otg_hpi_address -pg 1 -lvl 6 -y 1150
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_w,(SLAVE)otg_hpi_w.external_connection) 1 0 6 NJ 2020 NJ 2020 NJ 2020 NJ 2020 NJ 2020 NJ
-preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)nios2_cpu.reset,(MASTER)nios2_cpu.debug_reset_request,(SLAVE)otg_hpi_address.reset,(SLAVE)sdram.reset,(SLAVE)eth1_mdio.clock_reset,(SLAVE)otg_hpi_data.reset,(SLAVE)otg_hpi_cs.reset,(SLAVE)io_led_green.reset,(SLAVE)eth_pll.inclk_interface_reset,(SLAVE)nios2_jtag_uart.reset,(SLAVE)keycode.reset,(SLAVE)otg_hpi_r.reset,(MASTER)clk_0.clk_reset,(SLAVE)io_keys.reset,(SLAVE)io_hex.reset,(SLAVE)io_led_red.reset,(SLAVE)io_switches.reset,(SLAVE)nios2_timer.reset,(SLAVE)nios2_onchip_mem.reset1,(SLAVE)otg_hpi_w.reset,(SLAVE)nios2_pll.inclk_interface_reset,(SLAVE)nios2_sysid.reset,(SLAVE)otg_hpi_reset.reset,(SLAVE)eth0_mdio.clock_reset) 1 1 6 NJ 1420 NJ 1420 NJ 1420 1170 2040 1700 580 2240
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)eth0_mdio.mdio,(SLAVE)ECE385.eth0_mdio) 1 0 7 NJ 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)nios2_pll.c1,(MASTER)ECE385.nios2_pll_sdram) 1 5 5 NJ 1040 NJ 1040 NJ 1040 NJ 1040 NJ
-preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)nios2_onchip_mem.s1,(SLAVE)otg_hpi_w.s1,(SLAVE)nios2_jtag_uart.avalon_jtag_slave,(SLAVE)eth1_mdio.csr,(SLAVE)eth_pll.pll_slave,(SLAVE)nios2_cpu.debug_mem_slave,(SLAVE)otg_hpi_data.s1,(SLAVE)io_led_red.s1,(SLAVE)io_switches.s1,(SLAVE)io_hex.s1,(SLAVE)nios2_timer.s1,(SLAVE)io_led_green.s1,(SLAVE)otg_hpi_r.s1,(SLAVE)otg_hpi_reset.s1,(SLAVE)eth0_mdio.csr,(SLAVE)nios2_pll.pll_slave,(MASTER)nios2_cpu.instruction_master,(SLAVE)io_keys.s1,(SLAVE)otg_hpi_cs.s1,(MASTER)nios2_cpu.data_master,(SLAVE)nios2_sysid.control_slave,(SLAVE)keycode.s1,(SLAVE)sdram.s1,(SLAVE)otg_hpi_address.s1) 1 4 3 1190 750 1620 600 2260
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.sdram,(SLAVE)sdram.wire) 1 0 6 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)otg_hpi_r.external_connection,(SLAVE)ECE385.otg_hpi_r) 1 0 6 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)otg_hpi_cs.external_connection,(SLAVE)ECE385.otg_hpi_cs) 1 0 6 NJ 1280 NJ 1280 NJ 1280 NJ 1280 NJ 1280 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)otg_hpi_address.external_connection,(SLAVE)ECE385.otg_hpi_address) 1 0 6 NJ 1120 NJ 1120 NJ 1120 NJ 1120 NJ 1120 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_hex.external_connection,(SLAVE)ECE385.io_hex) 1 0 6 NJ 710 NJ 710 NJ 710 NJ 710 NJ 710 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)eth1_mdio.mdio,(SLAVE)ECE385.eth1_mdio) 1 0 7 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ
+preplace netloc FAN_OUT<net_container>ECE385</net_container>(MASTER)nios2_cpu.irq,(SLAVE)nios2_jtag_uart.irq,(SLAVE)nios2_timer.irq) 1 6 1 2260
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_keys,(SLAVE)io_keys.external_connection) 1 0 6 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_switches,(SLAVE)io_switches.external_connection) 1 0 6 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ
 preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.eth_pll_2_5,(MASTER)eth_pll.c2) 1 6 4 NJ 700 NJ 700 NJ 700 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)clk_0.clk_in,(SLAVE)ECE385.clk) 1 0 1 NJ
 preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)otg_hpi_data.external_connection,(SLAVE)ECE385.otg_hpi_data) 1 0 6 NJ 1330 NJ 1380 NJ 1380 NJ 1380 NJ 1380 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.keycode,(SLAVE)keycode.external_connection) 1 0 6 NJ 210 NJ 210 NJ 210 NJ 210 NJ 210 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_led_red.external_connection,(SLAVE)ECE385.io_led_red) 1 0 6 NJ 1820 NJ 1820 NJ 1820 NJ 1820 NJ 1820 NJ
-preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)nios2_jtag_uart.irq,(SLAVE)nios2_timer.irq,(MASTER)nios2_cpu.irq) 1 6 1 2300
-preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)nios2_cpu.clk,(SLAVE)otg_hpi_r.clk,(SLAVE)nios2_sysid.clk,(SLAVE)io_led_red.clk,(SLAVE)otg_hpi_data.clk,(SLAVE)nios2_timer.clk,(SLAVE)io_switches.clk,(SLAVE)otg_hpi_w.clk,(SLAVE)io_led_green.clk,(SLAVE)eth0_mdio.clock,(SLAVE)keycode.clk,(SLAVE)io_hex.clk,(SLAVE)nios2_jtag_uart.clk,(SLAVE)nios2_onchip_mem.clk1,(SLAVE)eth1_mdio.clock,(SLAVE)sdram.clk,(SLAVE)otg_hpi_cs.clk,(SLAVE)otg_hpi_reset.clk,(MASTER)nios2_pll.c0,(SLAVE)io_keys.clk,(SLAVE)otg_hpi_address.clk) 1 5 2 1680 560 2280
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_led_green,(SLAVE)io_led_green.external_connection) 1 0 6 NJ 1680 NJ 1680 NJ 1680 NJ 1680 NJ 1680 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_hex,(SLAVE)io_hex.external_connection) 1 0 6 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_switches.external_connection,(SLAVE)ECE385.io_switches) 1 0 6 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.eth1_mdio,(SLAVE)eth1_mdio.mdio) 1 0 7 NJ 310 NJ 310 NJ 310 NJ 310 NJ 310 NJ 310 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
-preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)eth_pll.inclk0,(MASTER)clk_0.clk,(SLAVE)nios2_pll.inclk_interface,(SLAVE)nios2_pll.inclk0,(SLAVE)eth_pll.inclk_interface) 1 1 5 NJ 1400 NJ 1400 NJ 1400 1150 710 1720
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)eth_pll.c1,(MASTER)ECE385.eth_pll_25) 1 6 4 NJ 540 NJ 540 NJ 540 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_led_green.external_connection,(SLAVE)ECE385.io_led_green) 1 0 6 NJ 1680 NJ 1680 NJ 1680 NJ 1680 NJ 1680 NJ
+preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)eth_pll.inclk0,(MASTER)clk_0.clk,(SLAVE)nios2_pll.inclk0,(SLAVE)nios2_pll.inclk_interface) 1 1 5 NJ 1400 NJ 1400 NJ 1400 1150 660 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_cs,(SLAVE)otg_hpi_cs.external_connection) 1 0 6 NJ 1280 NJ 1280 NJ 1280 NJ 1280 NJ 1280 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)otg_hpi_w.external_connection,(SLAVE)ECE385.otg_hpi_w) 1 0 6 NJ 2020 NJ 2020 NJ 2020 NJ 2020 NJ 2020 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_r,(SLAVE)otg_hpi_r.external_connection) 1 0 6 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_led_red,(SLAVE)io_led_red.external_connection) 1 0 6 NJ 1820 NJ 1820 NJ 1820 NJ 1820 NJ 1820 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)eth_pll.c0,(MASTER)ECE385.eth_pll_125) 1 6 4 NJ 620 NJ 620 NJ 620 NJ
+preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)io_led_red.clk,(SLAVE)eth1_mdio.clock,(SLAVE)nios2_jtag_uart.clk,(SLAVE)keycode.clk,(SLAVE)eth_pll.inclk_interface,(SLAVE)otg_hpi_reset.clk,(SLAVE)otg_hpi_cs.clk,(SLAVE)nios2_timer.clk,(SLAVE)eth0_mdio.clock,(SLAVE)io_led_green.clk,(SLAVE)nios2_onchip_mem.clk1,(SLAVE)io_switches.clk,(SLAVE)nios2_sysid.clk,(SLAVE)otg_hpi_r.clk,(MASTER)nios2_pll.c0,(SLAVE)sdram.clk,(SLAVE)io_keys.clk,(SLAVE)otg_hpi_data.clk,(SLAVE)nios2_cpu.clk,(SLAVE)otg_hpi_address.clk,(SLAVE)otg_hpi_w.clk,(SLAVE)io_hex.clk) 1 5 2 1620 310 2220
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.nios2_pll_sdram,(MASTER)nios2_pll.c1) 1 5 5 NJ 840 NJ 840 NJ 840 NJ 840 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)eth_pll.c1,(MASTER)ECE385.eth_pll_25) 1 6 4 NJ 640 NJ 640 NJ 640 NJ
+preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)nios2_sysid.reset,(SLAVE)eth1_mdio.reset,(SLAVE)eth_pll.inclk_interface_reset,(SLAVE)otg_hpi_w.reset,(SLAVE)io_keys.reset,(SLAVE)nios2_jtag_uart.reset,(SLAVE)nios2_timer.reset,(MASTER)nios2_cpu.debug_reset_request,(SLAVE)otg_hpi_r.reset,(SLAVE)io_switches.reset,(MASTER)clk_0.clk_reset,(SLAVE)io_led_green.reset,(SLAVE)eth0_mdio.reset,(SLAVE)nios2_cpu.reset,(SLAVE)otg_hpi_data.reset,(SLAVE)otg_hpi_cs.reset,(SLAVE)keycode.reset,(SLAVE)io_led_red.reset,(SLAVE)otg_hpi_reset.reset,(SLAVE)io_hex.reset,(SLAVE)nios2_onchip_mem.reset1,(SLAVE)nios2_pll.inclk_interface_reset,(SLAVE)sdram.reset,(SLAVE)otg_hpi_address.reset) 1 1 6 NJ 1420 NJ 1420 NJ 1420 1170 890 1640 330 2240
 preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)ECE385.reset) 1 0 1 NJ
 preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_reset,(SLAVE)otg_hpi_reset.external_connection) 1 0 6 NJ 1580 NJ 1580 NJ 1580 NJ 1580 NJ 1580 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.eth_pll_125,(MASTER)eth_pll.c0) 1 6 4 NJ 680 NJ 680 NJ 680 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_keys.external_connection,(SLAVE)ECE385.io_keys) 1 0 6 NJ 730 NJ 730 NJ 730 NJ 730 NJ 730 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)keycode.external_connection,(SLAVE)ECE385.keycode) 1 0 6 NJ 210 NJ 210 NJ 210 NJ 210 NJ 210 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.eth0_mdio,(SLAVE)eth0_mdio.mdio) 1 0 7 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ
+preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)io_keys.s1,(SLAVE)nios2_timer.s1,(SLAVE)otg_hpi_r.s1,(SLAVE)otg_hpi_cs.s1,(SLAVE)otg_hpi_reset.s1,(SLAVE)eth1_mdio.avalon_slave,(SLAVE)otg_hpi_data.s1,(SLAVE)keycode.s1,(SLAVE)eth0_mdio.avalon_slave,(SLAVE)nios2_cpu.debug_mem_slave,(SLAVE)nios2_onchip_mem.s1,(SLAVE)io_led_red.s1,(SLAVE)io_switches.s1,(SLAVE)sdram.s1,(SLAVE)otg_hpi_address.s1,(SLAVE)nios2_sysid.control_slave,(SLAVE)eth_pll.pll_slave,(SLAVE)otg_hpi_w.s1,(SLAVE)io_led_green.s1,(SLAVE)io_hex.s1,(MASTER)nios2_cpu.data_master,(SLAVE)nios2_jtag_uart.avalon_jtag_slave,(MASTER)nios2_cpu.instruction_master,(SLAVE)nios2_pll.pll_slave) 1 4 3 1190 870 1680 290 2180
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)sdram.wire,(SLAVE)ECE385.sdram) 1 0 6 NJ 1120 NJ 1120 NJ 1120 NJ 1120 NJ 1120 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_address,(SLAVE)otg_hpi_address.external_connection) 1 0 6 NJ 1180 NJ 1180 NJ 1180 NJ 1180 NJ 1180 NJ
 levelinfo -pg 1 0 110 3320
 levelinfo -hier ECE385 120 150 480 890 1130 1410 1940 2390 2950 3170 3190

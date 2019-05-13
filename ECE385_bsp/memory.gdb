@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
 # SOPC Builder design path: ../ECE385.sopcinfo
 #
-# Generated: Tue May 07 18:22:59 CST 2019
+# Generated: Mon May 13 21:13:01 CST 2019
 
 # DO NOT MODIFY THIS FILE
 #
@@ -47,7 +47,7 @@
 # by allowing GDB to cache memory contents on the host.
 
 # nios2_onchip_mem
-memory 0x1230 0x1240 cache
+memory 0x410000 0x420000 cache
 
 # sdram
 memory 0x8000000 0x10000000 cache

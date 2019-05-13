@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Tue May 07 18:22:59 CST 2019
+ * Generated: Mon May 13 22:56:25 CST 2019
  */
 
 /*
@@ -50,13 +50,13 @@
 
 MEMORY
 {
-    nios2_onchip_mem : ORIGIN = 0x1230, LENGTH = 16
-    reset : ORIGIN = 0x8000000, LENGTH = 32
-    sdram : ORIGIN = 0x8000020, LENGTH = 134217696
+    reset : ORIGIN = 0x410000, LENGTH = 32
+    nios2_onchip_mem : ORIGIN = 0x410020, LENGTH = 65504
+    sdram : ORIGIN = 0x8000000, LENGTH = 134217728
 }
 
 /* Define symbols for each memory base-address */
-__alt_mem_nios2_onchip_mem = 0x1230;
+__alt_mem_nios2_onchip_mem = 0x410000;
 __alt_mem_sdram = 0x8000000;
 
 OUTPUT_FORMAT( "elf32-littlenios2",
@@ -113,7 +113,7 @@ SECTIONS
         KEEP (*(.exceptions.exit));
         KEEP (*(.exceptions));
         PROVIDE (__ram_exceptions_end = ABSOLUTE(.));
-    } > sdram
+    } > nios2_onchip_mem
 
     PROVIDE (__flash_exceptions_start = LOADADDR(.exceptions));
 
@@ -209,7 +209,7 @@ SECTIONS
         PROVIDE (__DTOR_END__ = ABSOLUTE(.));
         KEEP (*(.jcr))
         . = ALIGN(4);
-    } > sdram = 0x3a880100 /* NOP instruction (always in big-endian byte ordering) */
+    } > nios2_onchip_mem = 0x3a880100 /* NOP instruction (always in big-endian byte ordering) */
 
     .rodata :
     {
@@ -219,7 +219,7 @@ SECTIONS
         *(.rodata1)
         . = ALIGN(4);
         PROVIDE (__ram_rodata_end = ABSOLUTE(.));
-    } > sdram
+    } > nios2_onchip_mem
 
     PROVIDE (__flash_rodata_start = LOADADDR(.rodata));
 
@@ -253,7 +253,7 @@ SECTIONS
         _edata = ABSOLUTE(.);
         PROVIDE (edata = ABSOLUTE(.));
         PROVIDE (__ram_rwdata_end = ABSOLUTE(.));
-    } > sdram
+    } > nios2_onchip_mem
 
     PROVIDE (__flash_rwdata_start = LOADADDR(.rwdata));
 
@@ -284,7 +284,7 @@ SECTIONS
 
         . = ALIGN(4);
         __bss_end = ABSOLUTE(.);
-    } > sdram
+    } > nios2_onchip_mem
 
     /*
      *
@@ -309,12 +309,15 @@ SECTIONS
      *
      */
 
-    .nios2_onchip_mem : AT ( LOADADDR (.bss) + SIZEOF (.bss) )
+    .nios2_onchip_mem LOADADDR (.bss) + SIZEOF (.bss) : AT ( LOADADDR (.bss) + SIZEOF (.bss) )
     {
         PROVIDE (_alt_partition_nios2_onchip_mem_start = ABSOLUTE(.));
         *(.nios2_onchip_mem .nios2_onchip_mem. nios2_onchip_mem.*)
         . = ALIGN(4);
         PROVIDE (_alt_partition_nios2_onchip_mem_end = ABSOLUTE(.));
+        _end = ABSOLUTE(.);
+        end = ABSOLUTE(.);
+        __alt_stack_base = ABSOLUTE(.);
     } > nios2_onchip_mem
 
     PROVIDE (_alt_partition_nios2_onchip_mem_load_addr = LOADADDR(.nios2_onchip_mem));
@@ -326,15 +329,12 @@ SECTIONS
      *
      */
 
-    .sdram LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
+    .sdram : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
     {
         PROVIDE (_alt_partition_sdram_start = ABSOLUTE(.));
         *(.sdram .sdram. sdram.*)
         . = ALIGN(4);
         PROVIDE (_alt_partition_sdram_end = ABSOLUTE(.));
-        _end = ABSOLUTE(.);
-        end = ABSOLUTE(.);
-        __alt_stack_base = ABSOLUTE(.);
     } > sdram
 
     PROVIDE (_alt_partition_sdram_load_addr = LOADADDR(.sdram));
@@ -386,7 +386,7 @@ SECTIONS
 /*
  * Don't override this, override the __alt_stack_* symbols instead.
  */
-__alt_data_end = 0x10000000;
+__alt_data_end = 0x420000;
 
 /*
  * The next two symbols define the location of the default stack.  You can
@@ -402,4 +402,4 @@ PROVIDE( __alt_stack_limit   = __alt_stack_base );
  * Override this symbol to put the heap in a different memory.
  */
 PROVIDE( __alt_heap_start    = end );
-PROVIDE( __alt_heap_limit    = 0x10000000 );
+PROVIDE( __alt_heap_limit    = 0x420000 );
