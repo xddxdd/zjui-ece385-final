@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 13, 2019 11:07:40 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1557760060549</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\Users\xuyh0\Desktop\final\ECE385_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>May 16, 2019 10:50:44 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1558018244264</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>C:\Users\xuyh0\Desktop\zjui-ece385\final\ECE385_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\ECE385.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -266,7 +266,7 @@
                 <SettingName>hal.make.bsp_cflags_defined_symbols</SettingName>
                 <Identifier>BSP_CFLAGS_DEFINED_SYMBOLS</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>-DALT_DEBUG</Value>
+                <Value>none</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>makefile_variable</DestinationFile>
                 <Description>Preprocessor macros to define. A macro definition in this setting has the same effect as a "#define" in source code. Adding "-DALT_DEBUG" to this setting has the same effect as "#define ALT_DEBUG" in a souce file. Adding "-DFOO=1" to this setting is equivalent to the macro "#define FOO 1" in a source file. Macros defined with this setting are applied to all .S, .c, and C++ files in the BSP. This setting defines the value of BSP_CFLAGS_DEFINED_SYMBOLS in the BSP Makefile.</Description>
@@ -314,7 +314,7 @@
                 <SettingName>hal.make.bsp_cflags_debug</SettingName>
                 <Identifier>BSP_CFLAGS_DEBUG</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>-g</Value>
+                <Value>none</Value>
                 <DefaultValue>-g</DefaultValue>
                 <DestinationFile>makefile_variable</DestinationFile>
                 <Description>C/C++ compiler debug level. '-g' provides the default set of debug symbols typically required to debug a typical application. Omitting '-g' removes debug symbols from the ELF. This setting defines the value of BSP_CFLAGS_DEBUG in Makefile.</Description>
@@ -782,7 +782,7 @@
                 <SettingName>hal.enable_c_plus_plus</SettingName>
                 <Identifier>ALT_NO_C_PLUS_PLUS</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Enable support for a subset of the C++ language. This option increases code footprint by adding support for C++ constructors. Certain features, such as multiple inheritance and exceptions are not supported. If false, adds -DALT_NO_C_PLUS_PLUS to ALT_CPPFLAGS in public.mk, and reduces code footprint.</Description>
@@ -906,103 +906,175 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_onchip_mem</slaveDescriptor>
-                <addressRange>0x00410000 - 0x0041FFFF</addressRange>
-                <addressSpan>65536</addressSpan>
+                <addressRange>0x00420000 - 0x0043FFFF</addressRange>
+                <addressSpan>131072</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_3</slaveDescriptor>
+                <addressRange>0x00440000 - 0x00441FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_2</slaveDescriptor>
+                <addressRange>0x00442000 - 0x00443FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_1</slaveDescriptor>
+                <addressRange>0x00444000 - 0x00445FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_0</slaveDescriptor>
+                <addressRange>0x00446000 - 0x00447FFF</addressRange>
+                <addressSpan>8192</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_hex</slaveDescriptor>
-                <addressRange>0x00421000 - 0x0042101F</addressRange>
+                <addressRange>0x00449000 - 0x0044901F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_green</slaveDescriptor>
-                <addressRange>0x00421020 - 0x0042103F</addressRange>
+                <addressRange>0x00449020 - 0x0044903F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_timer</slaveDescriptor>
-                <addressRange>0x00421040 - 0x0042105F</addressRange>
+                <addressRange>0x00449040 - 0x0044905F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_red</slaveDescriptor>
-                <addressRange>0x00421060 - 0x0042107F</addressRange>
+                <addressRange>0x00449060 - 0x0044907F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>vga_sprite_3_position</slaveDescriptor>
+                <addressRange>0x00449090 - 0x0044909F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_2_position</slaveDescriptor>
+                <addressRange>0x004490A0 - 0x004490AF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_1_position</slaveDescriptor>
+                <addressRange>0x004490B0 - 0x004490BF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_2_width_height</slaveDescriptor>
+                <addressRange>0x004490C0 - 0x004490CF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_3_width_height</slaveDescriptor>
+                <addressRange>0x004490D0 - 0x004490DF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_1_width_height</slaveDescriptor>
+                <addressRange>0x004490E0 - 0x004490EF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_0_position</slaveDescriptor>
+                <addressRange>0x004490F0 - 0x004490FF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_0_width_height</slaveDescriptor>
+                <addressRange>0x00449100 - 0x0044910F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>io_switches</slaveDescriptor>
-                <addressRange>0x00421090 - 0x0042109F</addressRange>
+                <addressRange>0x00449110 - 0x0044911F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_keys</slaveDescriptor>
-                <addressRange>0x004210A0 - 0x004210AF</addressRange>
+                <addressRange>0x00449120 - 0x0044912F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_reset</slaveDescriptor>
-                <addressRange>0x004210B0 - 0x004210BF</addressRange>
+                <addressRange>0x00449130 - 0x0044913F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_cs</slaveDescriptor>
-                <addressRange>0x004210C0 - 0x004210CF</addressRange>
+                <addressRange>0x00449140 - 0x0044914F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_w</slaveDescriptor>
-                <addressRange>0x004210D0 - 0x004210DF</addressRange>
+                <addressRange>0x00449150 - 0x0044915F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_r</slaveDescriptor>
-                <addressRange>0x004210E0 - 0x004210EF</addressRange>
+                <addressRange>0x00449160 - 0x0044916F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_data</slaveDescriptor>
-                <addressRange>0x004210F0 - 0x004210FF</addressRange>
+                <addressRange>0x00449170 - 0x0044917F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>otg_hpi_address</slaveDescriptor>
-                <addressRange>0x00421100 - 0x0042110F</addressRange>
+                <addressRange>0x00449180 - 0x0044918F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>keycode</slaveDescriptor>
-                <addressRange>0x00421110 - 0x0042111F</addressRange>
+                <addressRange>0x00449190 - 0x0044919F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_pll</slaveDescriptor>
-                <addressRange>0x00421120 - 0x0042112F</addressRange>
+                <addressRange>0x004491A0 - 0x004491AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_sysid</slaveDescriptor>
-                <addressRange>0x00421138 - 0x0042113F</addressRange>
+                <addressRange>0x004491B8 - 0x004491BF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_jtag_uart</slaveDescriptor>
-                <addressRange>0x00421140 - 0x00421147</addressRange>
+                <addressRange>0x004491C0 - 0x004491C7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

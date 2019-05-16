@@ -161,7 +161,7 @@ ACDS_VERSION := 18.1
 SIM_OPTIMIZE ?= 0
 
 # The CPU reset address as needed by elf2flash
-RESET_ADDRESS ?= 0x00410000
+RESET_ADDRESS ?= 0x00420000
 
 # The specific Nios II ELF file format to use.
 NIOS2_ELF_FORMAT ?= elf32-littlenios2
@@ -180,9 +180,9 @@ DAT_FILES += $(HDL_SIM_DIR)/$(MEM_0).dat
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_0).dat
 SYM_FILES += $(HDL_SIM_DIR)/$(MEM_0).sym
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_0).sym
-$(MEM_0)_START := 0x00410000
-$(MEM_0)_END := 0x0041ffff
-$(MEM_0)_SPAN := 0x00010000
+$(MEM_0)_START := 0x00420000
+$(MEM_0)_END := 0x0043ffff
+$(MEM_0)_SPAN := 0x00020000
 $(MEM_0)_HIERARCHICAL_PATH := nios2_onchip_mem
 $(MEM_0)_WIDTH := 32
 $(MEM_0)_HEX_DATA_WIDTH := 32
@@ -210,6 +210,94 @@ $(MEM_1)_CREATE_LANES := 0
 
 .PHONY: sdram
 sdram: check_elf_exists $(HDL_SIM_DIR)/$(MEM_1).dat $(HDL_SIM_DIR)/$(MEM_1).sym
+
+# Memory: vga_sprite_0
+MEM_2 := ECE385_vga_sprite_0
+$(MEM_2)_NAME := vga_sprite_0
+$(MEM_2)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_2).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_2).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_2).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_2).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_2).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_2).sym
+$(MEM_2)_START := 0x00446000
+$(MEM_2)_END := 0x00447fff
+$(MEM_2)_SPAN := 0x00002000
+$(MEM_2)_HIERARCHICAL_PATH := vga_sprite_0
+$(MEM_2)_WIDTH := 32
+$(MEM_2)_HEX_DATA_WIDTH := 32
+$(MEM_2)_ENDIANNESS := --little-endian-mem
+$(MEM_2)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_0
+vga_sprite_0: check_elf_exists $(MEM_INIT_DIR)/$(MEM_2).hex $(HDL_SIM_DIR)/$(MEM_2).dat $(HDL_SIM_DIR)/$(MEM_2).sym
+
+# Memory: vga_sprite_1
+MEM_3 := ECE385_vga_sprite_1
+$(MEM_3)_NAME := vga_sprite_1
+$(MEM_3)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_3).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_3).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_3).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_3).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_3).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_3).sym
+$(MEM_3)_START := 0x00444000
+$(MEM_3)_END := 0x00445fff
+$(MEM_3)_SPAN := 0x00002000
+$(MEM_3)_HIERARCHICAL_PATH := vga_sprite_1
+$(MEM_3)_WIDTH := 32
+$(MEM_3)_HEX_DATA_WIDTH := 32
+$(MEM_3)_ENDIANNESS := --little-endian-mem
+$(MEM_3)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_1
+vga_sprite_1: check_elf_exists $(MEM_INIT_DIR)/$(MEM_3).hex $(HDL_SIM_DIR)/$(MEM_3).dat $(HDL_SIM_DIR)/$(MEM_3).sym
+
+# Memory: vga_sprite_2
+MEM_4 := ECE385_vga_sprite_2
+$(MEM_4)_NAME := vga_sprite_2
+$(MEM_4)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_4).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_4).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_4).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_4).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_4).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_4).sym
+$(MEM_4)_START := 0x00442000
+$(MEM_4)_END := 0x00443fff
+$(MEM_4)_SPAN := 0x00002000
+$(MEM_4)_HIERARCHICAL_PATH := vga_sprite_2
+$(MEM_4)_WIDTH := 32
+$(MEM_4)_HEX_DATA_WIDTH := 32
+$(MEM_4)_ENDIANNESS := --little-endian-mem
+$(MEM_4)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_2
+vga_sprite_2: check_elf_exists $(MEM_INIT_DIR)/$(MEM_4).hex $(HDL_SIM_DIR)/$(MEM_4).dat $(HDL_SIM_DIR)/$(MEM_4).sym
+
+# Memory: vga_sprite_3
+MEM_5 := ECE385_vga_sprite_3
+$(MEM_5)_NAME := vga_sprite_3
+$(MEM_5)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_5).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_5).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_5).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_5).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_5).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_5).sym
+$(MEM_5)_START := 0x00440000
+$(MEM_5)_END := 0x00441fff
+$(MEM_5)_SPAN := 0x00002000
+$(MEM_5)_HIERARCHICAL_PATH := vga_sprite_3
+$(MEM_5)_WIDTH := 32
+$(MEM_5)_HEX_DATA_WIDTH := 32
+$(MEM_5)_ENDIANNESS := --little-endian-mem
+$(MEM_5)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_3
+vga_sprite_3: check_elf_exists $(MEM_INIT_DIR)/$(MEM_5).hex $(HDL_SIM_DIR)/$(MEM_5).dat $(HDL_SIM_DIR)/$(MEM_5).sym
 
 
 #END OF BSP SPECIFIC

@@ -280,15 +280,74 @@ eth_ddio ETH1_DDIO(
 
 // VGA Controller
 logic[9:0] VGA_DrawX, VGA_DrawY;
+logic [15:0] VGA_VAL;
 
 VGA_controller VGA(
 	.Clk(CLOCK_50), .Reset(~RESET),
 	.VGA_HS, .VGA_VS, .VGA_CLK, .VGA_BLANK_N, .VGA_SYNC_N,
-	.DrawX(VGA_DrawX), .DrawY(VGA_DrawY)
+	.DrawX(VGA_DrawX), .DrawY(VGA_DrawY),
+);
+
+VGA_layer #(4) VGA_layer_manager(
+	.VGA_VAL,
+	.VGA_R, .VGA_G, .VGA_B,
+	.VGA_SPRITE_ISOBJ, .VGA_SPRITE_PIXEL
+);
+
+logic [3:0][11:0] VGA_SPRITE_ADDR;
+logic [3:0][15:0] VGA_SPRITE_DATA;
+logic [3:0][15:0] VGA_SPRITE_WIDTH;
+logic [3:0][15:0] VGA_SPRITE_HEIGHT;
+logic [3:0][15:0] VGA_SPRITE_X;
+logic [3:0][15:0] VGA_SPRITE_Y;
+logic [3:0] VGA_SPRITE_ISOBJ;
+logic [3:0][15:0] VGA_SPRITE_PIXEL;
+
+VGA_sprite VGA_Sprite_0 (
+	.Clk(CLOCK_50), .Reset(1'b0),
+	.VGA_DrawX, .VGA_DrawY,
+	.SpriteX(VGA_SPRITE_X[0]), .SpriteY(VGA_SPRITE_Y[0]),
+	.SpriteWidth(VGA_SPRITE_WIDTH[0]), .SpriteHeight(VGA_SPRITE_HEIGHT[0]),
+	.AVL_Addr(VGA_SPRITE_ADDR[0]),
+	.AVL_ReadData(VGA_SPRITE_DATA[0]),
+	.VGA_isObject(VGA_SPRITE_ISOBJ[0]),
+	.VGA_Pixel(VGA_SPRITE_PIXEL[0])
+);
+
+VGA_sprite VGA_Sprite_1 (
+	.Clk(CLOCK_50), .Reset(1'b0),
+	.VGA_DrawX, .VGA_DrawY,
+	.SpriteX(VGA_SPRITE_X[1]), .SpriteY(VGA_SPRITE_Y[1]),
+	.SpriteWidth(VGA_SPRITE_WIDTH[1]), .SpriteHeight(VGA_SPRITE_HEIGHT[1]),
+	.AVL_Addr(VGA_SPRITE_ADDR[1]),
+	.AVL_ReadData(VGA_SPRITE_DATA[1]),
+	.VGA_isObject(VGA_SPRITE_ISOBJ[1]),
+	.VGA_Pixel(VGA_SPRITE_PIXEL[1])
+);
+
+VGA_sprite VGA_Sprite_2 (
+	.Clk(CLOCK_50), .Reset(1'b0),
+	.VGA_DrawX, .VGA_DrawY,
+	.SpriteX(VGA_SPRITE_X[2]), .SpriteY(VGA_SPRITE_Y[2]),
+	.SpriteWidth(VGA_SPRITE_WIDTH[2]), .SpriteHeight(VGA_SPRITE_HEIGHT[2]),
+	.AVL_Addr(VGA_SPRITE_ADDR[2]),
+	.AVL_ReadData(VGA_SPRITE_DATA[2]),
+	.VGA_isObject(VGA_SPRITE_ISOBJ[2]),
+	.VGA_Pixel(VGA_SPRITE_PIXEL[2])
+);
+
+VGA_sprite VGA_Sprite_3 (
+	.Clk(CLOCK_50), .Reset(1'b0),
+	.VGA_DrawX, .VGA_DrawY,
+	.SpriteX(VGA_SPRITE_X[3]), .SpriteY(VGA_SPRITE_Y[3]),
+	.SpriteWidth(VGA_SPRITE_WIDTH[3]), .SpriteHeight(VGA_SPRITE_HEIGHT[3]),
+	.AVL_Addr(VGA_SPRITE_ADDR[3]),
+	.AVL_ReadData(VGA_SPRITE_DATA[3]),
+	.VGA_isObject(VGA_SPRITE_ISOBJ[3]),
+	.VGA_Pixel(VGA_SPRITE_PIXEL[3])
 );
 
 // Main system
-
 ECE385 ECE385_sys(
 	.clk_clk(CLOCK_50),
 	.io_keys_export(KEY),
@@ -316,12 +375,58 @@ ECE385 ECE385_sys(
 	.sram_sram_ub_n(SRAM_UB_N),
 	.sram_sram_we_n(SRAM_WE_N),
 	
-	.vga_vga_r(VGA_R),
-	.vga_vga_g(VGA_G),
-	.vga_vga_b(VGA_B),
+	.vga_vga_val(VGA_VAL),
 	.vga_vga_drawx(VGA_DrawX),
 	.vga_vga_drawy(VGA_DrawY),
 	.nios2_pll_vga_clk(VGA_CLK),
+	
+	.vga_sprite_0_clk2_clk(CLOCK_50),
+	.vga_sprite_0_reset2_reset(1'b0),
+	.vga_sprite_0_s2_address(VGA_SPRITE_ADDR[0]),
+	.vga_sprite_0_s2_chipselect(1'b1),
+	.vga_sprite_0_s2_clken(1'b1),
+	.vga_sprite_0_s2_write(1'b0),
+	.vga_sprite_0_s2_readdata(VGA_SPRITE_DATA[0]),
+	.vga_sprite_0_s2_writedata(32'b0),
+	.vga_sprite_0_s2_byteenable(4'b1),
+	.vga_sprite_0_position_export({VGA_SPRITE_Y[0], VGA_SPRITE_X[0]}),
+	.vga_sprite_0_width_height_export({VGA_SPRITE_HEIGHT[0], VGA_SPRITE_WIDTH[0]}),
+	
+	.vga_sprite_1_clk2_clk(CLOCK_50),
+	.vga_sprite_1_reset2_reset(1'b0),
+	.vga_sprite_1_s2_address(VGA_SPRITE_ADDR[1]),
+	.vga_sprite_1_s2_chipselect(1'b1),
+	.vga_sprite_1_s2_clken(1'b1),
+	.vga_sprite_1_s2_write(1'b0),
+	.vga_sprite_1_s2_readdata(VGA_SPRITE_DATA[1]),
+	.vga_sprite_1_s2_writedata(32'b0),
+	.vga_sprite_1_s2_byteenable(4'b1),
+	.vga_sprite_1_position_export({VGA_SPRITE_Y[1], VGA_SPRITE_X[1]}),
+	.vga_sprite_1_width_height_export({VGA_SPRITE_HEIGHT[1], VGA_SPRITE_WIDTH[1]}),
+	
+	.vga_sprite_2_clk2_clk(CLOCK_50),
+	.vga_sprite_2_reset2_reset(1'b0),
+	.vga_sprite_2_s2_address(VGA_SPRITE_ADDR[2]),
+	.vga_sprite_2_s2_chipselect(1'b1),
+	.vga_sprite_2_s2_clken(1'b1),
+	.vga_sprite_2_s2_write(1'b0),
+	.vga_sprite_2_s2_readdata(VGA_SPRITE_DATA[2]),
+	.vga_sprite_2_s2_writedata(32'b0),
+	.vga_sprite_2_s2_byteenable(4'b1),
+	.vga_sprite_2_position_export({VGA_SPRITE_Y[2], VGA_SPRITE_X[2]}),
+	.vga_sprite_2_width_height_export({VGA_SPRITE_HEIGHT[2], VGA_SPRITE_WIDTH[2]}),
+	
+	.vga_sprite_3_clk2_clk(CLOCK_50),
+	.vga_sprite_3_reset2_reset(1'b0),
+	.vga_sprite_3_s2_address(VGA_SPRITE_ADDR[3]),
+	.vga_sprite_3_s2_chipselect(1'b1),
+	.vga_sprite_3_s2_clken(1'b1),
+	.vga_sprite_3_s2_write(1'b0),
+	.vga_sprite_3_s2_readdata(VGA_SPRITE_DATA[3]),
+	.vga_sprite_3_s2_writedata(32'b0),
+	.vga_sprite_3_s2_byteenable(4'b1),
+	.vga_sprite_3_position_export({VGA_SPRITE_Y[3], VGA_SPRITE_X[3]}),
+	.vga_sprite_3_width_height_export({VGA_SPRITE_HEIGHT[3], VGA_SPRITE_WIDTH[3]}),
 	
 //	.eth0_mac_status_eth_mode(ETH0_MODE_1G),
 //	.eth0_mac_status_ena_10(ETH0_MODE_10M),

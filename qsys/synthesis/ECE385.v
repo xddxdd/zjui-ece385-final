@@ -4,47 +4,89 @@
 
 `timescale 1 ps / 1 ps
 module ECE385 (
-		input  wire        clk_clk,                //             clk.clk
-		output wire [31:0] io_hex_export,          //          io_hex.export
-		input  wire [3:0]  io_keys_export,         //         io_keys.export
-		output wire [8:0]  io_led_green_export,    //    io_led_green.export
-		output wire [17:0] io_led_red_export,      //      io_led_red.export
-		input  wire [17:0] io_switches_export,     //     io_switches.export
-		output wire [7:0]  keycode_export,         //         keycode.export
-		output wire        nios2_pll_sdram_clk,    // nios2_pll_sdram.clk
-		output wire        nios2_pll_vga_clk,      //   nios2_pll_vga.clk
-		output wire [1:0]  otg_hpi_address_export, // otg_hpi_address.export
-		output wire        otg_hpi_cs_export,      //      otg_hpi_cs.export
-		input  wire [15:0] otg_hpi_data_in_port,   //    otg_hpi_data.in_port
-		output wire [15:0] otg_hpi_data_out_port,  //                .out_port
-		output wire        otg_hpi_r_export,       //       otg_hpi_r.export
-		output wire        otg_hpi_reset_export,   //   otg_hpi_reset.export
-		output wire        otg_hpi_w_export,       //       otg_hpi_w.export
-		input  wire        reset_reset_n,          //           reset.reset_n
-		output wire [12:0] sdram_addr,             //           sdram.addr
-		output wire [1:0]  sdram_ba,               //                .ba
-		output wire        sdram_cas_n,            //                .cas_n
-		output wire        sdram_cke,              //                .cke
-		output wire        sdram_cs_n,             //                .cs_n
-		inout  wire [31:0] sdram_dq,               //                .dq
-		output wire [3:0]  sdram_dqm,              //                .dqm
-		output wire        sdram_ras_n,            //                .ras_n
-		output wire        sdram_we_n,             //                .we_n
-		output wire [19:0] sram_sram_addr,         //            sram.sram_addr
-		output wire        sram_sram_ce_n,         //                .sram_ce_n
-		inout  wire [15:0] sram_sram_dq,           //                .sram_dq
-		output wire        sram_sram_lb_n,         //                .sram_lb_n
-		output wire        sram_sram_oe_n,         //                .sram_oe_n
-		output wire        sram_sram_ub_n,         //                .sram_ub_n
-		output wire        sram_sram_we_n,         //                .sram_we_n
-		output wire [7:0]  vga_vga_r,              //             vga.vga_r
-		output wire [7:0]  vga_vga_g,              //                .vga_g
-		output wire [7:0]  vga_vga_b,              //                .vga_b
-		input  wire [9:0]  vga_vga_drawx,          //                .vga_drawx
-		input  wire [9:0]  vga_vga_drawy           //                .vga_drawy
+		input  wire        clk_clk,                          //                       clk.clk
+		output wire [31:0] io_hex_export,                    //                    io_hex.export
+		input  wire [3:0]  io_keys_export,                   //                   io_keys.export
+		output wire [8:0]  io_led_green_export,              //              io_led_green.export
+		output wire [17:0] io_led_red_export,                //                io_led_red.export
+		input  wire [17:0] io_switches_export,               //               io_switches.export
+		output wire [7:0]  keycode_export,                   //                   keycode.export
+		output wire        nios2_pll_sdram_clk,              //           nios2_pll_sdram.clk
+		output wire        nios2_pll_vga_clk,                //             nios2_pll_vga.clk
+		output wire [1:0]  otg_hpi_address_export,           //           otg_hpi_address.export
+		output wire        otg_hpi_cs_export,                //                otg_hpi_cs.export
+		input  wire [15:0] otg_hpi_data_in_port,             //              otg_hpi_data.in_port
+		output wire [15:0] otg_hpi_data_out_port,            //                          .out_port
+		output wire        otg_hpi_r_export,                 //                 otg_hpi_r.export
+		output wire        otg_hpi_reset_export,             //             otg_hpi_reset.export
+		output wire        otg_hpi_w_export,                 //                 otg_hpi_w.export
+		input  wire        reset_reset_n,                    //                     reset.reset_n
+		output wire [12:0] sdram_addr,                       //                     sdram.addr
+		output wire [1:0]  sdram_ba,                         //                          .ba
+		output wire        sdram_cas_n,                      //                          .cas_n
+		output wire        sdram_cke,                        //                          .cke
+		output wire        sdram_cs_n,                       //                          .cs_n
+		inout  wire [31:0] sdram_dq,                         //                          .dq
+		output wire [3:0]  sdram_dqm,                        //                          .dqm
+		output wire        sdram_ras_n,                      //                          .ras_n
+		output wire        sdram_we_n,                       //                          .we_n
+		output wire [19:0] sram_sram_addr,                   //                      sram.sram_addr
+		output wire        sram_sram_ce_n,                   //                          .sram_ce_n
+		inout  wire [15:0] sram_sram_dq,                     //                          .sram_dq
+		output wire        sram_sram_lb_n,                   //                          .sram_lb_n
+		output wire        sram_sram_oe_n,                   //                          .sram_oe_n
+		output wire        sram_sram_ub_n,                   //                          .sram_ub_n
+		output wire        sram_sram_we_n,                   //                          .sram_we_n
+		input  wire [9:0]  vga_vga_drawx,                    //                       vga.vga_drawx
+		input  wire [9:0]  vga_vga_drawy,                    //                          .vga_drawy
+		output wire [15:0] vga_vga_val,                      //                          .vga_val
+		input  wire        vga_sprite_0_clk2_clk,            //         vga_sprite_0_clk2.clk
+		output wire [31:0] vga_sprite_0_position_export,     //     vga_sprite_0_position.export
+		input  wire        vga_sprite_0_reset2_reset,        //       vga_sprite_0_reset2.reset
+		input  wire [11:0] vga_sprite_0_s2_address,          //           vga_sprite_0_s2.address
+		input  wire        vga_sprite_0_s2_chipselect,       //                          .chipselect
+		input  wire        vga_sprite_0_s2_clken,            //                          .clken
+		input  wire        vga_sprite_0_s2_write,            //                          .write
+		output wire [15:0] vga_sprite_0_s2_readdata,         //                          .readdata
+		input  wire [15:0] vga_sprite_0_s2_writedata,        //                          .writedata
+		input  wire [1:0]  vga_sprite_0_s2_byteenable,       //                          .byteenable
+		output wire [31:0] vga_sprite_0_width_height_export, // vga_sprite_0_width_height.export
+		input  wire        vga_sprite_1_clk2_clk,            //         vga_sprite_1_clk2.clk
+		output wire [31:0] vga_sprite_1_position_export,     //     vga_sprite_1_position.export
+		input  wire        vga_sprite_1_reset2_reset,        //       vga_sprite_1_reset2.reset
+		input  wire [11:0] vga_sprite_1_s2_address,          //           vga_sprite_1_s2.address
+		input  wire        vga_sprite_1_s2_chipselect,       //                          .chipselect
+		input  wire        vga_sprite_1_s2_clken,            //                          .clken
+		input  wire        vga_sprite_1_s2_write,            //                          .write
+		output wire [15:0] vga_sprite_1_s2_readdata,         //                          .readdata
+		input  wire [15:0] vga_sprite_1_s2_writedata,        //                          .writedata
+		input  wire [1:0]  vga_sprite_1_s2_byteenable,       //                          .byteenable
+		output wire [31:0] vga_sprite_1_width_height_export, // vga_sprite_1_width_height.export
+		input  wire        vga_sprite_2_clk2_clk,            //         vga_sprite_2_clk2.clk
+		output wire [31:0] vga_sprite_2_position_export,     //     vga_sprite_2_position.export
+		input  wire        vga_sprite_2_reset2_reset,        //       vga_sprite_2_reset2.reset
+		input  wire [11:0] vga_sprite_2_s2_address,          //           vga_sprite_2_s2.address
+		input  wire        vga_sprite_2_s2_chipselect,       //                          .chipselect
+		input  wire        vga_sprite_2_s2_clken,            //                          .clken
+		input  wire        vga_sprite_2_s2_write,            //                          .write
+		output wire [15:0] vga_sprite_2_s2_readdata,         //                          .readdata
+		input  wire [15:0] vga_sprite_2_s2_writedata,        //                          .writedata
+		input  wire [1:0]  vga_sprite_2_s2_byteenable,       //                          .byteenable
+		output wire [31:0] vga_sprite_2_width_height_export, // vga_sprite_2_width_height.export
+		input  wire        vga_sprite_3_clk2_clk,            //         vga_sprite_3_clk2.clk
+		output wire [31:0] vga_sprite_3_position_export,     //     vga_sprite_3_position.export
+		input  wire        vga_sprite_3_reset2_reset,        //       vga_sprite_3_reset2.reset
+		input  wire [11:0] vga_sprite_3_s2_address,          //           vga_sprite_3_s2.address
+		input  wire        vga_sprite_3_s2_chipselect,       //                          .chipselect
+		input  wire        vga_sprite_3_s2_clken,            //                          .clken
+		input  wire        vga_sprite_3_s2_write,            //                          .write
+		output wire [15:0] vga_sprite_3_s2_readdata,         //                          .readdata
+		input  wire [15:0] vga_sprite_3_s2_writedata,        //                          .writedata
+		input  wire [1:0]  vga_sprite_3_s2_byteenable,       //                          .byteenable
+		output wire [31:0] vga_sprite_3_width_height_export  // vga_sprite_3_width_height.export
 	);
 
-	wire         nios2_pll_c0_clk;                                                // nios2_pll:c0 -> [io_hex:clk, io_keys:clk, io_led_green:clk, io_led_red:clk, io_switches:clk, irq_mapper:clk, keycode:clk, mm_interconnect_0:nios2_pll_c0_clk, nios2_cpu:clk, nios2_jtag_uart:clk, nios2_onchip_mem:clk, nios2_sysid:clock, nios2_timer:clk, otg_hpi_address:clk, otg_hpi_cs:clk, otg_hpi_data:clk, otg_hpi_r:clk, otg_hpi_reset:clk, otg_hpi_w:clk, rst_controller:clk, rst_controller_001:clk, sdram:clk, sram_multiplexer:CLK]
+	wire         nios2_pll_c0_clk;                                                // nios2_pll:c0 -> [io_hex:clk, io_keys:clk, io_led_green:clk, io_led_red:clk, io_switches:clk, irq_mapper:clk, keycode:clk, mm_interconnect_0:nios2_pll_c0_clk, nios2_cpu:clk, nios2_jtag_uart:clk, nios2_onchip_mem:clk, nios2_sysid:clock, nios2_timer:clk, otg_hpi_address:clk, otg_hpi_cs:clk, otg_hpi_data:clk, otg_hpi_r:clk, otg_hpi_reset:clk, otg_hpi_w:clk, rst_controller:clk, rst_controller_001:clk, sdram:clk, sram_multiplexer:CLK, vga_sprite_0:clk, vga_sprite_0_position:clk, vga_sprite_0_width_height:clk, vga_sprite_1:clk, vga_sprite_1_position:clk, vga_sprite_1_width_height:clk, vga_sprite_2:clk, vga_sprite_2_position:clk, vga_sprite_2_width_height:clk, vga_sprite_3:clk, vga_sprite_3_position:clk, vga_sprite_3_width_height:clk]
 	wire         nios2_pll_c2_clk;                                                // nios2_pll:c2 -> sram_multiplexer:CLK2
 	wire  [31:0] nios2_cpu_data_master_readdata;                                  // mm_interconnect_0:nios2_cpu_data_master_readdata -> nios2_cpu:d_readdata
 	wire         nios2_cpu_data_master_waitrequest;                               // mm_interconnect_0:nios2_cpu_data_master_waitrequest -> nios2_cpu:d_waitrequest
@@ -87,7 +129,7 @@ module ECE385 (
 	wire  [31:0] mm_interconnect_0_nios2_pll_pll_slave_writedata;                 // mm_interconnect_0:nios2_pll_pll_slave_writedata -> nios2_pll:writedata
 	wire         mm_interconnect_0_nios2_onchip_mem_s1_chipselect;                // mm_interconnect_0:nios2_onchip_mem_s1_chipselect -> nios2_onchip_mem:chipselect
 	wire  [31:0] mm_interconnect_0_nios2_onchip_mem_s1_readdata;                  // nios2_onchip_mem:readdata -> mm_interconnect_0:nios2_onchip_mem_s1_readdata
-	wire  [13:0] mm_interconnect_0_nios2_onchip_mem_s1_address;                   // mm_interconnect_0:nios2_onchip_mem_s1_address -> nios2_onchip_mem:address
+	wire  [14:0] mm_interconnect_0_nios2_onchip_mem_s1_address;                   // mm_interconnect_0:nios2_onchip_mem_s1_address -> nios2_onchip_mem:address
 	wire   [3:0] mm_interconnect_0_nios2_onchip_mem_s1_byteenable;                // mm_interconnect_0:nios2_onchip_mem_s1_byteenable -> nios2_onchip_mem:byteenable
 	wire         mm_interconnect_0_nios2_onchip_mem_s1_write;                     // mm_interconnect_0:nios2_onchip_mem_s1_write -> nios2_onchip_mem:write
 	wire  [31:0] mm_interconnect_0_nios2_onchip_mem_s1_writedata;                 // mm_interconnect_0:nios2_onchip_mem_s1_writedata -> nios2_onchip_mem:writedata
@@ -160,10 +202,78 @@ module ECE385 (
 	wire   [2:0] mm_interconnect_0_io_hex_s1_address;                             // mm_interconnect_0:io_hex_s1_address -> io_hex:address
 	wire         mm_interconnect_0_io_hex_s1_write;                               // mm_interconnect_0:io_hex_s1_write -> io_hex:write_n
 	wire  [31:0] mm_interconnect_0_io_hex_s1_writedata;                           // mm_interconnect_0:io_hex_s1_writedata -> io_hex:writedata
+	wire         mm_interconnect_0_vga_sprite_0_s1_chipselect;                    // mm_interconnect_0:vga_sprite_0_s1_chipselect -> vga_sprite_0:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_0_s1_readdata;                      // vga_sprite_0:readdata -> mm_interconnect_0:vga_sprite_0_s1_readdata
+	wire  [10:0] mm_interconnect_0_vga_sprite_0_s1_address;                       // mm_interconnect_0:vga_sprite_0_s1_address -> vga_sprite_0:address
+	wire   [3:0] mm_interconnect_0_vga_sprite_0_s1_byteenable;                    // mm_interconnect_0:vga_sprite_0_s1_byteenable -> vga_sprite_0:byteenable
+	wire         mm_interconnect_0_vga_sprite_0_s1_write;                         // mm_interconnect_0:vga_sprite_0_s1_write -> vga_sprite_0:write
+	wire  [31:0] mm_interconnect_0_vga_sprite_0_s1_writedata;                     // mm_interconnect_0:vga_sprite_0_s1_writedata -> vga_sprite_0:writedata
+	wire         mm_interconnect_0_vga_sprite_0_s1_clken;                         // mm_interconnect_0:vga_sprite_0_s1_clken -> vga_sprite_0:clken
+	wire         mm_interconnect_0_vga_sprite_1_s1_chipselect;                    // mm_interconnect_0:vga_sprite_1_s1_chipselect -> vga_sprite_1:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_1_s1_readdata;                      // vga_sprite_1:readdata -> mm_interconnect_0:vga_sprite_1_s1_readdata
+	wire  [10:0] mm_interconnect_0_vga_sprite_1_s1_address;                       // mm_interconnect_0:vga_sprite_1_s1_address -> vga_sprite_1:address
+	wire   [3:0] mm_interconnect_0_vga_sprite_1_s1_byteenable;                    // mm_interconnect_0:vga_sprite_1_s1_byteenable -> vga_sprite_1:byteenable
+	wire         mm_interconnect_0_vga_sprite_1_s1_write;                         // mm_interconnect_0:vga_sprite_1_s1_write -> vga_sprite_1:write
+	wire  [31:0] mm_interconnect_0_vga_sprite_1_s1_writedata;                     // mm_interconnect_0:vga_sprite_1_s1_writedata -> vga_sprite_1:writedata
+	wire         mm_interconnect_0_vga_sprite_1_s1_clken;                         // mm_interconnect_0:vga_sprite_1_s1_clken -> vga_sprite_1:clken
+	wire         mm_interconnect_0_vga_sprite_2_s1_chipselect;                    // mm_interconnect_0:vga_sprite_2_s1_chipselect -> vga_sprite_2:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_2_s1_readdata;                      // vga_sprite_2:readdata -> mm_interconnect_0:vga_sprite_2_s1_readdata
+	wire  [10:0] mm_interconnect_0_vga_sprite_2_s1_address;                       // mm_interconnect_0:vga_sprite_2_s1_address -> vga_sprite_2:address
+	wire   [3:0] mm_interconnect_0_vga_sprite_2_s1_byteenable;                    // mm_interconnect_0:vga_sprite_2_s1_byteenable -> vga_sprite_2:byteenable
+	wire         mm_interconnect_0_vga_sprite_2_s1_write;                         // mm_interconnect_0:vga_sprite_2_s1_write -> vga_sprite_2:write
+	wire  [31:0] mm_interconnect_0_vga_sprite_2_s1_writedata;                     // mm_interconnect_0:vga_sprite_2_s1_writedata -> vga_sprite_2:writedata
+	wire         mm_interconnect_0_vga_sprite_2_s1_clken;                         // mm_interconnect_0:vga_sprite_2_s1_clken -> vga_sprite_2:clken
+	wire         mm_interconnect_0_vga_sprite_3_s1_chipselect;                    // mm_interconnect_0:vga_sprite_3_s1_chipselect -> vga_sprite_3:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_3_s1_readdata;                      // vga_sprite_3:readdata -> mm_interconnect_0:vga_sprite_3_s1_readdata
+	wire  [10:0] mm_interconnect_0_vga_sprite_3_s1_address;                       // mm_interconnect_0:vga_sprite_3_s1_address -> vga_sprite_3:address
+	wire   [3:0] mm_interconnect_0_vga_sprite_3_s1_byteenable;                    // mm_interconnect_0:vga_sprite_3_s1_byteenable -> vga_sprite_3:byteenable
+	wire         mm_interconnect_0_vga_sprite_3_s1_write;                         // mm_interconnect_0:vga_sprite_3_s1_write -> vga_sprite_3:write
+	wire  [31:0] mm_interconnect_0_vga_sprite_3_s1_writedata;                     // mm_interconnect_0:vga_sprite_3_s1_writedata -> vga_sprite_3:writedata
+	wire         mm_interconnect_0_vga_sprite_3_s1_clken;                         // mm_interconnect_0:vga_sprite_3_s1_clken -> vga_sprite_3:clken
+	wire         mm_interconnect_0_vga_sprite_0_width_height_s1_chipselect;       // mm_interconnect_0:vga_sprite_0_width_height_s1_chipselect -> vga_sprite_0_width_height:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_0_width_height_s1_readdata;         // vga_sprite_0_width_height:readdata -> mm_interconnect_0:vga_sprite_0_width_height_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_sprite_0_width_height_s1_address;          // mm_interconnect_0:vga_sprite_0_width_height_s1_address -> vga_sprite_0_width_height:address
+	wire         mm_interconnect_0_vga_sprite_0_width_height_s1_write;            // mm_interconnect_0:vga_sprite_0_width_height_s1_write -> vga_sprite_0_width_height:write_n
+	wire  [31:0] mm_interconnect_0_vga_sprite_0_width_height_s1_writedata;        // mm_interconnect_0:vga_sprite_0_width_height_s1_writedata -> vga_sprite_0_width_height:writedata
+	wire         mm_interconnect_0_vga_sprite_0_position_s1_chipselect;           // mm_interconnect_0:vga_sprite_0_position_s1_chipselect -> vga_sprite_0_position:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_0_position_s1_readdata;             // vga_sprite_0_position:readdata -> mm_interconnect_0:vga_sprite_0_position_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_sprite_0_position_s1_address;              // mm_interconnect_0:vga_sprite_0_position_s1_address -> vga_sprite_0_position:address
+	wire         mm_interconnect_0_vga_sprite_0_position_s1_write;                // mm_interconnect_0:vga_sprite_0_position_s1_write -> vga_sprite_0_position:write_n
+	wire  [31:0] mm_interconnect_0_vga_sprite_0_position_s1_writedata;            // mm_interconnect_0:vga_sprite_0_position_s1_writedata -> vga_sprite_0_position:writedata
+	wire         mm_interconnect_0_vga_sprite_1_width_height_s1_chipselect;       // mm_interconnect_0:vga_sprite_1_width_height_s1_chipselect -> vga_sprite_1_width_height:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_1_width_height_s1_readdata;         // vga_sprite_1_width_height:readdata -> mm_interconnect_0:vga_sprite_1_width_height_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_sprite_1_width_height_s1_address;          // mm_interconnect_0:vga_sprite_1_width_height_s1_address -> vga_sprite_1_width_height:address
+	wire         mm_interconnect_0_vga_sprite_1_width_height_s1_write;            // mm_interconnect_0:vga_sprite_1_width_height_s1_write -> vga_sprite_1_width_height:write_n
+	wire  [31:0] mm_interconnect_0_vga_sprite_1_width_height_s1_writedata;        // mm_interconnect_0:vga_sprite_1_width_height_s1_writedata -> vga_sprite_1_width_height:writedata
+	wire         mm_interconnect_0_vga_sprite_3_width_height_s1_chipselect;       // mm_interconnect_0:vga_sprite_3_width_height_s1_chipselect -> vga_sprite_3_width_height:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_3_width_height_s1_readdata;         // vga_sprite_3_width_height:readdata -> mm_interconnect_0:vga_sprite_3_width_height_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_sprite_3_width_height_s1_address;          // mm_interconnect_0:vga_sprite_3_width_height_s1_address -> vga_sprite_3_width_height:address
+	wire         mm_interconnect_0_vga_sprite_3_width_height_s1_write;            // mm_interconnect_0:vga_sprite_3_width_height_s1_write -> vga_sprite_3_width_height:write_n
+	wire  [31:0] mm_interconnect_0_vga_sprite_3_width_height_s1_writedata;        // mm_interconnect_0:vga_sprite_3_width_height_s1_writedata -> vga_sprite_3_width_height:writedata
+	wire         mm_interconnect_0_vga_sprite_2_width_height_s1_chipselect;       // mm_interconnect_0:vga_sprite_2_width_height_s1_chipselect -> vga_sprite_2_width_height:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_2_width_height_s1_readdata;         // vga_sprite_2_width_height:readdata -> mm_interconnect_0:vga_sprite_2_width_height_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_sprite_2_width_height_s1_address;          // mm_interconnect_0:vga_sprite_2_width_height_s1_address -> vga_sprite_2_width_height:address
+	wire         mm_interconnect_0_vga_sprite_2_width_height_s1_write;            // mm_interconnect_0:vga_sprite_2_width_height_s1_write -> vga_sprite_2_width_height:write_n
+	wire  [31:0] mm_interconnect_0_vga_sprite_2_width_height_s1_writedata;        // mm_interconnect_0:vga_sprite_2_width_height_s1_writedata -> vga_sprite_2_width_height:writedata
+	wire         mm_interconnect_0_vga_sprite_1_position_s1_chipselect;           // mm_interconnect_0:vga_sprite_1_position_s1_chipselect -> vga_sprite_1_position:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_1_position_s1_readdata;             // vga_sprite_1_position:readdata -> mm_interconnect_0:vga_sprite_1_position_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_sprite_1_position_s1_address;              // mm_interconnect_0:vga_sprite_1_position_s1_address -> vga_sprite_1_position:address
+	wire         mm_interconnect_0_vga_sprite_1_position_s1_write;                // mm_interconnect_0:vga_sprite_1_position_s1_write -> vga_sprite_1_position:write_n
+	wire  [31:0] mm_interconnect_0_vga_sprite_1_position_s1_writedata;            // mm_interconnect_0:vga_sprite_1_position_s1_writedata -> vga_sprite_1_position:writedata
+	wire         mm_interconnect_0_vga_sprite_2_position_s1_chipselect;           // mm_interconnect_0:vga_sprite_2_position_s1_chipselect -> vga_sprite_2_position:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_2_position_s1_readdata;             // vga_sprite_2_position:readdata -> mm_interconnect_0:vga_sprite_2_position_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_sprite_2_position_s1_address;              // mm_interconnect_0:vga_sprite_2_position_s1_address -> vga_sprite_2_position:address
+	wire         mm_interconnect_0_vga_sprite_2_position_s1_write;                // mm_interconnect_0:vga_sprite_2_position_s1_write -> vga_sprite_2_position:write_n
+	wire  [31:0] mm_interconnect_0_vga_sprite_2_position_s1_writedata;            // mm_interconnect_0:vga_sprite_2_position_s1_writedata -> vga_sprite_2_position:writedata
+	wire         mm_interconnect_0_vga_sprite_3_position_s1_chipselect;           // mm_interconnect_0:vga_sprite_3_position_s1_chipselect -> vga_sprite_3_position:chipselect
+	wire  [31:0] mm_interconnect_0_vga_sprite_3_position_s1_readdata;             // vga_sprite_3_position:readdata -> mm_interconnect_0:vga_sprite_3_position_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_sprite_3_position_s1_address;              // mm_interconnect_0:vga_sprite_3_position_s1_address -> vga_sprite_3_position:address
+	wire         mm_interconnect_0_vga_sprite_3_position_s1_write;                // mm_interconnect_0:vga_sprite_3_position_s1_write -> vga_sprite_3_position:write_n
+	wire  [31:0] mm_interconnect_0_vga_sprite_3_position_s1_writedata;            // mm_interconnect_0:vga_sprite_3_position_s1_writedata -> vga_sprite_3_position:writedata
 	wire         irq_mapper_receiver0_irq;                                        // nios2_jtag_uart:av_irq -> irq_mapper:receiver0_irq
 	wire         irq_mapper_receiver1_irq;                                        // nios2_timer:irq -> irq_mapper:receiver1_irq
 	wire  [31:0] nios2_cpu_irq_irq;                                               // irq_mapper:sender_irq -> nios2_cpu:irq
-	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, keycode:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_sysid:reset_n, nios2_timer:reset_n, otg_hpi_address:reset_n, otg_hpi_cs:reset_n, otg_hpi_data:reset_n, otg_hpi_r:reset_n, otg_hpi_reset:reset_n, otg_hpi_w:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET]
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, keycode:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_sysid:reset_n, nios2_timer:reset_n, otg_hpi_address:reset_n, otg_hpi_cs:reset_n, otg_hpi_data:reset_n, otg_hpi_r:reset_n, otg_hpi_reset:reset_n, otg_hpi_w:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET, vga_sprite_0:reset, vga_sprite_0_position:reset_n, vga_sprite_0_width_height:reset_n, vga_sprite_1:reset, vga_sprite_1_position:reset_n, vga_sprite_1_width_height:reset_n, vga_sprite_2:reset, vga_sprite_2_position:reset_n, vga_sprite_2_width_height:reset_n, vga_sprite_3:reset, vga_sprite_3_position:reset_n, vga_sprite_3_width_height:reset_n]
 	wire         rst_controller_reset_out_reset_req;                              // rst_controller:reset_req -> [nios2_onchip_mem:reset_req, rst_translator:reset_req_in]
 	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
 	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator_001:reset_req_in]
@@ -436,12 +546,194 @@ module ECE385 (
 		.SRAM_OE_N     (sram_sram_oe_n),                                   //       .sram_oe_n
 		.SRAM_UB_N     (sram_sram_ub_n),                                   //       .sram_ub_n
 		.SRAM_WE_N     (sram_sram_we_n),                                   //       .sram_we_n
-		.VGA_R         (vga_vga_r),                                        //    vga.vga_r
-		.VGA_G         (vga_vga_g),                                        //       .vga_g
-		.VGA_B         (vga_vga_b),                                        //       .vga_b
-		.VGA_DrawX     (vga_vga_drawx),                                    //       .vga_drawx
+		.VGA_DrawX     (vga_vga_drawx),                                    //    vga.vga_drawx
 		.VGA_DrawY     (vga_vga_drawy),                                    //       .vga_drawy
+		.VGA_VAL       (vga_vga_val),                                      //       .vga_val
 		.CLK2          (nios2_pll_c2_clk)                                  // clock2.clk
+	);
+
+	ECE385_vga_sprite_0 vga_sprite_0 (
+		.clk         (nios2_pll_c0_clk),                             //   clk1.clk
+		.address     (mm_interconnect_0_vga_sprite_0_s1_address),    //     s1.address
+		.clken       (mm_interconnect_0_vga_sprite_0_s1_clken),      //       .clken
+		.chipselect  (mm_interconnect_0_vga_sprite_0_s1_chipselect), //       .chipselect
+		.write       (mm_interconnect_0_vga_sprite_0_s1_write),      //       .write
+		.readdata    (mm_interconnect_0_vga_sprite_0_s1_readdata),   //       .readdata
+		.writedata   (mm_interconnect_0_vga_sprite_0_s1_writedata),  //       .writedata
+		.byteenable  (mm_interconnect_0_vga_sprite_0_s1_byteenable), //       .byteenable
+		.reset       (rst_controller_reset_out_reset),               // reset1.reset
+		.address2    (vga_sprite_0_s2_address),                      //     s2.address
+		.chipselect2 (vga_sprite_0_s2_chipselect),                   //       .chipselect
+		.clken2      (vga_sprite_0_s2_clken),                        //       .clken
+		.write2      (vga_sprite_0_s2_write),                        //       .write
+		.readdata2   (vga_sprite_0_s2_readdata),                     //       .readdata
+		.writedata2  (vga_sprite_0_s2_writedata),                    //       .writedata
+		.byteenable2 (vga_sprite_0_s2_byteenable),                   //       .byteenable
+		.clk2        (vga_sprite_0_clk2_clk),                        //   clk2.clk
+		.reset2      (vga_sprite_0_reset2_reset),                    // reset2.reset
+		.reset_req   (1'b0),                                         // (terminated)
+		.freeze      (1'b0),                                         // (terminated)
+		.reset_req2  (1'b0)                                          // (terminated)
+	);
+
+	ECE385_vga_sprite_0_position vga_sprite_0_position (
+		.clk        (nios2_pll_c0_clk),                                      //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                       //               reset.reset_n
+		.address    (mm_interconnect_0_vga_sprite_0_position_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_sprite_0_position_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_sprite_0_position_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_sprite_0_position_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_sprite_0_position_s1_readdata),   //                    .readdata
+		.out_port   (vga_sprite_0_position_export)                           // external_connection.export
+	);
+
+	ECE385_vga_sprite_0_position vga_sprite_0_width_height (
+		.clk        (nios2_pll_c0_clk),                                          //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                           //               reset.reset_n
+		.address    (mm_interconnect_0_vga_sprite_0_width_height_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_sprite_0_width_height_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_sprite_0_width_height_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_sprite_0_width_height_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_sprite_0_width_height_s1_readdata),   //                    .readdata
+		.out_port   (vga_sprite_0_width_height_export)                           // external_connection.export
+	);
+
+	ECE385_vga_sprite_1 vga_sprite_1 (
+		.clk         (nios2_pll_c0_clk),                             //   clk1.clk
+		.address     (mm_interconnect_0_vga_sprite_1_s1_address),    //     s1.address
+		.clken       (mm_interconnect_0_vga_sprite_1_s1_clken),      //       .clken
+		.chipselect  (mm_interconnect_0_vga_sprite_1_s1_chipselect), //       .chipselect
+		.write       (mm_interconnect_0_vga_sprite_1_s1_write),      //       .write
+		.readdata    (mm_interconnect_0_vga_sprite_1_s1_readdata),   //       .readdata
+		.writedata   (mm_interconnect_0_vga_sprite_1_s1_writedata),  //       .writedata
+		.byteenable  (mm_interconnect_0_vga_sprite_1_s1_byteenable), //       .byteenable
+		.reset       (rst_controller_reset_out_reset),               // reset1.reset
+		.address2    (vga_sprite_1_s2_address),                      //     s2.address
+		.chipselect2 (vga_sprite_1_s2_chipselect),                   //       .chipselect
+		.clken2      (vga_sprite_1_s2_clken),                        //       .clken
+		.write2      (vga_sprite_1_s2_write),                        //       .write
+		.readdata2   (vga_sprite_1_s2_readdata),                     //       .readdata
+		.writedata2  (vga_sprite_1_s2_writedata),                    //       .writedata
+		.byteenable2 (vga_sprite_1_s2_byteenable),                   //       .byteenable
+		.clk2        (vga_sprite_1_clk2_clk),                        //   clk2.clk
+		.reset2      (vga_sprite_1_reset2_reset),                    // reset2.reset
+		.reset_req   (1'b0),                                         // (terminated)
+		.freeze      (1'b0),                                         // (terminated)
+		.reset_req2  (1'b0)                                          // (terminated)
+	);
+
+	ECE385_vga_sprite_0_position vga_sprite_1_position (
+		.clk        (nios2_pll_c0_clk),                                      //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                       //               reset.reset_n
+		.address    (mm_interconnect_0_vga_sprite_1_position_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_sprite_1_position_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_sprite_1_position_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_sprite_1_position_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_sprite_1_position_s1_readdata),   //                    .readdata
+		.out_port   (vga_sprite_1_position_export)                           // external_connection.export
+	);
+
+	ECE385_vga_sprite_0_position vga_sprite_1_width_height (
+		.clk        (nios2_pll_c0_clk),                                          //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                           //               reset.reset_n
+		.address    (mm_interconnect_0_vga_sprite_1_width_height_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_sprite_1_width_height_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_sprite_1_width_height_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_sprite_1_width_height_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_sprite_1_width_height_s1_readdata),   //                    .readdata
+		.out_port   (vga_sprite_1_width_height_export)                           // external_connection.export
+	);
+
+	ECE385_vga_sprite_2 vga_sprite_2 (
+		.clk         (nios2_pll_c0_clk),                             //   clk1.clk
+		.address     (mm_interconnect_0_vga_sprite_2_s1_address),    //     s1.address
+		.clken       (mm_interconnect_0_vga_sprite_2_s1_clken),      //       .clken
+		.chipselect  (mm_interconnect_0_vga_sprite_2_s1_chipselect), //       .chipselect
+		.write       (mm_interconnect_0_vga_sprite_2_s1_write),      //       .write
+		.readdata    (mm_interconnect_0_vga_sprite_2_s1_readdata),   //       .readdata
+		.writedata   (mm_interconnect_0_vga_sprite_2_s1_writedata),  //       .writedata
+		.byteenable  (mm_interconnect_0_vga_sprite_2_s1_byteenable), //       .byteenable
+		.reset       (rst_controller_reset_out_reset),               // reset1.reset
+		.address2    (vga_sprite_2_s2_address),                      //     s2.address
+		.chipselect2 (vga_sprite_2_s2_chipselect),                   //       .chipselect
+		.clken2      (vga_sprite_2_s2_clken),                        //       .clken
+		.write2      (vga_sprite_2_s2_write),                        //       .write
+		.readdata2   (vga_sprite_2_s2_readdata),                     //       .readdata
+		.writedata2  (vga_sprite_2_s2_writedata),                    //       .writedata
+		.byteenable2 (vga_sprite_2_s2_byteenable),                   //       .byteenable
+		.clk2        (vga_sprite_2_clk2_clk),                        //   clk2.clk
+		.reset2      (vga_sprite_2_reset2_reset),                    // reset2.reset
+		.reset_req   (1'b0),                                         // (terminated)
+		.freeze      (1'b0),                                         // (terminated)
+		.reset_req2  (1'b0)                                          // (terminated)
+	);
+
+	ECE385_vga_sprite_0_position vga_sprite_2_position (
+		.clk        (nios2_pll_c0_clk),                                      //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                       //               reset.reset_n
+		.address    (mm_interconnect_0_vga_sprite_2_position_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_sprite_2_position_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_sprite_2_position_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_sprite_2_position_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_sprite_2_position_s1_readdata),   //                    .readdata
+		.out_port   (vga_sprite_2_position_export)                           // external_connection.export
+	);
+
+	ECE385_vga_sprite_0_position vga_sprite_2_width_height (
+		.clk        (nios2_pll_c0_clk),                                          //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                           //               reset.reset_n
+		.address    (mm_interconnect_0_vga_sprite_2_width_height_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_sprite_2_width_height_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_sprite_2_width_height_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_sprite_2_width_height_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_sprite_2_width_height_s1_readdata),   //                    .readdata
+		.out_port   (vga_sprite_2_width_height_export)                           // external_connection.export
+	);
+
+	ECE385_vga_sprite_3 vga_sprite_3 (
+		.clk         (nios2_pll_c0_clk),                             //   clk1.clk
+		.address     (mm_interconnect_0_vga_sprite_3_s1_address),    //     s1.address
+		.clken       (mm_interconnect_0_vga_sprite_3_s1_clken),      //       .clken
+		.chipselect  (mm_interconnect_0_vga_sprite_3_s1_chipselect), //       .chipselect
+		.write       (mm_interconnect_0_vga_sprite_3_s1_write),      //       .write
+		.readdata    (mm_interconnect_0_vga_sprite_3_s1_readdata),   //       .readdata
+		.writedata   (mm_interconnect_0_vga_sprite_3_s1_writedata),  //       .writedata
+		.byteenable  (mm_interconnect_0_vga_sprite_3_s1_byteenable), //       .byteenable
+		.reset       (rst_controller_reset_out_reset),               // reset1.reset
+		.address2    (vga_sprite_3_s2_address),                      //     s2.address
+		.chipselect2 (vga_sprite_3_s2_chipselect),                   //       .chipselect
+		.clken2      (vga_sprite_3_s2_clken),                        //       .clken
+		.write2      (vga_sprite_3_s2_write),                        //       .write
+		.readdata2   (vga_sprite_3_s2_readdata),                     //       .readdata
+		.writedata2  (vga_sprite_3_s2_writedata),                    //       .writedata
+		.byteenable2 (vga_sprite_3_s2_byteenable),                   //       .byteenable
+		.clk2        (vga_sprite_3_clk2_clk),                        //   clk2.clk
+		.reset2      (vga_sprite_3_reset2_reset),                    // reset2.reset
+		.reset_req   (1'b0),                                         // (terminated)
+		.freeze      (1'b0),                                         // (terminated)
+		.reset_req2  (1'b0)                                          // (terminated)
+	);
+
+	ECE385_vga_sprite_0_position vga_sprite_3_position (
+		.clk        (nios2_pll_c0_clk),                                      //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                       //               reset.reset_n
+		.address    (mm_interconnect_0_vga_sprite_3_position_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_sprite_3_position_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_sprite_3_position_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_sprite_3_position_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_sprite_3_position_s1_readdata),   //                    .readdata
+		.out_port   (vga_sprite_3_position_export)                           // external_connection.export
+	);
+
+	ECE385_vga_sprite_0_position vga_sprite_3_width_height (
+		.clk        (nios2_pll_c0_clk),                                          //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                           //               reset.reset_n
+		.address    (mm_interconnect_0_vga_sprite_3_width_height_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_sprite_3_width_height_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_sprite_3_width_height_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_sprite_3_width_height_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_sprite_3_width_height_s1_readdata),   //                    .readdata
+		.out_port   (vga_sprite_3_width_height_export)                           // external_connection.export
 	);
 
 	ECE385_mm_interconnect_0 mm_interconnect_0 (
@@ -563,7 +855,75 @@ module ECE385 (
 		.sram_multiplexer_avl_write                                  (mm_interconnect_0_sram_multiplexer_avl_write),                    //                                                      .write
 		.sram_multiplexer_avl_read                                   (mm_interconnect_0_sram_multiplexer_avl_read),                     //                                                      .read
 		.sram_multiplexer_avl_readdata                               (mm_interconnect_0_sram_multiplexer_avl_readdata),                 //                                                      .readdata
-		.sram_multiplexer_avl_writedata                              (mm_interconnect_0_sram_multiplexer_avl_writedata)                 //                                                      .writedata
+		.sram_multiplexer_avl_writedata                              (mm_interconnect_0_sram_multiplexer_avl_writedata),                //                                                      .writedata
+		.vga_sprite_0_s1_address                                     (mm_interconnect_0_vga_sprite_0_s1_address),                       //                                       vga_sprite_0_s1.address
+		.vga_sprite_0_s1_write                                       (mm_interconnect_0_vga_sprite_0_s1_write),                         //                                                      .write
+		.vga_sprite_0_s1_readdata                                    (mm_interconnect_0_vga_sprite_0_s1_readdata),                      //                                                      .readdata
+		.vga_sprite_0_s1_writedata                                   (mm_interconnect_0_vga_sprite_0_s1_writedata),                     //                                                      .writedata
+		.vga_sprite_0_s1_byteenable                                  (mm_interconnect_0_vga_sprite_0_s1_byteenable),                    //                                                      .byteenable
+		.vga_sprite_0_s1_chipselect                                  (mm_interconnect_0_vga_sprite_0_s1_chipselect),                    //                                                      .chipselect
+		.vga_sprite_0_s1_clken                                       (mm_interconnect_0_vga_sprite_0_s1_clken),                         //                                                      .clken
+		.vga_sprite_0_position_s1_address                            (mm_interconnect_0_vga_sprite_0_position_s1_address),              //                              vga_sprite_0_position_s1.address
+		.vga_sprite_0_position_s1_write                              (mm_interconnect_0_vga_sprite_0_position_s1_write),                //                                                      .write
+		.vga_sprite_0_position_s1_readdata                           (mm_interconnect_0_vga_sprite_0_position_s1_readdata),             //                                                      .readdata
+		.vga_sprite_0_position_s1_writedata                          (mm_interconnect_0_vga_sprite_0_position_s1_writedata),            //                                                      .writedata
+		.vga_sprite_0_position_s1_chipselect                         (mm_interconnect_0_vga_sprite_0_position_s1_chipselect),           //                                                      .chipselect
+		.vga_sprite_0_width_height_s1_address                        (mm_interconnect_0_vga_sprite_0_width_height_s1_address),          //                          vga_sprite_0_width_height_s1.address
+		.vga_sprite_0_width_height_s1_write                          (mm_interconnect_0_vga_sprite_0_width_height_s1_write),            //                                                      .write
+		.vga_sprite_0_width_height_s1_readdata                       (mm_interconnect_0_vga_sprite_0_width_height_s1_readdata),         //                                                      .readdata
+		.vga_sprite_0_width_height_s1_writedata                      (mm_interconnect_0_vga_sprite_0_width_height_s1_writedata),        //                                                      .writedata
+		.vga_sprite_0_width_height_s1_chipselect                     (mm_interconnect_0_vga_sprite_0_width_height_s1_chipselect),       //                                                      .chipselect
+		.vga_sprite_1_s1_address                                     (mm_interconnect_0_vga_sprite_1_s1_address),                       //                                       vga_sprite_1_s1.address
+		.vga_sprite_1_s1_write                                       (mm_interconnect_0_vga_sprite_1_s1_write),                         //                                                      .write
+		.vga_sprite_1_s1_readdata                                    (mm_interconnect_0_vga_sprite_1_s1_readdata),                      //                                                      .readdata
+		.vga_sprite_1_s1_writedata                                   (mm_interconnect_0_vga_sprite_1_s1_writedata),                     //                                                      .writedata
+		.vga_sprite_1_s1_byteenable                                  (mm_interconnect_0_vga_sprite_1_s1_byteenable),                    //                                                      .byteenable
+		.vga_sprite_1_s1_chipselect                                  (mm_interconnect_0_vga_sprite_1_s1_chipselect),                    //                                                      .chipselect
+		.vga_sprite_1_s1_clken                                       (mm_interconnect_0_vga_sprite_1_s1_clken),                         //                                                      .clken
+		.vga_sprite_1_position_s1_address                            (mm_interconnect_0_vga_sprite_1_position_s1_address),              //                              vga_sprite_1_position_s1.address
+		.vga_sprite_1_position_s1_write                              (mm_interconnect_0_vga_sprite_1_position_s1_write),                //                                                      .write
+		.vga_sprite_1_position_s1_readdata                           (mm_interconnect_0_vga_sprite_1_position_s1_readdata),             //                                                      .readdata
+		.vga_sprite_1_position_s1_writedata                          (mm_interconnect_0_vga_sprite_1_position_s1_writedata),            //                                                      .writedata
+		.vga_sprite_1_position_s1_chipselect                         (mm_interconnect_0_vga_sprite_1_position_s1_chipselect),           //                                                      .chipselect
+		.vga_sprite_1_width_height_s1_address                        (mm_interconnect_0_vga_sprite_1_width_height_s1_address),          //                          vga_sprite_1_width_height_s1.address
+		.vga_sprite_1_width_height_s1_write                          (mm_interconnect_0_vga_sprite_1_width_height_s1_write),            //                                                      .write
+		.vga_sprite_1_width_height_s1_readdata                       (mm_interconnect_0_vga_sprite_1_width_height_s1_readdata),         //                                                      .readdata
+		.vga_sprite_1_width_height_s1_writedata                      (mm_interconnect_0_vga_sprite_1_width_height_s1_writedata),        //                                                      .writedata
+		.vga_sprite_1_width_height_s1_chipselect                     (mm_interconnect_0_vga_sprite_1_width_height_s1_chipselect),       //                                                      .chipselect
+		.vga_sprite_2_s1_address                                     (mm_interconnect_0_vga_sprite_2_s1_address),                       //                                       vga_sprite_2_s1.address
+		.vga_sprite_2_s1_write                                       (mm_interconnect_0_vga_sprite_2_s1_write),                         //                                                      .write
+		.vga_sprite_2_s1_readdata                                    (mm_interconnect_0_vga_sprite_2_s1_readdata),                      //                                                      .readdata
+		.vga_sprite_2_s1_writedata                                   (mm_interconnect_0_vga_sprite_2_s1_writedata),                     //                                                      .writedata
+		.vga_sprite_2_s1_byteenable                                  (mm_interconnect_0_vga_sprite_2_s1_byteenable),                    //                                                      .byteenable
+		.vga_sprite_2_s1_chipselect                                  (mm_interconnect_0_vga_sprite_2_s1_chipselect),                    //                                                      .chipselect
+		.vga_sprite_2_s1_clken                                       (mm_interconnect_0_vga_sprite_2_s1_clken),                         //                                                      .clken
+		.vga_sprite_2_position_s1_address                            (mm_interconnect_0_vga_sprite_2_position_s1_address),              //                              vga_sprite_2_position_s1.address
+		.vga_sprite_2_position_s1_write                              (mm_interconnect_0_vga_sprite_2_position_s1_write),                //                                                      .write
+		.vga_sprite_2_position_s1_readdata                           (mm_interconnect_0_vga_sprite_2_position_s1_readdata),             //                                                      .readdata
+		.vga_sprite_2_position_s1_writedata                          (mm_interconnect_0_vga_sprite_2_position_s1_writedata),            //                                                      .writedata
+		.vga_sprite_2_position_s1_chipselect                         (mm_interconnect_0_vga_sprite_2_position_s1_chipselect),           //                                                      .chipselect
+		.vga_sprite_2_width_height_s1_address                        (mm_interconnect_0_vga_sprite_2_width_height_s1_address),          //                          vga_sprite_2_width_height_s1.address
+		.vga_sprite_2_width_height_s1_write                          (mm_interconnect_0_vga_sprite_2_width_height_s1_write),            //                                                      .write
+		.vga_sprite_2_width_height_s1_readdata                       (mm_interconnect_0_vga_sprite_2_width_height_s1_readdata),         //                                                      .readdata
+		.vga_sprite_2_width_height_s1_writedata                      (mm_interconnect_0_vga_sprite_2_width_height_s1_writedata),        //                                                      .writedata
+		.vga_sprite_2_width_height_s1_chipselect                     (mm_interconnect_0_vga_sprite_2_width_height_s1_chipselect),       //                                                      .chipselect
+		.vga_sprite_3_s1_address                                     (mm_interconnect_0_vga_sprite_3_s1_address),                       //                                       vga_sprite_3_s1.address
+		.vga_sprite_3_s1_write                                       (mm_interconnect_0_vga_sprite_3_s1_write),                         //                                                      .write
+		.vga_sprite_3_s1_readdata                                    (mm_interconnect_0_vga_sprite_3_s1_readdata),                      //                                                      .readdata
+		.vga_sprite_3_s1_writedata                                   (mm_interconnect_0_vga_sprite_3_s1_writedata),                     //                                                      .writedata
+		.vga_sprite_3_s1_byteenable                                  (mm_interconnect_0_vga_sprite_3_s1_byteenable),                    //                                                      .byteenable
+		.vga_sprite_3_s1_chipselect                                  (mm_interconnect_0_vga_sprite_3_s1_chipselect),                    //                                                      .chipselect
+		.vga_sprite_3_s1_clken                                       (mm_interconnect_0_vga_sprite_3_s1_clken),                         //                                                      .clken
+		.vga_sprite_3_position_s1_address                            (mm_interconnect_0_vga_sprite_3_position_s1_address),              //                              vga_sprite_3_position_s1.address
+		.vga_sprite_3_position_s1_write                              (mm_interconnect_0_vga_sprite_3_position_s1_write),                //                                                      .write
+		.vga_sprite_3_position_s1_readdata                           (mm_interconnect_0_vga_sprite_3_position_s1_readdata),             //                                                      .readdata
+		.vga_sprite_3_position_s1_writedata                          (mm_interconnect_0_vga_sprite_3_position_s1_writedata),            //                                                      .writedata
+		.vga_sprite_3_position_s1_chipselect                         (mm_interconnect_0_vga_sprite_3_position_s1_chipselect),           //                                                      .chipselect
+		.vga_sprite_3_width_height_s1_address                        (mm_interconnect_0_vga_sprite_3_width_height_s1_address),          //                          vga_sprite_3_width_height_s1.address
+		.vga_sprite_3_width_height_s1_write                          (mm_interconnect_0_vga_sprite_3_width_height_s1_write),            //                                                      .write
+		.vga_sprite_3_width_height_s1_readdata                       (mm_interconnect_0_vga_sprite_3_width_height_s1_readdata),         //                                                      .readdata
+		.vga_sprite_3_width_height_s1_writedata                      (mm_interconnect_0_vga_sprite_3_width_height_s1_writedata),        //                                                      .writedata
+		.vga_sprite_3_width_height_s1_chipselect                     (mm_interconnect_0_vga_sprite_3_width_height_s1_chipselect)        //                                                      .chipselect
 	);
 
 	ECE385_irq_mapper irq_mapper (

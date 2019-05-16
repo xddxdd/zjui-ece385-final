@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Mon May 13 22:56:25 CST 2019
+ * Generated: Thu May 16 20:55:51 CST 2019
  */
 
 /*
@@ -50,13 +50,21 @@
 
 MEMORY
 {
-    reset : ORIGIN = 0x410000, LENGTH = 32
-    nios2_onchip_mem : ORIGIN = 0x410020, LENGTH = 65504
+    reset : ORIGIN = 0x420000, LENGTH = 32
+    nios2_onchip_mem : ORIGIN = 0x420020, LENGTH = 131040
+    vga_sprite_3 : ORIGIN = 0x440000, LENGTH = 8192
+    vga_sprite_2 : ORIGIN = 0x442000, LENGTH = 8192
+    vga_sprite_1 : ORIGIN = 0x444000, LENGTH = 8192
+    vga_sprite_0 : ORIGIN = 0x446000, LENGTH = 8192
     sdram : ORIGIN = 0x8000000, LENGTH = 134217728
 }
 
 /* Define symbols for each memory base-address */
-__alt_mem_nios2_onchip_mem = 0x410000;
+__alt_mem_nios2_onchip_mem = 0x420000;
+__alt_mem_vga_sprite_3 = 0x440000;
+__alt_mem_vga_sprite_2 = 0x442000;
+__alt_mem_vga_sprite_1 = 0x444000;
+__alt_mem_vga_sprite_0 = 0x446000;
 __alt_mem_sdram = 0x8000000;
 
 OUTPUT_FORMAT( "elf32-littlenios2",
@@ -329,7 +337,75 @@ SECTIONS
      *
      */
 
-    .sdram : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
+    .vga_sprite_3 : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_3_start = ABSOLUTE(.));
+        *(.vga_sprite_3 .vga_sprite_3. vga_sprite_3.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_3_end = ABSOLUTE(.));
+    } > vga_sprite_3
+
+    PROVIDE (_alt_partition_vga_sprite_3_load_addr = LOADADDR(.vga_sprite_3));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .vga_sprite_2 : AT ( LOADADDR (.vga_sprite_3) + SIZEOF (.vga_sprite_3) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_2_start = ABSOLUTE(.));
+        *(.vga_sprite_2 .vga_sprite_2. vga_sprite_2.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_2_end = ABSOLUTE(.));
+    } > vga_sprite_2
+
+    PROVIDE (_alt_partition_vga_sprite_2_load_addr = LOADADDR(.vga_sprite_2));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .vga_sprite_1 : AT ( LOADADDR (.vga_sprite_2) + SIZEOF (.vga_sprite_2) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_1_start = ABSOLUTE(.));
+        *(.vga_sprite_1 .vga_sprite_1. vga_sprite_1.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_1_end = ABSOLUTE(.));
+    } > vga_sprite_1
+
+    PROVIDE (_alt_partition_vga_sprite_1_load_addr = LOADADDR(.vga_sprite_1));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .vga_sprite_0 : AT ( LOADADDR (.vga_sprite_1) + SIZEOF (.vga_sprite_1) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_0_start = ABSOLUTE(.));
+        *(.vga_sprite_0 .vga_sprite_0. vga_sprite_0.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_0_end = ABSOLUTE(.));
+    } > vga_sprite_0
+
+    PROVIDE (_alt_partition_vga_sprite_0_load_addr = LOADADDR(.vga_sprite_0));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .sdram : AT ( LOADADDR (.vga_sprite_0) + SIZEOF (.vga_sprite_0) )
     {
         PROVIDE (_alt_partition_sdram_start = ABSOLUTE(.));
         *(.sdram .sdram. sdram.*)
@@ -386,7 +462,7 @@ SECTIONS
 /*
  * Don't override this, override the __alt_stack_* symbols instead.
  */
-__alt_data_end = 0x420000;
+__alt_data_end = 0x440000;
 
 /*
  * The next two symbols define the location of the default stack.  You can
@@ -402,4 +478,4 @@ PROVIDE( __alt_stack_limit   = __alt_stack_base );
  * Override this symbol to put the heap in a different memory.
  */
 PROVIDE( __alt_heap_start    = end );
-PROVIDE( __alt_heap_limit    = 0x420000 );
+PROVIDE( __alt_heap_limit    = 0x440000 );

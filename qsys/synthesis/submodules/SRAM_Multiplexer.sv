@@ -14,7 +14,7 @@ module SRAM_Multiplexer(
 	
 	// VGA Controller Instructions
 	input logic [9:0] VGA_DrawX, VGA_DrawY,
-	output logic [7:0] VGA_R, VGA_G, VGA_B,
+	output logic [15:0] VGA_VAL,
 	
 	// SRAM Signals
 	output logic    [19:0]		SRAM_ADDR,
@@ -57,7 +57,7 @@ always_ff @ (posedge CLK2) begin
 	SRAM_OE_N <= SRAM_OE_N_CANDIDATE;
 end
 
-logic [15:0] VGA_VAL, AVL_READDATA_LOW;
+logic [15:0] AVL_READDATA_LOW;
 
 always_ff @ (posedge CLK2) begin
 	if(CYCLE_EVEN) begin
@@ -67,9 +67,6 @@ always_ff @ (posedge CLK2) begin
 	end
 end
 
-assign VGA_R = {VGA_VAL[4:0], VGA_VAL[4:2]};
-assign VGA_G = {VGA_VAL[10:5], VGA_VAL[10:9]};
-assign VGA_B = {VGA_VAL[15:11], VGA_VAL[15:13]};
 assign AVL_READDATA = {16'b0, AVL_READDATA_LOW};
 assign SRAM_DQ = SRAM_WE_N ? 1'bZ : AVL_WRITEDATA[15:0];
 			
