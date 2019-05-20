@@ -1,0 +1,2716 @@
+
+ECE385_usb.elf:     file format elf32-littlenios2
+ECE385_usb.elf
+architecture: nios2:r1, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00010020
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x00010000 paddr 0x00010000 align 2**12
+         filesz 0x00000020 memsz 0x00000020 flags r-x
+    LOAD off    0x00001020 vaddr 0x00010020 paddr 0x00010020 align 2**12
+         filesz 0x0000250c memsz 0x0000250c flags r-x
+    LOAD off    0x0000352c vaddr 0x0001252c paddr 0x000127dc align 2**12
+         filesz 0x000002b0 memsz 0x000002b0 flags rw-
+    LOAD off    0x00003a8c vaddr 0x00012a8c paddr 0x00012a8c align 2**12
+         filesz 0x00000000 memsz 0x00000014 flags rw-
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .entry        00000020  00010000  00010000  00001000  2**5
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .exceptions   00000000  00010020  00010020  000037dc  2**0
+                  CONTENTS
+  2 .text         00002500  00010020  00010020  00001020  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  3 .rodata       0000000c  00012520  00012520  00003520  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  4 .rwdata       000002b0  0001252c  000127dc  0000352c  2**2
+                  CONTENTS, ALLOC, LOAD, DATA, SMALL_DATA
+  5 .bss          00000014  00012a8c  00012a8c  00003a8c  2**2
+                  ALLOC, SMALL_DATA
+  6 .usb_keycode  00000000  00000c00  00000c00  000037dc  2**0
+                  CONTENTS
+  7 .usb_nios2_onchip_mem 00000000  00012aa0  00012aa0  000037dc  2**0
+                  CONTENTS
+  8 .comment      00000023  00000000  00000000  000037dc  2**0
+                  CONTENTS, READONLY
+  9 .debug_aranges 000000d8  00000000  00000000  00003800  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_info   00001179  00000000  00000000  000038d8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_abbrev 00000591  00000000  00000000  00004a51  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_line   0000072b  00000000  00000000  00004fe2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_frame  000000ec  00000000  00000000  00005710  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_str    000007bd  00000000  00000000  000057fc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_loc    000006d6  00000000  00000000  00005fb9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 16 .debug_alt_sim_info 00000040  00000000  00000000  00006690  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 17 .debug_ranges 000000b8  00000000  00000000  000066d0  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 18 .thread_model 00000003  00000000  00000000  00007b86  2**0
+                  CONTENTS, READONLY
+ 19 .cpu          0000000d  00000000  00000000  00007b89  2**0
+                  CONTENTS, READONLY
+ 20 .qsys         00000001  00000000  00000000  00007b96  2**0
+                  CONTENTS, READONLY
+ 21 .simulation_enabled 00000001  00000000  00000000  00007b97  2**0
+                  CONTENTS, READONLY
+ 22 .sysid_hash   00000004  00000000  00000000  00007b98  2**0
+                  CONTENTS, READONLY
+ 23 .sysid_base   00000004  00000000  00000000  00007b9c  2**0
+                  CONTENTS, READONLY
+ 24 .sysid_time   00000004  00000000  00000000  00007ba0  2**0
+                  CONTENTS, READONLY
+ 25 .stderr_dev   00000004  00000000  00000000  00007ba4  2**0
+                  CONTENTS, READONLY
+ 26 .stdin_dev    00000004  00000000  00000000  00007ba8  2**0
+                  CONTENTS, READONLY
+ 27 .stdout_dev   00000004  00000000  00000000  00007bac  2**0
+                  CONTENTS, READONLY
+ 28 .sopc_system_name 00000006  00000000  00000000  00007bb0  2**0
+                  CONTENTS, READONLY
+ 29 .quartus_project_dir 00000028  00000000  00000000  00007bb6  2**0
+                  CONTENTS, READONLY
+ 30 .jdi          00008817  00000000  00000000  00007bde  2**0
+                  CONTENTS, READONLY
+ 31 .sopcinfo     001479dc  00000000  00000000  000103f5  2**0
+                  CONTENTS, READONLY
+SYMBOL TABLE:
+00010000 l    d  .entry	00000000 .entry
+00010020 l    d  .exceptions	00000000 .exceptions
+00010020 l    d  .text	00000000 .text
+00012520 l    d  .rodata	00000000 .rodata
+0001252c l    d  .rwdata	00000000 .rwdata
+00012a8c l    d  .bss	00000000 .bss
+00000c00 l    d  .usb_keycode	00000000 .usb_keycode
+00012aa0 l    d  .usb_nios2_onchip_mem	00000000 .usb_nios2_onchip_mem
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    d  .debug_loc	00000000 .debug_loc
+00000000 l    d  .debug_alt_sim_info	00000000 .debug_alt_sim_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    df *ABS*	00000000 ../ECE385_usb_bsp//obj/HAL/src/crt0.o
+00010058 l       .text	00000000 alt_after_alt_main
+00000000 l    df *ABS*	00000000 io_handler.c
+00000000 l    df *ABS*	00000000 main.c
+00012a8e l     O .bss	00000002 ctl_reg.2290
+00012a8c l     O .bss	00000002 no_device.2291
+00000000 l    df *ABS*	00000000 usb.c
+00000000 l    df *ABS*	00000000 alt_load.c
+00000000 l    df *ABS*	00000000 alt_main.c
+00000000 l    df *ABS*	00000000 alt_usleep.c
+00000000 l    df *ABS*	00000000 alt_sys_init.c
+00000000 l    df *ABS*	00000000 alt_busy_sleep.c
+00000000 l    df *ABS*	00000000 alt_close.c
+00000000 l    df *ABS*	00000000 alt_dcache_flush_all.c
+00000000 l    df *ABS*	00000000 alt_dev.c
+00012110 l     F .text	00000008 alt_dev_null_write
+00000000 l    df *ABS*	00000000 alt_errno.c
+00000000 l    df *ABS*	00000000 alt_icache_flush_all.c
+00000000 l    df *ABS*	00000000 alt_release_fd.c
+00000000 l    df *ABS*	00000000 altera_nios2_gen2_irq.c
+00000000 l    df *ABS*	00000000 exit.c
+00000000 l    df *ABS*	00000000 int_errno.c
+00000000 l    df *ABS*	00000000 __call_atexit.c
+00000000 l    df *ABS*	00000000 impure.c
+000126d4 l     O .rwdata	000000e0 impure_data
+00000000 l    df *ABS*	00000000 lib2-divmod.c
+00000000 l    df *ABS*	00000000 lib2-mul.c
+00000000 l    df *ABS*	00000000 alt_exit.c
+00011f60 g     F .text	0000003c alt_main
+000127dc g       *ABS*	00000000 __flash_rwdata_start
+00011db0 g     F .text	00000098 UsbGetRetryCnt
+0001005c g     F .text	00000048 IO_init
+00012178 g     F .text	00000008 altera_nios2_gen2_irq_init
+00010000 g     F .entry	0000000c __reset
+00010020 g       *ABS*	00000000 __flash_exceptions_start
+00012a9c g     O .bss	00000004 errno
+00012a94 g     O .bss	00000004 alt_argv
+0001a7b4 g       *ABS*	00000000 _gp
+00011f9c g     F .text	00000004 usleep
+0001252c g     O .rwdata	00000180 alt_fd_list
+00000c00 g       *ABS*	00000000 __alt_mem_usb_keycode
+00012428 g     F .text	00000064 .hidden __udivsi3
+00011314 g     F .text	000002b0 UsbGetConfigDesc2
+000127bc g     O .rwdata	00000004 alt_max_fd
+000127d4 g     O .rwdata	00000004 _global_impure_ptr
+00012aa0 g       *ABS*	00000000 __bss_end
+00010c9c g     F .text	00000118 UsbSetAddress
+000126ac g     O .rwdata	00000028 alt_dev_null
+0001210c g     F .text	00000004 alt_dcache_flush_all
+000100dc g     F .text	00000034 IO_read
+000127dc g       *ABS*	00000000 __ram_rwdata_end
+000127c0 g     O .rwdata	00000008 alt_dev_list
+0001252c g       *ABS*	00000000 __ram_rodata_end
+00011e48 g     F .text	00000004 UsbPrintMem
+0001248c g     F .text	00000058 .hidden __umodsi3
+00012aa0 g       *ABS*	00000000 end
+00010000 g       *ABS*	00000000 __alt_mem_usb_nios2_onchip_mem
+00014000 g       *ABS*	00000000 __alt_stack_pointer
+000127b8 g     O .rwdata	00000004 keycode_comm
+000116e8 g     F .text	00000118 UsbClassRequest
+000121a0 g     F .text	00000190 __call_exitprocs
+00010020 g     F .text	0000003c _start
+00011fc0 g     F .text	00000004 alt_sys_init
+000124e4 g     F .text	00000028 .hidden __mulsi3
+0001252c g       *ABS*	00000000 __ram_rwdata_start
+00012520 g       *ABS*	00000000 __ram_rodata_start
+00010db4 g     F .text	00000170 UsbGetDeviceDesc1
+00011fc4 g     F .text	00000088 alt_busy_sleep
+00012aa0 g       *ABS*	00000000 __alt_stack_base
+00011cf8 g     F .text	000000b8 UsbWaitTDListDone
+000127b4 g     O .rwdata	00000004 status_led
+00012a8c g       *ABS*	00000000 __bss_start
+00010110 g     F .text	00000a2c main
+00012a90 g     O .bss	00000004 alt_envp
+000115c4 g     F .text	00000124 UsbSetConfig
+000127d0 g     O .rwdata	00000004 alt_errno
+00012330 g     F .text	00000084 .hidden __divsi3
+00011800 g     F .text	00000170 UsbGetHidDesc
+00012520 g       *ABS*	00000000 __flash_rodata_start
+00010b70 g     F .text	00000024 UsbRead
+00011fa0 g     F .text	00000020 alt_irq_init
+0001211c g     F .text	0000005c alt_release_fd
+000127d8 g     O .rwdata	00000004 _impure_ptr
+00012a98 g     O .bss	00000004 alt_argc
+000127c8 g     O .rwdata	00000008 alt_fs_list
+00011970 g     F .text	00000388 UsbGetReportDesc
+00010020 g       *ABS*	00000000 __ram_exceptions_start
+000127dc g       *ABS*	00000000 _edata
+00012aa0 g       *ABS*	00000000 _end
+00010b3c g     F .text	00000034 UsbWrite
+00010020 g       *ABS*	00000000 __ram_exceptions_end
+00012180 g     F .text	00000020 exit
+000123b4 g     F .text	00000074 .hidden __modsi3
+00014000 g       *ABS*	00000000 __alt_data_end
+000100a4 g     F .text	00000038 IO_write
+0001250c g     F .text	00000014 _exit
+00012118 g     F .text	00000004 alt_icache_flush_all
+00011144 g     F .text	000001d0 UsbGetConfigDesc1
+00010b94 g     F .text	00000108 UsbSoftReset
+0001204c g     F .text	000000c0 close
+00010f24 g     F .text	00000220 UsbGetDeviceDesc2
+00011e4c g     F .text	00000114 alt_load
+
+
+
+Disassembly of section .entry:
+
+00010000 <__reset>:
+ * Jump to the _start entry point in the .text section if reset code
+ * is allowed or if optimizing for RTL simulation.
+ */
+#if defined(ALT_ALLOW_CODE_AT_RESET) || defined(ALT_SIM_OPTIMIZE)
+    /* Jump to the _start entry point in the .text section. */
+    movhi r1, %hi(_start)
+   10000:	00400074 	movhi	at,1
+    ori r1, r1, %lo(_start)
+   10004:	08400814 	ori	at,at,32
+    jmp r1
+   10008:	0800683a 	jmp	at
+	...
+
+Disassembly of section .text:
+
+00010020 <_start>:
+
+    /*
+     * Now that the caches are initialized, set up the stack pointer and global pointer.
+     * The values provided by the linker are assumed to be correctly aligned.
+     */
+    movhi sp, %hi(__alt_stack_pointer)
+   10020:	06c00074 	movhi	sp,1
+    ori sp, sp, %lo(__alt_stack_pointer)
+   10024:	ded00014 	ori	sp,sp,16384
+    movhi gp, %hi(_gp)
+   10028:	06800074 	movhi	gp,1
+    ori gp, gp, %lo(_gp)
+   1002c:	d6a9ed14 	ori	gp,gp,42932
+ */
+#ifndef ALT_SIM_OPTIMIZE
+    /* Log that the BSS is about to be cleared. */
+    ALT_LOG_PUTS(alt_log_msg_bss)
+
+    movhi r2, %hi(__bss_start)
+   10030:	00800074 	movhi	r2,1
+    ori r2, r2, %lo(__bss_start)
+   10034:	108aa314 	ori	r2,r2,10892
+
+    movhi r3, %hi(__bss_end)
+   10038:	00c00074 	movhi	r3,1
+    ori r3, r3, %lo(__bss_end)
+   1003c:	18caa814 	ori	r3,r3,10912
+
+    beq r2, r3, 1f
+   10040:	10c00326 	beq	r2,r3,10050 <_start+0x30>
+
+0:
+    stw zero, (r2)
+   10044:	10000015 	stw	zero,0(r2)
+    addi r2, r2, 4
+   10048:	10800104 	addi	r2,r2,4
+    bltu r2, r3, 0b
+   1004c:	10fffd36 	bltu	r2,r3,10044 <_gp+0xffff5890>
+     * section aren't defined until alt_load() has been called).
+     */
+    mov   et, zero
+#endif
+
+    call alt_load
+   10050:	0011e4c0 	call	11e4c <alt_load>
+
+    /* Log that alt_main is about to be called. */
+    ALT_LOG_PUTS(alt_log_msg_alt_main)
+
+    /* Call the C entry point. It should never return. */
+    call alt_main
+   10054:	0011f600 	call	11f60 <alt_main>
+
+00010058 <alt_after_alt_main>:
+
+    /* Wait in infinite loop in case alt_main does return. */
+alt_after_alt_main:
+    br alt_after_alt_main
+   10058:	003fff06 	br	10058 <_gp+0xffff58a4>
+
+0001005c <IO_init>:
+   1005c:	00800044 	movi	r2,1
+   10060:	01021c04 	movi	r4,2160
+   10064:	20800005 	stb	r2,0(r4)
+   10068:	00c21804 	movi	r3,2144
+   1006c:	18800005 	stb	r2,0(r3)
+   10070:	01421004 	movi	r5,2112
+   10074:	28800005 	stb	r2,0(r5)
+   10078:	01421404 	movi	r5,2128
+   1007c:	28800005 	stb	r2,0(r5)
+   10080:	01420804 	movi	r5,2080
+   10084:	28000015 	stw	zero,0(r5)
+   10088:	01420c04 	movi	r5,2096
+   1008c:	28000015 	stw	zero,0(r5)
+   10090:	18000005 	stb	zero,0(r3)
+   10094:	20000005 	stb	zero,0(r4)
+   10098:	20800005 	stb	r2,0(r4)
+   1009c:	18800005 	stb	r2,0(r3)
+   100a0:	f800283a 	ret
+
+000100a4 <IO_write>:
+   100a4:	21003fcc 	andi	r4,r4,255
+   100a8:	00820804 	movi	r2,2080
+   100ac:	11000015 	stw	r4,0(r2)
+   100b0:	00821804 	movi	r2,2144
+   100b4:	10000005 	stb	zero,0(r2)
+   100b8:	00c20c04 	movi	r3,2096
+   100bc:	297fffcc 	andi	r5,r5,65535
+   100c0:	19400015 	stw	r5,0(r3)
+   100c4:	01021404 	movi	r4,2128
+   100c8:	20000005 	stb	zero,0(r4)
+   100cc:	00c00044 	movi	r3,1
+   100d0:	20c00005 	stb	r3,0(r4)
+   100d4:	10c00005 	stb	r3,0(r2)
+   100d8:	f800283a 	ret
+
+000100dc <IO_read>:
+   100dc:	21003fcc 	andi	r4,r4,255
+   100e0:	00820804 	movi	r2,2080
+   100e4:	11000015 	stw	r4,0(r2)
+   100e8:	00c21804 	movi	r3,2144
+   100ec:	18000005 	stb	zero,0(r3)
+   100f0:	01421004 	movi	r5,2112
+   100f4:	28000005 	stb	zero,0(r5)
+   100f8:	01000044 	movi	r4,1
+   100fc:	00820c04 	movi	r2,2096
+   10100:	10800017 	ldw	r2,0(r2)
+   10104:	29000005 	stb	r4,0(r5)
+   10108:	19000005 	stb	r4,0(r3)
+   1010c:	f800283a 	ret
+
+00010110 <main>:
+   10110:	defff704 	addi	sp,sp,-36
+   10114:	dd400515 	stw	r21,20(sp)
+   10118:	dd000415 	stw	r20,16(sp)
+   1011c:	dcc00315 	stw	r19,12(sp)
+   10120:	dc800215 	stw	r18,8(sp)
+   10124:	dc400115 	stw	r17,4(sp)
+   10128:	dfc00815 	stw	ra,32(sp)
+   1012c:	ddc00715 	stw	r23,28(sp)
+   10130:	dd800615 	stw	r22,24(sp)
+   10134:	dc000015 	stw	r16,0(sp)
+   10138:	002b883a 	mov	r21,zero
+   1013c:	001005c0 	call	1005c <IO_init>
+   10140:	048000c4 	movi	r18,3
+   10144:	0443fb44 	movi	r17,4077
+   10148:	05302284 	movi	r20,-16246
+   1014c:	04cc0004 	movi	r19,12288
+   10150:	d0e00017 	ldw	r3,-32768(gp)
+   10154:	d0a00117 	ldw	r2,-32764(gp)
+   10158:	0021883a 	mov	r16,zero
+   1015c:	18000015 	stw	zero,0(r3)
+   10160:	10000015 	stw	zero,0(r2)
+   10164:	0010b940 	call	10b94 <UsbSoftReset>
+   10168:	000b883a 	mov	r5,zero
+   1016c:	01005104 	movi	r4,324
+   10170:	0010b3c0 	call	10b3c <UsbWrite>
+   10174:	017fffd4 	movui	r5,65535
+   10178:	01302414 	movui	r4,49296
+   1017c:	0010b3c0 	call	10b3c <UsbWrite>
+   10180:	01409604 	movi	r5,600
+   10184:	01006d04 	movi	r4,436
+   10188:	0010b3c0 	call	10b3c <UsbWrite>
+   1018c:	01411004 	movi	r5,1088
+   10190:	01005084 	movi	r4,322
+   10194:	0010b3c0 	call	10b3c <UsbWrite>
+   10198:	01408404 	movi	r5,528
+   1019c:	01302314 	movui	r4,49292
+   101a0:	0010b3c0 	call	10b3c <UsbWrite>
+   101a4:	000b883a 	mov	r5,zero
+   101a8:	01007104 	movi	r4,452
+   101ac:	0010b3c0 	call	10b3c <UsbWrite>
+   101b0:	000b883a 	mov	r5,zero
+   101b4:	01007184 	movi	r4,454
+   101b8:	0010b3c0 	call	10b3c <UsbWrite>
+   101bc:	000b883a 	mov	r5,zero
+   101c0:	01007204 	movi	r4,456
+   101c4:	0010b3c0 	call	10b3c <UsbWrite>
+   101c8:	000b883a 	mov	r5,zero
+   101cc:	01007284 	movi	r4,458
+   101d0:	0010b3c0 	call	10b3c <UsbWrite>
+   101d4:	000b883a 	mov	r5,zero
+   101d8:	01007304 	movi	r4,460
+   101dc:	0010b3c0 	call	10b3c <UsbWrite>
+   101e0:	000b883a 	mov	r5,zero
+   101e4:	01007384 	movi	r4,462
+   101e8:	0010b3c0 	call	10b3c <UsbWrite>
+   101ec:	000b883a 	mov	r5,zero
+   101f0:	01007404 	movi	r4,464
+   101f4:	0010b3c0 	call	10b3c <UsbWrite>
+   101f8:	000b883a 	mov	r5,zero
+   101fc:	01007484 	movi	r4,466
+   10200:	0010b3c0 	call	10b3c <UsbWrite>
+   10204:	000b883a 	mov	r5,zero
+   10208:	01007504 	movi	r4,468
+   1020c:	0010b3c0 	call	10b3c <UsbWrite>
+   10210:	000b883a 	mov	r5,zero
+   10214:	01007584 	movi	r4,470
+   10218:	0010b3c0 	call	10b3c <UsbWrite>
+   1021c:	000b883a 	mov	r5,zero
+   10220:	01007604 	movi	r4,472
+   10224:	0010b3c0 	call	10b3c <UsbWrite>
+   10228:	000b883a 	mov	r5,zero
+   1022c:	01007684 	movi	r4,474
+   10230:	0010b3c0 	call	10b3c <UsbWrite>
+   10234:	000b883a 	mov	r5,zero
+   10238:	01007704 	movi	r4,476
+   1023c:	0010b3c0 	call	10b3c <UsbWrite>
+   10240:	000b883a 	mov	r5,zero
+   10244:	01007784 	movi	r4,478
+   10248:	0010b3c0 	call	10b3c <UsbWrite>
+   1024c:	01401c84 	movi	r5,114
+   10250:	01007084 	movi	r4,450
+   10254:	0010b3c0 	call	10b3c <UsbWrite>
+   10258:	01738054 	movui	r5,52737
+   1025c:	01000044 	movi	r4,1
+   10260:	00100a40 	call	100a4 <IO_write>
+   10264:	00000106 	br	1026c <main+0x15c>
+   10268:	183fb91e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   1026c:	010000c4 	movi	r4,3
+   10270:	00100dc0 	call	100dc <IO_read>
+   10274:	84000044 	addi	r16,r16,1
+   10278:	10bfffcc 	andi	r2,r2,65535
+   1027c:	80c0006c 	andhi	r3,r16,1
+   10280:	103ff926 	beq	r2,zero,10268 <_gp+0xffff5ab4>
+   10284:	01000044 	movi	r4,1
+   10288:	00100dc0 	call	100dc <IO_read>
+   1028c:	10bfffcc 	andi	r2,r2,65535
+   10290:	147faf1e 	bne	r2,r17,10150 <_gp+0xffff599c>
+   10294:	01401d04 	movi	r5,116
+   10298:	01007084 	movi	r4,450
+   1029c:	0010b3c0 	call	10b3c <UsbWrite>
+   102a0:	01400f04 	movi	r5,60
+   102a4:	01007104 	movi	r4,452
+   102a8:	0010b3c0 	call	10b3c <UsbWrite>
+   102ac:	000b883a 	mov	r5,zero
+   102b0:	01007184 	movi	r4,454
+   102b4:	0010b3c0 	call	10b3c <UsbWrite>
+   102b8:	000b883a 	mov	r5,zero
+   102bc:	01007204 	movi	r4,456
+   102c0:	0010b3c0 	call	10b3c <UsbWrite>
+   102c4:	000b883a 	mov	r5,zero
+   102c8:	01007284 	movi	r4,458
+   102cc:	0010b3c0 	call	10b3c <UsbWrite>
+   102d0:	000b883a 	mov	r5,zero
+   102d4:	01007304 	movi	r4,460
+   102d8:	0010b3c0 	call	10b3c <UsbWrite>
+   102dc:	000b883a 	mov	r5,zero
+   102e0:	01007384 	movi	r4,462
+   102e4:	0010b3c0 	call	10b3c <UsbWrite>
+   102e8:	000b883a 	mov	r5,zero
+   102ec:	01007404 	movi	r4,464
+   102f0:	0010b3c0 	call	10b3c <UsbWrite>
+   102f4:	000b883a 	mov	r5,zero
+   102f8:	01007484 	movi	r4,466
+   102fc:	0010b3c0 	call	10b3c <UsbWrite>
+   10300:	000b883a 	mov	r5,zero
+   10304:	01007504 	movi	r4,468
+   10308:	0010b3c0 	call	10b3c <UsbWrite>
+   1030c:	000b883a 	mov	r5,zero
+   10310:	01007584 	movi	r4,470
+   10314:	0010b3c0 	call	10b3c <UsbWrite>
+   10318:	000b883a 	mov	r5,zero
+   1031c:	01007604 	movi	r4,472
+   10320:	0010b3c0 	call	10b3c <UsbWrite>
+   10324:	000b883a 	mov	r5,zero
+   10328:	01007684 	movi	r4,474
+   1032c:	0010b3c0 	call	10b3c <UsbWrite>
+   10330:	000b883a 	mov	r5,zero
+   10334:	01007704 	movi	r4,476
+   10338:	0010b3c0 	call	10b3c <UsbWrite>
+   1033c:	000b883a 	mov	r5,zero
+   10340:	01007784 	movi	r4,478
+   10344:	0010b3c0 	call	10b3c <UsbWrite>
+   10348:	01738054 	movui	r5,52737
+   1034c:	01000044 	movi	r4,1
+   10350:	00100a40 	call	100a4 <IO_write>
+   10354:	01000044 	movi	r4,1
+   10358:	00100dc0 	call	100dc <IO_read>
+   1035c:	10bfffcc 	andi	r2,r2,65535
+   10360:	147f7b1e 	bne	r2,r17,10150 <_gp+0xffff599c>
+   10364:	01302294 	movui	r4,49290
+   10368:	d520b68d 	sth	r20,-32038(gp)
+   1036c:	d4e0b60d 	sth	r19,-32040(gp)
+   10370:	0010b700 	call	10b70 <UsbRead>
+   10374:	d0e0b60b 	ldhu	r3,-32040(gp)
+   10378:	10c4703a 	and	r2,r2,r3
+   1037c:	10001c1e 	bne	r2,zero,103f0 <main+0x2e0>
+   10380:	04000144 	movi	r16,5
+   10384:	0104e204 	movi	r4,5000
+   10388:	0011f9c0 	call	11f9c <usleep>
+   1038c:	d120b68b 	ldhu	r4,-32038(gp)
+   10390:	0010b700 	call	10b70 <UsbRead>
+   10394:	d120b60b 	ldhu	r4,-32040(gp)
+   10398:	80ffffc4 	addi	r3,r16,-1
+   1039c:	19403fcc 	andi	r5,r3,255
+   103a0:	1104703a 	and	r2,r2,r4
+   103a4:	1000121e 	bne	r2,zero,103f0 <main+0x2e0>
+   103a8:	1821883a 	mov	r16,r3
+   103ac:	283ff51e 	bne	r5,zero,10384 <_gp+0xffff5bd0>
+   103b0:	05800044 	movi	r22,1
+   103b4:	00000106 	br	103bc <main+0x2ac>
+   103b8:	183f651e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   103bc:	d120b68b 	ldhu	r4,-32038(gp)
+   103c0:	b5800044 	addi	r22,r22,1
+   103c4:	0010b700 	call	10b70 <UsbRead>
+   103c8:	1021883a 	mov	r16,r2
+   103cc:	d0a0b60b 	ldhu	r2,-32040(gp)
+   103d0:	0101f404 	movi	r4,2000
+   103d4:	1404703a 	and	r2,r2,r16
+   103d8:	103f5d1e 	bne	r2,zero,10150 <_gp+0xffff599c>
+   103dc:	0011f9c0 	call	11f9c <usleep>
+   103e0:	d0a0b60b 	ldhu	r2,-32040(gp)
+   103e4:	b0c0006c 	andhi	r3,r22,1
+   103e8:	1420703a 	and	r16,r2,r16
+   103ec:	803ff226 	beq	r16,zero,103b8 <_gp+0xffff5c04>
+   103f0:	0010c9c0 	call	10c9c <UsbSetAddress>
+   103f4:	0021883a 	mov	r16,zero
+   103f8:	00000406 	br	1040c <main+0x2fc>
+   103fc:	183f541e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   10400:	0010c9c0 	call	10c9c <UsbSetAddress>
+   10404:	0109c404 	movi	r4,10000
+   10408:	0011f9c0 	call	11f9c <usleep>
+   1040c:	058000c4 	movi	r22,3
+   10410:	b009883a 	mov	r4,r22
+   10414:	00100dc0 	call	100dc <IO_read>
+   10418:	84000044 	addi	r16,r16,1
+   1041c:	1080040c 	andi	r2,r2,16
+   10420:	80c0006c 	andhi	r3,r16,1
+   10424:	103ff526 	beq	r2,zero,103fc <_gp+0xffff5c48>
+   10428:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   1042c:	01414184 	movi	r5,1286
+   10430:	01000084 	movi	r4,2
+   10434:	00100a40 	call	100a4 <IO_write>
+   10438:	01414204 	movi	r5,1288
+   1043c:	01000084 	movi	r4,2
+   10440:	00100a40 	call	100a4 <IO_write>
+   10444:	0009883a 	mov	r4,zero
+   10448:	00100dc0 	call	100dc <IO_read>
+   1044c:	10bfffcc 	andi	r2,r2,65535
+   10450:	1580b51e 	bne	r2,r22,10728 <main+0x618>
+   10454:	0010db40 	call	10db4 <UsbGetDeviceDesc1>
+   10458:	0021883a 	mov	r16,zero
+   1045c:	00000406 	br	10470 <main+0x360>
+   10460:	183f3b1e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   10464:	0010db40 	call	10db4 <UsbGetDeviceDesc1>
+   10468:	0109c404 	movi	r4,10000
+   1046c:	0011f9c0 	call	11f9c <usleep>
+   10470:	058000c4 	movi	r22,3
+   10474:	b009883a 	mov	r4,r22
+   10478:	00100dc0 	call	100dc <IO_read>
+   1047c:	84000044 	addi	r16,r16,1
+   10480:	1080040c 	andi	r2,r2,16
+   10484:	80c0006c 	andhi	r3,r16,1
+   10488:	103ff526 	beq	r2,zero,10460 <_gp+0xffff5cac>
+   1048c:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   10490:	01414184 	movi	r5,1286
+   10494:	01000084 	movi	r4,2
+   10498:	00100a40 	call	100a4 <IO_write>
+   1049c:	01414204 	movi	r5,1288
+   104a0:	01000084 	movi	r4,2
+   104a4:	00100a40 	call	100a4 <IO_write>
+   104a8:	0009883a 	mov	r4,zero
+   104ac:	00100dc0 	call	100dc <IO_read>
+   104b0:	10bfffcc 	andi	r2,r2,65535
+   104b4:	15800826 	beq	r2,r22,104d8 <main+0x3c8>
+   104b8:	04000044 	movi	r16,1
+   104bc:	00000106 	br	104c4 <main+0x3b4>
+   104c0:	183f231e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   104c4:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   104c8:	84000044 	addi	r16,r16,1
+   104cc:	10bfffcc 	andi	r2,r2,65535
+   104d0:	80c0006c 	andhi	r3,r16,1
+   104d4:	14bffa1e 	bne	r2,r18,104c0 <_gp+0xffff5d0c>
+   104d8:	0010f240 	call	10f24 <UsbGetDeviceDesc2>
+   104dc:	0021883a 	mov	r16,zero
+   104e0:	00000406 	br	104f4 <main+0x3e4>
+   104e4:	183f1a1e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   104e8:	0010f240 	call	10f24 <UsbGetDeviceDesc2>
+   104ec:	0109c404 	movi	r4,10000
+   104f0:	0011f9c0 	call	11f9c <usleep>
+   104f4:	058000c4 	movi	r22,3
+   104f8:	b009883a 	mov	r4,r22
+   104fc:	00100dc0 	call	100dc <IO_read>
+   10500:	84000044 	addi	r16,r16,1
+   10504:	1080040c 	andi	r2,r2,16
+   10508:	80c0006c 	andhi	r3,r16,1
+   1050c:	103ff526 	beq	r2,zero,104e4 <_gp+0xffff5d30>
+   10510:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   10514:	01414184 	movi	r5,1286
+   10518:	01000084 	movi	r4,2
+   1051c:	00100a40 	call	100a4 <IO_write>
+   10520:	01414204 	movi	r5,1288
+   10524:	01000084 	movi	r4,2
+   10528:	00100a40 	call	100a4 <IO_write>
+   1052c:	0009883a 	mov	r4,zero
+   10530:	00100dc0 	call	100dc <IO_read>
+   10534:	10bfffcc 	andi	r2,r2,65535
+   10538:	15800826 	beq	r2,r22,1055c <main+0x44c>
+   1053c:	04000044 	movi	r16,1
+   10540:	00000106 	br	10548 <main+0x438>
+   10544:	183f021e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   10548:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   1054c:	84000044 	addi	r16,r16,1
+   10550:	10bfffcc 	andi	r2,r2,65535
+   10554:	80c0006c 	andhi	r3,r16,1
+   10558:	14bffa1e 	bne	r2,r18,10544 <_gp+0xffff5d90>
+   1055c:	00111440 	call	11144 <UsbGetConfigDesc1>
+   10560:	0021883a 	mov	r16,zero
+   10564:	00000406 	br	10578 <main+0x468>
+   10568:	183ef91e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   1056c:	00111440 	call	11144 <UsbGetConfigDesc1>
+   10570:	0109c404 	movi	r4,10000
+   10574:	0011f9c0 	call	11f9c <usleep>
+   10578:	058000c4 	movi	r22,3
+   1057c:	b009883a 	mov	r4,r22
+   10580:	00100dc0 	call	100dc <IO_read>
+   10584:	84000044 	addi	r16,r16,1
+   10588:	1080040c 	andi	r2,r2,16
+   1058c:	80c0006c 	andhi	r3,r16,1
+   10590:	103ff526 	beq	r2,zero,10568 <_gp+0xffff5db4>
+   10594:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   10598:	01414184 	movi	r5,1286
+   1059c:	01000084 	movi	r4,2
+   105a0:	00100a40 	call	100a4 <IO_write>
+   105a4:	01414204 	movi	r5,1288
+   105a8:	01000084 	movi	r4,2
+   105ac:	00100a40 	call	100a4 <IO_write>
+   105b0:	0009883a 	mov	r4,zero
+   105b4:	00100dc0 	call	100dc <IO_read>
+   105b8:	10bfffcc 	andi	r2,r2,65535
+   105bc:	15800826 	beq	r2,r22,105e0 <main+0x4d0>
+   105c0:	04000044 	movi	r16,1
+   105c4:	00000106 	br	105cc <main+0x4bc>
+   105c8:	183ee11e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   105cc:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   105d0:	84000044 	addi	r16,r16,1
+   105d4:	10bfffcc 	andi	r2,r2,65535
+   105d8:	80c0006c 	andhi	r3,r16,1
+   105dc:	14bffa1e 	bne	r2,r18,105c8 <_gp+0xffff5e14>
+   105e0:	00113140 	call	11314 <UsbGetConfigDesc2>
+   105e4:	010000b4 	movhi	r4,2
+   105e8:	2121a804 	addi	r4,r4,-31072
+   105ec:	0021883a 	mov	r16,zero
+   105f0:	0011f9c0 	call	11f9c <usleep>
+   105f4:	00000406 	br	10608 <main+0x4f8>
+   105f8:	183ed51e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   105fc:	00113140 	call	11314 <UsbGetConfigDesc2>
+   10600:	0109c404 	movi	r4,10000
+   10604:	0011f9c0 	call	11f9c <usleep>
+   10608:	058000c4 	movi	r22,3
+   1060c:	b009883a 	mov	r4,r22
+   10610:	00100dc0 	call	100dc <IO_read>
+   10614:	84000044 	addi	r16,r16,1
+   10618:	1080040c 	andi	r2,r2,16
+   1061c:	80c0006c 	andhi	r3,r16,1
+   10620:	103ff526 	beq	r2,zero,105f8 <_gp+0xffff5e44>
+   10624:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   10628:	01414184 	movi	r5,1286
+   1062c:	01000084 	movi	r4,2
+   10630:	00100a40 	call	100a4 <IO_write>
+   10634:	01414204 	movi	r5,1288
+   10638:	01000084 	movi	r4,2
+   1063c:	00100a40 	call	100a4 <IO_write>
+   10640:	0009883a 	mov	r4,zero
+   10644:	00100dc0 	call	100dc <IO_read>
+   10648:	10bfffcc 	andi	r2,r2,65535
+   1064c:	15800826 	beq	r2,r22,10670 <main+0x560>
+   10650:	04000044 	movi	r16,1
+   10654:	00000106 	br	1065c <main+0x54c>
+   10658:	183ebd1e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   1065c:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   10660:	84000044 	addi	r16,r16,1
+   10664:	10bfffcc 	andi	r2,r2,65535
+   10668:	80c0006c 	andhi	r3,r16,1
+   1066c:	14bffa1e 	bne	r2,r18,10658 <_gp+0xffff5ea4>
+   10670:	01415b04 	movi	r5,1388
+   10674:	01000084 	movi	r4,2
+   10678:	00100a40 	call	100a4 <IO_write>
+   1067c:	0009883a 	mov	r4,zero
+   10680:	00100dc0 	call	100dc <IO_read>
+   10684:	01415d84 	movi	r5,1398
+   10688:	01000084 	movi	r4,2
+   1068c:	00100a40 	call	100a4 <IO_write>
+   10690:	0141cfc4 	movi	r5,1855
+   10694:	0009883a 	mov	r4,zero
+   10698:	00100a40 	call	100a4 <IO_write>
+   1069c:	01604154 	movui	r5,33029
+   106a0:	0009883a 	mov	r4,zero
+   106a4:	00100a40 	call	100a4 <IO_write>
+   106a8:	014000c4 	movi	r5,3
+   106ac:	0009883a 	mov	r4,zero
+   106b0:	00100a40 	call	100a4 <IO_write>
+   106b4:	01400204 	movi	r5,8
+   106b8:	0009883a 	mov	r4,zero
+   106bc:	00100a40 	call	100a4 <IO_write>
+   106c0:	016b0294 	movui	r5,44042
+   106c4:	0009883a 	mov	r4,zero
+   106c8:	00100a40 	call	100a4 <IO_write>
+   106cc:	01415d84 	movi	r5,1398
+   106d0:	01006c04 	movi	r4,432
+   106d4:	0010b3c0 	call	10b3c <UsbWrite>
+   106d8:	01415f04 	movi	r5,1404
+   106dc:	01000084 	movi	r4,2
+   106e0:	00100a40 	call	100a4 <IO_write>
+   106e4:	0009883a 	mov	r4,zero
+   106e8:	00100dc0 	call	100dc <IO_read>
+   106ec:	1021883a 	mov	r16,r2
+   106f0:	002d883a 	mov	r22,zero
+   106f4:	00115c40 	call	115c4 <UsbSetConfig>
+   106f8:	05c000c4 	movi	r23,3
+   106fc:	b809883a 	mov	r4,r23
+   10700:	00100dc0 	call	100dc <IO_read>
+   10704:	b5800044 	addi	r22,r22,1
+   10708:	1080040c 	andi	r2,r2,16
+   1070c:	b0c0006c 	andhi	r3,r22,1
+   10710:	1000071e 	bne	r2,zero,10730 <main+0x620>
+   10714:	183e8e1e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   10718:	00115c40 	call	115c4 <UsbSetConfig>
+   1071c:	0109c404 	movi	r4,10000
+   10720:	0011f9c0 	call	11f9c <usleep>
+   10724:	003ff406 	br	106f8 <_gp+0xffff5f44>
+   10728:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   1072c:	003e8806 	br	10150 <_gp+0xffff599c>
+   10730:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   10734:	01414184 	movi	r5,1286
+   10738:	01000084 	movi	r4,2
+   1073c:	00100a40 	call	100a4 <IO_write>
+   10740:	01414204 	movi	r5,1288
+   10744:	01000084 	movi	r4,2
+   10748:	00100a40 	call	100a4 <IO_write>
+   1074c:	0009883a 	mov	r4,zero
+   10750:	00100dc0 	call	100dc <IO_read>
+   10754:	10bfffcc 	andi	r2,r2,65535
+   10758:	15c00826 	beq	r2,r23,1077c <main+0x66c>
+   1075c:	05800044 	movi	r22,1
+   10760:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   10764:	b5800044 	addi	r22,r22,1
+   10768:	10bfffcc 	andi	r2,r2,65535
+   1076c:	b0c0006c 	andhi	r3,r22,1
+   10770:	14800226 	beq	r2,r18,1077c <main+0x66c>
+   10774:	183ffa26 	beq	r3,zero,10760 <_gp+0xffff5fac>
+   10778:	003e7506 	br	10150 <_gp+0xffff599c>
+   1077c:	00116e80 	call	116e8 <UsbClassRequest>
+   10780:	002d883a 	mov	r22,zero
+   10784:	05c000c4 	movi	r23,3
+   10788:	b809883a 	mov	r4,r23
+   1078c:	00100dc0 	call	100dc <IO_read>
+   10790:	b5800044 	addi	r22,r22,1
+   10794:	1080040c 	andi	r2,r2,16
+   10798:	b0c0006c 	andhi	r3,r22,1
+   1079c:	1000051e 	bne	r2,zero,107b4 <main+0x6a4>
+   107a0:	183e6b1e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   107a4:	00116e80 	call	116e8 <UsbClassRequest>
+   107a8:	0109c404 	movi	r4,10000
+   107ac:	0011f9c0 	call	11f9c <usleep>
+   107b0:	003ff406 	br	10784 <_gp+0xffff5fd0>
+   107b4:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   107b8:	01414184 	movi	r5,1286
+   107bc:	01000084 	movi	r4,2
+   107c0:	00100a40 	call	100a4 <IO_write>
+   107c4:	01414204 	movi	r5,1288
+   107c8:	01000084 	movi	r4,2
+   107cc:	00100a40 	call	100a4 <IO_write>
+   107d0:	0009883a 	mov	r4,zero
+   107d4:	00100dc0 	call	100dc <IO_read>
+   107d8:	10bfffcc 	andi	r2,r2,65535
+   107dc:	15c00826 	beq	r2,r23,10800 <main+0x6f0>
+   107e0:	05800044 	movi	r22,1
+   107e4:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   107e8:	b5800044 	addi	r22,r22,1
+   107ec:	10bfffcc 	andi	r2,r2,65535
+   107f0:	b0c0006c 	andhi	r3,r22,1
+   107f4:	14800226 	beq	r2,r18,10800 <main+0x6f0>
+   107f8:	183ffa26 	beq	r3,zero,107e4 <_gp+0xffff6030>
+   107fc:	003e5406 	br	10150 <_gp+0xffff599c>
+   10800:	00118000 	call	11800 <UsbGetHidDesc>
+   10804:	002d883a 	mov	r22,zero
+   10808:	05c000c4 	movi	r23,3
+   1080c:	b809883a 	mov	r4,r23
+   10810:	00100dc0 	call	100dc <IO_read>
+   10814:	b5800044 	addi	r22,r22,1
+   10818:	1080040c 	andi	r2,r2,16
+   1081c:	b0c0006c 	andhi	r3,r22,1
+   10820:	1000051e 	bne	r2,zero,10838 <main+0x728>
+   10824:	183e4a1e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   10828:	00118000 	call	11800 <UsbGetHidDesc>
+   1082c:	0109c404 	movi	r4,10000
+   10830:	0011f9c0 	call	11f9c <usleep>
+   10834:	003ff406 	br	10808 <_gp+0xffff6054>
+   10838:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   1083c:	01414184 	movi	r5,1286
+   10840:	01000084 	movi	r4,2
+   10844:	00100a40 	call	100a4 <IO_write>
+   10848:	01414204 	movi	r5,1288
+   1084c:	01000084 	movi	r4,2
+   10850:	00100a40 	call	100a4 <IO_write>
+   10854:	0009883a 	mov	r4,zero
+   10858:	00100dc0 	call	100dc <IO_read>
+   1085c:	10bfffcc 	andi	r2,r2,65535
+   10860:	15c00826 	beq	r2,r23,10884 <main+0x774>
+   10864:	05800044 	movi	r22,1
+   10868:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   1086c:	b5800044 	addi	r22,r22,1
+   10870:	10bfffcc 	andi	r2,r2,65535
+   10874:	b0c0006c 	andhi	r3,r22,1
+   10878:	14800226 	beq	r2,r18,10884 <main+0x774>
+   1087c:	183ffa26 	beq	r3,zero,10868 <_gp+0xffff60b4>
+   10880:	003e3306 	br	10150 <_gp+0xffff599c>
+   10884:	00119700 	call	11970 <UsbGetReportDesc>
+   10888:	002d883a 	mov	r22,zero
+   1088c:	05c000c4 	movi	r23,3
+   10890:	b809883a 	mov	r4,r23
+   10894:	00100dc0 	call	100dc <IO_read>
+   10898:	b5800044 	addi	r22,r22,1
+   1089c:	1080040c 	andi	r2,r2,16
+   108a0:	b0c0006c 	andhi	r3,r22,1
+   108a4:	1000051e 	bne	r2,zero,108bc <main+0x7ac>
+   108a8:	183e291e 	bne	r3,zero,10150 <_gp+0xffff599c>
+   108ac:	00119700 	call	11970 <UsbGetReportDesc>
+   108b0:	0109c404 	movi	r4,10000
+   108b4:	0011f9c0 	call	11f9c <usleep>
+   108b8:	003ff406 	br	1088c <_gp+0xffff60d8>
+   108bc:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   108c0:	01414184 	movi	r5,1286
+   108c4:	01000084 	movi	r4,2
+   108c8:	00100a40 	call	100a4 <IO_write>
+   108cc:	01414204 	movi	r5,1288
+   108d0:	01000084 	movi	r4,2
+   108d4:	00100a40 	call	100a4 <IO_write>
+   108d8:	0009883a 	mov	r4,zero
+   108dc:	00100dc0 	call	100dc <IO_read>
+   108e0:	10bfffcc 	andi	r2,r2,65535
+   108e4:	15c00826 	beq	r2,r23,10908 <main+0x7f8>
+   108e8:	05800044 	movi	r22,1
+   108ec:	0011db00 	call	11db0 <UsbGetRetryCnt>
+   108f0:	b5800044 	addi	r22,r22,1
+   108f4:	10bfffcc 	andi	r2,r2,65535
+   108f8:	b0c0006c 	andhi	r3,r22,1
+   108fc:	14800226 	beq	r2,r18,10908 <main+0x7f8>
+   10900:	183ffa26 	beq	r3,zero,108ec <_gp+0xffff6138>
+   10904:	003e1206 	br	10150 <_gp+0xffff599c>
+   10908:	d0a00117 	ldw	r2,-32764(gp)
+   1090c:	00c00044 	movi	r3,1
+   10910:	0109c404 	movi	r4,10000
+   10914:	10c00015 	stw	r3,0(r2)
+   10918:	0011f9c0 	call	11f9c <usleep>
+   1091c:	840003cc 	andi	r16,r16,15
+   10920:	ad800044 	addi	r22,r21,1
+   10924:	b0803fcc 	andi	r2,r22,255
+   10928:	b02b883a 	mov	r21,r22
+   1092c:	10006e26 	beq	r2,zero,10ae8 <main+0x9d8>
+   10930:	01414004 	movi	r5,1280
+   10934:	01000084 	movi	r4,2
+   10938:	00100a40 	call	100a4 <IO_write>
+   1093c:	0009883a 	mov	r4,zero
+   10940:	01414704 	movi	r5,1308
+   10944:	00100a40 	call	100a4 <IO_write>
+   10948:	800b883a 	mov	r5,r16
+   1094c:	0009883a 	mov	r4,zero
+   10950:	00100a40 	call	100a4 <IO_write>
+   10954:	0140a444 	movi	r5,657
+   10958:	0009883a 	mov	r4,zero
+   1095c:	b580004c 	andi	r22,r22,1
+   10960:	00100a40 	call	100a4 <IO_write>
+   10964:	b0007026 	beq	r22,zero,10b28 <main+0xa18>
+   10968:	01400044 	movi	r5,1
+   1096c:	0009883a 	mov	r4,zero
+   10970:	00100a40 	call	100a4 <IO_write>
+   10974:	05800044 	movi	r22,1
+   10978:	014004c4 	movi	r5,19
+   1097c:	0009883a 	mov	r4,zero
+   10980:	00100a40 	call	100a4 <IO_write>
+   10984:	000b883a 	mov	r5,zero
+   10988:	0009883a 	mov	r4,zero
+   1098c:	00100a40 	call	100a4 <IO_write>
+   10990:	01414004 	movi	r5,1280
+   10994:	01006c04 	movi	r4,432
+   10998:	0010b3c0 	call	10b3c <UsbWrite>
+   1099c:	010000c4 	movi	r4,3
+   109a0:	00100dc0 	call	100dc <IO_read>
+   109a4:	1080040c 	andi	r2,r2,16
+   109a8:	01414004 	movi	r5,1280
+   109ac:	01000084 	movi	r4,2
+   109b0:	10001d1e 	bne	r2,zero,10a28 <main+0x918>
+   109b4:	00100a40 	call	100a4 <IO_write>
+   109b8:	0009883a 	mov	r4,zero
+   109bc:	01414704 	movi	r5,1308
+   109c0:	00100a40 	call	100a4 <IO_write>
+   109c4:	800b883a 	mov	r5,r16
+   109c8:	0009883a 	mov	r4,zero
+   109cc:	00100a40 	call	100a4 <IO_write>
+   109d0:	0140a444 	movi	r5,657
+   109d4:	0009883a 	mov	r4,zero
+   109d8:	00100a40 	call	100a4 <IO_write>
+   109dc:	b0803fcc 	andi	r2,r22,255
+   109e0:	01400044 	movi	r5,1
+   109e4:	0009883a 	mov	r4,zero
+   109e8:	1000021e 	bne	r2,zero,109f4 <main+0x8e4>
+   109ec:	01401044 	movi	r5,65
+   109f0:	0009883a 	mov	r4,zero
+   109f4:	00100a40 	call	100a4 <IO_write>
+   109f8:	014004c4 	movi	r5,19
+   109fc:	0009883a 	mov	r4,zero
+   10a00:	00100a40 	call	100a4 <IO_write>
+   10a04:	000b883a 	mov	r5,zero
+   10a08:	0009883a 	mov	r4,zero
+   10a0c:	00100a40 	call	100a4 <IO_write>
+   10a10:	01006c04 	movi	r4,432
+   10a14:	01414004 	movi	r5,1280
+   10a18:	0010b3c0 	call	10b3c <UsbWrite>
+   10a1c:	0109c404 	movi	r4,10000
+   10a20:	0011f9c0 	call	11f9c <usleep>
+   10a24:	003fdd06 	br	1099c <_gp+0xffff61e8>
+   10a28:	0011cf80 	call	11cf8 <UsbWaitTDListDone>
+   10a2c:	01014784 	movi	r4,1310
+   10a30:	0010b700 	call	10b70 <UsbRead>
+   10a34:	d1600117 	ldw	r5,-32764(gp)
+   10a38:	10ffffcc 	andi	r3,r2,65535
+   10a3c:	1807d23a 	srai	r3,r3,8
+   10a40:	28800105 	stb	r2,4(r5)
+   10a44:	01003204 	movi	r4,200
+   10a48:	28c00145 	stb	r3,5(r5)
+   10a4c:	0011f9c0 	call	11f9c <usleep>
+   10a50:	d120b68b 	ldhu	r4,-32038(gp)
+   10a54:	0010b700 	call	10b70 <UsbRead>
+   10a58:	d0e0b60b 	ldhu	r3,-32040(gp)
+   10a5c:	10c4703a 	and	r2,r2,r3
+   10a60:	103faf1e 	bne	r2,zero,10920 <_gp+0xffff616c>
+   10a64:	058001c4 	movi	r22,7
+   10a68:	0104e204 	movi	r4,5000
+   10a6c:	0011f9c0 	call	11f9c <usleep>
+   10a70:	d120b68b 	ldhu	r4,-32038(gp)
+   10a74:	b5bfffc4 	addi	r22,r22,-1
+   10a78:	0010b700 	call	10b70 <UsbRead>
+   10a7c:	d0e0b60b 	ldhu	r3,-32040(gp)
+   10a80:	b1003fcc 	andi	r4,r22,255
+   10a84:	10c4703a 	and	r2,r2,r3
+   10a88:	103fa51e 	bne	r2,zero,10920 <_gp+0xffff616c>
+   10a8c:	203ff61e 	bne	r4,zero,10a68 <_gp+0xffff62b4>
+   10a90:	d120b68b 	ldhu	r4,-32038(gp)
+   10a94:	0010b700 	call	10b70 <UsbRead>
+   10a98:	0104e204 	movi	r4,5000
+   10a9c:	0011f9c0 	call	11f9c <usleep>
+   10aa0:	d120b68b 	ldhu	r4,-32038(gp)
+   10aa4:	0010b700 	call	10b70 <UsbRead>
+   10aa8:	0104e204 	movi	r4,5000
+   10aac:	0011f9c0 	call	11f9c <usleep>
+   10ab0:	d120b68b 	ldhu	r4,-32038(gp)
+   10ab4:	0010b700 	call	10b70 <UsbRead>
+   10ab8:	0104e204 	movi	r4,5000
+   10abc:	102d883a 	mov	r22,r2
+   10ac0:	0011f9c0 	call	11f9c <usleep>
+   10ac4:	d0a0b60b 	ldhu	r2,-32040(gp)
+   10ac8:	01003204 	movi	r4,200
+   10acc:	1584703a 	and	r2,r2,r22
+   10ad0:	103d9f1e 	bne	r2,zero,10150 <_gp+0xffff599c>
+   10ad4:	0011f9c0 	call	11f9c <usleep>
+   10ad8:	d0a0b60b 	ldhu	r2,-32040(gp)
+   10adc:	15ac703a 	and	r22,r2,r22
+   10ae0:	b03feb26 	beq	r22,zero,10a90 <_gp+0xffff62dc>
+   10ae4:	003f8e06 	br	10920 <_gp+0xffff616c>
+   10ae8:	d0a00017 	ldw	r2,-32768(gp)
+   10aec:	01414004 	movi	r5,1280
+   10af0:	01000084 	movi	r4,2
+   10af4:	10c00104 	addi	r3,r2,4
+   10af8:	10800017 	ldw	r2,0(r2)
+   10afc:	d0e00015 	stw	r3,-32768(gp)
+   10b00:	00100a40 	call	100a4 <IO_write>
+   10b04:	0009883a 	mov	r4,zero
+   10b08:	01414704 	movi	r5,1308
+   10b0c:	00100a40 	call	100a4 <IO_write>
+   10b10:	800b883a 	mov	r5,r16
+   10b14:	0009883a 	mov	r4,zero
+   10b18:	00100a40 	call	100a4 <IO_write>
+   10b1c:	0140a444 	movi	r5,657
+   10b20:	0009883a 	mov	r4,zero
+   10b24:	00100a40 	call	100a4 <IO_write>
+   10b28:	01401044 	movi	r5,65
+   10b2c:	0009883a 	mov	r4,zero
+   10b30:	00100a40 	call	100a4 <IO_write>
+   10b34:	002d883a 	mov	r22,zero
+   10b38:	003f8f06 	br	10978 <_gp+0xffff61c4>
+
+00010b3c <UsbWrite>:
+   10b3c:	defffe04 	addi	sp,sp,-8
+   10b40:	dc000015 	stw	r16,0(sp)
+   10b44:	2821883a 	mov	r16,r5
+   10b48:	217fffcc 	andi	r5,r4,65535
+   10b4c:	01000084 	movi	r4,2
+   10b50:	dfc00115 	stw	ra,4(sp)
+   10b54:	00100a40 	call	100a4 <IO_write>
+   10b58:	817fffcc 	andi	r5,r16,65535
+   10b5c:	0009883a 	mov	r4,zero
+   10b60:	dfc00117 	ldw	ra,4(sp)
+   10b64:	dc000017 	ldw	r16,0(sp)
+   10b68:	dec00204 	addi	sp,sp,8
+   10b6c:	00100a41 	jmpi	100a4 <IO_write>
+
+00010b70 <UsbRead>:
+   10b70:	deffff04 	addi	sp,sp,-4
+   10b74:	217fffcc 	andi	r5,r4,65535
+   10b78:	01000084 	movi	r4,2
+   10b7c:	dfc00015 	stw	ra,0(sp)
+   10b80:	00100a40 	call	100a4 <IO_write>
+   10b84:	0009883a 	mov	r4,zero
+   10b88:	dfc00017 	ldw	ra,0(sp)
+   10b8c:	dec00104 	addi	sp,sp,4
+   10b90:	00100dc1 	jmpi	100dc <IO_read>
+
+00010b94 <UsbSoftReset>:
+   10b94:	defffa04 	addi	sp,sp,-24
+   10b98:	dd000415 	stw	r20,16(sp)
+   10b9c:	05000044 	movi	r20,1
+   10ba0:	017e9414 	movui	r5,64080
+   10ba4:	a009883a 	mov	r4,r20
+   10ba8:	dfc00515 	stw	ra,20(sp)
+   10bac:	dcc00315 	stw	r19,12(sp)
+   10bb0:	dc800215 	stw	r18,8(sp)
+   10bb4:	dc400115 	stw	r17,4(sp)
+   10bb8:	dc000015 	stw	r16,0(sp)
+   10bbc:	00100a40 	call	100a4 <IO_write>
+   10bc0:	010000b4 	movhi	r4,2
+   10bc4:	2121a804 	addi	r4,r4,-31072
+   10bc8:	0011f9c0 	call	11f9c <usleep>
+   10bcc:	01000234 	movhi	r4,8
+   10bd0:	21284804 	addi	r4,r4,-24288
+   10bd4:	0011f9c0 	call	11f9c <usleep>
+   10bd8:	a009883a 	mov	r4,r20
+   10bdc:	00100dc0 	call	100dc <IO_read>
+   10be0:	010000c4 	movi	r4,3
+   10be4:	04000084 	movi	r16,2
+   10be8:	00100dc0 	call	100dc <IO_read>
+   10bec:	04c05104 	movi	r19,324
+   10bf0:	980b883a 	mov	r5,r19
+   10bf4:	8009883a 	mov	r4,r16
+   10bf8:	00100a40 	call	100a4 <IO_write>
+   10bfc:	0009883a 	mov	r4,zero
+   10c00:	00100dc0 	call	100dc <IO_read>
+   10c04:	980b883a 	mov	r5,r19
+   10c08:	8009883a 	mov	r4,r16
+   10c0c:	00100a40 	call	100a4 <IO_write>
+   10c10:	000b883a 	mov	r5,zero
+   10c14:	0009883a 	mov	r4,zero
+   10c18:	00100a40 	call	100a4 <IO_write>
+   10c1c:	04805204 	movi	r18,328
+   10c20:	900b883a 	mov	r5,r18
+   10c24:	8009883a 	mov	r4,r16
+   10c28:	00100a40 	call	100a4 <IO_write>
+   10c2c:	0009883a 	mov	r4,zero
+   10c30:	00100dc0 	call	100dc <IO_read>
+   10c34:	900b883a 	mov	r5,r18
+   10c38:	8009883a 	mov	r4,r16
+   10c3c:	00100a40 	call	100a4 <IO_write>
+   10c40:	000b883a 	mov	r5,zero
+   10c44:	0009883a 	mov	r4,zero
+   10c48:	00100a40 	call	100a4 <IO_write>
+   10c4c:	8009883a 	mov	r4,r16
+   10c50:	01702414 	movui	r5,49296
+   10c54:	00100a40 	call	100a4 <IO_write>
+   10c58:	047fffd4 	movui	r17,65535
+   10c5c:	880b883a 	mov	r5,r17
+   10c60:	0009883a 	mov	r4,zero
+   10c64:	00100a40 	call	100a4 <IO_write>
+   10c68:	8009883a 	mov	r4,r16
+   10c6c:	01702c14 	movui	r5,49328
+   10c70:	00100a40 	call	100a4 <IO_write>
+   10c74:	880b883a 	mov	r5,r17
+   10c78:	0009883a 	mov	r4,zero
+   10c7c:	dfc00517 	ldw	ra,20(sp)
+   10c80:	dd000417 	ldw	r20,16(sp)
+   10c84:	dcc00317 	ldw	r19,12(sp)
+   10c88:	dc800217 	ldw	r18,8(sp)
+   10c8c:	dc400117 	ldw	r17,4(sp)
+   10c90:	dc000017 	ldw	r16,0(sp)
+   10c94:	dec00604 	addi	sp,sp,24
+   10c98:	00100a41 	jmpi	100a4 <IO_write>
+
+00010c9c <UsbSetAddress>:
+   10c9c:	defffc04 	addi	sp,sp,-16
+   10ca0:	dc400115 	stw	r17,4(sp)
+   10ca4:	dc000015 	stw	r16,0(sp)
+   10ca8:	04400084 	movi	r17,2
+   10cac:	04014004 	movi	r16,1280
+   10cb0:	800b883a 	mov	r5,r16
+   10cb4:	8809883a 	mov	r4,r17
+   10cb8:	dfc00315 	stw	ra,12(sp)
+   10cbc:	dc800215 	stw	r18,8(sp)
+   10cc0:	00100a40 	call	100a4 <IO_write>
+   10cc4:	01414304 	movi	r5,1292
+   10cc8:	0009883a 	mov	r4,zero
+   10ccc:	00100a40 	call	100a4 <IO_write>
+   10cd0:	01400204 	movi	r5,8
+   10cd4:	0009883a 	mov	r4,zero
+   10cd8:	00100a40 	call	100a4 <IO_write>
+   10cdc:	01403404 	movi	r5,208
+   10ce0:	0009883a 	mov	r4,zero
+   10ce4:	00100a40 	call	100a4 <IO_write>
+   10ce8:	01400044 	movi	r5,1
+   10cec:	0009883a 	mov	r4,zero
+   10cf0:	00100a40 	call	100a4 <IO_write>
+   10cf4:	048004c4 	movi	r18,19
+   10cf8:	900b883a 	mov	r5,r18
+   10cfc:	0009883a 	mov	r4,zero
+   10d00:	00100a40 	call	100a4 <IO_write>
+   10d04:	0009883a 	mov	r4,zero
+   10d08:	01414504 	movi	r5,1300
+   10d0c:	00100a40 	call	100a4 <IO_write>
+   10d10:	800b883a 	mov	r5,r16
+   10d14:	0009883a 	mov	r4,zero
+   10d18:	00100a40 	call	100a4 <IO_write>
+   10d1c:	880b883a 	mov	r5,r17
+   10d20:	0009883a 	mov	r4,zero
+   10d24:	00100a40 	call	100a4 <IO_write>
+   10d28:	000b883a 	mov	r5,zero
+   10d2c:	0009883a 	mov	r4,zero
+   10d30:	00100a40 	call	100a4 <IO_write>
+   10d34:	000b883a 	mov	r5,zero
+   10d38:	0009883a 	mov	r4,zero
+   10d3c:	00100a40 	call	100a4 <IO_write>
+   10d40:	000b883a 	mov	r5,zero
+   10d44:	0009883a 	mov	r4,zero
+   10d48:	00100a40 	call	100a4 <IO_write>
+   10d4c:	000b883a 	mov	r5,zero
+   10d50:	0009883a 	mov	r4,zero
+   10d54:	00100a40 	call	100a4 <IO_write>
+   10d58:	01402404 	movi	r5,144
+   10d5c:	0009883a 	mov	r4,zero
+   10d60:	00100a40 	call	100a4 <IO_write>
+   10d64:	0009883a 	mov	r4,zero
+   10d68:	01401044 	movi	r5,65
+   10d6c:	00100a40 	call	100a4 <IO_write>
+   10d70:	900b883a 	mov	r5,r18
+   10d74:	0009883a 	mov	r4,zero
+   10d78:	00100a40 	call	100a4 <IO_write>
+   10d7c:	000b883a 	mov	r5,zero
+   10d80:	0009883a 	mov	r4,zero
+   10d84:	00100a40 	call	100a4 <IO_write>
+   10d88:	8809883a 	mov	r4,r17
+   10d8c:	01406c04 	movi	r5,432
+   10d90:	00100a40 	call	100a4 <IO_write>
+   10d94:	800b883a 	mov	r5,r16
+   10d98:	0009883a 	mov	r4,zero
+   10d9c:	dfc00317 	ldw	ra,12(sp)
+   10da0:	dc800217 	ldw	r18,8(sp)
+   10da4:	dc400117 	ldw	r17,4(sp)
+   10da8:	dc000017 	ldw	r16,0(sp)
+   10dac:	dec00404 	addi	sp,sp,16
+   10db0:	00100a41 	jmpi	100a4 <IO_write>
+
+00010db4 <UsbGetDeviceDesc1>:
+   10db4:	defffb04 	addi	sp,sp,-20
+   10db8:	dcc00315 	stw	r19,12(sp)
+   10dbc:	dc800215 	stw	r18,8(sp)
+   10dc0:	04c00084 	movi	r19,2
+   10dc4:	04814004 	movi	r18,1280
+   10dc8:	900b883a 	mov	r5,r18
+   10dcc:	9809883a 	mov	r4,r19
+   10dd0:	dfc00415 	stw	ra,16(sp)
+   10dd4:	dc400115 	stw	r17,4(sp)
+   10dd8:	dc000015 	stw	r16,0(sp)
+   10ddc:	00100a40 	call	100a4 <IO_write>
+   10de0:	01414304 	movi	r5,1292
+   10de4:	0009883a 	mov	r4,zero
+   10de8:	00100a40 	call	100a4 <IO_write>
+   10dec:	04400204 	movi	r17,8
+   10df0:	880b883a 	mov	r5,r17
+   10df4:	0009883a 	mov	r4,zero
+   10df8:	00100a40 	call	100a4 <IO_write>
+   10dfc:	0140b404 	movi	r5,720
+   10e00:	0009883a 	mov	r4,zero
+   10e04:	00100a40 	call	100a4 <IO_write>
+   10e08:	01400044 	movi	r5,1
+   10e0c:	0009883a 	mov	r4,zero
+   10e10:	00100a40 	call	100a4 <IO_write>
+   10e14:	040004c4 	movi	r16,19
+   10e18:	800b883a 	mov	r5,r16
+   10e1c:	0009883a 	mov	r4,zero
+   10e20:	00100a40 	call	100a4 <IO_write>
+   10e24:	01414504 	movi	r5,1300
+   10e28:	0009883a 	mov	r4,zero
+   10e2c:	00100a40 	call	100a4 <IO_write>
+   10e30:	0141a004 	movi	r5,1664
+   10e34:	0009883a 	mov	r4,zero
+   10e38:	00100a40 	call	100a4 <IO_write>
+   10e3c:	01404004 	movi	r5,256
+   10e40:	0009883a 	mov	r4,zero
+   10e44:	00100a40 	call	100a4 <IO_write>
+   10e48:	0009883a 	mov	r4,zero
+   10e4c:	000b883a 	mov	r5,zero
+   10e50:	00100a40 	call	100a4 <IO_write>
+   10e54:	880b883a 	mov	r5,r17
+   10e58:	0009883a 	mov	r4,zero
+   10e5c:	00100a40 	call	100a4 <IO_write>
+   10e60:	0009883a 	mov	r4,zero
+   10e64:	01414b04 	movi	r5,1324
+   10e68:	00100a40 	call	100a4 <IO_write>
+   10e6c:	880b883a 	mov	r5,r17
+   10e70:	0009883a 	mov	r4,zero
+   10e74:	00100a40 	call	100a4 <IO_write>
+   10e78:	0140a404 	movi	r5,656
+   10e7c:	0009883a 	mov	r4,zero
+   10e80:	00100a40 	call	100a4 <IO_write>
+   10e84:	04401044 	movi	r17,65
+   10e88:	880b883a 	mov	r5,r17
+   10e8c:	0009883a 	mov	r4,zero
+   10e90:	00100a40 	call	100a4 <IO_write>
+   10e94:	800b883a 	mov	r5,r16
+   10e98:	0009883a 	mov	r4,zero
+   10e9c:	00100a40 	call	100a4 <IO_write>
+   10ea0:	01414804 	movi	r5,1312
+   10ea4:	0009883a 	mov	r4,zero
+   10ea8:	00100a40 	call	100a4 <IO_write>
+   10eac:	000b883a 	mov	r5,zero
+   10eb0:	0009883a 	mov	r4,zero
+   10eb4:	00100a40 	call	100a4 <IO_write>
+   10eb8:	000b883a 	mov	r5,zero
+   10ebc:	0009883a 	mov	r4,zero
+   10ec0:	00100a40 	call	100a4 <IO_write>
+   10ec4:	0009883a 	mov	r4,zero
+   10ec8:	01408404 	movi	r5,528
+   10ecc:	00100a40 	call	100a4 <IO_write>
+   10ed0:	880b883a 	mov	r5,r17
+   10ed4:	0009883a 	mov	r4,zero
+   10ed8:	00100a40 	call	100a4 <IO_write>
+   10edc:	800b883a 	mov	r5,r16
+   10ee0:	0009883a 	mov	r4,zero
+   10ee4:	00100a40 	call	100a4 <IO_write>
+   10ee8:	000b883a 	mov	r5,zero
+   10eec:	0009883a 	mov	r4,zero
+   10ef0:	00100a40 	call	100a4 <IO_write>
+   10ef4:	9809883a 	mov	r4,r19
+   10ef8:	01406c04 	movi	r5,432
+   10efc:	00100a40 	call	100a4 <IO_write>
+   10f00:	900b883a 	mov	r5,r18
+   10f04:	0009883a 	mov	r4,zero
+   10f08:	dfc00417 	ldw	ra,16(sp)
+   10f0c:	dcc00317 	ldw	r19,12(sp)
+   10f10:	dc800217 	ldw	r18,8(sp)
+   10f14:	dc400117 	ldw	r17,4(sp)
+   10f18:	dc000017 	ldw	r16,0(sp)
+   10f1c:	dec00504 	addi	sp,sp,20
+   10f20:	00100a41 	jmpi	100a4 <IO_write>
+
+00010f24 <UsbGetDeviceDesc2>:
+   10f24:	defff804 	addi	sp,sp,-32
+   10f28:	dd400515 	stw	r21,20(sp)
+   10f2c:	dc400115 	stw	r17,4(sp)
+   10f30:	05414004 	movi	r21,1280
+   10f34:	04400084 	movi	r17,2
+   10f38:	a80b883a 	mov	r5,r21
+   10f3c:	8809883a 	mov	r4,r17
+   10f40:	dfc00715 	stw	ra,28(sp)
+   10f44:	dd800615 	stw	r22,24(sp)
+   10f48:	dd000415 	stw	r20,16(sp)
+   10f4c:	dcc00315 	stw	r19,12(sp)
+   10f50:	dc800215 	stw	r18,8(sp)
+   10f54:	dc000015 	stw	r16,0(sp)
+   10f58:	00100a40 	call	100a4 <IO_write>
+   10f5c:	01414304 	movi	r5,1292
+   10f60:	0009883a 	mov	r4,zero
+   10f64:	00100a40 	call	100a4 <IO_write>
+   10f68:	05000204 	movi	r20,8
+   10f6c:	a00b883a 	mov	r5,r20
+   10f70:	0009883a 	mov	r4,zero
+   10f74:	00100a40 	call	100a4 <IO_write>
+   10f78:	0140b404 	movi	r5,720
+   10f7c:	0009883a 	mov	r4,zero
+   10f80:	00100a40 	call	100a4 <IO_write>
+   10f84:	05800044 	movi	r22,1
+   10f88:	b00b883a 	mov	r5,r22
+   10f8c:	0009883a 	mov	r4,zero
+   10f90:	040004c4 	movi	r16,19
+   10f94:	00100a40 	call	100a4 <IO_write>
+   10f98:	800b883a 	mov	r5,r16
+   10f9c:	0009883a 	mov	r4,zero
+   10fa0:	00100a40 	call	100a4 <IO_write>
+   10fa4:	01414504 	movi	r5,1300
+   10fa8:	0009883a 	mov	r4,zero
+   10fac:	00100a40 	call	100a4 <IO_write>
+   10fb0:	0141a004 	movi	r5,1664
+   10fb4:	0009883a 	mov	r4,zero
+   10fb8:	00100a40 	call	100a4 <IO_write>
+   10fbc:	01404004 	movi	r5,256
+   10fc0:	0009883a 	mov	r4,zero
+   10fc4:	00100a40 	call	100a4 <IO_write>
+   10fc8:	000b883a 	mov	r5,zero
+   10fcc:	0009883a 	mov	r4,zero
+   10fd0:	00100a40 	call	100a4 <IO_write>
+   10fd4:	01400484 	movi	r5,18
+   10fd8:	0009883a 	mov	r4,zero
+   10fdc:	00100a40 	call	100a4 <IO_write>
+   10fe0:	0009883a 	mov	r4,zero
+   10fe4:	01415104 	movi	r5,1348
+   10fe8:	00100a40 	call	100a4 <IO_write>
+   10fec:	a00b883a 	mov	r5,r20
+   10ff0:	0009883a 	mov	r4,zero
+   10ff4:	00100a40 	call	100a4 <IO_write>
+   10ff8:	04c0a404 	movi	r19,656
+   10ffc:	980b883a 	mov	r5,r19
+   11000:	0009883a 	mov	r4,zero
+   11004:	00100a40 	call	100a4 <IO_write>
+   11008:	04801044 	movi	r18,65
+   1100c:	900b883a 	mov	r5,r18
+   11010:	0009883a 	mov	r4,zero
+   11014:	00100a40 	call	100a4 <IO_write>
+   11018:	800b883a 	mov	r5,r16
+   1101c:	0009883a 	mov	r4,zero
+   11020:	00100a40 	call	100a4 <IO_write>
+   11024:	01414804 	movi	r5,1312
+   11028:	0009883a 	mov	r4,zero
+   1102c:	00100a40 	call	100a4 <IO_write>
+   11030:	0009883a 	mov	r4,zero
+   11034:	01415304 	movi	r5,1356
+   11038:	00100a40 	call	100a4 <IO_write>
+   1103c:	a00b883a 	mov	r5,r20
+   11040:	0009883a 	mov	r4,zero
+   11044:	00100a40 	call	100a4 <IO_write>
+   11048:	980b883a 	mov	r5,r19
+   1104c:	0009883a 	mov	r4,zero
+   11050:	00100a40 	call	100a4 <IO_write>
+   11054:	b00b883a 	mov	r5,r22
+   11058:	0009883a 	mov	r4,zero
+   1105c:	00100a40 	call	100a4 <IO_write>
+   11060:	800b883a 	mov	r5,r16
+   11064:	0009883a 	mov	r4,zero
+   11068:	00100a40 	call	100a4 <IO_write>
+   1106c:	01414b04 	movi	r5,1324
+   11070:	0009883a 	mov	r4,zero
+   11074:	00100a40 	call	100a4 <IO_write>
+   11078:	0009883a 	mov	r4,zero
+   1107c:	01415504 	movi	r5,1364
+   11080:	00100a40 	call	100a4 <IO_write>
+   11084:	880b883a 	mov	r5,r17
+   11088:	0009883a 	mov	r4,zero
+   1108c:	00100a40 	call	100a4 <IO_write>
+   11090:	980b883a 	mov	r5,r19
+   11094:	0009883a 	mov	r4,zero
+   11098:	00100a40 	call	100a4 <IO_write>
+   1109c:	900b883a 	mov	r5,r18
+   110a0:	0009883a 	mov	r4,zero
+   110a4:	00100a40 	call	100a4 <IO_write>
+   110a8:	800b883a 	mov	r5,r16
+   110ac:	0009883a 	mov	r4,zero
+   110b0:	00100a40 	call	100a4 <IO_write>
+   110b4:	01414e04 	movi	r5,1336
+   110b8:	0009883a 	mov	r4,zero
+   110bc:	00100a40 	call	100a4 <IO_write>
+   110c0:	000b883a 	mov	r5,zero
+   110c4:	0009883a 	mov	r4,zero
+   110c8:	00100a40 	call	100a4 <IO_write>
+   110cc:	000b883a 	mov	r5,zero
+   110d0:	0009883a 	mov	r4,zero
+   110d4:	00100a40 	call	100a4 <IO_write>
+   110d8:	0009883a 	mov	r4,zero
+   110dc:	01408404 	movi	r5,528
+   110e0:	00100a40 	call	100a4 <IO_write>
+   110e4:	900b883a 	mov	r5,r18
+   110e8:	0009883a 	mov	r4,zero
+   110ec:	00100a40 	call	100a4 <IO_write>
+   110f0:	800b883a 	mov	r5,r16
+   110f4:	0009883a 	mov	r4,zero
+   110f8:	00100a40 	call	100a4 <IO_write>
+   110fc:	000b883a 	mov	r5,zero
+   11100:	0009883a 	mov	r4,zero
+   11104:	00100a40 	call	100a4 <IO_write>
+   11108:	8809883a 	mov	r4,r17
+   1110c:	01406c04 	movi	r5,432
+   11110:	00100a40 	call	100a4 <IO_write>
+   11114:	a80b883a 	mov	r5,r21
+   11118:	0009883a 	mov	r4,zero
+   1111c:	dfc00717 	ldw	ra,28(sp)
+   11120:	dd800617 	ldw	r22,24(sp)
+   11124:	dd400517 	ldw	r21,20(sp)
+   11128:	dd000417 	ldw	r20,16(sp)
+   1112c:	dcc00317 	ldw	r19,12(sp)
+   11130:	dc800217 	ldw	r18,8(sp)
+   11134:	dc400117 	ldw	r17,4(sp)
+   11138:	dc000017 	ldw	r16,0(sp)
+   1113c:	dec00804 	addi	sp,sp,32
+   11140:	00100a41 	jmpi	100a4 <IO_write>
+
+00011144 <UsbGetConfigDesc1>:
+   11144:	defff904 	addi	sp,sp,-28
+   11148:	dcc00315 	stw	r19,12(sp)
+   1114c:	dc800215 	stw	r18,8(sp)
+   11150:	04c00084 	movi	r19,2
+   11154:	04814004 	movi	r18,1280
+   11158:	900b883a 	mov	r5,r18
+   1115c:	9809883a 	mov	r4,r19
+   11160:	dfc00615 	stw	ra,24(sp)
+   11164:	dd400515 	stw	r21,20(sp)
+   11168:	dd000415 	stw	r20,16(sp)
+   1116c:	dc400115 	stw	r17,4(sp)
+   11170:	dc000015 	stw	r16,0(sp)
+   11174:	00100a40 	call	100a4 <IO_write>
+   11178:	01414304 	movi	r5,1292
+   1117c:	0009883a 	mov	r4,zero
+   11180:	00100a40 	call	100a4 <IO_write>
+   11184:	05000204 	movi	r20,8
+   11188:	a00b883a 	mov	r5,r20
+   1118c:	0009883a 	mov	r4,zero
+   11190:	00100a40 	call	100a4 <IO_write>
+   11194:	0140b404 	movi	r5,720
+   11198:	0009883a 	mov	r4,zero
+   1119c:	00100a40 	call	100a4 <IO_write>
+   111a0:	04400044 	movi	r17,1
+   111a4:	880b883a 	mov	r5,r17
+   111a8:	0009883a 	mov	r4,zero
+   111ac:	040004c4 	movi	r16,19
+   111b0:	00100a40 	call	100a4 <IO_write>
+   111b4:	800b883a 	mov	r5,r16
+   111b8:	0009883a 	mov	r4,zero
+   111bc:	00100a40 	call	100a4 <IO_write>
+   111c0:	01414504 	movi	r5,1300
+   111c4:	0009883a 	mov	r4,zero
+   111c8:	00100a40 	call	100a4 <IO_write>
+   111cc:	0141a004 	movi	r5,1664
+   111d0:	0009883a 	mov	r4,zero
+   111d4:	00100a40 	call	100a4 <IO_write>
+   111d8:	01408004 	movi	r5,512
+   111dc:	0009883a 	mov	r4,zero
+   111e0:	00100a40 	call	100a4 <IO_write>
+   111e4:	000b883a 	mov	r5,zero
+   111e8:	0009883a 	mov	r4,zero
+   111ec:	00100a40 	call	100a4 <IO_write>
+   111f0:	01400244 	movi	r5,9
+   111f4:	0009883a 	mov	r4,zero
+   111f8:	00100a40 	call	100a4 <IO_write>
+   111fc:	0009883a 	mov	r4,zero
+   11200:	01415104 	movi	r5,1348
+   11204:	00100a40 	call	100a4 <IO_write>
+   11208:	a00b883a 	mov	r5,r20
+   1120c:	0009883a 	mov	r4,zero
+   11210:	00100a40 	call	100a4 <IO_write>
+   11214:	0540a404 	movi	r21,656
+   11218:	a80b883a 	mov	r5,r21
+   1121c:	0009883a 	mov	r4,zero
+   11220:	00100a40 	call	100a4 <IO_write>
+   11224:	05001044 	movi	r20,65
+   11228:	a00b883a 	mov	r5,r20
+   1122c:	0009883a 	mov	r4,zero
+   11230:	00100a40 	call	100a4 <IO_write>
+   11234:	800b883a 	mov	r5,r16
+   11238:	0009883a 	mov	r4,zero
+   1123c:	00100a40 	call	100a4 <IO_write>
+   11240:	01414804 	movi	r5,1312
+   11244:	0009883a 	mov	r4,zero
+   11248:	00100a40 	call	100a4 <IO_write>
+   1124c:	0009883a 	mov	r4,zero
+   11250:	01415304 	movi	r5,1356
+   11254:	00100a40 	call	100a4 <IO_write>
+   11258:	880b883a 	mov	r5,r17
+   1125c:	0009883a 	mov	r4,zero
+   11260:	00100a40 	call	100a4 <IO_write>
+   11264:	a80b883a 	mov	r5,r21
+   11268:	0009883a 	mov	r4,zero
+   1126c:	00100a40 	call	100a4 <IO_write>
+   11270:	880b883a 	mov	r5,r17
+   11274:	0009883a 	mov	r4,zero
+   11278:	00100a40 	call	100a4 <IO_write>
+   1127c:	800b883a 	mov	r5,r16
+   11280:	0009883a 	mov	r4,zero
+   11284:	00100a40 	call	100a4 <IO_write>
+   11288:	01414b04 	movi	r5,1324
+   1128c:	0009883a 	mov	r4,zero
+   11290:	00100a40 	call	100a4 <IO_write>
+   11294:	000b883a 	mov	r5,zero
+   11298:	0009883a 	mov	r4,zero
+   1129c:	00100a40 	call	100a4 <IO_write>
+   112a0:	000b883a 	mov	r5,zero
+   112a4:	0009883a 	mov	r4,zero
+   112a8:	00100a40 	call	100a4 <IO_write>
+   112ac:	0009883a 	mov	r4,zero
+   112b0:	01408404 	movi	r5,528
+   112b4:	00100a40 	call	100a4 <IO_write>
+   112b8:	a00b883a 	mov	r5,r20
+   112bc:	0009883a 	mov	r4,zero
+   112c0:	00100a40 	call	100a4 <IO_write>
+   112c4:	800b883a 	mov	r5,r16
+   112c8:	0009883a 	mov	r4,zero
+   112cc:	00100a40 	call	100a4 <IO_write>
+   112d0:	000b883a 	mov	r5,zero
+   112d4:	0009883a 	mov	r4,zero
+   112d8:	00100a40 	call	100a4 <IO_write>
+   112dc:	9809883a 	mov	r4,r19
+   112e0:	01406c04 	movi	r5,432
+   112e4:	00100a40 	call	100a4 <IO_write>
+   112e8:	900b883a 	mov	r5,r18
+   112ec:	0009883a 	mov	r4,zero
+   112f0:	dfc00617 	ldw	ra,24(sp)
+   112f4:	dd400517 	ldw	r21,20(sp)
+   112f8:	dd000417 	ldw	r20,16(sp)
+   112fc:	dcc00317 	ldw	r19,12(sp)
+   11300:	dc800217 	ldw	r18,8(sp)
+   11304:	dc400117 	ldw	r17,4(sp)
+   11308:	dc000017 	ldw	r16,0(sp)
+   1130c:	dec00704 	addi	sp,sp,28
+   11310:	00100a41 	jmpi	100a4 <IO_write>
+
+00011314 <UsbGetConfigDesc2>:
+   11314:	defff804 	addi	sp,sp,-32
+   11318:	dd800615 	stw	r22,24(sp)
+   1131c:	dd000415 	stw	r20,16(sp)
+   11320:	05814004 	movi	r22,1280
+   11324:	05000084 	movi	r20,2
+   11328:	b00b883a 	mov	r5,r22
+   1132c:	a009883a 	mov	r4,r20
+   11330:	dfc00715 	stw	ra,28(sp)
+   11334:	dd400515 	stw	r21,20(sp)
+   11338:	dcc00315 	stw	r19,12(sp)
+   1133c:	dc800215 	stw	r18,8(sp)
+   11340:	dc400115 	stw	r17,4(sp)
+   11344:	dc000015 	stw	r16,0(sp)
+   11348:	00100a40 	call	100a4 <IO_write>
+   1134c:	01414304 	movi	r5,1292
+   11350:	0009883a 	mov	r4,zero
+   11354:	04800204 	movi	r18,8
+   11358:	00100a40 	call	100a4 <IO_write>
+   1135c:	900b883a 	mov	r5,r18
+   11360:	0009883a 	mov	r4,zero
+   11364:	00100a40 	call	100a4 <IO_write>
+   11368:	0140b404 	movi	r5,720
+   1136c:	0009883a 	mov	r4,zero
+   11370:	00100a40 	call	100a4 <IO_write>
+   11374:	05400044 	movi	r21,1
+   11378:	a80b883a 	mov	r5,r21
+   1137c:	0009883a 	mov	r4,zero
+   11380:	040004c4 	movi	r16,19
+   11384:	00100a40 	call	100a4 <IO_write>
+   11388:	800b883a 	mov	r5,r16
+   1138c:	0009883a 	mov	r4,zero
+   11390:	00100a40 	call	100a4 <IO_write>
+   11394:	01414504 	movi	r5,1300
+   11398:	0009883a 	mov	r4,zero
+   1139c:	00100a40 	call	100a4 <IO_write>
+   113a0:	0141a004 	movi	r5,1664
+   113a4:	0009883a 	mov	r4,zero
+   113a8:	00100a40 	call	100a4 <IO_write>
+   113ac:	01408004 	movi	r5,512
+   113b0:	0009883a 	mov	r4,zero
+   113b4:	00100a40 	call	100a4 <IO_write>
+   113b8:	000b883a 	mov	r5,zero
+   113bc:	0009883a 	mov	r4,zero
+   113c0:	00100a40 	call	100a4 <IO_write>
+   113c4:	01403fc4 	movi	r5,255
+   113c8:	0009883a 	mov	r4,zero
+   113cc:	00100a40 	call	100a4 <IO_write>
+   113d0:	0009883a 	mov	r4,zero
+   113d4:	01415704 	movi	r5,1372
+   113d8:	00100a40 	call	100a4 <IO_write>
+   113dc:	900b883a 	mov	r5,r18
+   113e0:	0009883a 	mov	r4,zero
+   113e4:	0440a404 	movi	r17,656
+   113e8:	00100a40 	call	100a4 <IO_write>
+   113ec:	880b883a 	mov	r5,r17
+   113f0:	0009883a 	mov	r4,zero
+   113f4:	00100a40 	call	100a4 <IO_write>
+   113f8:	04c01044 	movi	r19,65
+   113fc:	980b883a 	mov	r5,r19
+   11400:	0009883a 	mov	r4,zero
+   11404:	00100a40 	call	100a4 <IO_write>
+   11408:	800b883a 	mov	r5,r16
+   1140c:	0009883a 	mov	r4,zero
+   11410:	00100a40 	call	100a4 <IO_write>
+   11414:	01414804 	movi	r5,1312
+   11418:	0009883a 	mov	r4,zero
+   1141c:	00100a40 	call	100a4 <IO_write>
+   11420:	0009883a 	mov	r4,zero
+   11424:	01415904 	movi	r5,1380
+   11428:	00100a40 	call	100a4 <IO_write>
+   1142c:	900b883a 	mov	r5,r18
+   11430:	0009883a 	mov	r4,zero
+   11434:	00100a40 	call	100a4 <IO_write>
+   11438:	880b883a 	mov	r5,r17
+   1143c:	0009883a 	mov	r4,zero
+   11440:	00100a40 	call	100a4 <IO_write>
+   11444:	a80b883a 	mov	r5,r21
+   11448:	0009883a 	mov	r4,zero
+   1144c:	00100a40 	call	100a4 <IO_write>
+   11450:	800b883a 	mov	r5,r16
+   11454:	0009883a 	mov	r4,zero
+   11458:	00100a40 	call	100a4 <IO_write>
+   1145c:	01414b04 	movi	r5,1324
+   11460:	0009883a 	mov	r4,zero
+   11464:	00100a40 	call	100a4 <IO_write>
+   11468:	0009883a 	mov	r4,zero
+   1146c:	01415b04 	movi	r5,1388
+   11470:	00100a40 	call	100a4 <IO_write>
+   11474:	900b883a 	mov	r5,r18
+   11478:	0009883a 	mov	r4,zero
+   1147c:	00100a40 	call	100a4 <IO_write>
+   11480:	880b883a 	mov	r5,r17
+   11484:	0009883a 	mov	r4,zero
+   11488:	00100a40 	call	100a4 <IO_write>
+   1148c:	980b883a 	mov	r5,r19
+   11490:	0009883a 	mov	r4,zero
+   11494:	00100a40 	call	100a4 <IO_write>
+   11498:	800b883a 	mov	r5,r16
+   1149c:	0009883a 	mov	r4,zero
+   114a0:	00100a40 	call	100a4 <IO_write>
+   114a4:	01414e04 	movi	r5,1336
+   114a8:	0009883a 	mov	r4,zero
+   114ac:	00100a40 	call	100a4 <IO_write>
+   114b0:	0009883a 	mov	r4,zero
+   114b4:	01415d04 	movi	r5,1396
+   114b8:	00100a40 	call	100a4 <IO_write>
+   114bc:	900b883a 	mov	r5,r18
+   114c0:	0009883a 	mov	r4,zero
+   114c4:	00100a40 	call	100a4 <IO_write>
+   114c8:	880b883a 	mov	r5,r17
+   114cc:	0009883a 	mov	r4,zero
+   114d0:	00100a40 	call	100a4 <IO_write>
+   114d4:	a80b883a 	mov	r5,r21
+   114d8:	0009883a 	mov	r4,zero
+   114dc:	00100a40 	call	100a4 <IO_write>
+   114e0:	800b883a 	mov	r5,r16
+   114e4:	0009883a 	mov	r4,zero
+   114e8:	00100a40 	call	100a4 <IO_write>
+   114ec:	01415104 	movi	r5,1348
+   114f0:	0009883a 	mov	r4,zero
+   114f4:	00100a40 	call	100a4 <IO_write>
+   114f8:	0009883a 	mov	r4,zero
+   114fc:	01415f04 	movi	r5,1404
+   11500:	00100a40 	call	100a4 <IO_write>
+   11504:	a00b883a 	mov	r5,r20
+   11508:	0009883a 	mov	r4,zero
+   1150c:	00100a40 	call	100a4 <IO_write>
+   11510:	880b883a 	mov	r5,r17
+   11514:	0009883a 	mov	r4,zero
+   11518:	00100a40 	call	100a4 <IO_write>
+   1151c:	980b883a 	mov	r5,r19
+   11520:	0009883a 	mov	r4,zero
+   11524:	00100a40 	call	100a4 <IO_write>
+   11528:	800b883a 	mov	r5,r16
+   1152c:	0009883a 	mov	r4,zero
+   11530:	00100a40 	call	100a4 <IO_write>
+   11534:	01415404 	movi	r5,1360
+   11538:	0009883a 	mov	r4,zero
+   1153c:	00100a40 	call	100a4 <IO_write>
+   11540:	000b883a 	mov	r5,zero
+   11544:	0009883a 	mov	r4,zero
+   11548:	00100a40 	call	100a4 <IO_write>
+   1154c:	000b883a 	mov	r5,zero
+   11550:	0009883a 	mov	r4,zero
+   11554:	00100a40 	call	100a4 <IO_write>
+   11558:	0009883a 	mov	r4,zero
+   1155c:	01408404 	movi	r5,528
+   11560:	00100a40 	call	100a4 <IO_write>
+   11564:	980b883a 	mov	r5,r19
+   11568:	0009883a 	mov	r4,zero
+   1156c:	00100a40 	call	100a4 <IO_write>
+   11570:	800b883a 	mov	r5,r16
+   11574:	0009883a 	mov	r4,zero
+   11578:	00100a40 	call	100a4 <IO_write>
+   1157c:	000b883a 	mov	r5,zero
+   11580:	0009883a 	mov	r4,zero
+   11584:	00100a40 	call	100a4 <IO_write>
+   11588:	a009883a 	mov	r4,r20
+   1158c:	01406c04 	movi	r5,432
+   11590:	00100a40 	call	100a4 <IO_write>
+   11594:	b00b883a 	mov	r5,r22
+   11598:	0009883a 	mov	r4,zero
+   1159c:	dfc00717 	ldw	ra,28(sp)
+   115a0:	dd800617 	ldw	r22,24(sp)
+   115a4:	dd400517 	ldw	r21,20(sp)
+   115a8:	dd000417 	ldw	r20,16(sp)
+   115ac:	dcc00317 	ldw	r19,12(sp)
+   115b0:	dc800217 	ldw	r18,8(sp)
+   115b4:	dc400117 	ldw	r17,4(sp)
+   115b8:	dc000017 	ldw	r16,0(sp)
+   115bc:	dec00804 	addi	sp,sp,32
+   115c0:	00100a41 	jmpi	100a4 <IO_write>
+
+000115c4 <UsbSetConfig>:
+   115c4:	defffb04 	addi	sp,sp,-20
+   115c8:	dc400115 	stw	r17,4(sp)
+   115cc:	dc000015 	stw	r16,0(sp)
+   115d0:	04400084 	movi	r17,2
+   115d4:	04014004 	movi	r16,1280
+   115d8:	800b883a 	mov	r5,r16
+   115dc:	8809883a 	mov	r4,r17
+   115e0:	dfc00415 	stw	ra,16(sp)
+   115e4:	dcc00315 	stw	r19,12(sp)
+   115e8:	dc800215 	stw	r18,8(sp)
+   115ec:	00100a40 	call	100a4 <IO_write>
+   115f0:	01414304 	movi	r5,1292
+   115f4:	0009883a 	mov	r4,zero
+   115f8:	00100a40 	call	100a4 <IO_write>
+   115fc:	01400204 	movi	r5,8
+   11600:	0009883a 	mov	r4,zero
+   11604:	00100a40 	call	100a4 <IO_write>
+   11608:	0140b404 	movi	r5,720
+   1160c:	0009883a 	mov	r4,zero
+   11610:	00100a40 	call	100a4 <IO_write>
+   11614:	04c00044 	movi	r19,1
+   11618:	980b883a 	mov	r5,r19
+   1161c:	0009883a 	mov	r4,zero
+   11620:	00100a40 	call	100a4 <IO_write>
+   11624:	048004c4 	movi	r18,19
+   11628:	900b883a 	mov	r5,r18
+   1162c:	0009883a 	mov	r4,zero
+   11630:	00100a40 	call	100a4 <IO_write>
+   11634:	01414504 	movi	r5,1300
+   11638:	0009883a 	mov	r4,zero
+   1163c:	00100a40 	call	100a4 <IO_write>
+   11640:	0009883a 	mov	r4,zero
+   11644:	01424004 	movi	r5,2304
+   11648:	00100a40 	call	100a4 <IO_write>
+   1164c:	980b883a 	mov	r5,r19
+   11650:	0009883a 	mov	r4,zero
+   11654:	00100a40 	call	100a4 <IO_write>
+   11658:	000b883a 	mov	r5,zero
+   1165c:	0009883a 	mov	r4,zero
+   11660:	00100a40 	call	100a4 <IO_write>
+   11664:	000b883a 	mov	r5,zero
+   11668:	0009883a 	mov	r4,zero
+   1166c:	00100a40 	call	100a4 <IO_write>
+   11670:	000b883a 	mov	r5,zero
+   11674:	0009883a 	mov	r4,zero
+   11678:	00100a40 	call	100a4 <IO_write>
+   1167c:	000b883a 	mov	r5,zero
+   11680:	0009883a 	mov	r4,zero
+   11684:	00100a40 	call	100a4 <IO_write>
+   11688:	0140a404 	movi	r5,656
+   1168c:	0009883a 	mov	r4,zero
+   11690:	00100a40 	call	100a4 <IO_write>
+   11694:	0009883a 	mov	r4,zero
+   11698:	01401044 	movi	r5,65
+   1169c:	00100a40 	call	100a4 <IO_write>
+   116a0:	900b883a 	mov	r5,r18
+   116a4:	0009883a 	mov	r4,zero
+   116a8:	00100a40 	call	100a4 <IO_write>
+   116ac:	000b883a 	mov	r5,zero
+   116b0:	0009883a 	mov	r4,zero
+   116b4:	00100a40 	call	100a4 <IO_write>
+   116b8:	8809883a 	mov	r4,r17
+   116bc:	01406c04 	movi	r5,432
+   116c0:	00100a40 	call	100a4 <IO_write>
+   116c4:	800b883a 	mov	r5,r16
+   116c8:	0009883a 	mov	r4,zero
+   116cc:	dfc00417 	ldw	ra,16(sp)
+   116d0:	dcc00317 	ldw	r19,12(sp)
+   116d4:	dc800217 	ldw	r18,8(sp)
+   116d8:	dc400117 	ldw	r17,4(sp)
+   116dc:	dc000017 	ldw	r16,0(sp)
+   116e0:	dec00504 	addi	sp,sp,20
+   116e4:	00100a41 	jmpi	100a4 <IO_write>
+
+000116e8 <UsbClassRequest>:
+   116e8:	defffc04 	addi	sp,sp,-16
+   116ec:	dc400115 	stw	r17,4(sp)
+   116f0:	dc000015 	stw	r16,0(sp)
+   116f4:	04400084 	movi	r17,2
+   116f8:	04014004 	movi	r16,1280
+   116fc:	800b883a 	mov	r5,r16
+   11700:	8809883a 	mov	r4,r17
+   11704:	dfc00315 	stw	ra,12(sp)
+   11708:	dc800215 	stw	r18,8(sp)
+   1170c:	00100a40 	call	100a4 <IO_write>
+   11710:	01414304 	movi	r5,1292
+   11714:	0009883a 	mov	r4,zero
+   11718:	00100a40 	call	100a4 <IO_write>
+   1171c:	01400204 	movi	r5,8
+   11720:	0009883a 	mov	r4,zero
+   11724:	00100a40 	call	100a4 <IO_write>
+   11728:	0140b404 	movi	r5,720
+   1172c:	0009883a 	mov	r4,zero
+   11730:	00100a40 	call	100a4 <IO_write>
+   11734:	01400044 	movi	r5,1
+   11738:	0009883a 	mov	r4,zero
+   1173c:	00100a40 	call	100a4 <IO_write>
+   11740:	048004c4 	movi	r18,19
+   11744:	900b883a 	mov	r5,r18
+   11748:	0009883a 	mov	r4,zero
+   1174c:	00100a40 	call	100a4 <IO_write>
+   11750:	01414504 	movi	r5,1300
+   11754:	0009883a 	mov	r4,zero
+   11758:	00100a40 	call	100a4 <IO_write>
+   1175c:	01428844 	movi	r5,2593
+   11760:	0009883a 	mov	r4,zero
+   11764:	00100a40 	call	100a4 <IO_write>
+   11768:	000b883a 	mov	r5,zero
+   1176c:	0009883a 	mov	r4,zero
+   11770:	00100a40 	call	100a4 <IO_write>
+   11774:	000b883a 	mov	r5,zero
+   11778:	0009883a 	mov	r4,zero
+   1177c:	00100a40 	call	100a4 <IO_write>
+   11780:	000b883a 	mov	r5,zero
+   11784:	0009883a 	mov	r4,zero
+   11788:	00100a40 	call	100a4 <IO_write>
+   1178c:	000b883a 	mov	r5,zero
+   11790:	0009883a 	mov	r4,zero
+   11794:	00100a40 	call	100a4 <IO_write>
+   11798:	000b883a 	mov	r5,zero
+   1179c:	0009883a 	mov	r4,zero
+   117a0:	00100a40 	call	100a4 <IO_write>
+   117a4:	0140a404 	movi	r5,656
+   117a8:	0009883a 	mov	r4,zero
+   117ac:	00100a40 	call	100a4 <IO_write>
+   117b0:	0009883a 	mov	r4,zero
+   117b4:	01401044 	movi	r5,65
+   117b8:	00100a40 	call	100a4 <IO_write>
+   117bc:	900b883a 	mov	r5,r18
+   117c0:	0009883a 	mov	r4,zero
+   117c4:	00100a40 	call	100a4 <IO_write>
+   117c8:	000b883a 	mov	r5,zero
+   117cc:	0009883a 	mov	r4,zero
+   117d0:	00100a40 	call	100a4 <IO_write>
+   117d4:	8809883a 	mov	r4,r17
+   117d8:	01406c04 	movi	r5,432
+   117dc:	00100a40 	call	100a4 <IO_write>
+   117e0:	800b883a 	mov	r5,r16
+   117e4:	0009883a 	mov	r4,zero
+   117e8:	dfc00317 	ldw	ra,12(sp)
+   117ec:	dc800217 	ldw	r18,8(sp)
+   117f0:	dc400117 	ldw	r17,4(sp)
+   117f4:	dc000017 	ldw	r16,0(sp)
+   117f8:	dec00404 	addi	sp,sp,16
+   117fc:	00100a41 	jmpi	100a4 <IO_write>
+
+00011800 <UsbGetHidDesc>:
+   11800:	defffb04 	addi	sp,sp,-20
+   11804:	dc800215 	stw	r18,8(sp)
+   11808:	dc400115 	stw	r17,4(sp)
+   1180c:	04800084 	movi	r18,2
+   11810:	04414004 	movi	r17,1280
+   11814:	880b883a 	mov	r5,r17
+   11818:	9009883a 	mov	r4,r18
+   1181c:	dfc00415 	stw	ra,16(sp)
+   11820:	dcc00315 	stw	r19,12(sp)
+   11824:	dc000015 	stw	r16,0(sp)
+   11828:	00100a40 	call	100a4 <IO_write>
+   1182c:	01414304 	movi	r5,1292
+   11830:	0009883a 	mov	r4,zero
+   11834:	00100a40 	call	100a4 <IO_write>
+   11838:	04c00204 	movi	r19,8
+   1183c:	980b883a 	mov	r5,r19
+   11840:	0009883a 	mov	r4,zero
+   11844:	00100a40 	call	100a4 <IO_write>
+   11848:	0140b404 	movi	r5,720
+   1184c:	0009883a 	mov	r4,zero
+   11850:	00100a40 	call	100a4 <IO_write>
+   11854:	01400044 	movi	r5,1
+   11858:	0009883a 	mov	r4,zero
+   1185c:	00100a40 	call	100a4 <IO_write>
+   11860:	040004c4 	movi	r16,19
+   11864:	800b883a 	mov	r5,r16
+   11868:	0009883a 	mov	r4,zero
+   1186c:	00100a40 	call	100a4 <IO_write>
+   11870:	01414504 	movi	r5,1300
+   11874:	0009883a 	mov	r4,zero
+   11878:	00100a40 	call	100a4 <IO_write>
+   1187c:	0141a044 	movi	r5,1665
+   11880:	0009883a 	mov	r4,zero
+   11884:	00100a40 	call	100a4 <IO_write>
+   11888:	01484004 	movi	r5,8448
+   1188c:	0009883a 	mov	r4,zero
+   11890:	00100a40 	call	100a4 <IO_write>
+   11894:	000b883a 	mov	r5,zero
+   11898:	0009883a 	mov	r4,zero
+   1189c:	00100a40 	call	100a4 <IO_write>
+   118a0:	01401ec4 	movi	r5,123
+   118a4:	0009883a 	mov	r4,zero
+   118a8:	00100a40 	call	100a4 <IO_write>
+   118ac:	0009883a 	mov	r4,zero
+   118b0:	01415104 	movi	r5,1348
+   118b4:	00100a40 	call	100a4 <IO_write>
+   118b8:	980b883a 	mov	r5,r19
+   118bc:	0009883a 	mov	r4,zero
+   118c0:	00100a40 	call	100a4 <IO_write>
+   118c4:	0140a404 	movi	r5,656
+   118c8:	0009883a 	mov	r4,zero
+   118cc:	00100a40 	call	100a4 <IO_write>
+   118d0:	04c01044 	movi	r19,65
+   118d4:	980b883a 	mov	r5,r19
+   118d8:	0009883a 	mov	r4,zero
+   118dc:	00100a40 	call	100a4 <IO_write>
+   118e0:	800b883a 	mov	r5,r16
+   118e4:	0009883a 	mov	r4,zero
+   118e8:	00100a40 	call	100a4 <IO_write>
+   118ec:	01414804 	movi	r5,1312
+   118f0:	0009883a 	mov	r4,zero
+   118f4:	00100a40 	call	100a4 <IO_write>
+   118f8:	000b883a 	mov	r5,zero
+   118fc:	0009883a 	mov	r4,zero
+   11900:	00100a40 	call	100a4 <IO_write>
+   11904:	000b883a 	mov	r5,zero
+   11908:	0009883a 	mov	r4,zero
+   1190c:	00100a40 	call	100a4 <IO_write>
+   11910:	0009883a 	mov	r4,zero
+   11914:	01408404 	movi	r5,528
+   11918:	00100a40 	call	100a4 <IO_write>
+   1191c:	980b883a 	mov	r5,r19
+   11920:	0009883a 	mov	r4,zero
+   11924:	00100a40 	call	100a4 <IO_write>
+   11928:	800b883a 	mov	r5,r16
+   1192c:	0009883a 	mov	r4,zero
+   11930:	00100a40 	call	100a4 <IO_write>
+   11934:	000b883a 	mov	r5,zero
+   11938:	0009883a 	mov	r4,zero
+   1193c:	00100a40 	call	100a4 <IO_write>
+   11940:	9009883a 	mov	r4,r18
+   11944:	01406c04 	movi	r5,432
+   11948:	00100a40 	call	100a4 <IO_write>
+   1194c:	880b883a 	mov	r5,r17
+   11950:	0009883a 	mov	r4,zero
+   11954:	dfc00417 	ldw	ra,16(sp)
+   11958:	dcc00317 	ldw	r19,12(sp)
+   1195c:	dc800217 	ldw	r18,8(sp)
+   11960:	dc400117 	ldw	r17,4(sp)
+   11964:	dc000017 	ldw	r16,0(sp)
+   11968:	dec00504 	addi	sp,sp,20
+   1196c:	00100a41 	jmpi	100a4 <IO_write>
+
+00011970 <UsbGetReportDesc>:
+   11970:	defff804 	addi	sp,sp,-32
+   11974:	dd800615 	stw	r22,24(sp)
+   11978:	dd400515 	stw	r21,20(sp)
+   1197c:	05800084 	movi	r22,2
+   11980:	05414004 	movi	r21,1280
+   11984:	a80b883a 	mov	r5,r21
+   11988:	b009883a 	mov	r4,r22
+   1198c:	dfc00715 	stw	ra,28(sp)
+   11990:	dd000415 	stw	r20,16(sp)
+   11994:	dcc00315 	stw	r19,12(sp)
+   11998:	dc800215 	stw	r18,8(sp)
+   1199c:	dc400115 	stw	r17,4(sp)
+   119a0:	dc000015 	stw	r16,0(sp)
+   119a4:	00100a40 	call	100a4 <IO_write>
+   119a8:	01414304 	movi	r5,1292
+   119ac:	0009883a 	mov	r4,zero
+   119b0:	04800204 	movi	r18,8
+   119b4:	00100a40 	call	100a4 <IO_write>
+   119b8:	900b883a 	mov	r5,r18
+   119bc:	0009883a 	mov	r4,zero
+   119c0:	00100a40 	call	100a4 <IO_write>
+   119c4:	0140b404 	movi	r5,720
+   119c8:	0009883a 	mov	r4,zero
+   119cc:	05000044 	movi	r20,1
+   119d0:	00100a40 	call	100a4 <IO_write>
+   119d4:	a00b883a 	mov	r5,r20
+   119d8:	0009883a 	mov	r4,zero
+   119dc:	040004c4 	movi	r16,19
+   119e0:	00100a40 	call	100a4 <IO_write>
+   119e4:	800b883a 	mov	r5,r16
+   119e8:	0009883a 	mov	r4,zero
+   119ec:	00100a40 	call	100a4 <IO_write>
+   119f0:	01414504 	movi	r5,1300
+   119f4:	0009883a 	mov	r4,zero
+   119f8:	00100a40 	call	100a4 <IO_write>
+   119fc:	0141a044 	movi	r5,1665
+   11a00:	0009883a 	mov	r4,zero
+   11a04:	00100a40 	call	100a4 <IO_write>
+   11a08:	01488004 	movi	r5,8704
+   11a0c:	0009883a 	mov	r4,zero
+   11a10:	00100a40 	call	100a4 <IO_write>
+   11a14:	000b883a 	mov	r5,zero
+   11a18:	0009883a 	mov	r4,zero
+   11a1c:	00100a40 	call	100a4 <IO_write>
+   11a20:	01401ec4 	movi	r5,123
+   11a24:	0009883a 	mov	r4,zero
+   11a28:	00100a40 	call	100a4 <IO_write>
+   11a2c:	0009883a 	mov	r4,zero
+   11a30:	01416004 	movi	r5,1408
+   11a34:	00100a40 	call	100a4 <IO_write>
+   11a38:	900b883a 	mov	r5,r18
+   11a3c:	0009883a 	mov	r4,zero
+   11a40:	0440a404 	movi	r17,656
+   11a44:	00100a40 	call	100a4 <IO_write>
+   11a48:	880b883a 	mov	r5,r17
+   11a4c:	0009883a 	mov	r4,zero
+   11a50:	04c01044 	movi	r19,65
+   11a54:	00100a40 	call	100a4 <IO_write>
+   11a58:	980b883a 	mov	r5,r19
+   11a5c:	0009883a 	mov	r4,zero
+   11a60:	00100a40 	call	100a4 <IO_write>
+   11a64:	800b883a 	mov	r5,r16
+   11a68:	0009883a 	mov	r4,zero
+   11a6c:	00100a40 	call	100a4 <IO_write>
+   11a70:	01414804 	movi	r5,1312
+   11a74:	0009883a 	mov	r4,zero
+   11a78:	00100a40 	call	100a4 <IO_write>
+   11a7c:	0009883a 	mov	r4,zero
+   11a80:	01416204 	movi	r5,1416
+   11a84:	00100a40 	call	100a4 <IO_write>
+   11a88:	900b883a 	mov	r5,r18
+   11a8c:	0009883a 	mov	r4,zero
+   11a90:	00100a40 	call	100a4 <IO_write>
+   11a94:	880b883a 	mov	r5,r17
+   11a98:	0009883a 	mov	r4,zero
+   11a9c:	00100a40 	call	100a4 <IO_write>
+   11aa0:	a00b883a 	mov	r5,r20
+   11aa4:	0009883a 	mov	r4,zero
+   11aa8:	00100a40 	call	100a4 <IO_write>
+   11aac:	800b883a 	mov	r5,r16
+   11ab0:	0009883a 	mov	r4,zero
+   11ab4:	00100a40 	call	100a4 <IO_write>
+   11ab8:	01414b04 	movi	r5,1324
+   11abc:	0009883a 	mov	r4,zero
+   11ac0:	00100a40 	call	100a4 <IO_write>
+   11ac4:	0009883a 	mov	r4,zero
+   11ac8:	01416404 	movi	r5,1424
+   11acc:	00100a40 	call	100a4 <IO_write>
+   11ad0:	900b883a 	mov	r5,r18
+   11ad4:	0009883a 	mov	r4,zero
+   11ad8:	00100a40 	call	100a4 <IO_write>
+   11adc:	880b883a 	mov	r5,r17
+   11ae0:	0009883a 	mov	r4,zero
+   11ae4:	00100a40 	call	100a4 <IO_write>
+   11ae8:	980b883a 	mov	r5,r19
+   11aec:	0009883a 	mov	r4,zero
+   11af0:	00100a40 	call	100a4 <IO_write>
+   11af4:	800b883a 	mov	r5,r16
+   11af8:	0009883a 	mov	r4,zero
+   11afc:	00100a40 	call	100a4 <IO_write>
+   11b00:	01414e04 	movi	r5,1336
+   11b04:	0009883a 	mov	r4,zero
+   11b08:	00100a40 	call	100a4 <IO_write>
+   11b0c:	0009883a 	mov	r4,zero
+   11b10:	01416604 	movi	r5,1432
+   11b14:	00100a40 	call	100a4 <IO_write>
+   11b18:	900b883a 	mov	r5,r18
+   11b1c:	0009883a 	mov	r4,zero
+   11b20:	00100a40 	call	100a4 <IO_write>
+   11b24:	880b883a 	mov	r5,r17
+   11b28:	0009883a 	mov	r4,zero
+   11b2c:	00100a40 	call	100a4 <IO_write>
+   11b30:	a00b883a 	mov	r5,r20
+   11b34:	0009883a 	mov	r4,zero
+   11b38:	00100a40 	call	100a4 <IO_write>
+   11b3c:	800b883a 	mov	r5,r16
+   11b40:	0009883a 	mov	r4,zero
+   11b44:	00100a40 	call	100a4 <IO_write>
+   11b48:	01415104 	movi	r5,1348
+   11b4c:	0009883a 	mov	r4,zero
+   11b50:	00100a40 	call	100a4 <IO_write>
+   11b54:	0009883a 	mov	r4,zero
+   11b58:	01416804 	movi	r5,1440
+   11b5c:	00100a40 	call	100a4 <IO_write>
+   11b60:	900b883a 	mov	r5,r18
+   11b64:	0009883a 	mov	r4,zero
+   11b68:	00100a40 	call	100a4 <IO_write>
+   11b6c:	880b883a 	mov	r5,r17
+   11b70:	0009883a 	mov	r4,zero
+   11b74:	00100a40 	call	100a4 <IO_write>
+   11b78:	980b883a 	mov	r5,r19
+   11b7c:	0009883a 	mov	r4,zero
+   11b80:	00100a40 	call	100a4 <IO_write>
+   11b84:	800b883a 	mov	r5,r16
+   11b88:	0009883a 	mov	r4,zero
+   11b8c:	00100a40 	call	100a4 <IO_write>
+   11b90:	01415404 	movi	r5,1360
+   11b94:	0009883a 	mov	r4,zero
+   11b98:	00100a40 	call	100a4 <IO_write>
+   11b9c:	0009883a 	mov	r4,zero
+   11ba0:	01416a04 	movi	r5,1448
+   11ba4:	00100a40 	call	100a4 <IO_write>
+   11ba8:	900b883a 	mov	r5,r18
+   11bac:	0009883a 	mov	r4,zero
+   11bb0:	00100a40 	call	100a4 <IO_write>
+   11bb4:	880b883a 	mov	r5,r17
+   11bb8:	0009883a 	mov	r4,zero
+   11bbc:	00100a40 	call	100a4 <IO_write>
+   11bc0:	a00b883a 	mov	r5,r20
+   11bc4:	0009883a 	mov	r4,zero
+   11bc8:	00100a40 	call	100a4 <IO_write>
+   11bcc:	800b883a 	mov	r5,r16
+   11bd0:	0009883a 	mov	r4,zero
+   11bd4:	00100a40 	call	100a4 <IO_write>
+   11bd8:	01415704 	movi	r5,1372
+   11bdc:	0009883a 	mov	r4,zero
+   11be0:	00100a40 	call	100a4 <IO_write>
+   11be4:	0009883a 	mov	r4,zero
+   11be8:	01416c04 	movi	r5,1456
+   11bec:	00100a40 	call	100a4 <IO_write>
+   11bf0:	900b883a 	mov	r5,r18
+   11bf4:	0009883a 	mov	r4,zero
+   11bf8:	00100a40 	call	100a4 <IO_write>
+   11bfc:	880b883a 	mov	r5,r17
+   11c00:	0009883a 	mov	r4,zero
+   11c04:	00100a40 	call	100a4 <IO_write>
+   11c08:	980b883a 	mov	r5,r19
+   11c0c:	0009883a 	mov	r4,zero
+   11c10:	00100a40 	call	100a4 <IO_write>
+   11c14:	800b883a 	mov	r5,r16
+   11c18:	0009883a 	mov	r4,zero
+   11c1c:	00100a40 	call	100a4 <IO_write>
+   11c20:	01415a04 	movi	r5,1384
+   11c24:	0009883a 	mov	r4,zero
+   11c28:	00100a40 	call	100a4 <IO_write>
+   11c2c:	01416e04 	movi	r5,1464
+   11c30:	0009883a 	mov	r4,zero
+   11c34:	00100a40 	call	100a4 <IO_write>
+   11c38:	0009883a 	mov	r4,zero
+   11c3c:	014000c4 	movi	r5,3
+   11c40:	00100a40 	call	100a4 <IO_write>
+   11c44:	880b883a 	mov	r5,r17
+   11c48:	0009883a 	mov	r4,zero
+   11c4c:	00100a40 	call	100a4 <IO_write>
+   11c50:	a00b883a 	mov	r5,r20
+   11c54:	0009883a 	mov	r4,zero
+   11c58:	00100a40 	call	100a4 <IO_write>
+   11c5c:	800b883a 	mov	r5,r16
+   11c60:	0009883a 	mov	r4,zero
+   11c64:	00100a40 	call	100a4 <IO_write>
+   11c68:	01415d04 	movi	r5,1396
+   11c6c:	0009883a 	mov	r4,zero
+   11c70:	00100a40 	call	100a4 <IO_write>
+   11c74:	000b883a 	mov	r5,zero
+   11c78:	0009883a 	mov	r4,zero
+   11c7c:	00100a40 	call	100a4 <IO_write>
+   11c80:	000b883a 	mov	r5,zero
+   11c84:	0009883a 	mov	r4,zero
+   11c88:	00100a40 	call	100a4 <IO_write>
+   11c8c:	0009883a 	mov	r4,zero
+   11c90:	01408404 	movi	r5,528
+   11c94:	00100a40 	call	100a4 <IO_write>
+   11c98:	980b883a 	mov	r5,r19
+   11c9c:	0009883a 	mov	r4,zero
+   11ca0:	00100a40 	call	100a4 <IO_write>
+   11ca4:	800b883a 	mov	r5,r16
+   11ca8:	0009883a 	mov	r4,zero
+   11cac:	00100a40 	call	100a4 <IO_write>
+   11cb0:	000b883a 	mov	r5,zero
+   11cb4:	0009883a 	mov	r4,zero
+   11cb8:	00100a40 	call	100a4 <IO_write>
+   11cbc:	b009883a 	mov	r4,r22
+   11cc0:	01406c04 	movi	r5,432
+   11cc4:	00100a40 	call	100a4 <IO_write>
+   11cc8:	a80b883a 	mov	r5,r21
+   11ccc:	0009883a 	mov	r4,zero
+   11cd0:	dfc00717 	ldw	ra,28(sp)
+   11cd4:	dd800617 	ldw	r22,24(sp)
+   11cd8:	dd400517 	ldw	r21,20(sp)
+   11cdc:	dd000417 	ldw	r20,16(sp)
+   11ce0:	dcc00317 	ldw	r19,12(sp)
+   11ce4:	dc800217 	ldw	r18,8(sp)
+   11ce8:	dc400117 	ldw	r17,4(sp)
+   11cec:	dc000017 	ldw	r16,0(sp)
+   11cf0:	dec00804 	addi	sp,sp,32
+   11cf4:	00100a41 	jmpi	100a4 <IO_write>
+
+00011cf8 <UsbWaitTDListDone>:
+   11cf8:	defffc04 	addi	sp,sp,-16
+   11cfc:	dc800215 	stw	r18,8(sp)
+   11d00:	dfc00315 	stw	ra,12(sp)
+   11d04:	dc400115 	stw	r17,4(sp)
+   11d08:	dc000015 	stw	r16,0(sp)
+   11d0c:	04840004 	movi	r18,4096
+   11d10:	01405104 	movi	r5,324
+   11d14:	01000084 	movi	r4,2
+   11d18:	00100a40 	call	100a4 <IO_write>
+   11d1c:	0009883a 	mov	r4,zero
+   11d20:	00100dc0 	call	100dc <IO_read>
+   11d24:	01405104 	movi	r5,324
+   11d28:	01000084 	movi	r4,2
+   11d2c:	1021883a 	mov	r16,r2
+   11d30:	00100a40 	call	100a4 <IO_write>
+   11d34:	000b883a 	mov	r5,zero
+   11d38:	0009883a 	mov	r4,zero
+   11d3c:	843fffcc 	andi	r16,r16,65535
+   11d40:	00100a40 	call	100a4 <IO_write>
+   11d44:	84801326 	beq	r16,r18,11d94 <UsbWaitTDListDone+0x9c>
+   11d48:	04400044 	movi	r17,1
+   11d4c:	00000106 	br	11d54 <UsbWaitTDListDone+0x5c>
+   11d50:	103fef1e 	bne	r2,zero,11d10 <_gp+0xffff755c>
+   11d54:	01405104 	movi	r5,324
+   11d58:	01000084 	movi	r4,2
+   11d5c:	00100a40 	call	100a4 <IO_write>
+   11d60:	0009883a 	mov	r4,zero
+   11d64:	00100dc0 	call	100dc <IO_read>
+   11d68:	01405104 	movi	r5,324
+   11d6c:	01000084 	movi	r4,2
+   11d70:	1021883a 	mov	r16,r2
+   11d74:	00100a40 	call	100a4 <IO_write>
+   11d78:	000b883a 	mov	r5,zero
+   11d7c:	0009883a 	mov	r4,zero
+   11d80:	8c400044 	addi	r17,r17,1
+   11d84:	00100a40 	call	100a4 <IO_write>
+   11d88:	843fffcc 	andi	r16,r16,65535
+   11d8c:	8880006c 	andhi	r2,r17,1
+   11d90:	84bfef1e 	bne	r16,r18,11d50 <_gp+0xffff759c>
+   11d94:	00840004 	movi	r2,4096
+   11d98:	dfc00317 	ldw	ra,12(sp)
+   11d9c:	dc800217 	ldw	r18,8(sp)
+   11da0:	dc400117 	ldw	r17,4(sp)
+   11da4:	dc000017 	ldw	r16,0(sp)
+   11da8:	dec00404 	addi	sp,sp,16
+   11dac:	f800283a 	ret
+
+00011db0 <UsbGetRetryCnt>:
+   11db0:	defffd04 	addi	sp,sp,-12
+   11db4:	dc400115 	stw	r17,4(sp)
+   11db8:	dc000015 	stw	r16,0(sp)
+   11dbc:	dfc00215 	stw	ra,8(sp)
+   11dc0:	0021883a 	mov	r16,zero
+   11dc4:	04440004 	movi	r17,4096
+   11dc8:	010000c4 	movi	r4,3
+   11dcc:	00100dc0 	call	100dc <IO_read>
+   11dd0:	01405104 	movi	r5,324
+   11dd4:	01000084 	movi	r4,2
+   11dd8:	00100a40 	call	100a4 <IO_write>
+   11ddc:	0009883a 	mov	r4,zero
+   11de0:	00100dc0 	call	100dc <IO_read>
+   11de4:	10bfffcc 	andi	r2,r2,65535
+   11de8:	14400e1e 	bne	r2,r17,11e24 <UsbGetRetryCnt+0x74>
+   11dec:	01405104 	movi	r5,324
+   11df0:	01000084 	movi	r4,2
+   11df4:	00100a40 	call	100a4 <IO_write>
+   11df8:	000b883a 	mov	r5,zero
+   11dfc:	0009883a 	mov	r4,zero
+   11e00:	00100a40 	call	100a4 <IO_write>
+   11e04:	00000106 	br	11e0c <UsbGetRetryCnt+0x5c>
+   11e08:	183fef1e 	bne	r3,zero,11dc8 <_gp+0xffff7614>
+   11e0c:	010000c4 	movi	r4,3
+   11e10:	00100dc0 	call	100dc <IO_read>
+   11e14:	84000044 	addi	r16,r16,1
+   11e18:	1080040c 	andi	r2,r2,16
+   11e1c:	80c0006c 	andhi	r3,r16,1
+   11e20:	103ff926 	beq	r2,zero,11e08 <_gp+0xffff7654>
+   11e24:	01000084 	movi	r4,2
+   11e28:	01414204 	movi	r5,1288
+   11e2c:	00100a40 	call	100a4 <IO_write>
+   11e30:	0009883a 	mov	r4,zero
+   11e34:	dfc00217 	ldw	ra,8(sp)
+   11e38:	dc400117 	ldw	r17,4(sp)
+   11e3c:	dc000017 	ldw	r16,0(sp)
+   11e40:	dec00304 	addi	sp,sp,12
+   11e44:	00100dc1 	jmpi	100dc <IO_read>
+
+00011e48 <UsbPrintMem>:
+   11e48:	f800283a 	ret
+
+00011e4c <alt_load>:
+   11e4c:	deffff04 	addi	sp,sp,-4
+   11e50:	01800074 	movhi	r6,1
+   11e54:	01c00074 	movhi	r7,1
+   11e58:	dfc00015 	stw	ra,0(sp)
+   11e5c:	31894b04 	addi	r6,r6,9516
+   11e60:	39c9f704 	addi	r7,r7,10204
+   11e64:	31c01026 	beq	r6,r7,11ea8 <alt_load+0x5c>
+   11e68:	00800074 	movhi	r2,1
+   11e6c:	1089f704 	addi	r2,r2,10204
+   11e70:	30800d26 	beq	r6,r2,11ea8 <alt_load+0x5c>
+   11e74:	30c00104 	addi	r3,r6,4
+   11e78:	10c7c83a 	sub	r3,r2,r3
+   11e7c:	1806d0ba 	srli	r3,r3,2
+   11e80:	0005883a 	mov	r2,zero
+   11e84:	18c00044 	addi	r3,r3,1
+   11e88:	18c7883a 	add	r3,r3,r3
+   11e8c:	18c7883a 	add	r3,r3,r3
+   11e90:	11c9883a 	add	r4,r2,r7
+   11e94:	21400017 	ldw	r5,0(r4)
+   11e98:	1189883a 	add	r4,r2,r6
+   11e9c:	10800104 	addi	r2,r2,4
+   11ea0:	21400015 	stw	r5,0(r4)
+   11ea4:	10fffa1e 	bne	r2,r3,11e90 <_gp+0xffff76dc>
+   11ea8:	01800074 	movhi	r6,1
+   11eac:	01c00074 	movhi	r7,1
+   11eb0:	31800804 	addi	r6,r6,32
+   11eb4:	39c00804 	addi	r7,r7,32
+   11eb8:	31c01026 	beq	r6,r7,11efc <alt_load+0xb0>
+   11ebc:	00800074 	movhi	r2,1
+   11ec0:	10800804 	addi	r2,r2,32
+   11ec4:	30800d26 	beq	r6,r2,11efc <alt_load+0xb0>
+   11ec8:	30c00104 	addi	r3,r6,4
+   11ecc:	10c7c83a 	sub	r3,r2,r3
+   11ed0:	1806d0ba 	srli	r3,r3,2
+   11ed4:	0005883a 	mov	r2,zero
+   11ed8:	18c00044 	addi	r3,r3,1
+   11edc:	18c7883a 	add	r3,r3,r3
+   11ee0:	18c7883a 	add	r3,r3,r3
+   11ee4:	11c9883a 	add	r4,r2,r7
+   11ee8:	21400017 	ldw	r5,0(r4)
+   11eec:	1189883a 	add	r4,r2,r6
+   11ef0:	10800104 	addi	r2,r2,4
+   11ef4:	21400015 	stw	r5,0(r4)
+   11ef8:	18bffa1e 	bne	r3,r2,11ee4 <_gp+0xffff7730>
+   11efc:	01800074 	movhi	r6,1
+   11f00:	01c00074 	movhi	r7,1
+   11f04:	31894804 	addi	r6,r6,9504
+   11f08:	39c94804 	addi	r7,r7,9504
+   11f0c:	31c01026 	beq	r6,r7,11f50 <alt_load+0x104>
+   11f10:	00800074 	movhi	r2,1
+   11f14:	10894b04 	addi	r2,r2,9516
+   11f18:	30800d26 	beq	r6,r2,11f50 <alt_load+0x104>
+   11f1c:	30c00104 	addi	r3,r6,4
+   11f20:	10c7c83a 	sub	r3,r2,r3
+   11f24:	1806d0ba 	srli	r3,r3,2
+   11f28:	0005883a 	mov	r2,zero
+   11f2c:	18c00044 	addi	r3,r3,1
+   11f30:	18c7883a 	add	r3,r3,r3
+   11f34:	18c7883a 	add	r3,r3,r3
+   11f38:	11c9883a 	add	r4,r2,r7
+   11f3c:	21400017 	ldw	r5,0(r4)
+   11f40:	1189883a 	add	r4,r2,r6
+   11f44:	10800104 	addi	r2,r2,4
+   11f48:	21400015 	stw	r5,0(r4)
+   11f4c:	10fffa1e 	bne	r2,r3,11f38 <_gp+0xffff7784>
+   11f50:	001210c0 	call	1210c <alt_dcache_flush_all>
+   11f54:	dfc00017 	ldw	ra,0(sp)
+   11f58:	dec00104 	addi	sp,sp,4
+   11f5c:	00121181 	jmpi	12118 <alt_icache_flush_all>
+
+00011f60 <alt_main>:
+   11f60:	defffe04 	addi	sp,sp,-8
+   11f64:	0009883a 	mov	r4,zero
+   11f68:	dfc00115 	stw	ra,4(sp)
+   11f6c:	dc000015 	stw	r16,0(sp)
+   11f70:	0011fa00 	call	11fa0 <alt_irq_init>
+   11f74:	0011fc00 	call	11fc0 <alt_sys_init>
+   11f78:	d1a0b717 	ldw	r6,-32036(gp)
+   11f7c:	d160b817 	ldw	r5,-32032(gp)
+   11f80:	d120b917 	ldw	r4,-32028(gp)
+   11f84:	00101100 	call	10110 <main>
+   11f88:	01000044 	movi	r4,1
+   11f8c:	1021883a 	mov	r16,r2
+   11f90:	001204c0 	call	1204c <close>
+   11f94:	8009883a 	mov	r4,r16
+   11f98:	00121800 	call	12180 <exit>
+
+00011f9c <usleep>:
+   11f9c:	0011fc41 	jmpi	11fc4 <alt_busy_sleep>
+
+00011fa0 <alt_irq_init>:
+   11fa0:	deffff04 	addi	sp,sp,-4
+   11fa4:	dfc00015 	stw	ra,0(sp)
+   11fa8:	00121780 	call	12178 <altera_nios2_gen2_irq_init>
+   11fac:	00800044 	movi	r2,1
+   11fb0:	1001703a 	wrctl	status,r2
+   11fb4:	dfc00017 	ldw	ra,0(sp)
+   11fb8:	dec00104 	addi	sp,sp,4
+   11fbc:	f800283a 	ret
+
+00011fc0 <alt_sys_init>:
+   11fc0:	f800283a 	ret
+
+00011fc4 <alt_busy_sleep>:
+   11fc4:	014666b4 	movhi	r5,6554
+   11fc8:	defffe04 	addi	sp,sp,-8
+   11fcc:	29666644 	addi	r5,r5,-26215
+   11fd0:	dc000015 	stw	r16,0(sp)
+   11fd4:	dfc00115 	stw	ra,4(sp)
+   11fd8:	2021883a 	mov	r16,r4
+   11fdc:	00124280 	call	12428 <__udivsi3>
+   11fe0:	10001426 	beq	r2,zero,12034 <alt_busy_sleep+0x70>
+   11fe4:	01600034 	movhi	r5,32768
+   11fe8:	013999b4 	movhi	r4,58982
+   11fec:	297fffc4 	addi	r5,r5,-1
+   11ff0:	211999c4 	addi	r4,r4,26215
+   11ff4:	0007883a 	mov	r3,zero
+   11ff8:	297fffc4 	addi	r5,r5,-1
+   11ffc:	283ffe1e 	bne	r5,zero,11ff8 <_gp+0xffff7844>
+   12000:	18c00044 	addi	r3,r3,1
+   12004:	8121883a 	add	r16,r16,r4
+   12008:	18bffb16 	blt	r3,r2,11ff8 <_gp+0xffff7844>
+   1200c:	01400144 	movi	r5,5
+   12010:	8009883a 	mov	r4,r16
+   12014:	00124e40 	call	124e4 <__mulsi3>
+   12018:	10bfffc4 	addi	r2,r2,-1
+   1201c:	103ffe1e 	bne	r2,zero,12018 <_gp+0xffff7864>
+   12020:	0005883a 	mov	r2,zero
+   12024:	dfc00117 	ldw	ra,4(sp)
+   12028:	dc000017 	ldw	r16,0(sp)
+   1202c:	dec00204 	addi	sp,sp,8
+   12030:	f800283a 	ret
+   12034:	01400144 	movi	r5,5
+   12038:	8009883a 	mov	r4,r16
+   1203c:	00124e40 	call	124e4 <__mulsi3>
+   12040:	10bfffc4 	addi	r2,r2,-1
+   12044:	00bffe16 	blt	zero,r2,12040 <_gp+0xffff788c>
+   12048:	003ff506 	br	12020 <_gp+0xffff786c>
+
+0001204c <close>:
+   1204c:	defffd04 	addi	sp,sp,-12
+   12050:	dfc00215 	stw	ra,8(sp)
+   12054:	dc400115 	stw	r17,4(sp)
+   12058:	dc000015 	stw	r16,0(sp)
+   1205c:	20002016 	blt	r4,zero,120e0 <close+0x94>
+   12060:	01400304 	movi	r5,12
+   12064:	2021883a 	mov	r16,r4
+   12068:	00124e40 	call	124e4 <__mulsi3>
+   1206c:	01000074 	movhi	r4,1
+   12070:	21094b04 	addi	r4,r4,9516
+   12074:	2089883a 	add	r4,r4,r2
+   12078:	20001926 	beq	r4,zero,120e0 <close+0x94>
+   1207c:	20800017 	ldw	r2,0(r4)
+   12080:	10800417 	ldw	r2,16(r2)
+   12084:	10000b26 	beq	r2,zero,120b4 <close+0x68>
+   12088:	103ee83a 	callr	r2
+   1208c:	8009883a 	mov	r4,r16
+   12090:	1023883a 	mov	r17,r2
+   12094:	001211c0 	call	1211c <alt_release_fd>
+   12098:	0005883a 	mov	r2,zero
+   1209c:	88000916 	blt	r17,zero,120c4 <close+0x78>
+   120a0:	dfc00217 	ldw	ra,8(sp)
+   120a4:	dc400117 	ldw	r17,4(sp)
+   120a8:	dc000017 	ldw	r16,0(sp)
+   120ac:	dec00304 	addi	sp,sp,12
+   120b0:	f800283a 	ret
+   120b4:	8009883a 	mov	r4,r16
+   120b8:	001211c0 	call	1211c <alt_release_fd>
+   120bc:	0005883a 	mov	r2,zero
+   120c0:	003ff706 	br	120a0 <_gp+0xffff78ec>
+   120c4:	d0a00717 	ldw	r2,-32740(gp)
+   120c8:	10000c26 	beq	r2,zero,120fc <close+0xb0>
+   120cc:	103ee83a 	callr	r2
+   120d0:	0463c83a 	sub	r17,zero,r17
+   120d4:	14400015 	stw	r17,0(r2)
+   120d8:	00bfffc4 	movi	r2,-1
+   120dc:	003ff006 	br	120a0 <_gp+0xffff78ec>
+   120e0:	d0a00717 	ldw	r2,-32740(gp)
+   120e4:	10000726 	beq	r2,zero,12104 <close+0xb8>
+   120e8:	103ee83a 	callr	r2
+   120ec:	00c01444 	movi	r3,81
+   120f0:	10c00015 	stw	r3,0(r2)
+   120f4:	00bfffc4 	movi	r2,-1
+   120f8:	003fe906 	br	120a0 <_gp+0xffff78ec>
+   120fc:	d0a0ba04 	addi	r2,gp,-32024
+   12100:	003ff306 	br	120d0 <_gp+0xffff791c>
+   12104:	d0a0ba04 	addi	r2,gp,-32024
+   12108:	003ff806 	br	120ec <_gp+0xffff7938>
+
+0001210c <alt_dcache_flush_all>:
+   1210c:	f800283a 	ret
+
+00012110 <alt_dev_null_write>:
+   12110:	3005883a 	mov	r2,r6
+   12114:	f800283a 	ret
+
+00012118 <alt_icache_flush_all>:
+   12118:	f800283a 	ret
+
+0001211c <alt_release_fd>:
+   1211c:	00c00084 	movi	r3,2
+   12120:	1900140e 	bge	r3,r4,12174 <alt_release_fd+0x58>
+   12124:	defffd04 	addi	sp,sp,-12
+   12128:	dc400115 	stw	r17,4(sp)
+   1212c:	01400304 	movi	r5,12
+   12130:	04400074 	movhi	r17,1
+   12134:	dfc00215 	stw	ra,8(sp)
+   12138:	dc000015 	stw	r16,0(sp)
+   1213c:	8c494b04 	addi	r17,r17,9516
+   12140:	2021883a 	mov	r16,r4
+   12144:	00124e40 	call	124e4 <__mulsi3>
+   12148:	8885883a 	add	r2,r17,r2
+   1214c:	01400304 	movi	r5,12
+   12150:	8009883a 	mov	r4,r16
+   12154:	10000215 	stw	zero,8(r2)
+   12158:	00124e40 	call	124e4 <__mulsi3>
+   1215c:	8885883a 	add	r2,r17,r2
+   12160:	10000015 	stw	zero,0(r2)
+   12164:	dfc00217 	ldw	ra,8(sp)
+   12168:	dc400117 	ldw	r17,4(sp)
+   1216c:	dc000017 	ldw	r16,0(sp)
+   12170:	dec00304 	addi	sp,sp,12
+   12174:	f800283a 	ret
+
+00012178 <altera_nios2_gen2_irq_init>:
+   12178:	000170fa 	wrctl	ienable,zero
+   1217c:	f800283a 	ret
+
+00012180 <exit>:
+   12180:	defffe04 	addi	sp,sp,-8
+   12184:	000b883a 	mov	r5,zero
+   12188:	dc000015 	stw	r16,0(sp)
+   1218c:	dfc00115 	stw	ra,4(sp)
+   12190:	2021883a 	mov	r16,r4
+   12194:	00121a00 	call	121a0 <__call_exitprocs>
+   12198:	8009883a 	mov	r4,r16
+   1219c:	001250c0 	call	1250c <_exit>
+
+000121a0 <__call_exitprocs>:
+   121a0:	defff504 	addi	sp,sp,-44
+   121a4:	dd000515 	stw	r20,20(sp)
+   121a8:	05000074 	movhi	r20,1
+   121ac:	dc800315 	stw	r18,12(sp)
+   121b0:	dfc00a15 	stw	ra,40(sp)
+   121b4:	df000915 	stw	fp,36(sp)
+   121b8:	ddc00815 	stw	r23,32(sp)
+   121bc:	dd800715 	stw	r22,28(sp)
+   121c0:	dd400615 	stw	r21,24(sp)
+   121c4:	dcc00415 	stw	r19,16(sp)
+   121c8:	dc400215 	stw	r17,8(sp)
+   121cc:	dc000115 	stw	r16,4(sp)
+   121d0:	d9000015 	stw	r4,0(sp)
+   121d4:	2825883a 	mov	r18,r5
+   121d8:	a509f504 	addi	r20,r20,10196
+   121dc:	a4400017 	ldw	r17,0(r20)
+   121e0:	8cc00c17 	ldw	r19,48(r17)
+   121e4:	8c400c04 	addi	r17,r17,48
+   121e8:	98004526 	beq	r19,zero,12300 <__call_exitprocs+0x160>
+   121ec:	9c000117 	ldw	r16,4(r19)
+   121f0:	00900034 	movhi	r2,16384
+   121f4:	10bfffc4 	addi	r2,r2,-1
+   121f8:	9d402217 	ldw	r21,136(r19)
+   121fc:	85bfffc4 	addi	r22,r16,-1
+   12200:	80a1883a 	add	r16,r16,r2
+   12204:	8421883a 	add	r16,r16,r16
+   12208:	8421883a 	add	r16,r16,r16
+   1220c:	ac2f883a 	add	r23,r21,r16
+   12210:	84000204 	addi	r16,r16,8
+   12214:	9c21883a 	add	r16,r19,r16
+   12218:	b0002716 	blt	r22,zero,122b8 <__call_exitprocs+0x118>
+   1221c:	90000726 	beq	r18,zero,1223c <__call_exitprocs+0x9c>
+   12220:	a800041e 	bne	r21,zero,12234 <__call_exitprocs+0x94>
+   12224:	b5bfffc4 	addi	r22,r22,-1
+   12228:	bdffff04 	addi	r23,r23,-4
+   1222c:	843fff04 	addi	r16,r16,-4
+   12230:	003ff906 	br	12218 <_gp+0xffff7a64>
+   12234:	b9002017 	ldw	r4,128(r23)
+   12238:	913ffa1e 	bne	r18,r4,12224 <_gp+0xffff7a70>
+   1223c:	99000117 	ldw	r4,4(r19)
+   12240:	82000017 	ldw	r8,0(r16)
+   12244:	213fffc4 	addi	r4,r4,-1
+   12248:	b100021e 	bne	r22,r4,12254 <__call_exitprocs+0xb4>
+   1224c:	9d800115 	stw	r22,4(r19)
+   12250:	00000106 	br	12258 <__call_exitprocs+0xb8>
+   12254:	80000015 	stw	zero,0(r16)
+   12258:	403ff226 	beq	r8,zero,12224 <_gp+0xffff7a70>
+   1225c:	9f000117 	ldw	fp,4(r19)
+   12260:	a8000526 	beq	r21,zero,12278 <__call_exitprocs+0xd8>
+   12264:	00800044 	movi	r2,1
+   12268:	1592983a 	sll	r9,r2,r22
+   1226c:	a9404017 	ldw	r5,256(r21)
+   12270:	494a703a 	and	r5,r9,r5
+   12274:	2800021e 	bne	r5,zero,12280 <__call_exitprocs+0xe0>
+   12278:	403ee83a 	callr	r8
+   1227c:	00000906 	br	122a4 <__call_exitprocs+0x104>
+   12280:	a9004117 	ldw	r4,260(r21)
+   12284:	4908703a 	and	r4,r9,r4
+   12288:	2000041e 	bne	r4,zero,1229c <__call_exitprocs+0xfc>
+   1228c:	b9400017 	ldw	r5,0(r23)
+   12290:	d9000017 	ldw	r4,0(sp)
+   12294:	403ee83a 	callr	r8
+   12298:	00000206 	br	122a4 <__call_exitprocs+0x104>
+   1229c:	b9000017 	ldw	r4,0(r23)
+   122a0:	403ee83a 	callr	r8
+   122a4:	99000117 	ldw	r4,4(r19)
+   122a8:	e13fcc1e 	bne	fp,r4,121dc <_gp+0xffff7a28>
+   122ac:	89000017 	ldw	r4,0(r17)
+   122b0:	993fdc26 	beq	r19,r4,12224 <_gp+0xffff7a70>
+   122b4:	003fc906 	br	121dc <_gp+0xffff7a28>
+   122b8:	00800034 	movhi	r2,0
+   122bc:	10800004 	addi	r2,r2,0
+   122c0:	10000f26 	beq	r2,zero,12300 <__call_exitprocs+0x160>
+   122c4:	99400117 	ldw	r5,4(r19)
+   122c8:	99000017 	ldw	r4,0(r19)
+   122cc:	2800091e 	bne	r5,zero,122f4 <__call_exitprocs+0x154>
+   122d0:	20000826 	beq	r4,zero,122f4 <__call_exitprocs+0x154>
+   122d4:	89000015 	stw	r4,0(r17)
+   122d8:	a8000226 	beq	r21,zero,122e4 <__call_exitprocs+0x144>
+   122dc:	a809883a 	mov	r4,r21
+   122e0:	00000000 	call	0 <__alt_mem_usb_keycode-0xc00>
+   122e4:	9809883a 	mov	r4,r19
+   122e8:	00000000 	call	0 <__alt_mem_usb_keycode-0xc00>
+   122ec:	8cc00017 	ldw	r19,0(r17)
+   122f0:	003fbd06 	br	121e8 <_gp+0xffff7a34>
+   122f4:	9823883a 	mov	r17,r19
+   122f8:	2027883a 	mov	r19,r4
+   122fc:	003fba06 	br	121e8 <_gp+0xffff7a34>
+   12300:	dfc00a17 	ldw	ra,40(sp)
+   12304:	df000917 	ldw	fp,36(sp)
+   12308:	ddc00817 	ldw	r23,32(sp)
+   1230c:	dd800717 	ldw	r22,28(sp)
+   12310:	dd400617 	ldw	r21,24(sp)
+   12314:	dd000517 	ldw	r20,20(sp)
+   12318:	dcc00417 	ldw	r19,16(sp)
+   1231c:	dc800317 	ldw	r18,12(sp)
+   12320:	dc400217 	ldw	r17,8(sp)
+   12324:	dc000117 	ldw	r16,4(sp)
+   12328:	dec00b04 	addi	sp,sp,44
+   1232c:	f800283a 	ret
+
+00012330 <__divsi3>:
+   12330:	20001b16 	blt	r4,zero,123a0 <__divsi3+0x70>
+   12334:	000f883a 	mov	r7,zero
+   12338:	28001616 	blt	r5,zero,12394 <__divsi3+0x64>
+   1233c:	200d883a 	mov	r6,r4
+   12340:	29001a2e 	bgeu	r5,r4,123ac <__divsi3+0x7c>
+   12344:	00800804 	movi	r2,32
+   12348:	00c00044 	movi	r3,1
+   1234c:	00000106 	br	12354 <__divsi3+0x24>
+   12350:	10000d26 	beq	r2,zero,12388 <__divsi3+0x58>
+   12354:	294b883a 	add	r5,r5,r5
+   12358:	10bfffc4 	addi	r2,r2,-1
+   1235c:	18c7883a 	add	r3,r3,r3
+   12360:	293ffb36 	bltu	r5,r4,12350 <_gp+0xffff7b9c>
+   12364:	0005883a 	mov	r2,zero
+   12368:	18000726 	beq	r3,zero,12388 <__divsi3+0x58>
+   1236c:	0005883a 	mov	r2,zero
+   12370:	31400236 	bltu	r6,r5,1237c <__divsi3+0x4c>
+   12374:	314dc83a 	sub	r6,r6,r5
+   12378:	10c4b03a 	or	r2,r2,r3
+   1237c:	1806d07a 	srli	r3,r3,1
+   12380:	280ad07a 	srli	r5,r5,1
+   12384:	183ffa1e 	bne	r3,zero,12370 <_gp+0xffff7bbc>
+   12388:	38000126 	beq	r7,zero,12390 <__divsi3+0x60>
+   1238c:	0085c83a 	sub	r2,zero,r2
+   12390:	f800283a 	ret
+   12394:	014bc83a 	sub	r5,zero,r5
+   12398:	39c0005c 	xori	r7,r7,1
+   1239c:	003fe706 	br	1233c <_gp+0xffff7b88>
+   123a0:	0109c83a 	sub	r4,zero,r4
+   123a4:	01c00044 	movi	r7,1
+   123a8:	003fe306 	br	12338 <_gp+0xffff7b84>
+   123ac:	00c00044 	movi	r3,1
+   123b0:	003fee06 	br	1236c <_gp+0xffff7bb8>
+
+000123b4 <__modsi3>:
+   123b4:	20001716 	blt	r4,zero,12414 <__modsi3+0x60>
+   123b8:	000f883a 	mov	r7,zero
+   123bc:	2005883a 	mov	r2,r4
+   123c0:	28001216 	blt	r5,zero,1240c <__modsi3+0x58>
+   123c4:	2900162e 	bgeu	r5,r4,12420 <__modsi3+0x6c>
+   123c8:	01800804 	movi	r6,32
+   123cc:	00c00044 	movi	r3,1
+   123d0:	00000106 	br	123d8 <__modsi3+0x24>
+   123d4:	30000a26 	beq	r6,zero,12400 <__modsi3+0x4c>
+   123d8:	294b883a 	add	r5,r5,r5
+   123dc:	31bfffc4 	addi	r6,r6,-1
+   123e0:	18c7883a 	add	r3,r3,r3
+   123e4:	293ffb36 	bltu	r5,r4,123d4 <_gp+0xffff7c20>
+   123e8:	18000526 	beq	r3,zero,12400 <__modsi3+0x4c>
+   123ec:	1806d07a 	srli	r3,r3,1
+   123f0:	11400136 	bltu	r2,r5,123f8 <__modsi3+0x44>
+   123f4:	1145c83a 	sub	r2,r2,r5
+   123f8:	280ad07a 	srli	r5,r5,1
+   123fc:	183ffb1e 	bne	r3,zero,123ec <_gp+0xffff7c38>
+   12400:	38000126 	beq	r7,zero,12408 <__modsi3+0x54>
+   12404:	0085c83a 	sub	r2,zero,r2
+   12408:	f800283a 	ret
+   1240c:	014bc83a 	sub	r5,zero,r5
+   12410:	003fec06 	br	123c4 <_gp+0xffff7c10>
+   12414:	0109c83a 	sub	r4,zero,r4
+   12418:	01c00044 	movi	r7,1
+   1241c:	003fe706 	br	123bc <_gp+0xffff7c08>
+   12420:	00c00044 	movi	r3,1
+   12424:	003ff106 	br	123ec <_gp+0xffff7c38>
+
+00012428 <__udivsi3>:
+   12428:	200d883a 	mov	r6,r4
+   1242c:	2900152e 	bgeu	r5,r4,12484 <__udivsi3+0x5c>
+   12430:	28001416 	blt	r5,zero,12484 <__udivsi3+0x5c>
+   12434:	00800804 	movi	r2,32
+   12438:	00c00044 	movi	r3,1
+   1243c:	00000206 	br	12448 <__udivsi3+0x20>
+   12440:	10000e26 	beq	r2,zero,1247c <__udivsi3+0x54>
+   12444:	28000516 	blt	r5,zero,1245c <__udivsi3+0x34>
+   12448:	294b883a 	add	r5,r5,r5
+   1244c:	10bfffc4 	addi	r2,r2,-1
+   12450:	18c7883a 	add	r3,r3,r3
+   12454:	293ffa36 	bltu	r5,r4,12440 <_gp+0xffff7c8c>
+   12458:	18000826 	beq	r3,zero,1247c <__udivsi3+0x54>
+   1245c:	0005883a 	mov	r2,zero
+   12460:	31400236 	bltu	r6,r5,1246c <__udivsi3+0x44>
+   12464:	314dc83a 	sub	r6,r6,r5
+   12468:	10c4b03a 	or	r2,r2,r3
+   1246c:	1806d07a 	srli	r3,r3,1
+   12470:	280ad07a 	srli	r5,r5,1
+   12474:	183ffa1e 	bne	r3,zero,12460 <_gp+0xffff7cac>
+   12478:	f800283a 	ret
+   1247c:	0005883a 	mov	r2,zero
+   12480:	f800283a 	ret
+   12484:	00c00044 	movi	r3,1
+   12488:	003ff406 	br	1245c <_gp+0xffff7ca8>
+
+0001248c <__umodsi3>:
+   1248c:	2005883a 	mov	r2,r4
+   12490:	2900122e 	bgeu	r5,r4,124dc <__umodsi3+0x50>
+   12494:	28001116 	blt	r5,zero,124dc <__umodsi3+0x50>
+   12498:	01800804 	movi	r6,32
+   1249c:	00c00044 	movi	r3,1
+   124a0:	00000206 	br	124ac <__umodsi3+0x20>
+   124a4:	30000c26 	beq	r6,zero,124d8 <__umodsi3+0x4c>
+   124a8:	28000516 	blt	r5,zero,124c0 <__umodsi3+0x34>
+   124ac:	294b883a 	add	r5,r5,r5
+   124b0:	31bfffc4 	addi	r6,r6,-1
+   124b4:	18c7883a 	add	r3,r3,r3
+   124b8:	293ffa36 	bltu	r5,r4,124a4 <_gp+0xffff7cf0>
+   124bc:	18000626 	beq	r3,zero,124d8 <__umodsi3+0x4c>
+   124c0:	1806d07a 	srli	r3,r3,1
+   124c4:	11400136 	bltu	r2,r5,124cc <__umodsi3+0x40>
+   124c8:	1145c83a 	sub	r2,r2,r5
+   124cc:	280ad07a 	srli	r5,r5,1
+   124d0:	183ffb1e 	bne	r3,zero,124c0 <_gp+0xffff7d0c>
+   124d4:	f800283a 	ret
+   124d8:	f800283a 	ret
+   124dc:	00c00044 	movi	r3,1
+   124e0:	003ff706 	br	124c0 <_gp+0xffff7d0c>
+
+000124e4 <__mulsi3>:
+   124e4:	0005883a 	mov	r2,zero
+   124e8:	20000726 	beq	r4,zero,12508 <__mulsi3+0x24>
+   124ec:	20c0004c 	andi	r3,r4,1
+   124f0:	2008d07a 	srli	r4,r4,1
+   124f4:	18000126 	beq	r3,zero,124fc <__mulsi3+0x18>
+   124f8:	1145883a 	add	r2,r2,r5
+   124fc:	294b883a 	add	r5,r5,r5
+   12500:	203ffa1e 	bne	r4,zero,124ec <_gp+0xffff7d38>
+   12504:	f800283a 	ret
+   12508:	f800283a 	ret
+
+0001250c <_exit>:
+   1250c:	20000226 	beq	r4,zero,12518 <_exit+0xc>
+   12510:	002af070 	cmpltui	zero,zero,43969
+   12514:	003fff06 	br	12514 <_gp+0xffff7d60>
+   12518:	002af0b0 	cmpltui	zero,zero,43970
+   1251c:	003ffd06 	br	12514 <_gp+0xffff7d60>

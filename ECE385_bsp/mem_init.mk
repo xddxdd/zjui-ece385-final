@@ -211,9 +211,9 @@ $(MEM_1)_CREATE_LANES := 0
 .PHONY: sdram
 sdram: check_elf_exists $(HDL_SIM_DIR)/$(MEM_1).dat $(HDL_SIM_DIR)/$(MEM_1).sym
 
-# Memory: vga_sprite_0
-MEM_2 := ECE385_vga_sprite_0
-$(MEM_2)_NAME := vga_sprite_0
+# Memory: usb_keycode
+MEM_2 := ECE385_usb_keycode
+$(MEM_2)_NAME := usb_keycode
 $(MEM_2)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
 HEX_FILES += $(MEM_INIT_DIR)/$(MEM_2).hex
 MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_2).hex
@@ -221,21 +221,21 @@ DAT_FILES += $(HDL_SIM_DIR)/$(MEM_2).dat
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_2).dat
 SYM_FILES += $(HDL_SIM_DIR)/$(MEM_2).sym
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_2).sym
-$(MEM_2)_START := 0x00446000
-$(MEM_2)_END := 0x00447fff
-$(MEM_2)_SPAN := 0x00002000
-$(MEM_2)_HIERARCHICAL_PATH := vga_sprite_0
+$(MEM_2)_START := 0x00453400
+$(MEM_2)_END := 0x004537ff
+$(MEM_2)_SPAN := 0x00000400
+$(MEM_2)_HIERARCHICAL_PATH := usb_keycode
 $(MEM_2)_WIDTH := 32
 $(MEM_2)_HEX_DATA_WIDTH := 32
 $(MEM_2)_ENDIANNESS := --little-endian-mem
 $(MEM_2)_CREATE_LANES := 0
 
-.PHONY: vga_sprite_0
-vga_sprite_0: check_elf_exists $(MEM_INIT_DIR)/$(MEM_2).hex $(HDL_SIM_DIR)/$(MEM_2).dat $(HDL_SIM_DIR)/$(MEM_2).sym
+.PHONY: usb_keycode
+usb_keycode: check_elf_exists $(MEM_INIT_DIR)/$(MEM_2).hex $(HDL_SIM_DIR)/$(MEM_2).dat $(HDL_SIM_DIR)/$(MEM_2).sym
 
-# Memory: vga_sprite_1
-MEM_3 := ECE385_vga_sprite_1
-$(MEM_3)_NAME := vga_sprite_1
+# Memory: vga_sprite_0
+MEM_3 := ECE385_vga_sprite_0
+$(MEM_3)_NAME := vga_sprite_0
 $(MEM_3)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
 HEX_FILES += $(MEM_INIT_DIR)/$(MEM_3).hex
 MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_3).hex
@@ -243,21 +243,21 @@ DAT_FILES += $(HDL_SIM_DIR)/$(MEM_3).dat
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_3).dat
 SYM_FILES += $(HDL_SIM_DIR)/$(MEM_3).sym
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_3).sym
-$(MEM_3)_START := 0x00444000
-$(MEM_3)_END := 0x00445fff
+$(MEM_3)_START := 0x00450000
+$(MEM_3)_END := 0x00451fff
 $(MEM_3)_SPAN := 0x00002000
-$(MEM_3)_HIERARCHICAL_PATH := vga_sprite_1
+$(MEM_3)_HIERARCHICAL_PATH := vga_sprite_0
 $(MEM_3)_WIDTH := 32
 $(MEM_3)_HEX_DATA_WIDTH := 32
 $(MEM_3)_ENDIANNESS := --little-endian-mem
 $(MEM_3)_CREATE_LANES := 0
 
-.PHONY: vga_sprite_1
-vga_sprite_1: check_elf_exists $(MEM_INIT_DIR)/$(MEM_3).hex $(HDL_SIM_DIR)/$(MEM_3).dat $(HDL_SIM_DIR)/$(MEM_3).sym
+.PHONY: vga_sprite_0
+vga_sprite_0: check_elf_exists $(MEM_INIT_DIR)/$(MEM_3).hex $(HDL_SIM_DIR)/$(MEM_3).dat $(HDL_SIM_DIR)/$(MEM_3).sym
 
-# Memory: vga_sprite_2
-MEM_4 := ECE385_vga_sprite_2
-$(MEM_4)_NAME := vga_sprite_2
+# Memory: vga_sprite_1
+MEM_4 := ECE385_vga_sprite_1
+$(MEM_4)_NAME := vga_sprite_1
 $(MEM_4)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
 HEX_FILES += $(MEM_INIT_DIR)/$(MEM_4).hex
 MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_4).hex
@@ -265,21 +265,21 @@ DAT_FILES += $(HDL_SIM_DIR)/$(MEM_4).dat
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_4).dat
 SYM_FILES += $(HDL_SIM_DIR)/$(MEM_4).sym
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_4).sym
-$(MEM_4)_START := 0x00442000
-$(MEM_4)_END := 0x00443fff
+$(MEM_4)_START := 0x0044e000
+$(MEM_4)_END := 0x0044ffff
 $(MEM_4)_SPAN := 0x00002000
-$(MEM_4)_HIERARCHICAL_PATH := vga_sprite_2
+$(MEM_4)_HIERARCHICAL_PATH := vga_sprite_1
 $(MEM_4)_WIDTH := 32
 $(MEM_4)_HEX_DATA_WIDTH := 32
 $(MEM_4)_ENDIANNESS := --little-endian-mem
 $(MEM_4)_CREATE_LANES := 0
 
-.PHONY: vga_sprite_2
-vga_sprite_2: check_elf_exists $(MEM_INIT_DIR)/$(MEM_4).hex $(HDL_SIM_DIR)/$(MEM_4).dat $(HDL_SIM_DIR)/$(MEM_4).sym
+.PHONY: vga_sprite_1
+vga_sprite_1: check_elf_exists $(MEM_INIT_DIR)/$(MEM_4).hex $(HDL_SIM_DIR)/$(MEM_4).dat $(HDL_SIM_DIR)/$(MEM_4).sym
 
-# Memory: vga_sprite_3
-MEM_5 := ECE385_vga_sprite_3
-$(MEM_5)_NAME := vga_sprite_3
+# Memory: vga_sprite_2
+MEM_5 := ECE385_vga_sprite_2
+$(MEM_5)_NAME := vga_sprite_2
 $(MEM_5)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
 HEX_FILES += $(MEM_INIT_DIR)/$(MEM_5).hex
 MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_5).hex
@@ -287,17 +287,149 @@ DAT_FILES += $(HDL_SIM_DIR)/$(MEM_5).dat
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_5).dat
 SYM_FILES += $(HDL_SIM_DIR)/$(MEM_5).sym
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_5).sym
-$(MEM_5)_START := 0x00440000
-$(MEM_5)_END := 0x00441fff
+$(MEM_5)_START := 0x0044c000
+$(MEM_5)_END := 0x0044dfff
 $(MEM_5)_SPAN := 0x00002000
-$(MEM_5)_HIERARCHICAL_PATH := vga_sprite_3
+$(MEM_5)_HIERARCHICAL_PATH := vga_sprite_2
 $(MEM_5)_WIDTH := 32
 $(MEM_5)_HEX_DATA_WIDTH := 32
 $(MEM_5)_ENDIANNESS := --little-endian-mem
 $(MEM_5)_CREATE_LANES := 0
 
+.PHONY: vga_sprite_2
+vga_sprite_2: check_elf_exists $(MEM_INIT_DIR)/$(MEM_5).hex $(HDL_SIM_DIR)/$(MEM_5).dat $(HDL_SIM_DIR)/$(MEM_5).sym
+
+# Memory: vga_sprite_3
+MEM_6 := ECE385_vga_sprite_3
+$(MEM_6)_NAME := vga_sprite_3
+$(MEM_6)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_6).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_6).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_6).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_6).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_6).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_6).sym
+$(MEM_6)_START := 0x0044a000
+$(MEM_6)_END := 0x0044bfff
+$(MEM_6)_SPAN := 0x00002000
+$(MEM_6)_HIERARCHICAL_PATH := vga_sprite_3
+$(MEM_6)_WIDTH := 32
+$(MEM_6)_HEX_DATA_WIDTH := 32
+$(MEM_6)_ENDIANNESS := --little-endian-mem
+$(MEM_6)_CREATE_LANES := 0
+
 .PHONY: vga_sprite_3
-vga_sprite_3: check_elf_exists $(MEM_INIT_DIR)/$(MEM_5).hex $(HDL_SIM_DIR)/$(MEM_5).dat $(HDL_SIM_DIR)/$(MEM_5).sym
+vga_sprite_3: check_elf_exists $(MEM_INIT_DIR)/$(MEM_6).hex $(HDL_SIM_DIR)/$(MEM_6).dat $(HDL_SIM_DIR)/$(MEM_6).sym
+
+# Memory: vga_sprite_4
+MEM_7 := ECE385_vga_sprite_4
+$(MEM_7)_NAME := vga_sprite_4
+$(MEM_7)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_7).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_7).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_7).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_7).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_7).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_7).sym
+$(MEM_7)_START := 0x00448000
+$(MEM_7)_END := 0x00449fff
+$(MEM_7)_SPAN := 0x00002000
+$(MEM_7)_HIERARCHICAL_PATH := vga_sprite_4
+$(MEM_7)_WIDTH := 32
+$(MEM_7)_HEX_DATA_WIDTH := 32
+$(MEM_7)_ENDIANNESS := --little-endian-mem
+$(MEM_7)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_4
+vga_sprite_4: check_elf_exists $(MEM_INIT_DIR)/$(MEM_7).hex $(HDL_SIM_DIR)/$(MEM_7).dat $(HDL_SIM_DIR)/$(MEM_7).sym
+
+# Memory: vga_sprite_5
+MEM_8 := ECE385_vga_sprite_5
+$(MEM_8)_NAME := vga_sprite_5
+$(MEM_8)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_8).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_8).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_8).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_8).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_8).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_8).sym
+$(MEM_8)_START := 0x00446000
+$(MEM_8)_END := 0x00447fff
+$(MEM_8)_SPAN := 0x00002000
+$(MEM_8)_HIERARCHICAL_PATH := vga_sprite_5
+$(MEM_8)_WIDTH := 32
+$(MEM_8)_HEX_DATA_WIDTH := 32
+$(MEM_8)_ENDIANNESS := --little-endian-mem
+$(MEM_8)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_5
+vga_sprite_5: check_elf_exists $(MEM_INIT_DIR)/$(MEM_8).hex $(HDL_SIM_DIR)/$(MEM_8).dat $(HDL_SIM_DIR)/$(MEM_8).sym
+
+# Memory: vga_sprite_6
+MEM_9 := ECE385_vga_sprite_6
+$(MEM_9)_NAME := vga_sprite_6
+$(MEM_9)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_9).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_9).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_9).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_9).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_9).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_9).sym
+$(MEM_9)_START := 0x00444000
+$(MEM_9)_END := 0x00445fff
+$(MEM_9)_SPAN := 0x00002000
+$(MEM_9)_HIERARCHICAL_PATH := vga_sprite_6
+$(MEM_9)_WIDTH := 32
+$(MEM_9)_HEX_DATA_WIDTH := 32
+$(MEM_9)_ENDIANNESS := --little-endian-mem
+$(MEM_9)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_6
+vga_sprite_6: check_elf_exists $(MEM_INIT_DIR)/$(MEM_9).hex $(HDL_SIM_DIR)/$(MEM_9).dat $(HDL_SIM_DIR)/$(MEM_9).sym
+
+# Memory: vga_sprite_7
+MEM_10 := ECE385_vga_sprite_7
+$(MEM_10)_NAME := vga_sprite_7
+$(MEM_10)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_10).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_10).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_10).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_10).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_10).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_10).sym
+$(MEM_10)_START := 0x00442000
+$(MEM_10)_END := 0x00443fff
+$(MEM_10)_SPAN := 0x00002000
+$(MEM_10)_HIERARCHICAL_PATH := vga_sprite_7
+$(MEM_10)_WIDTH := 32
+$(MEM_10)_HEX_DATA_WIDTH := 32
+$(MEM_10)_ENDIANNESS := --little-endian-mem
+$(MEM_10)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_7
+vga_sprite_7: check_elf_exists $(MEM_INIT_DIR)/$(MEM_10).hex $(HDL_SIM_DIR)/$(MEM_10).dat $(HDL_SIM_DIR)/$(MEM_10).sym
+
+# Memory: vga_sprite_8
+MEM_11 := ECE385_vga_sprite_8
+$(MEM_11)_NAME := vga_sprite_8
+$(MEM_11)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
+HEX_FILES += $(MEM_INIT_DIR)/$(MEM_11).hex
+MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_11).hex
+DAT_FILES += $(HDL_SIM_DIR)/$(MEM_11).dat
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_11).dat
+SYM_FILES += $(HDL_SIM_DIR)/$(MEM_11).sym
+HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_11).sym
+$(MEM_11)_START := 0x00440000
+$(MEM_11)_END := 0x00441fff
+$(MEM_11)_SPAN := 0x00002000
+$(MEM_11)_HIERARCHICAL_PATH := vga_sprite_8
+$(MEM_11)_WIDTH := 32
+$(MEM_11)_HEX_DATA_WIDTH := 32
+$(MEM_11)_ENDIANNESS := --little-endian-mem
+$(MEM_11)_CREATE_LANES := 0
+
+.PHONY: vga_sprite_8
+vga_sprite_8: check_elf_exists $(MEM_INIT_DIR)/$(MEM_11).hex $(HDL_SIM_DIR)/$(MEM_11).dat $(HDL_SIM_DIR)/$(MEM_11).sym
 
 
 #END OF BSP SPECIFIC

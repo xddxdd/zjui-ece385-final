@@ -6,7 +6,8 @@ module ECE385 (
 	io_led_green_export,
 	io_led_red_export,
 	io_switches_export,
-	keycode_export,
+	io_vga_sync_export,
+	nios2_pll_c0_conduit_export,
 	nios2_pll_sdram_clk,
 	nios2_pll_vga_clk,
 	otg_hpi_address_export,
@@ -33,10 +34,11 @@ module ECE385 (
 	sram_sram_oe_n,
 	sram_sram_ub_n,
 	sram_sram_we_n,
+	usb_nios2_cpu_custom_instruction_master_readra,
+	usb_status_export,
 	vga_vga_drawx,
 	vga_vga_drawy,
 	vga_vga_val,
-	vga_sprite_0_clk2_clk,
 	vga_sprite_0_reset2_reset,
 	vga_sprite_0_s2_address,
 	vga_sprite_0_s2_chipselect,
@@ -45,7 +47,6 @@ module ECE385 (
 	vga_sprite_0_s2_readdata,
 	vga_sprite_0_s2_writedata,
 	vga_sprite_0_s2_byteenable,
-	vga_sprite_1_clk2_clk,
 	vga_sprite_1_reset2_reset,
 	vga_sprite_1_s2_address,
 	vga_sprite_1_s2_chipselect,
@@ -54,7 +55,6 @@ module ECE385 (
 	vga_sprite_1_s2_readdata,
 	vga_sprite_1_s2_writedata,
 	vga_sprite_1_s2_byteenable,
-	vga_sprite_2_clk2_clk,
 	vga_sprite_2_reset2_reset,
 	vga_sprite_2_s2_address,
 	vga_sprite_2_s2_chipselect,
@@ -72,14 +72,61 @@ module ECE385 (
 	vga_sprite_3_s2_readdata,
 	vga_sprite_3_s2_writedata,
 	vga_sprite_3_s2_byteenable,
-	vga_sprite_0_width_height_export,
-	vga_sprite_1_width_height_export,
-	vga_sprite_2_width_height_export,
-	vga_sprite_3_width_height_export,
-	vga_sprite_0_position_export,
-	vga_sprite_1_position_export,
-	vga_sprite_2_position_export,
-	vga_sprite_3_position_export);	
+	vga_sprite_4_clk2_clk,
+	vga_sprite_4_reset2_reset,
+	vga_sprite_4_s2_address,
+	vga_sprite_4_s2_chipselect,
+	vga_sprite_4_s2_clken,
+	vga_sprite_4_s2_write,
+	vga_sprite_4_s2_readdata,
+	vga_sprite_4_s2_writedata,
+	vga_sprite_4_s2_byteenable,
+	vga_sprite_5_clk2_clk,
+	vga_sprite_5_reset2_reset,
+	vga_sprite_5_s2_address,
+	vga_sprite_5_s2_chipselect,
+	vga_sprite_5_s2_clken,
+	vga_sprite_5_s2_write,
+	vga_sprite_5_s2_readdata,
+	vga_sprite_5_s2_writedata,
+	vga_sprite_5_s2_byteenable,
+	vga_sprite_6_clk2_clk,
+	vga_sprite_6_reset2_reset,
+	vga_sprite_6_s2_address,
+	vga_sprite_6_s2_chipselect,
+	vga_sprite_6_s2_clken,
+	vga_sprite_6_s2_write,
+	vga_sprite_6_s2_readdata,
+	vga_sprite_6_s2_writedata,
+	vga_sprite_6_s2_byteenable,
+	vga_sprite_7_clk2_clk,
+	vga_sprite_7_reset2_reset,
+	vga_sprite_7_s2_address,
+	vga_sprite_7_s2_chipselect,
+	vga_sprite_7_s2_clken,
+	vga_sprite_7_s2_write,
+	vga_sprite_7_s2_readdata,
+	vga_sprite_7_s2_writedata,
+	vga_sprite_7_s2_byteenable,
+	vga_sprite_8_clk2_clk,
+	vga_sprite_8_reset2_reset,
+	vga_sprite_8_s2_address,
+	vga_sprite_8_s2_chipselect,
+	vga_sprite_8_s2_clken,
+	vga_sprite_8_s2_write,
+	vga_sprite_8_s2_readdata,
+	vga_sprite_8_s2_writedata,
+	vga_sprite_8_s2_byteenable,
+	vga_sprite_2_clk2_clk,
+	vga_sprite_1_clk2_clk,
+	vga_sprite_0_clk2_clk,
+	vga_sprite_params_clk_clk,
+	vga_sprite_params_reset_reset,
+	vga_sprite_params_pass_address,
+	vga_sprite_params_pass_read,
+	vga_sprite_params_pass_readdata,
+	vga_sprite_params_pass_write,
+	vga_sprite_params_pass_writedata);	
 
 	input		clk_clk;
 	output	[31:0]	io_hex_export;
@@ -87,7 +134,8 @@ module ECE385 (
 	output	[8:0]	io_led_green_export;
 	output	[17:0]	io_led_red_export;
 	input	[17:0]	io_switches_export;
-	output	[7:0]	keycode_export;
+	input		io_vga_sync_export;
+	output		nios2_pll_c0_conduit_export;
 	output		nios2_pll_sdram_clk;
 	output		nios2_pll_vga_clk;
 	output	[1:0]	otg_hpi_address_export;
@@ -114,10 +162,11 @@ module ECE385 (
 	output		sram_sram_oe_n;
 	output		sram_sram_ub_n;
 	output		sram_sram_we_n;
+	output		usb_nios2_cpu_custom_instruction_master_readra;
+	output		usb_status_export;
 	input	[9:0]	vga_vga_drawx;
 	input	[9:0]	vga_vga_drawy;
 	output	[15:0]	vga_vga_val;
-	input		vga_sprite_0_clk2_clk;
 	input		vga_sprite_0_reset2_reset;
 	input	[11:0]	vga_sprite_0_s2_address;
 	input		vga_sprite_0_s2_chipselect;
@@ -126,7 +175,6 @@ module ECE385 (
 	output	[15:0]	vga_sprite_0_s2_readdata;
 	input	[15:0]	vga_sprite_0_s2_writedata;
 	input	[1:0]	vga_sprite_0_s2_byteenable;
-	input		vga_sprite_1_clk2_clk;
 	input		vga_sprite_1_reset2_reset;
 	input	[11:0]	vga_sprite_1_s2_address;
 	input		vga_sprite_1_s2_chipselect;
@@ -135,7 +183,6 @@ module ECE385 (
 	output	[15:0]	vga_sprite_1_s2_readdata;
 	input	[15:0]	vga_sprite_1_s2_writedata;
 	input	[1:0]	vga_sprite_1_s2_byteenable;
-	input		vga_sprite_2_clk2_clk;
 	input		vga_sprite_2_reset2_reset;
 	input	[11:0]	vga_sprite_2_s2_address;
 	input		vga_sprite_2_s2_chipselect;
@@ -153,12 +200,59 @@ module ECE385 (
 	output	[15:0]	vga_sprite_3_s2_readdata;
 	input	[15:0]	vga_sprite_3_s2_writedata;
 	input	[1:0]	vga_sprite_3_s2_byteenable;
-	output	[31:0]	vga_sprite_0_width_height_export;
-	output	[31:0]	vga_sprite_1_width_height_export;
-	output	[31:0]	vga_sprite_2_width_height_export;
-	output	[31:0]	vga_sprite_3_width_height_export;
-	output	[31:0]	vga_sprite_0_position_export;
-	output	[31:0]	vga_sprite_1_position_export;
-	output	[31:0]	vga_sprite_2_position_export;
-	output	[31:0]	vga_sprite_3_position_export;
+	input		vga_sprite_4_clk2_clk;
+	input		vga_sprite_4_reset2_reset;
+	input	[11:0]	vga_sprite_4_s2_address;
+	input		vga_sprite_4_s2_chipselect;
+	input		vga_sprite_4_s2_clken;
+	input		vga_sprite_4_s2_write;
+	output	[15:0]	vga_sprite_4_s2_readdata;
+	input	[15:0]	vga_sprite_4_s2_writedata;
+	input	[1:0]	vga_sprite_4_s2_byteenable;
+	input		vga_sprite_5_clk2_clk;
+	input		vga_sprite_5_reset2_reset;
+	input	[11:0]	vga_sprite_5_s2_address;
+	input		vga_sprite_5_s2_chipselect;
+	input		vga_sprite_5_s2_clken;
+	input		vga_sprite_5_s2_write;
+	output	[15:0]	vga_sprite_5_s2_readdata;
+	input	[15:0]	vga_sprite_5_s2_writedata;
+	input	[1:0]	vga_sprite_5_s2_byteenable;
+	input		vga_sprite_6_clk2_clk;
+	input		vga_sprite_6_reset2_reset;
+	input	[11:0]	vga_sprite_6_s2_address;
+	input		vga_sprite_6_s2_chipselect;
+	input		vga_sprite_6_s2_clken;
+	input		vga_sprite_6_s2_write;
+	output	[15:0]	vga_sprite_6_s2_readdata;
+	input	[15:0]	vga_sprite_6_s2_writedata;
+	input	[1:0]	vga_sprite_6_s2_byteenable;
+	input		vga_sprite_7_clk2_clk;
+	input		vga_sprite_7_reset2_reset;
+	input	[11:0]	vga_sprite_7_s2_address;
+	input		vga_sprite_7_s2_chipselect;
+	input		vga_sprite_7_s2_clken;
+	input		vga_sprite_7_s2_write;
+	output	[15:0]	vga_sprite_7_s2_readdata;
+	input	[15:0]	vga_sprite_7_s2_writedata;
+	input	[1:0]	vga_sprite_7_s2_byteenable;
+	input		vga_sprite_8_clk2_clk;
+	input		vga_sprite_8_reset2_reset;
+	input	[11:0]	vga_sprite_8_s2_address;
+	input		vga_sprite_8_s2_chipselect;
+	input		vga_sprite_8_s2_clken;
+	input		vga_sprite_8_s2_write;
+	output	[15:0]	vga_sprite_8_s2_readdata;
+	input	[15:0]	vga_sprite_8_s2_writedata;
+	input	[1:0]	vga_sprite_8_s2_byteenable;
+	input		vga_sprite_2_clk2_clk;
+	input		vga_sprite_1_clk2_clk;
+	input		vga_sprite_0_clk2_clk;
+	output		vga_sprite_params_clk_clk;
+	output		vga_sprite_params_reset_reset;
+	output	[7:0]	vga_sprite_params_pass_address;
+	output		vga_sprite_params_pass_read;
+	input	[31:0]	vga_sprite_params_pass_readdata;
+	output		vga_sprite_params_pass_write;
+	output	[31:0]	vga_sprite_params_pass_writedata;
 endmodule

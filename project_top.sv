@@ -136,7 +136,7 @@ module project_top(
 	//////////// USB 2.0 OTG (Cypress CY7C67200) //////////
 	output logic     [1:0]		OTG_ADDR,
 	output logic          		OTG_CS_N,
-	inout logic    [15:0]		OTG_DATA,
+	inout           [15:0]		OTG_DATA,
 	input logic          		OTG_INT,
 	output logic          		OTG_RD_N,
 	output logic          		OTG_RST_N,
@@ -202,6 +202,31 @@ logic RESET;
 always_ff @ (posedge CLOCK_50) begin
 	RESET <= KEY[0];
 end
+
+// USB OTG
+logic [1:0] hpi_addr;
+logic [15:0] hpi_data_in, hpi_data_out;
+logic hpi_r, hpi_w, hpi_cs, hpi_reset;
+hpi_io_intf hpi_io_inst(
+                            .Clk(CLOCK_50),
+                            .Reset(~RESET),
+                            // signals connected to NIOS II
+                            .from_sw_address(hpi_addr),
+                            .from_sw_data_in(hpi_data_in),
+                            .from_sw_data_out(hpi_data_out),
+                            .from_sw_r(hpi_r),
+                            .from_sw_w(hpi_w),
+                            .from_sw_cs(hpi_cs),
+                            .from_sw_reset(hpi_reset),
+                            // signals connected to EZ-OTG chip
+                            .OTG_DATA(OTG_DATA),    
+                            .OTG_ADDR(OTG_ADDR),    
+                            .OTG_RD_N(OTG_RD_N),    
+                            .OTG_WR_N(OTG_WE_N),    
+                            .OTG_CS_N(OTG_CS_N),
+                            .OTG_RST_N(OTG_RST_N)
+);
+     
 
 // Hex display
 logic[31:0] HEX_EXPORT;
@@ -282,70 +307,65 @@ eth_ddio ETH1_DDIO(
 logic[9:0] VGA_DrawX, VGA_DrawY;
 logic [15:0] VGA_VAL;
 
+logic [7:0][11:0] VGA_SPRITE_ADDR;
+logic [7:0][15:0] VGA_SPRITE_DATA;
+logic [63:0] VGA_SPRITE_ISOBJ;
+logic [63:0][15:0] VGA_SPRITE_PIXEL;
+
 VGA_controller VGA(
 	.Clk(CLOCK_50), .Reset(~RESET),
 	.VGA_HS, .VGA_VS, .VGA_CLK, .VGA_BLANK_N, .VGA_SYNC_N,
-	.DrawX(VGA_DrawX), .DrawY(VGA_DrawY),
+	.DrawX(VGA_DrawX), .DrawY(VGA_DrawY)
 );
 
-VGA_layer #(4) VGA_layer_manager(
+VGA_layer #(64) VGA_layer_manager(
 	.VGA_VAL,
 	.VGA_R, .VGA_G, .VGA_B,
 	.VGA_SPRITE_ISOBJ, .VGA_SPRITE_PIXEL
 );
 
-logic [3:0][11:0] VGA_SPRITE_ADDR;
-logic [3:0][15:0] VGA_SPRITE_DATA;
-logic [3:0][15:0] VGA_SPRITE_WIDTH;
-logic [3:0][15:0] VGA_SPRITE_HEIGHT;
-logic [3:0][15:0] VGA_SPRITE_X;
-logic [3:0][15:0] VGA_SPRITE_Y;
-logic [3:0] VGA_SPRITE_ISOBJ;
-logic [3:0][15:0] VGA_SPRITE_PIXEL;
-
-VGA_sprite VGA_Sprite_0 (
-	.Clk(CLOCK_50), .Reset(1'b0),
-	.VGA_DrawX, .VGA_DrawY,
-	.SpriteX(VGA_SPRITE_X[0]), .SpriteY(VGA_SPRITE_Y[0]),
-	.SpriteWidth(VGA_SPRITE_WIDTH[0]), .SpriteHeight(VGA_SPRITE_HEIGHT[0]),
-	.AVL_Addr(VGA_SPRITE_ADDR[0]),
-	.AVL_ReadData(VGA_SPRITE_DATA[0]),
-	.VGA_isObject(VGA_SPRITE_ISOBJ[0]),
-	.VGA_Pixel(VGA_SPRITE_PIXEL[0])
+logic VGA_entities_manager_read, VGA_entities_manager_write;
+logic [7:0] VGA_entities_manager_addr;
+logic [31:0] VGA_entities_manager_readdata, VGA_entities_manager_writedata;
+logic [255:0][31:0] VGA_entities_export;
+VGA_entities VGA_entities_manager (
+	.CLK(CLOCK_50), .RESET(1'b0),
+	.AVL_READ(VGA_entities_manager_read),
+	.AVL_WRITE(VGA_entities_manager_write),
+	.AVL_ADDR(VGA_entities_manager_addr),
+	.AVL_WRITEDATA(VGA_entities_manager_writedata),
+	.AVL_READDATA(VGA_entities_manager_readdata),
+	.EXPORT_DATA(VGA_entities_export)
 );
 
-VGA_sprite VGA_Sprite_1 (
-	.Clk(CLOCK_50), .Reset(1'b0),
-	.VGA_DrawX, .VGA_DrawY,
-	.SpriteX(VGA_SPRITE_X[1]), .SpriteY(VGA_SPRITE_Y[1]),
-	.SpriteWidth(VGA_SPRITE_WIDTH[1]), .SpriteHeight(VGA_SPRITE_HEIGHT[1]),
-	.AVL_Addr(VGA_SPRITE_ADDR[1]),
-	.AVL_ReadData(VGA_SPRITE_DATA[1]),
-	.VGA_isObject(VGA_SPRITE_ISOBJ[1]),
-	.VGA_Pixel(VGA_SPRITE_PIXEL[1])
-);
-
-VGA_sprite VGA_Sprite_2 (
-	.Clk(CLOCK_50), .Reset(1'b0),
-	.VGA_DrawX, .VGA_DrawY,
-	.SpriteX(VGA_SPRITE_X[2]), .SpriteY(VGA_SPRITE_Y[2]),
-	.SpriteWidth(VGA_SPRITE_WIDTH[2]), .SpriteHeight(VGA_SPRITE_HEIGHT[2]),
-	.AVL_Addr(VGA_SPRITE_ADDR[2]),
-	.AVL_ReadData(VGA_SPRITE_DATA[2]),
-	.VGA_isObject(VGA_SPRITE_ISOBJ[2]),
-	.VGA_Pixel(VGA_SPRITE_PIXEL[2])
-);
-
-VGA_sprite VGA_Sprite_3 (
-	.Clk(CLOCK_50), .Reset(1'b0),
-	.VGA_DrawX, .VGA_DrawY,
-	.SpriteX(VGA_SPRITE_X[3]), .SpriteY(VGA_SPRITE_Y[3]),
-	.SpriteWidth(VGA_SPRITE_WIDTH[3]), .SpriteHeight(VGA_SPRITE_HEIGHT[3]),
-	.AVL_Addr(VGA_SPRITE_ADDR[3]),
-	.AVL_ReadData(VGA_SPRITE_DATA[3]),
-	.VGA_isObject(VGA_SPRITE_ISOBJ[3]),
-	.VGA_Pixel(VGA_SPRITE_PIXEL[3])
-);
+genvar i;
+generate
+	for(i = 0; i < 8; i++) begin: generate_vga_sprites
+		VGA_sprite (
+			.Clk(CLOCK_50), .Reset(1'b0),
+			.VGA_DrawX, .VGA_DrawY,
+			.SpriteX(VGA_entities_export[4*i][10:0]),
+			.SpriteY(VGA_entities_export[4*i+1][10:0]),
+			.SpriteWidth(VGA_entities_export[4*i+2][10:0]),
+			.SpriteHeight(VGA_entities_export[4*i+3][10:0]),
+			.AVL_Addr(VGA_SPRITE_ADDR[i]),
+			.AVL_ReadData(VGA_SPRITE_DATA[i]),
+			.VGA_isObject(VGA_SPRITE_ISOBJ[i]),
+			.VGA_Pixel(VGA_SPRITE_PIXEL[i])
+		);
+	end
+	for(i = 8; i < 64; i++) begin: generate_vga_bullets
+		bullet (
+			.BulletX(VGA_entities_export[4*i][10:0]),
+			.BulletY(VGA_entities_export[4*i+1][10:0]),
+			.BulletRadius(VGA_entities_export[4*i+2][10:0]),
+			.BulletColor(VGA_entities_export[4*i+3][15:0]),
+			.DrawX(VGA_DrawX), .DrawY(VGA_DrawY),
+			.VGA_isObject(VGA_SPRITE_ISOBJ[i]),
+			.VGA_Pixel(VGA_SPRITE_PIXEL[i])
+		);
+	end
+endgenerate
 
 // Main system
 ECE385 ECE385_sys(
@@ -354,6 +374,7 @@ ECE385 ECE385_sys(
 	.io_led_green_export(LEDG),
 	.io_led_red_export(LEDR),
 	.io_hex_export(HEX_EXPORT),
+	.io_vga_sync_export(VGA_VS),
 	.reset_reset_n(RESET),
 	
 	.sdram_addr(DRAM_ADDR),
@@ -389,8 +410,6 @@ ECE385 ECE385_sys(
 	.vga_sprite_0_s2_readdata(VGA_SPRITE_DATA[0]),
 	.vga_sprite_0_s2_writedata(32'b0),
 	.vga_sprite_0_s2_byteenable(4'b1),
-	.vga_sprite_0_position_export({VGA_SPRITE_Y[0], VGA_SPRITE_X[0]}),
-	.vga_sprite_0_width_height_export({VGA_SPRITE_HEIGHT[0], VGA_SPRITE_WIDTH[0]}),
 	
 	.vga_sprite_1_clk2_clk(CLOCK_50),
 	.vga_sprite_1_reset2_reset(1'b0),
@@ -401,8 +420,6 @@ ECE385 ECE385_sys(
 	.vga_sprite_1_s2_readdata(VGA_SPRITE_DATA[1]),
 	.vga_sprite_1_s2_writedata(32'b0),
 	.vga_sprite_1_s2_byteenable(4'b1),
-	.vga_sprite_1_position_export({VGA_SPRITE_Y[1], VGA_SPRITE_X[1]}),
-	.vga_sprite_1_width_height_export({VGA_SPRITE_HEIGHT[1], VGA_SPRITE_WIDTH[1]}),
 	
 	.vga_sprite_2_clk2_clk(CLOCK_50),
 	.vga_sprite_2_reset2_reset(1'b0),
@@ -413,8 +430,6 @@ ECE385 ECE385_sys(
 	.vga_sprite_2_s2_readdata(VGA_SPRITE_DATA[2]),
 	.vga_sprite_2_s2_writedata(32'b0),
 	.vga_sprite_2_s2_byteenable(4'b1),
-	.vga_sprite_2_position_export({VGA_SPRITE_Y[2], VGA_SPRITE_X[2]}),
-	.vga_sprite_2_width_height_export({VGA_SPRITE_HEIGHT[2], VGA_SPRITE_WIDTH[2]}),
 	
 	.vga_sprite_3_clk2_clk(CLOCK_50),
 	.vga_sprite_3_reset2_reset(1'b0),
@@ -425,8 +440,52 @@ ECE385 ECE385_sys(
 	.vga_sprite_3_s2_readdata(VGA_SPRITE_DATA[3]),
 	.vga_sprite_3_s2_writedata(32'b0),
 	.vga_sprite_3_s2_byteenable(4'b1),
-	.vga_sprite_3_position_export({VGA_SPRITE_Y[3], VGA_SPRITE_X[3]}),
-	.vga_sprite_3_width_height_export({VGA_SPRITE_HEIGHT[3], VGA_SPRITE_WIDTH[3]}),
+
+	.vga_sprite_4_clk2_clk(CLOCK_50),
+	.vga_sprite_4_reset2_reset(1'b0),
+	.vga_sprite_4_s2_address(VGA_SPRITE_ADDR[4]),
+	.vga_sprite_4_s2_chipselect(1'b1),
+	.vga_sprite_4_s2_clken(1'b1),
+	.vga_sprite_4_s2_write(1'b0),
+	.vga_sprite_4_s2_readdata(VGA_SPRITE_DATA[4]),
+	.vga_sprite_4_s2_writedata(32'b0),
+	.vga_sprite_4_s2_byteenable(4'b1),
+
+	.vga_sprite_5_clk2_clk(CLOCK_50),
+	.vga_sprite_5_reset2_reset(1'b0),
+	.vga_sprite_5_s2_address(VGA_SPRITE_ADDR[5]),
+	.vga_sprite_5_s2_chipselect(1'b1),
+	.vga_sprite_5_s2_clken(1'b1),
+	.vga_sprite_5_s2_write(1'b0),
+	.vga_sprite_5_s2_readdata(VGA_SPRITE_DATA[5]),
+	.vga_sprite_5_s2_writedata(32'b0),
+	.vga_sprite_5_s2_byteenable(4'b1),
+
+	.vga_sprite_6_clk2_clk(CLOCK_50),
+	.vga_sprite_6_reset2_reset(1'b0),
+	.vga_sprite_6_s2_address(VGA_SPRITE_ADDR[6]),
+	.vga_sprite_6_s2_chipselect(1'b1),
+	.vga_sprite_6_s2_clken(1'b1),
+	.vga_sprite_6_s2_write(1'b0),
+	.vga_sprite_6_s2_readdata(VGA_SPRITE_DATA[6]),
+	.vga_sprite_6_s2_writedata(32'b0),
+	.vga_sprite_6_s2_byteenable(4'b1),
+
+	.vga_sprite_7_clk2_clk(CLOCK_50),
+	.vga_sprite_7_reset2_reset(1'b0),
+	.vga_sprite_7_s2_address(VGA_SPRITE_ADDR[7]),
+	.vga_sprite_7_s2_chipselect(1'b1),
+	.vga_sprite_7_s2_clken(1'b1),
+	.vga_sprite_7_s2_write(1'b0),
+	.vga_sprite_7_s2_readdata(VGA_SPRITE_DATA[7]),
+	.vga_sprite_7_s2_writedata(32'b0),
+	.vga_sprite_7_s2_byteenable(4'b1),
+
+	.vga_sprite_params_pass_address(VGA_entities_manager_addr),
+	.vga_sprite_params_pass_write(VGA_entities_manager_write),
+	.vga_sprite_params_pass_read(VGA_entities_manager_read),
+	.vga_sprite_params_pass_readdata(VGA_entities_manager_readdata),
+	.vga_sprite_params_pass_writedata(VGA_entities_manager_writedata),
 	
 //	.eth0_mac_status_eth_mode(ETH0_MODE_1G),
 //	.eth0_mac_status_ena_10(ETH0_MODE_10M),
@@ -458,7 +517,15 @@ ECE385 ECE385_sys(
 	
 //	.eth_pll_125_clk(ETH_CLK_125),
 //	.eth_pll_25_clk(ETH_CLK_25),
-//	.eth_pll_2_5_clk(ETH_CLK_2_5)
+//	.eth_pll_2_5_clk(ETH_CLK_2_5),
+
+    .otg_hpi_address_export(hpi_addr),
+    .otg_hpi_data_in_port(hpi_data_in),
+    .otg_hpi_data_out_port(hpi_data_out),
+    .otg_hpi_cs_export(hpi_cs),
+    .otg_hpi_r_export(hpi_r),
+    .otg_hpi_w_export(hpi_w),
+    .otg_hpi_reset_export(hpi_reset)
 );
 	
 endmodule

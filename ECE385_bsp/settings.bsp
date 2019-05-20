@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 16, 2019 10:50:44 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1558018244264</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 20, 2019 11:32:28 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1558366348730</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\xuyh0\Desktop\zjui-ece385\final\ECE385_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\ECE385.sopcinfo</SopcDesignFile>
@@ -911,170 +911,128 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>vga_sprite_3</slaveDescriptor>
+                <slaveDescriptor>vga_sprite_8</slaveDescriptor>
                 <addressRange>0x00440000 - 0x00441FFF</addressRange>
                 <addressSpan>8192</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>vga_sprite_2</slaveDescriptor>
+                <slaveDescriptor>vga_sprite_7</slaveDescriptor>
                 <addressRange>0x00442000 - 0x00443FFF</addressRange>
                 <addressSpan>8192</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>vga_sprite_1</slaveDescriptor>
+                <slaveDescriptor>vga_sprite_6</slaveDescriptor>
                 <addressRange>0x00444000 - 0x00445FFF</addressRange>
                 <addressSpan>8192</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>vga_sprite_0</slaveDescriptor>
+                <slaveDescriptor>vga_sprite_5</slaveDescriptor>
                 <addressRange>0x00446000 - 0x00447FFF</addressRange>
                 <addressSpan>8192</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>vga_sprite_4</slaveDescriptor>
+                <addressRange>0x00448000 - 0x00449FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_3</slaveDescriptor>
+                <addressRange>0x0044A000 - 0x0044BFFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_2</slaveDescriptor>
+                <addressRange>0x0044C000 - 0x0044DFFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_1</slaveDescriptor>
+                <addressRange>0x0044E000 - 0x0044FFFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_0</slaveDescriptor>
+                <addressRange>0x00450000 - 0x00451FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_params</slaveDescriptor>
+                <addressRange>0x00453000 - 0x004533FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>usb_keycode</slaveDescriptor>
+                <addressRange>0x00453400 - 0x004537FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>io_hex</slaveDescriptor>
-                <addressRange>0x00449000 - 0x0044901F</addressRange>
+                <addressRange>0x00453800 - 0x0045381F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_green</slaveDescriptor>
-                <addressRange>0x00449020 - 0x0044903F</addressRange>
+                <addressRange>0x00453820 - 0x0045383F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_timer</slaveDescriptor>
-                <addressRange>0x00449040 - 0x0044905F</addressRange>
+                <addressRange>0x00453840 - 0x0045385F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_red</slaveDescriptor>
-                <addressRange>0x00449060 - 0x0044907F</addressRange>
+                <addressRange>0x00453860 - 0x0045387F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>vga_sprite_3_position</slaveDescriptor>
-                <addressRange>0x00449090 - 0x0044909F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_2_position</slaveDescriptor>
-                <addressRange>0x004490A0 - 0x004490AF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_1_position</slaveDescriptor>
-                <addressRange>0x004490B0 - 0x004490BF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_2_width_height</slaveDescriptor>
-                <addressRange>0x004490C0 - 0x004490CF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_3_width_height</slaveDescriptor>
-                <addressRange>0x004490D0 - 0x004490DF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_1_width_height</slaveDescriptor>
-                <addressRange>0x004490E0 - 0x004490EF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_0_position</slaveDescriptor>
-                <addressRange>0x004490F0 - 0x004490FF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_0_width_height</slaveDescriptor>
-                <addressRange>0x00449100 - 0x0044910F</addressRange>
+                <slaveDescriptor>io_vga_sync</slaveDescriptor>
+                <addressRange>0x00453890 - 0x0045389F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_switches</slaveDescriptor>
-                <addressRange>0x00449110 - 0x0044911F</addressRange>
+                <addressRange>0x004538A0 - 0x004538AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_keys</slaveDescriptor>
-                <addressRange>0x00449120 - 0x0044912F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>otg_hpi_reset</slaveDescriptor>
-                <addressRange>0x00449130 - 0x0044913F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>otg_hpi_cs</slaveDescriptor>
-                <addressRange>0x00449140 - 0x0044914F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>otg_hpi_w</slaveDescriptor>
-                <addressRange>0x00449150 - 0x0044915F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>otg_hpi_r</slaveDescriptor>
-                <addressRange>0x00449160 - 0x0044916F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>otg_hpi_data</slaveDescriptor>
-                <addressRange>0x00449170 - 0x0044917F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>otg_hpi_address</slaveDescriptor>
-                <addressRange>0x00449180 - 0x0044918F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>keycode</slaveDescriptor>
-                <addressRange>0x00449190 - 0x0044919F</addressRange>
+                <addressRange>0x004538B0 - 0x004538BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_pll</slaveDescriptor>
-                <addressRange>0x004491A0 - 0x004491AF</addressRange>
+                <addressRange>0x004538C0 - 0x004538CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_sysid</slaveDescriptor>
-                <addressRange>0x004491B8 - 0x004491BF</addressRange>
+                <addressRange>0x004538D8 - 0x004538DF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_jtag_uart</slaveDescriptor>
-                <addressRange>0x004491C0 - 0x004491C7</addressRange>
+                <addressRange>0x004538E0 - 0x004538E7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

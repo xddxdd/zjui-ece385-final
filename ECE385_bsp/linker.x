@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Thu May 16 20:55:51 CST 2019
+ * Generated: Mon May 20 22:49:08 CST 2019
  */
 
 /*
@@ -52,19 +52,31 @@ MEMORY
 {
     reset : ORIGIN = 0x420000, LENGTH = 32
     nios2_onchip_mem : ORIGIN = 0x420020, LENGTH = 131040
-    vga_sprite_3 : ORIGIN = 0x440000, LENGTH = 8192
-    vga_sprite_2 : ORIGIN = 0x442000, LENGTH = 8192
-    vga_sprite_1 : ORIGIN = 0x444000, LENGTH = 8192
-    vga_sprite_0 : ORIGIN = 0x446000, LENGTH = 8192
+    vga_sprite_8 : ORIGIN = 0x440000, LENGTH = 8192
+    vga_sprite_7 : ORIGIN = 0x442000, LENGTH = 8192
+    vga_sprite_6 : ORIGIN = 0x444000, LENGTH = 8192
+    vga_sprite_5 : ORIGIN = 0x446000, LENGTH = 8192
+    vga_sprite_4 : ORIGIN = 0x448000, LENGTH = 8192
+    vga_sprite_3 : ORIGIN = 0x44a000, LENGTH = 8192
+    vga_sprite_2 : ORIGIN = 0x44c000, LENGTH = 8192
+    vga_sprite_1 : ORIGIN = 0x44e000, LENGTH = 8192
+    vga_sprite_0 : ORIGIN = 0x450000, LENGTH = 8192
+    usb_keycode : ORIGIN = 0x453400, LENGTH = 1024
     sdram : ORIGIN = 0x8000000, LENGTH = 134217728
 }
 
 /* Define symbols for each memory base-address */
 __alt_mem_nios2_onchip_mem = 0x420000;
-__alt_mem_vga_sprite_3 = 0x440000;
-__alt_mem_vga_sprite_2 = 0x442000;
-__alt_mem_vga_sprite_1 = 0x444000;
-__alt_mem_vga_sprite_0 = 0x446000;
+__alt_mem_vga_sprite_8 = 0x440000;
+__alt_mem_vga_sprite_7 = 0x442000;
+__alt_mem_vga_sprite_6 = 0x444000;
+__alt_mem_vga_sprite_5 = 0x446000;
+__alt_mem_vga_sprite_4 = 0x448000;
+__alt_mem_vga_sprite_3 = 0x44a000;
+__alt_mem_vga_sprite_2 = 0x44c000;
+__alt_mem_vga_sprite_1 = 0x44e000;
+__alt_mem_vga_sprite_0 = 0x450000;
+__alt_mem_usb_keycode = 0x453400;
 __alt_mem_sdram = 0x8000000;
 
 OUTPUT_FORMAT( "elf32-littlenios2",
@@ -337,7 +349,92 @@ SECTIONS
      *
      */
 
-    .vga_sprite_3 : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
+    .vga_sprite_8 : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_8_start = ABSOLUTE(.));
+        *(.vga_sprite_8 .vga_sprite_8. vga_sprite_8.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_8_end = ABSOLUTE(.));
+    } > vga_sprite_8
+
+    PROVIDE (_alt_partition_vga_sprite_8_load_addr = LOADADDR(.vga_sprite_8));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .vga_sprite_7 : AT ( LOADADDR (.vga_sprite_8) + SIZEOF (.vga_sprite_8) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_7_start = ABSOLUTE(.));
+        *(.vga_sprite_7 .vga_sprite_7. vga_sprite_7.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_7_end = ABSOLUTE(.));
+    } > vga_sprite_7
+
+    PROVIDE (_alt_partition_vga_sprite_7_load_addr = LOADADDR(.vga_sprite_7));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .vga_sprite_6 : AT ( LOADADDR (.vga_sprite_7) + SIZEOF (.vga_sprite_7) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_6_start = ABSOLUTE(.));
+        *(.vga_sprite_6 .vga_sprite_6. vga_sprite_6.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_6_end = ABSOLUTE(.));
+    } > vga_sprite_6
+
+    PROVIDE (_alt_partition_vga_sprite_6_load_addr = LOADADDR(.vga_sprite_6));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .vga_sprite_5 : AT ( LOADADDR (.vga_sprite_6) + SIZEOF (.vga_sprite_6) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_5_start = ABSOLUTE(.));
+        *(.vga_sprite_5 .vga_sprite_5. vga_sprite_5.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_5_end = ABSOLUTE(.));
+    } > vga_sprite_5
+
+    PROVIDE (_alt_partition_vga_sprite_5_load_addr = LOADADDR(.vga_sprite_5));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .vga_sprite_4 : AT ( LOADADDR (.vga_sprite_5) + SIZEOF (.vga_sprite_5) )
+    {
+        PROVIDE (_alt_partition_vga_sprite_4_start = ABSOLUTE(.));
+        *(.vga_sprite_4 .vga_sprite_4. vga_sprite_4.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_vga_sprite_4_end = ABSOLUTE(.));
+    } > vga_sprite_4
+
+    PROVIDE (_alt_partition_vga_sprite_4_load_addr = LOADADDR(.vga_sprite_4));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .vga_sprite_3 : AT ( LOADADDR (.vga_sprite_4) + SIZEOF (.vga_sprite_4) )
     {
         PROVIDE (_alt_partition_vga_sprite_3_start = ABSOLUTE(.));
         *(.vga_sprite_3 .vga_sprite_3. vga_sprite_3.*)
@@ -405,7 +502,24 @@ SECTIONS
      *
      */
 
-    .sdram : AT ( LOADADDR (.vga_sprite_0) + SIZEOF (.vga_sprite_0) )
+    .usb_keycode : AT ( LOADADDR (.vga_sprite_0) + SIZEOF (.vga_sprite_0) )
+    {
+        PROVIDE (_alt_partition_usb_keycode_start = ABSOLUTE(.));
+        *(.usb_keycode .usb_keycode. usb_keycode.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_usb_keycode_end = ABSOLUTE(.));
+    } > usb_keycode
+
+    PROVIDE (_alt_partition_usb_keycode_load_addr = LOADADDR(.usb_keycode));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .sdram : AT ( LOADADDR (.usb_keycode) + SIZEOF (.usb_keycode) )
     {
         PROVIDE (_alt_partition_sdram_start = ABSOLUTE(.));
         *(.sdram .sdram. sdram.*)

@@ -6,10 +6,39 @@
 
 #include "vga.h"
 #include "resource.h"
+#include "comm.h"
+
+typedef struct {
+	alt_u32 x;
+	alt_u32 y;
+	union {
+		// For airplane
+		struct {
+			alt_u32 width;
+			alt_u32 height;
+		};
+		// For bullet
+		struct {
+			alt_u32 bullet_radius;
+			alt_u32 bullet_color;
+		};
+	};
+} vga_entity_t;
+
+volatile vga_entity_t* vga_entities = (vga_entity_t*) VGA_SPRITE_PARAMS_BASE;
+
+volatile keycode_comm_t* keycode_comm = (keycode_comm_t*) USB_KEYCODE_BASE;
+volatile int* hex = (int*) IO_HEX_BASE;
+volatile int* io_vga_sync = (int*) IO_VGA_SYNC_BASE;
 
 int main(void)
 {
 	printf("Hello World\n");
+
+//	while(1) {
+//		*hex = keycode_comm->keycode[0];
+//	}
+
 	vga_fill(0, 0, VGA_WIDTH, VGA_HEIGHT, 0xffff);
 
 //	while(1) {
@@ -19,43 +48,67 @@ int main(void)
 //			vga_fill(x, 0, 1, 48, 0xffff);
 //		}
 //	}
-	*((int*) VGA_SPRITE_0_POSITION_BASE) = (0 << 16) | 0;
-	*((int*) VGA_SPRITE_0_WIDTH_HEIGHT_BASE) = (48 << 16) | 75;
 
-	*((int*) VGA_SPRITE_1_POSITION_BASE) = (100 << 16) | 100;
-	*((int*) VGA_SPRITE_1_WIDTH_HEIGHT_BASE) = (48 << 16) | 75;
+	for(int i = 0; i < 64; i++) {
+		vga_entities[i].x = 0;
+		vga_entities[i].y = 0;
+		vga_entities[i].width = 0;
+		vga_entities[i].height = 0;
+	}
 
-	*((int*) VGA_SPRITE_2_POSITION_BASE) = (200 << 16) | 200;
-	*((int*) VGA_SPRITE_2_WIDTH_HEIGHT_BASE) = (48 << 16) | 75;
+	vga_entities[0].x = 0;
+	vga_entities[0].y = 0;
+	vga_entities[0].width = 75;
+	vga_entities[0].height = 48;
 
-	*((int*) VGA_SPRITE_3_POSITION_BASE) = (400 << 16) | 300;
-	*((int*) VGA_SPRITE_3_WIDTH_HEIGHT_BASE) = (48 << 16) | 75;
-
+	vga_entities[8].x = 200;
+	vga_entities[8].y = 200;
+	vga_entities[8].bullet_radius = 3;
+	vga_entities[8].bullet_color = 0x8888;
 
 	for(int i = 0; i < 75*48; i++) {
 		((uint16_t*) VGA_SPRITE_0_BASE)[i] = plane[i];
-		((uint16_t*) VGA_SPRITE_1_BASE)[i] = plane[i];
-		((uint16_t*) VGA_SPRITE_2_BASE)[i] = plane[i];
-		((uint16_t*) VGA_SPRITE_3_BASE)[i] = plane[i];
-	}
-	for(int i = 0; i < 75*48; i++) {
-		if(((uint16_t*) VGA_SPRITE_0_BASE)[i] != plane[i]) printf("ERR Sprite 0 %d\n", i);
-//		((uint16_t*) VGA_SPRITE_1_BASE)[i] = plane[i];
-//		((uint16_t*) VGA_SPRITE_2_BASE)[i] = plane[i];
-//		((uint16_t*) VGA_SPRITE_3_BASE)[i] = plane[i];
 	}
 
-	vga_fill(0, 0, VGA_WIDTH, VGA_HEIGHT, 0xffff);
-//	for(int i = 0; i < 75*48; i++) {
-//		((int*) SRAM_MULTIPLEXER_BASE)[i] = plane[i];
-//	}
+	int y = 200;
+	int x = 300;
 	while(1) {
-		for(int16_t x = -100; x < 640; x++) {
-			*((int*) VGA_SPRITE_0_POSITION_BASE) = (0 << 16) | x;
-			usleep(5000);
-		}
-//		*((int*) VGA_SPRITE_0_POSITION_BASE) = (0 << 16) | ((int16_t) -50);
-//		usleep(10000);
+		// Wait for VSync == 1
+		while(*io_vga_sync == 0);
+
+		// Do actual job
+		do {
+			for(int i = 0; i < 2; i++) {
+				int keycode = keycode_comm->keycode[i];
+				if(i == 0) *hex = keycode;
+				switch(keycode) {
+				case 0x1A:	// W
+				case 0x52:	// Up
+					if(y > -48) y--;
+					break;
+				case 0x04:	// A
+				case 0x50:	// Left
+					if(x > -75) x--;
+					break;
+				case 0x16:	// S
+				case 0x51:	// Down
+					if(y < 480) y++;
+					break;
+				case 0x07:	// D
+				case 0x4F:	// Right
+					if(x < 640) x++;
+					break;
+				}
+			}
+			vga_entities[8].x = x;
+			vga_entities[8].y = y;
+
+			printf("%d %d %d %d\n", x, y, vga_entities[8].x, vga_entities[8].y);
+
+		} while(0);
+
+		// Wait for VSync == 0
+		while(*io_vga_sync == 1);
 	}
 
 //	usleep(5000);

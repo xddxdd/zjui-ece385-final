@@ -1,8 +1,8 @@
 module VGA_sprite (
 	input logic Clk, Reset,
 
-	input logic [15:0] SpriteX, SpriteY,
-	input logic [15:0] SpriteWidth, SpriteHeight,
+	input logic [10:0] SpriteX, SpriteY,
+	input logic [10:0] SpriteWidth, SpriteHeight,
 	
 	input logic [9:0] VGA_DrawX, VGA_DrawY,
 	output logic [11:0] AVL_Addr,
@@ -23,10 +23,10 @@ always_comb begin
 	VGA_isInObject = 1'b0;
 	AVL_Addr = 11'b0;
 	
-	if((VGA_DrawX >= SpriteX || SpriteX[15])
-		&& (VGA_DrawX < SpriteRight && !SpriteRight[15])
-		&& (VGA_DrawY >= SpriteY || SpriteY[15])
-		&& (VGA_DrawY < SpriteBottom && !SpriteBottom[15])
+	if((VGA_DrawX >= SpriteX || SpriteX[10])
+		&& (VGA_DrawX < SpriteRight && !SpriteRight[10])
+		&& (VGA_DrawY >= SpriteY || SpriteY[10])
+		&& (VGA_DrawY < SpriteBottom && !SpriteBottom[10])
 	) begin
 		VGA_isInObject = 1'b1;
 		AVL_Addr = SpriteWidth * (VGA_DrawY - SpriteY) + (VGA_DrawX - SpriteX);
