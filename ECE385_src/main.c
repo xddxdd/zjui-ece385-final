@@ -4,28 +4,11 @@
 
 #include "system.h"
 
+#include "main.h"
 #include "vga.h"
 #include "resource.h"
 #include "comm.h"
-
-typedef struct {
-	alt_u32 x;
-	alt_u32 y;
-	union {
-		// For airplane
-		struct {
-			alt_u32 width;
-			alt_u32 height;
-		};
-		// For bullet
-		struct {
-			alt_u32 bullet_radius;
-			alt_u32 bullet_color;
-		};
-	};
-} vga_entity_t;
-
-volatile vga_entity_t* vga_entities = (vga_entity_t*) VGA_SPRITE_PARAMS_BASE;
+#include "sprites.h"
 
 volatile keycode_comm_t* keycode_comm = (keycode_comm_t*) USB_KEYCODE_BASE;
 volatile int* hex = (int*) IO_HEX_BASE;
@@ -35,80 +18,129 @@ int main(void)
 {
 	printf("Hello World\n");
 
-//	while(1) {
-//		*hex = keycode_comm->keycode[0];
-//	}
-
 	vga_fill(0, 0, VGA_WIDTH, VGA_HEIGHT, 0xffff);
 
-//	while(1) {
-//		printf("Loop\n");
-//		for(int x = 100; x < 500; x++) {
-//			vga_set(x, 0, 75, 48, plane);
-//			vga_fill(x, 0, 1, 48, 0xffff);
-//		}
-//	}
+	sprites_init(VGA_SPRITE_PLANE);
+	sprites_init(VGA_SPRITE_BULLET);
 
-	for(int i = 0; i < 64; i++) {
-		vga_entities[i].x = 0;
-		vga_entities[i].y = 0;
-		vga_entities[i].width = 0;
-		vga_entities[i].height = 0;
-	}
+	int player_plane_id = 0;
+	volatile vga_sprite_info_t* player_plane_info = NULL;
 
-	vga_entities[0].x = 0;
-	vga_entities[0].y = 0;
-	vga_entities[0].width = 75;
-	vga_entities[0].height = 48;
+	// Create a plane
+	do {
+		int id;
+		if(255 == (id = sprites_allocate(VGA_SPRITE_PLANE))) {
+			printf("ERR sprites_allocate");
+			break;
+		}
+		if(255 == sprites_load_data(VGA_SPRITE_PLANE, id, plane, 75 * 48)) {
+			printf("ERR sprites_load_data");
+			break;
+		}
+		volatile vga_sprite_info_t* sprite_info = sprites_get(VGA_SPRITE_PLANE, id);
+		if(NULL == sprite_info) {
+			printf("ERR sprites_get");
+			break;
+		}
+		sprite_info->physical->x = 400;
+		sprite_info->physical->y = 300;
+		sprite_info->physical->width = 75;
+		sprite_info->physical->height = 48;
+		sprite_info->vx = 0;
+		sprite_info->vy = 0;
+		sprite_info->ax = 0;
+		sprite_info->ay = 0;
 
-	vga_entities[8].x = 200;
-	vga_entities[8].y = 200;
-	vga_entities[8].bullet_radius = 3;
-	vga_entities[8].bullet_color = 0x8888;
+		// Set plane as player's plane
+		player_plane_id = id;
+		player_plane_info = sprite_info;
+	} while(0);
 
-	for(int i = 0; i < 75*48; i++) {
-		((uint16_t*) VGA_SPRITE_0_BASE)[i] = plane[i];
-	}
+	// Create a bullet
+	do {
+		int id;
+		if(255 == (id = sprites_allocate(VGA_SPRITE_BULLET))) {
+			printf("ERR sprites_allocate");
+			break;
+		}
+		volatile vga_sprite_info_t* sprite_info = sprites_get(VGA_SPRITE_BULLET, id);
+		if(NULL == sprite_info) {
+			printf("ERR sprites_get");
+			break;
+		}
+		sprite_info->physical->x = 200;
+		sprite_info->physical->y = 200;
+		sprite_info->physical->bullet_radius = 3;
+		sprite_info->physical->bullet_color = 0x8888;
+		sprite_info->vx = 1;
+		sprite_info->vy = 1;
+		sprite_info->ax = 0;
+		sprite_info->ay = 0;
+	} while(0);
 
-	int y = 200;
-	int x = 300;
 	while(1) {
-		// Wait for VSync == 1
-		while(*io_vga_sync == 0);
+		while(*io_vga_sync == 0);	// Wait for VSync == 1
 
-		// Do actual job
-		do {
+		do {	// user input job
+			uint8_t pressed_up = 0, pressed_left = 0, pressed_down = 0, pressed_right = 0;
 			for(int i = 0; i < 2; i++) {
 				int keycode = keycode_comm->keycode[i];
 				if(i == 0) *hex = keycode;
 				switch(keycode) {
 				case 0x1A:	// W
 				case 0x52:	// Up
-					if(y > -48) y--;
+					pressed_up = 1;
 					break;
 				case 0x04:	// A
 				case 0x50:	// Left
-					if(x > -75) x--;
+					pressed_left = 1;
 					break;
 				case 0x16:	// S
 				case 0x51:	// Down
-					if(y < 480) y++;
+					pressed_down = 1;
 					break;
 				case 0x07:	// D
 				case 0x4F:	// Right
-					if(x < 640) x++;
+					pressed_right = 1;
 					break;
 				}
 			}
-			vga_entities[8].x = x;
-			vga_entities[8].y = y;
 
-			printf("%d %d %d %d\n", x, y, vga_entities[8].x, vga_entities[8].y);
+			// Y input & resistance
+			if(pressed_up && pressed_down) {
+				// Player went crazy, do nothing
+			} else if(pressed_up) {
+				player_plane_info->vy -= 3;
+			} else if(pressed_down) {
+				player_plane_info->vy += 3;
+			} else if(player_plane_info->vy > 0) {
+				player_plane_info->vy -= 1;
+			} else if(player_plane_info->vy < 0) {
+				player_plane_info->vy += 1;
+			}
 
+			// X input & resistance
+			if(pressed_left && pressed_right) {
+				// Player went crazy, do nothing
+			} else if(pressed_left) {
+				player_plane_info->vx -= 3;
+			} else if(pressed_right) {
+				player_plane_info->vx += 3;
+			} else if(player_plane_info->vx > 0) {
+				player_plane_info->vx -= 1;
+			} else if(player_plane_info->vx< 0) {
+				player_plane_info->vx += 1;
+			}
+
+			// Prevent plane from flying out of screen
+			sprites_limit_speed(VGA_SPRITE_PLANE, player_plane_id);
 		} while(0);
 
-		// Wait for VSync == 0
-		while(*io_vga_sync == 1);
+		// Sprites manager job
+		sprites_tick(VGA_SPRITE_PLANE);
+		sprites_tick(VGA_SPRITE_BULLET);
+
+		while(*io_vga_sync == 1);	// Wait for VSync == 0
 	}
 
 //	usleep(5000);
