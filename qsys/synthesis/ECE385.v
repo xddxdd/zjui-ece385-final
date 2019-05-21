@@ -115,15 +115,6 @@ module ECE385 (
 		output wire [15:0] vga_sprite_7_s2_readdata,                       //                                        .readdata
 		input  wire [15:0] vga_sprite_7_s2_writedata,                      //                                        .writedata
 		input  wire [1:0]  vga_sprite_7_s2_byteenable,                     //                                        .byteenable
-		input  wire        vga_sprite_8_clk2_clk,                          //                       vga_sprite_8_clk2.clk
-		input  wire        vga_sprite_8_reset2_reset,                      //                     vga_sprite_8_reset2.reset
-		input  wire [11:0] vga_sprite_8_s2_address,                        //                         vga_sprite_8_s2.address
-		input  wire        vga_sprite_8_s2_chipselect,                     //                                        .chipselect
-		input  wire        vga_sprite_8_s2_clken,                          //                                        .clken
-		input  wire        vga_sprite_8_s2_write,                          //                                        .write
-		output wire [15:0] vga_sprite_8_s2_readdata,                       //                                        .readdata
-		input  wire [15:0] vga_sprite_8_s2_writedata,                      //                                        .writedata
-		input  wire [1:0]  vga_sprite_8_s2_byteenable,                     //                                        .byteenable
 		output wire        vga_sprite_params_clk_clk,                      //                   vga_sprite_params_clk.clk
 		output wire [7:0]  vga_sprite_params_pass_address,                 //                  vga_sprite_params_pass.address
 		output wire        vga_sprite_params_pass_read,                    //                                        .read
@@ -276,13 +267,6 @@ module ECE385 (
 	wire         mm_interconnect_0_vga_sprite_7_s1_write;                         // mm_interconnect_0:vga_sprite_7_s1_write -> vga_sprite_7:write
 	wire  [31:0] mm_interconnect_0_vga_sprite_7_s1_writedata;                     // mm_interconnect_0:vga_sprite_7_s1_writedata -> vga_sprite_7:writedata
 	wire         mm_interconnect_0_vga_sprite_7_s1_clken;                         // mm_interconnect_0:vga_sprite_7_s1_clken -> vga_sprite_7:clken
-	wire         mm_interconnect_0_vga_sprite_8_s1_chipselect;                    // mm_interconnect_0:vga_sprite_8_s1_chipselect -> vga_sprite_8:chipselect
-	wire  [31:0] mm_interconnect_0_vga_sprite_8_s1_readdata;                      // vga_sprite_8:readdata -> mm_interconnect_0:vga_sprite_8_s1_readdata
-	wire  [10:0] mm_interconnect_0_vga_sprite_8_s1_address;                       // mm_interconnect_0:vga_sprite_8_s1_address -> vga_sprite_8:address
-	wire   [3:0] mm_interconnect_0_vga_sprite_8_s1_byteenable;                    // mm_interconnect_0:vga_sprite_8_s1_byteenable -> vga_sprite_8:byteenable
-	wire         mm_interconnect_0_vga_sprite_8_s1_write;                         // mm_interconnect_0:vga_sprite_8_s1_write -> vga_sprite_8:write
-	wire  [31:0] mm_interconnect_0_vga_sprite_8_s1_writedata;                     // mm_interconnect_0:vga_sprite_8_s1_writedata -> vga_sprite_8:writedata
-	wire         mm_interconnect_0_vga_sprite_8_s1_clken;                         // mm_interconnect_0:vga_sprite_8_s1_clken -> vga_sprite_8:clken
 	wire         mm_interconnect_0_usb_keycode_s2_chipselect;                     // mm_interconnect_0:usb_keycode_s2_chipselect -> usb_keycode:chipselect2
 	wire  [31:0] mm_interconnect_0_usb_keycode_s2_readdata;                       // usb_keycode:readdata2 -> mm_interconnect_0:usb_keycode_s2_readdata
 	wire   [7:0] mm_interconnect_0_usb_keycode_s2_address;                        // mm_interconnect_0:usb_keycode_s2_address -> usb_keycode:address2
@@ -365,7 +349,7 @@ module ECE385 (
 	wire         irq_mapper_receiver1_irq;                                        // nios2_timer:irq -> irq_mapper:receiver1_irq
 	wire  [31:0] nios2_cpu_irq_irq;                                               // irq_mapper:sender_irq -> nios2_cpu:irq
 	wire  [31:0] usb_nios2_cpu_irq_irq;                                           // irq_mapper_001:sender_irq -> usb_nios2_cpu:irq
-	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, irq_mapper_001:reset, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_keycode:reset, usb_keycode:reset2, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n, usb_status:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_8:reset, vga_sprite_params:RESET]
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, irq_mapper_001:reset, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_keycode:reset, usb_keycode:reset2, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n, usb_status:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
 	wire         rst_controller_reset_out_reset_req;                              // rst_controller:reset_req -> [nios2_onchip_mem:reset_req, rst_translator:reset_req_in, usb_nios2_cpu:reset_req]
 	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
 	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator_001:reset_req_in]
@@ -917,30 +901,6 @@ module ECE385 (
 		.reset_req2  (1'b0)                                          // (terminated)
 	);
 
-	ECE385_vga_sprite_8 vga_sprite_8 (
-		.clk         (clk_clk),                                      //   clk1.clk
-		.address     (mm_interconnect_0_vga_sprite_8_s1_address),    //     s1.address
-		.clken       (mm_interconnect_0_vga_sprite_8_s1_clken),      //       .clken
-		.chipselect  (mm_interconnect_0_vga_sprite_8_s1_chipselect), //       .chipselect
-		.write       (mm_interconnect_0_vga_sprite_8_s1_write),      //       .write
-		.readdata    (mm_interconnect_0_vga_sprite_8_s1_readdata),   //       .readdata
-		.writedata   (mm_interconnect_0_vga_sprite_8_s1_writedata),  //       .writedata
-		.byteenable  (mm_interconnect_0_vga_sprite_8_s1_byteenable), //       .byteenable
-		.reset       (rst_controller_reset_out_reset),               // reset1.reset
-		.address2    (vga_sprite_8_s2_address),                      //     s2.address
-		.chipselect2 (vga_sprite_8_s2_chipselect),                   //       .chipselect
-		.clken2      (vga_sprite_8_s2_clken),                        //       .clken
-		.write2      (vga_sprite_8_s2_write),                        //       .write
-		.readdata2   (vga_sprite_8_s2_readdata),                     //       .readdata
-		.writedata2  (vga_sprite_8_s2_writedata),                    //       .writedata
-		.byteenable2 (vga_sprite_8_s2_byteenable),                   //       .byteenable
-		.clk2        (vga_sprite_8_clk2_clk),                        //   clk2.clk
-		.reset2      (vga_sprite_8_reset2_reset),                    // reset2.reset
-		.reset_req   (1'b0),                                         // (terminated)
-		.freeze      (1'b0),                                         // (terminated)
-		.reset_req2  (1'b0)                                          // (terminated)
-	);
-
 	avalon_mm_passthrough #(
 		.ADDR_WIDTH (8)
 	) vga_sprite_params (
@@ -1108,13 +1068,6 @@ module ECE385 (
 		.vga_sprite_7_s1_byteenable                        (mm_interconnect_0_vga_sprite_7_s1_byteenable),                    //                                            .byteenable
 		.vga_sprite_7_s1_chipselect                        (mm_interconnect_0_vga_sprite_7_s1_chipselect),                    //                                            .chipselect
 		.vga_sprite_7_s1_clken                             (mm_interconnect_0_vga_sprite_7_s1_clken),                         //                                            .clken
-		.vga_sprite_8_s1_address                           (mm_interconnect_0_vga_sprite_8_s1_address),                       //                             vga_sprite_8_s1.address
-		.vga_sprite_8_s1_write                             (mm_interconnect_0_vga_sprite_8_s1_write),                         //                                            .write
-		.vga_sprite_8_s1_readdata                          (mm_interconnect_0_vga_sprite_8_s1_readdata),                      //                                            .readdata
-		.vga_sprite_8_s1_writedata                         (mm_interconnect_0_vga_sprite_8_s1_writedata),                     //                                            .writedata
-		.vga_sprite_8_s1_byteenable                        (mm_interconnect_0_vga_sprite_8_s1_byteenable),                    //                                            .byteenable
-		.vga_sprite_8_s1_chipselect                        (mm_interconnect_0_vga_sprite_8_s1_chipselect),                    //                                            .chipselect
-		.vga_sprite_8_s1_clken                             (mm_interconnect_0_vga_sprite_8_s1_clken),                         //                                            .clken
 		.vga_sprite_params_avl_address                     (mm_interconnect_0_vga_sprite_params_avl_address),                 //                       vga_sprite_params_avl.address
 		.vga_sprite_params_avl_write                       (mm_interconnect_0_vga_sprite_params_avl_write),                   //                                            .write
 		.vga_sprite_params_avl_read                        (mm_interconnect_0_vga_sprite_params_avl_read),                    //                                            .read

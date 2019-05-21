@@ -62,7 +62,7 @@ int main(void)
 	//printf("USB keyboard setup...\n\n");
 
 	//----------------------------------------SIE1 initial---------------------------------------------------//
-	USB_HOT_PLUG:
+USB_HOT_PLUG:
 	*status_led = 0;
 	keycode_comm->keyboard_present = 0;
 	UsbSoftReset();
@@ -193,7 +193,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506); // i
 	//printf("[ENUM PROCESS]:step 3 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -225,7 +225,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
 	//printf("[ENUM PROCESS]:step 4 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -260,7 +260,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
 	//printf("[ENUM PROCESS]:step 4 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -296,7 +296,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
 	//printf("[ENUM PROCESS]:step 5 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -329,7 +329,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
 	//printf("[ENUM PROCESS]:step 6 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -394,7 +394,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
 	//printf("[ENUM PROCESS]:step 7 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -423,7 +423,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
 	//printf("[ENUM PROCESS]:step 8 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -454,7 +454,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
 	//printf("[ENUM PROCESS]:step 8 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -485,7 +485,7 @@ int main(void)
 		usleep(10*1000);
 	}
 
-	UsbWaitTDListDone();
+	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
 	//printf("[ENUM PROCESS]: step 9 TD Status Byte is %x\n",IO_read(HPI_DATA));
@@ -556,6 +556,7 @@ int main(void)
 		}//end while
 
 		usb_ctl_val = UsbWaitTDListDone();
+		if(0xffff == usb_ctl_val) goto USB_HOT_PLUG;
 
 		// The first two keycodes are stored in 0x051E. Other keycodes are in 
 		// subsequent addresses.

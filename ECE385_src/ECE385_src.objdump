@@ -31,75 +31,73 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC, SMALL_DATA
   6 .nios2_onchip_mem 00000000  00434600  00434600  000139a4  2**0
                   CONTENTS
-  7 .vga_sprite_8 00000000  00440000  00440000  000139a4  2**0
+  7 .vga_sprite_7 00000000  00442000  00442000  000139a4  2**0
                   CONTENTS
-  8 .vga_sprite_7 00000000  00442000  00442000  000139a4  2**0
+  8 .vga_sprite_6 00000000  00444000  00444000  000139a4  2**0
                   CONTENTS
-  9 .vga_sprite_6 00000000  00444000  00444000  000139a4  2**0
+  9 .vga_sprite_5 00000000  00446000  00446000  000139a4  2**0
                   CONTENTS
- 10 .vga_sprite_5 00000000  00446000  00446000  000139a4  2**0
+ 10 .vga_sprite_4 00000000  00448000  00448000  000139a4  2**0
                   CONTENTS
- 11 .vga_sprite_4 00000000  00448000  00448000  000139a4  2**0
+ 11 .vga_sprite_3 00000000  0044a000  0044a000  000139a4  2**0
                   CONTENTS
- 12 .vga_sprite_3 00000000  0044a000  0044a000  000139a4  2**0
+ 12 .vga_sprite_2 00000000  0044c000  0044c000  000139a4  2**0
                   CONTENTS
- 13 .vga_sprite_2 00000000  0044c000  0044c000  000139a4  2**0
+ 13 .vga_sprite_1 00000000  0044e000  0044e000  000139a4  2**0
                   CONTENTS
- 14 .vga_sprite_1 00000000  0044e000  0044e000  000139a4  2**0
+ 14 .vga_sprite_0 00000000  00450000  00450000  000139a4  2**0
                   CONTENTS
- 15 .vga_sprite_0 00000000  00450000  00450000  000139a4  2**0
+ 15 .usb_keycode  00000000  00453400  00453400  000139a4  2**0
                   CONTENTS
- 16 .usb_keycode  00000000  00453400  00453400  000139a4  2**0
+ 16 .sdram        00000000  08000000  08000000  000139a4  2**0
                   CONTENTS
- 17 .sdram        00000000  08000000  08000000  000139a4  2**0
-                  CONTENTS
- 18 .comment      00000023  00000000  00000000  000139a4  2**0
+ 17 .comment      00000023  00000000  00000000  000139a4  2**0
                   CONTENTS, READONLY
- 19 .debug_aranges 00000980  00000000  00000000  000139c8  2**3
+ 18 .debug_aranges 00000980  00000000  00000000  000139c8  2**3
                   CONTENTS, READONLY, DEBUGGING
- 20 .debug_info   0001bd57  00000000  00000000  00014348  2**0
+ 19 .debug_info   0001bd57  00000000  00000000  00014348  2**0
                   CONTENTS, READONLY, DEBUGGING
- 21 .debug_abbrev 000064de  00000000  00000000  0003009f  2**0
+ 20 .debug_abbrev 000064de  00000000  00000000  0003009f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 22 .debug_line   00008c52  00000000  00000000  0003657d  2**0
+ 21 .debug_line   00008c52  00000000  00000000  0003657d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 23 .debug_frame  00001434  00000000  00000000  0003f1d0  2**2
+ 22 .debug_frame  00001434  00000000  00000000  0003f1d0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 24 .debug_str    00002681  00000000  00000000  00040604  2**0
+ 23 .debug_str    00002681  00000000  00000000  00040604  2**0
                   CONTENTS, READONLY, DEBUGGING
- 25 .debug_loc    000176bb  00000000  00000000  00042c85  2**0
+ 24 .debug_loc    000176bb  00000000  00000000  00042c85  2**0
                   CONTENTS, READONLY, DEBUGGING
- 26 .debug_alt_sim_info 00000010  00000000  00000000  0005a340  2**2
+ 25 .debug_alt_sim_info 00000010  00000000  00000000  0005a340  2**2
                   CONTENTS, READONLY, DEBUGGING
- 27 .debug_ranges 00001840  00000000  00000000  0005a350  2**3
+ 26 .debug_ranges 00001840  00000000  00000000  0005a350  2**3
                   CONTENTS, READONLY, DEBUGGING
- 28 .thread_model 00000003  00000000  00000000  0005efc2  2**0
+ 27 .thread_model 00000003  00000000  00000000  0005ef56  2**0
                   CONTENTS, READONLY
- 29 .cpu          00000009  00000000  00000000  0005efc5  2**0
+ 28 .cpu          00000009  00000000  00000000  0005ef59  2**0
                   CONTENTS, READONLY
- 30 .qsys         00000001  00000000  00000000  0005efce  2**0
+ 29 .qsys         00000001  00000000  00000000  0005ef62  2**0
                   CONTENTS, READONLY
- 31 .simulation_enabled 00000001  00000000  00000000  0005efcf  2**0
+ 30 .simulation_enabled 00000001  00000000  00000000  0005ef63  2**0
                   CONTENTS, READONLY
- 32 .sysid_hash   00000004  00000000  00000000  0005efd0  2**0
+ 31 .sysid_hash   00000004  00000000  00000000  0005ef64  2**0
                   CONTENTS, READONLY
- 33 .sysid_base   00000004  00000000  00000000  0005efd4  2**0
+ 32 .sysid_base   00000004  00000000  00000000  0005ef68  2**0
                   CONTENTS, READONLY
- 34 .sysid_time   00000004  00000000  00000000  0005efd8  2**0
+ 33 .sysid_time   00000004  00000000  00000000  0005ef6c  2**0
                   CONTENTS, READONLY
- 35 .stderr_dev   0000000f  00000000  00000000  0005efdc  2**0
+ 34 .stderr_dev   0000000f  00000000  00000000  0005ef70  2**0
                   CONTENTS, READONLY
- 36 .stdin_dev    0000000f  00000000  00000000  0005efeb  2**0
+ 35 .stdin_dev    0000000f  00000000  00000000  0005ef7f  2**0
                   CONTENTS, READONLY
- 37 .stdout_dev   0000000f  00000000  00000000  0005effa  2**0
+ 36 .stdout_dev   0000000f  00000000  00000000  0005ef8e  2**0
                   CONTENTS, READONLY
- 38 .sopc_system_name 00000006  00000000  00000000  0005f009  2**0
+ 37 .sopc_system_name 00000006  00000000  00000000  0005ef9d  2**0
                   CONTENTS, READONLY
- 39 .quartus_project_dir 00000028  00000000  00000000  0005f00f  2**0
+ 38 .quartus_project_dir 00000028  00000000  00000000  0005efa3  2**0
                   CONTENTS, READONLY
- 40 .jdi          00008817  00000000  00000000  0005f037  2**0
+ 39 .jdi          00008817  00000000  00000000  0005efcb  2**0
                   CONTENTS, READONLY
- 41 .sopcinfo     001479dc  00000000  00000000  0006784e  2**0
+ 40 .sopcinfo     0013bba2  00000000  00000000  000677e2  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 00420000 l    d  .entry	00000000 .entry
@@ -109,7 +107,6 @@ SYMBOL TABLE:
 00430ea8 l    d  .rwdata	00000000 .rwdata
 004344a0 l    d  .bss	00000000 .bss
 00434600 l    d  .nios2_onchip_mem	00000000 .nios2_onchip_mem
-00440000 l    d  .vga_sprite_8	00000000 .vga_sprite_8
 00442000 l    d  .vga_sprite_7	00000000 .vga_sprite_7
 00444000 l    d  .vga_sprite_6	00000000 .vga_sprite_6
 00446000 l    d  .vga_sprite_5	00000000 .vga_sprite_5
@@ -317,7 +314,6 @@ SYMBOL TABLE:
 00424a90 g     F .text	00000030 fflush
 004344b0 g     O .bss	00000004 __malloc_max_sbrked_mem
 00442000 g       *ABS*	00000000 __alt_mem_vga_sprite_7
-00440000 g       *ABS*	00000000 __alt_mem_vga_sprite_8
 0042aefc g     F .text	000008ac .hidden __adddf3
 0042748c g     F .text	0000010c __b2d
 0042a784 g     F .text	000005c4 .hidden __umoddi3

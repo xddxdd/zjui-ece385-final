@@ -38,6 +38,7 @@
 		.vga_vga_drawx                                  (<connected-to-vga_vga_drawx>),                                  //                                     vga.vga_drawx
 		.vga_vga_drawy                                  (<connected-to-vga_vga_drawy>),                                  //                                        .vga_drawy
 		.vga_vga_val                                    (<connected-to-vga_vga_val>),                                    //                                        .vga_val
+		.vga_sprite_0_clk2_clk                          (<connected-to-vga_sprite_0_clk2_clk>),                          //                       vga_sprite_0_clk2.clk
 		.vga_sprite_0_reset2_reset                      (<connected-to-vga_sprite_0_reset2_reset>),                      //                     vga_sprite_0_reset2.reset
 		.vga_sprite_0_s2_address                        (<connected-to-vga_sprite_0_s2_address>),                        //                         vga_sprite_0_s2.address
 		.vga_sprite_0_s2_chipselect                     (<connected-to-vga_sprite_0_s2_chipselect>),                     //                                        .chipselect
@@ -46,6 +47,7 @@
 		.vga_sprite_0_s2_readdata                       (<connected-to-vga_sprite_0_s2_readdata>),                       //                                        .readdata
 		.vga_sprite_0_s2_writedata                      (<connected-to-vga_sprite_0_s2_writedata>),                      //                                        .writedata
 		.vga_sprite_0_s2_byteenable                     (<connected-to-vga_sprite_0_s2_byteenable>),                     //                                        .byteenable
+		.vga_sprite_1_clk2_clk                          (<connected-to-vga_sprite_1_clk2_clk>),                          //                       vga_sprite_1_clk2.clk
 		.vga_sprite_1_reset2_reset                      (<connected-to-vga_sprite_1_reset2_reset>),                      //                     vga_sprite_1_reset2.reset
 		.vga_sprite_1_s2_address                        (<connected-to-vga_sprite_1_s2_address>),                        //                         vga_sprite_1_s2.address
 		.vga_sprite_1_s2_chipselect                     (<connected-to-vga_sprite_1_s2_chipselect>),                     //                                        .chipselect
@@ -54,6 +56,7 @@
 		.vga_sprite_1_s2_readdata                       (<connected-to-vga_sprite_1_s2_readdata>),                       //                                        .readdata
 		.vga_sprite_1_s2_writedata                      (<connected-to-vga_sprite_1_s2_writedata>),                      //                                        .writedata
 		.vga_sprite_1_s2_byteenable                     (<connected-to-vga_sprite_1_s2_byteenable>),                     //                                        .byteenable
+		.vga_sprite_2_clk2_clk                          (<connected-to-vga_sprite_2_clk2_clk>),                          //                       vga_sprite_2_clk2.clk
 		.vga_sprite_2_reset2_reset                      (<connected-to-vga_sprite_2_reset2_reset>),                      //                     vga_sprite_2_reset2.reset
 		.vga_sprite_2_s2_address                        (<connected-to-vga_sprite_2_s2_address>),                        //                         vga_sprite_2_s2.address
 		.vga_sprite_2_s2_chipselect                     (<connected-to-vga_sprite_2_s2_chipselect>),                     //                                        .chipselect
@@ -107,24 +110,12 @@
 		.vga_sprite_7_s2_readdata                       (<connected-to-vga_sprite_7_s2_readdata>),                       //                                        .readdata
 		.vga_sprite_7_s2_writedata                      (<connected-to-vga_sprite_7_s2_writedata>),                      //                                        .writedata
 		.vga_sprite_7_s2_byteenable                     (<connected-to-vga_sprite_7_s2_byteenable>),                     //                                        .byteenable
-		.vga_sprite_8_clk2_clk                          (<connected-to-vga_sprite_8_clk2_clk>),                          //                       vga_sprite_8_clk2.clk
-		.vga_sprite_8_reset2_reset                      (<connected-to-vga_sprite_8_reset2_reset>),                      //                     vga_sprite_8_reset2.reset
-		.vga_sprite_8_s2_address                        (<connected-to-vga_sprite_8_s2_address>),                        //                         vga_sprite_8_s2.address
-		.vga_sprite_8_s2_chipselect                     (<connected-to-vga_sprite_8_s2_chipselect>),                     //                                        .chipselect
-		.vga_sprite_8_s2_clken                          (<connected-to-vga_sprite_8_s2_clken>),                          //                                        .clken
-		.vga_sprite_8_s2_write                          (<connected-to-vga_sprite_8_s2_write>),                          //                                        .write
-		.vga_sprite_8_s2_readdata                       (<connected-to-vga_sprite_8_s2_readdata>),                       //                                        .readdata
-		.vga_sprite_8_s2_writedata                      (<connected-to-vga_sprite_8_s2_writedata>),                      //                                        .writedata
-		.vga_sprite_8_s2_byteenable                     (<connected-to-vga_sprite_8_s2_byteenable>),                     //                                        .byteenable
-		.vga_sprite_2_clk2_clk                          (<connected-to-vga_sprite_2_clk2_clk>),                          //                       vga_sprite_2_clk2.clk
-		.vga_sprite_1_clk2_clk                          (<connected-to-vga_sprite_1_clk2_clk>),                          //                       vga_sprite_1_clk2.clk
-		.vga_sprite_0_clk2_clk                          (<connected-to-vga_sprite_0_clk2_clk>),                          //                       vga_sprite_0_clk2.clk
 		.vga_sprite_params_clk_clk                      (<connected-to-vga_sprite_params_clk_clk>),                      //                   vga_sprite_params_clk.clk
-		.vga_sprite_params_reset_reset                  (<connected-to-vga_sprite_params_reset_reset>),                  //                 vga_sprite_params_reset.reset
 		.vga_sprite_params_pass_address                 (<connected-to-vga_sprite_params_pass_address>),                 //                  vga_sprite_params_pass.address
 		.vga_sprite_params_pass_read                    (<connected-to-vga_sprite_params_pass_read>),                    //                                        .read
 		.vga_sprite_params_pass_readdata                (<connected-to-vga_sprite_params_pass_readdata>),                //                                        .readdata
 		.vga_sprite_params_pass_write                   (<connected-to-vga_sprite_params_pass_write>),                   //                                        .write
-		.vga_sprite_params_pass_writedata               (<connected-to-vga_sprite_params_pass_writedata>)                //                                        .writedata
+		.vga_sprite_params_pass_writedata               (<connected-to-vga_sprite_params_pass_writedata>),               //                                        .writedata
+		.vga_sprite_params_reset_reset                  (<connected-to-vga_sprite_params_reset_reset>)                   //                 vga_sprite_params_reset.reset
 	);
 

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Mon May 20 22:49:08 CST 2019
+ * Generated: Tue May 21 00:19:05 CST 2019
  */
 
 /*
@@ -52,7 +52,6 @@ MEMORY
 {
     reset : ORIGIN = 0x420000, LENGTH = 32
     nios2_onchip_mem : ORIGIN = 0x420020, LENGTH = 131040
-    vga_sprite_8 : ORIGIN = 0x440000, LENGTH = 8192
     vga_sprite_7 : ORIGIN = 0x442000, LENGTH = 8192
     vga_sprite_6 : ORIGIN = 0x444000, LENGTH = 8192
     vga_sprite_5 : ORIGIN = 0x446000, LENGTH = 8192
@@ -67,7 +66,6 @@ MEMORY
 
 /* Define symbols for each memory base-address */
 __alt_mem_nios2_onchip_mem = 0x420000;
-__alt_mem_vga_sprite_8 = 0x440000;
 __alt_mem_vga_sprite_7 = 0x442000;
 __alt_mem_vga_sprite_6 = 0x444000;
 __alt_mem_vga_sprite_5 = 0x446000;
@@ -349,24 +347,7 @@ SECTIONS
      *
      */
 
-    .vga_sprite_8 : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
-    {
-        PROVIDE (_alt_partition_vga_sprite_8_start = ABSOLUTE(.));
-        *(.vga_sprite_8 .vga_sprite_8. vga_sprite_8.*)
-        . = ALIGN(4);
-        PROVIDE (_alt_partition_vga_sprite_8_end = ABSOLUTE(.));
-    } > vga_sprite_8
-
-    PROVIDE (_alt_partition_vga_sprite_8_load_addr = LOADADDR(.vga_sprite_8));
-
-    /*
-     *
-     * This section's LMA is set to the .text region.
-     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
-     *
-     */
-
-    .vga_sprite_7 : AT ( LOADADDR (.vga_sprite_8) + SIZEOF (.vga_sprite_8) )
+    .vga_sprite_7 : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
     {
         PROVIDE (_alt_partition_vga_sprite_7_start = ABSOLUTE(.));
         *(.vga_sprite_7 .vga_sprite_7. vga_sprite_7.*)

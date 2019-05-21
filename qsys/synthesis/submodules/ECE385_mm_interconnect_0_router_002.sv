@@ -50,9 +50,9 @@ module ECE385_mm_interconnect_0_router_002_default_decode
                DEFAULT_DESTID = 0 
    )
   (output [94 - 90 : 0] default_destination_id,
-   output [25-1 : 0] default_wr_channel,
-   output [25-1 : 0] default_rd_channel,
-   output [25-1 : 0] default_src_channel
+   output [24-1 : 0] default_wr_channel,
+   output [24-1 : 0] default_rd_channel,
+   output [24-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
@@ -63,7 +63,7 @@ module ECE385_mm_interconnect_0_router_002_default_decode
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 25'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 24'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module ECE385_mm_interconnect_0_router_002_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 25'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 25'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 24'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 24'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -103,7 +103,7 @@ module ECE385_mm_interconnect_0_router_002
     // -------------------
     output                          src_valid,
     output reg [108-1    : 0] src_data,
-    output reg [25-1 : 0] src_channel,
+    output reg [24-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -119,7 +119,7 @@ module ECE385_mm_interconnect_0_router_002
     localparam PKT_PROTECTION_H = 98;
     localparam PKT_PROTECTION_L = 96;
     localparam ST_DATA_W = 108;
-    localparam ST_CHANNEL_W = 25;
+    localparam ST_CHANNEL_W = 24;
     localparam DECODER_TYPE = 1;
 
     localparam PKT_TRANS_WRITE = 66;
@@ -158,7 +158,7 @@ module ECE385_mm_interconnect_0_router_002
     assign src_valid         = sink_valid;
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
-    wire [25-1 : 0] default_src_channel;
+    wire [24-1 : 0] default_src_channel;
 
 
 
@@ -185,7 +185,7 @@ module ECE385_mm_interconnect_0_router_002
 
 
         if (destid == 0 ) begin
-            src_channel = 25'b1;
+            src_channel = 24'b1;
         end
 
 

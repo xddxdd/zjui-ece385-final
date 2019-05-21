@@ -409,28 +409,6 @@ $(MEM_10)_CREATE_LANES := 0
 .PHONY: vga_sprite_7
 vga_sprite_7: check_elf_exists $(MEM_INIT_DIR)/$(MEM_10).hex $(HDL_SIM_DIR)/$(MEM_10).dat $(HDL_SIM_DIR)/$(MEM_10).sym
 
-# Memory: vga_sprite_8
-MEM_11 := ECE385_vga_sprite_8
-$(MEM_11)_NAME := vga_sprite_8
-$(MEM_11)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
-HEX_FILES += $(MEM_INIT_DIR)/$(MEM_11).hex
-MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_11).hex
-DAT_FILES += $(HDL_SIM_DIR)/$(MEM_11).dat
-HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_11).dat
-SYM_FILES += $(HDL_SIM_DIR)/$(MEM_11).sym
-HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_11).sym
-$(MEM_11)_START := 0x00440000
-$(MEM_11)_END := 0x00441fff
-$(MEM_11)_SPAN := 0x00002000
-$(MEM_11)_HIERARCHICAL_PATH := vga_sprite_8
-$(MEM_11)_WIDTH := 32
-$(MEM_11)_HEX_DATA_WIDTH := 32
-$(MEM_11)_ENDIANNESS := --little-endian-mem
-$(MEM_11)_CREATE_LANES := 0
-
-.PHONY: vga_sprite_8
-vga_sprite_8: check_elf_exists $(MEM_INIT_DIR)/$(MEM_11).hex $(HDL_SIM_DIR)/$(MEM_11).dat $(HDL_SIM_DIR)/$(MEM_11).sym
-
 
 #END OF BSP SPECIFIC
 

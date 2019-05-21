@@ -161,9 +161,9 @@ SOPC_SYSID_FLAG += --sidp=0x800
 ELF_PATCH_FLAG  += --sidp 0x800
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1558365877
-SOPC_SYSID_FLAG += --timestamp=1558365877
-ELF_PATCH_FLAG  += --timestamp 1558365877
+# setting SOPC_TIMESTAMP is 1558368967
+SOPC_SYSID_FLAG += --timestamp=1558368967
+ELF_PATCH_FLAG  += --timestamp 1558368967
 
 # Build a custom version of newlib with the specified space-separated compiler 
 # flags. The custom newlib build will be placed in the <bsp root>/newlib 

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Mon May 20 23:32:29 CST 2019
+ * Generated: Tue May 21 00:19:05 CST 2019
  */
 
 /*
@@ -427,7 +427,7 @@
 #define NIOS2_SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define NIOS2_SYSID_NAME "/dev/nios2_sysid"
 #define NIOS2_SYSID_SPAN 8
-#define NIOS2_SYSID_TIMESTAMP 1558365877
+#define NIOS2_SYSID_TIMESTAMP 1558368967
 #define NIOS2_SYSID_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -769,35 +769,6 @@
 #define VGA_SPRITE_7_SPAN 8192
 #define VGA_SPRITE_7_TYPE "altera_avalon_onchip_memory2"
 #define VGA_SPRITE_7_WRITABLE 1
-
-
-/*
- * vga_sprite_8 configuration
- *
- */
-
-#define ALT_MODULE_CLASS_vga_sprite_8 altera_avalon_onchip_memory2
-#define VGA_SPRITE_8_ALLOW_IN_SYSTEM_MEMORY_CONTENT_EDITOR 0
-#define VGA_SPRITE_8_ALLOW_MRAM_SIM_CONTENTS_ONLY_FILE 0
-#define VGA_SPRITE_8_BASE 0x440000
-#define VGA_SPRITE_8_CONTENTS_INFO ""
-#define VGA_SPRITE_8_DUAL_PORT 1
-#define VGA_SPRITE_8_GUI_RAM_BLOCK_TYPE "AUTO"
-#define VGA_SPRITE_8_INIT_CONTENTS_FILE "ECE385_vga_sprite_8"
-#define VGA_SPRITE_8_INIT_MEM_CONTENT 1
-#define VGA_SPRITE_8_INSTANCE_ID "NONE"
-#define VGA_SPRITE_8_IRQ -1
-#define VGA_SPRITE_8_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define VGA_SPRITE_8_NAME "/dev/vga_sprite_8"
-#define VGA_SPRITE_8_NON_DEFAULT_INIT_FILE_ENABLED 0
-#define VGA_SPRITE_8_RAM_BLOCK_TYPE "AUTO"
-#define VGA_SPRITE_8_READ_DURING_WRITE_MODE "DONT_CARE"
-#define VGA_SPRITE_8_SINGLE_CLOCK_OP 0
-#define VGA_SPRITE_8_SIZE_MULTIPLE 1
-#define VGA_SPRITE_8_SIZE_VALUE 8192
-#define VGA_SPRITE_8_SPAN 8192
-#define VGA_SPRITE_8_TYPE "altera_avalon_onchip_memory2"
-#define VGA_SPRITE_8_WRITABLE 1
 
 
 /*

@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
 # SOPC Builder design path: ../ECE385.sopcinfo
 #
-# Generated: Mon May 20 22:49:08 CST 2019
+# Generated: Tue May 21 00:19:05 CST 2019
 
 # DO NOT MODIFY THIS FILE
 #
@@ -48,9 +48,6 @@
 
 # nios2_onchip_mem
 memory 0x420000 0x440000 cache
-
-# vga_sprite_8
-memory 0x440000 0x442000 cache
 
 # vga_sprite_7
 memory 0x442000 0x444000 cache

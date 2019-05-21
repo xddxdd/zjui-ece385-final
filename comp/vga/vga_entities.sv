@@ -18,10 +18,10 @@ module VGA_entities #(
 	output logic [REGISTERS-1:0][31:0] EXPORT_DATA		// Exported Conduit Signal
 );
 
-genvar i, j;
+genvar i;
 generate
-	for(i = 0; i < REGISTERS; i++) begin: generate_external_loop
-		register #(32) (
+	for(i = 0; i < REGISTERS; i++) begin: generate_vga_entity_registers
+		register #(32) entity_register (
 			.Clk(CLK), .Reset(RESET),
 			.Load((AVL_ADDR == i) && AVL_WRITE),
 			.Din(AVL_WRITEDATA),

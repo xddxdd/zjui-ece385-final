@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Mon May 20 22:49:08 CST 2019
+ * Generated: Tue May 21 00:19:05 CST 2019
  */
 
 /*
@@ -89,8 +89,6 @@
 #define VGA_SPRITE_6_REGION_SPAN 8192
 #define VGA_SPRITE_7_REGION_BASE 0x442000
 #define VGA_SPRITE_7_REGION_SPAN 8192
-#define VGA_SPRITE_8_REGION_BASE 0x440000
-#define VGA_SPRITE_8_REGION_SPAN 8192
 
 
 /*

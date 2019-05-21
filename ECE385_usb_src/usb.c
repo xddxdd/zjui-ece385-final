@@ -528,13 +528,12 @@ alt_u16 UsbWaitTDListDone()
 {
 	alt_u16 usb_ctl_val;
 
-UsbWaitTDListDone_Retry:
 	usb_ctl_val = UsbRead(HPI_SIE1_MSG_ADR); // STEP 3 j
 	UsbWrite(HPI_SIE1_MSG_ADR, 0);
 	int wait_cycle = 0;
 	while (usb_ctl_val != HUSB_TDListDone)  // k, read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto UsbWaitTDListDone_Retry;
+		if((++wait_cycle) & 0x10000) return 0xffff;
 		if(usb_ctl_val == 0x0000)
 		{
 		}
@@ -554,7 +553,6 @@ alt_u16 UsbGetRetryCnt()
 {
 	alt_u16 usb_ctl_val;
 	int wait_cycle = 0;
-UsbGetRetryCnt_Retry:
 	IO_read(HPI_STATUS);
 	if(UsbRead(HPI_SIE1_MSG_ADR) == HUSB_TDListDone)
 	{
@@ -562,7 +560,7 @@ UsbGetRetryCnt_Retry:
 
 		while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 		{
-			if((++wait_cycle) & 0x10000) goto UsbGetRetryCnt_Retry;
+			if((++wait_cycle) & 0x10000) return 0xffff;
 		}
 	}
 	//usleep(1000);

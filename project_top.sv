@@ -4,15 +4,9 @@
 //=======================================================
 
 module project_top(
-
-	//////////// CLOCK //////////
-	input logic          		CLOCK_50,
-	input logic          		CLOCK2_50,
-	input logic          		CLOCK3_50,
-
 	//////////// Sma //////////
-	input logic          		SMA_CLKIN,
-	output logic          		SMA_CLKOUT,
+//	input logic          		SMA_CLKIN,
+//	output logic          		SMA_CLKOUT,
 
 	//////////// LED //////////
 	output logic     [8:0]		LEDG,
@@ -22,7 +16,7 @@ module project_top(
 	input logic     [3:0]		KEY,
 
 	//////////// EX_IO //////////
-	inout logic     [6:0]		EX_IO,
+//	inout logic     [6:0]		EX_IO,
 
 	//////////// SW //////////
 	input logic    [17:0]		SW,
@@ -38,30 +32,30 @@ module project_top(
 	output logic     [6:0]		HEX7,
 
 	//////////// LCD //////////
-	output logic          		LCD_BLON,
-	inout logic     [7:0]		LCD_DATA,
-	output logic          		LCD_EN,
-	output logic          		LCD_ON,
-	output logic          		LCD_RS,
-	output logic          		LCD_RW,
+//	output logic          		LCD_BLON,
+//	inout logic     [7:0]		LCD_DATA,
+//	output logic          		LCD_EN,
+//	output logic          		LCD_ON,
+//	output logic          		LCD_RS,
+//	output logic          		LCD_RW,
 
 	//////////// RS232 //////////
-	input logic          		UART_CTS,
-	output logic          		UART_RTS,
-	input logic          		UART_RXD,
-	output logic          		UART_TXD,
+//	input logic          		UART_CTS,
+//	output logic          		UART_RTS,
+//	input logic          		UART_RXD,
+//	output logic          		UART_TXD,
 
 	//////////// PS2 for Keyboard and Mouse //////////
-	inout logic          		PS2_CLK,
-	inout logic          		PS2_CLK2,
-	inout logic          		PS2_DAT,
-	inout logic          		PS2_DAT2,
+//	inout logic          		PS2_CLK,
+//	inout logic          		PS2_CLK2,
+//	inout logic          		PS2_DAT,
+//	inout logic          		PS2_DAT2,
 
 	//////////// SDCARD //////////
-	output logic          		SD_CLK,
-	inout logic          		SD_CMD,
-	inout logic     [3:0]		SD_DAT,
-	input logic          		SD_WP_N,
+//	output logic          		SD_CLK,
+//	inout logic          		SD_CMD,
+//	inout logic     [3:0]		SD_DAT,
+//	input logic          		SD_WP_N,
 
 	//////////// VGA //////////
 	output logic     [7:0]		VGA_B,
@@ -74,64 +68,64 @@ module project_top(
 	output logic          		VGA_VS,
 
 	//////////// Audio //////////
-	input logic          		AUD_ADCDAT,
-	inout logic          		AUD_ADCLRCK,
-	inout logic          		AUD_BCLK,
-	output logic          		AUD_DACDAT,
-	inout logic          		AUD_DACLRCK,
-	output logic          		AUD_XCK,
+//	input logic          		AUD_ADCDAT,
+//	inout logic          		AUD_ADCLRCK,
+//	inout logic          		AUD_BCLK,
+//	output logic          		AUD_DACDAT,
+//	inout logic          		AUD_DACLRCK,
+//	output logic          		AUD_XCK,
 
 	//////////// I2C for EEPROM //////////
-	output logic          		EEP_I2C_SCLK,
-	inout logic          		EEP_I2C_SDAT,
+//	output logic          		EEP_I2C_SCLK,
+//	inout logic          		EEP_I2C_SDAT,
 
 	//////////// I2C for Audio Tv-Decoder HSMC  //////////
-	output logic          		I2C_SCLK,
-	inout logic          		I2C_SDAT,
+//	output logic          		I2C_SCLK,
+//	inout logic          		I2C_SDAT,
 
 	//////////// Ethernet 0 //////////
-	output logic          		ENET0_GTX_CLK,
-	input logic          		ENET0_INT_N,
-	input logic          		ENET0_LINK100,
-	output logic          		ENET0_MDC,
-	inout logic          		ENET0_MDIO,
-	output logic          		ENET0_RST_N,
-	input logic          		ENET0_RX_CLK,
-	input logic          		ENET0_RX_COL,
-	input logic          		ENET0_RX_CRS,
-	input logic     [3:0]		ENET0_RX_DATA,
-	input logic          		ENET0_RX_DV,
-	input logic          		ENET0_RX_ER,
-	input logic          		ENET0_TX_CLK,
-	output logic     [3:0]		ENET0_TX_DATA,
-	output logic          		ENET0_TX_EN,
-	output logic          		ENET0_TX_ER,
-	input logic          		ENETCLK_25,
+//	output logic          		ENET0_GTX_CLK,
+//	input logic          		ENET0_INT_N,
+//	input logic          		ENET0_LINK100,
+//	output logic          		ENET0_MDC,
+//	inout logic          		ENET0_MDIO,
+//	output logic          		ENET0_RST_N,
+//	input logic          		ENET0_RX_CLK,
+//	input logic          		ENET0_RX_COL,
+//	input logic          		ENET0_RX_CRS,
+//	input logic     [3:0]		ENET0_RX_DATA,
+//	input logic          		ENET0_RX_DV,
+//	input logic          		ENET0_RX_ER,
+//	input logic          		ENET0_TX_CLK,
+//	output logic     [3:0]		ENET0_TX_DATA,
+//	output logic          		ENET0_TX_EN,
+//	output logic          		ENET0_TX_ER,
+//	input logic          		ENETCLK_25,
 
 	//////////// Ethernet 1 //////////
-	output logic          		ENET1_GTX_CLK,
-	input logic          		ENET1_INT_N,
-	input logic          		ENET1_LINK100,
-	output logic          		ENET1_MDC,
-	inout logic          		ENET1_MDIO,
-	output logic          		ENET1_RST_N,
-	input logic          		ENET1_RX_CLK,
-	input logic          		ENET1_RX_COL,
-	input logic          		ENET1_RX_CRS,
-	input logic     [3:0]		ENET1_RX_DATA,
-	input logic          		ENET1_RX_DV,
-	input logic          		ENET1_RX_ER,
-	input logic          		ENET1_TX_CLK,
-	output logic     [3:0]		ENET1_TX_DATA,
-	output logic          		ENET1_TX_EN,
-	output logic          		ENET1_TX_ER,
+//	output logic          		ENET1_GTX_CLK,
+//	input logic          		ENET1_INT_N,
+//	input logic          		ENET1_LINK100,
+//	output logic          		ENET1_MDC,
+//	inout logic          		ENET1_MDIO,
+//	output logic          		ENET1_RST_N,
+//	input logic          		ENET1_RX_CLK,
+//	input logic          		ENET1_RX_COL,
+//	input logic          		ENET1_RX_CRS,
+//	input logic     [3:0]		ENET1_RX_DATA,
+//	input logic          		ENET1_RX_DV,
+//	input logic          		ENET1_RX_ER,
+//	input logic          		ENET1_TX_CLK,
+//	output logic     [3:0]		ENET1_TX_DATA,
+//	output logic          		ENET1_TX_EN,
+//	output logic          		ENET1_TX_ER,
 
 	//////////// TV Decoder //////////
-	input logic          		TD_CLK27,
-	input logic     [7:0]		TD_DATA,
-	input logic          		TD_HS,
-	output logic          		TD_RESET_N,
-	input logic          		TD_VS,
+//	input logic          		TD_CLK27,
+//	input logic     [7:0]		TD_DATA,
+//	input logic          		TD_HS,
+//	output logic          		TD_RESET_N,
+//	input logic          		TD_VS,
 
 	//////////// USB 2.0 OTG (Cypress CY7C67200) //////////
 	output logic     [1:0]		OTG_ADDR,
@@ -143,7 +137,7 @@ module project_top(
 	output logic          		OTG_WE_N,
 
 	//////////// IR Receiver //////////
-	input logic          		IRDA_RXD,
+//	input logic          		IRDA_RXD,
 
 	//////////// SDRAM //////////
 	output logic    [12:0]		DRAM_ADDR,
@@ -167,34 +161,39 @@ module project_top(
 	output logic          		SRAM_WE_N,
 
 	//////////// Flash //////////
-	output logic    [22:0]		FL_ADDR,
-	output logic          		FL_CE_N,
-	inout logic     [7:0]		FL_DQ,
-	output logic          		FL_OE_N,
-	output logic          		FL_RST_N,
-	input logic          		FL_RY,
-	output logic          		FL_WE_N,
-	output logic          		FL_WP_N,
+//	output logic    [22:0]		FL_ADDR,
+//	output logic          		FL_CE_N,
+//	inout logic     [7:0]		FL_DQ,
+//	output logic          		FL_OE_N,
+//	output logic          		FL_RST_N,
+//	input logic          		FL_RY,
+//	output logic          		FL_WE_N,
+//	output logic          		FL_WP_N,
 
 	//////////// GPIO, GPIO connect to GPIO Default //////////
-	inout logic    [35:0]		GPIO,
+//	inout logic    [35:0]		GPIO,
 
 	//////////// HSMC, HSMC connect to HSMC Default //////////
-	input logic          		HSMC_CLKIN_N1,
-	input logic          		HSMC_CLKIN_N2,
-	input logic          		HSMC_CLKIN_P1,
-	input logic          		HSMC_CLKIN_P2,
-	input logic          		HSMC_CLKIN0,
-	output logic          		HSMC_CLKOUT_N1,
-	output logic          		HSMC_CLKOUT_N2,
-	output logic          		HSMC_CLKOUT_P1,
-	output logic          		HSMC_CLKOUT_P2,
-	output logic          		HSMC_CLKOUT0,
-	inout logic     [3:0]		HSMC_D,
-	inout logic    [16:0]		HSMC_RX_D_N,
-	inout logic    [16:0]		HSMC_RX_D_P,
-	inout logic    [16:0]		HSMC_TX_D_N,
-	inout logic    [16:0]		HSMC_TX_D_P
+//	input logic          		HSMC_CLKIN_N1,
+//	input logic          		HSMC_CLKIN_N2,
+//	input logic          		HSMC_CLKIN_P1,
+//	input logic          		HSMC_CLKIN_P2,
+//	input logic          		HSMC_CLKIN0,
+//	output logic          		HSMC_CLKOUT_N1,
+//	output logic          		HSMC_CLKOUT_N2,
+//	output logic          		HSMC_CLKOUT_P1,
+//	output logic          		HSMC_CLKOUT_P2,
+//	output logic          		HSMC_CLKOUT0,
+//	inout logic     [3:0]		HSMC_D,
+//	inout logic    [16:0]		HSMC_RX_D_N,
+//	inout logic    [16:0]		HSMC_RX_D_P,
+//	inout logic    [16:0]		HSMC_TX_D_N,
+//	inout logic    [16:0]		HSMC_TX_D_P,
+
+	//////////// CLOCK //////////
+	input logic          		CLOCK_50,
+	input logic          		CLOCK2_50,
+	input logic          		CLOCK3_50
 );
 
 // Reset signal
@@ -208,23 +207,24 @@ logic [1:0] hpi_addr;
 logic [15:0] hpi_data_in, hpi_data_out;
 logic hpi_r, hpi_w, hpi_cs, hpi_reset;
 hpi_io_intf hpi_io_inst(
-                            .Clk(CLOCK_50),
-                            .Reset(~RESET),
-                            // signals connected to NIOS II
-                            .from_sw_address(hpi_addr),
-                            .from_sw_data_in(hpi_data_in),
-                            .from_sw_data_out(hpi_data_out),
-                            .from_sw_r(hpi_r),
-                            .from_sw_w(hpi_w),
-                            .from_sw_cs(hpi_cs),
-                            .from_sw_reset(hpi_reset),
-                            // signals connected to EZ-OTG chip
-                            .OTG_DATA(OTG_DATA),    
-                            .OTG_ADDR(OTG_ADDR),    
-                            .OTG_RD_N(OTG_RD_N),    
-                            .OTG_WR_N(OTG_WE_N),    
-                            .OTG_CS_N(OTG_CS_N),
-                            .OTG_RST_N(OTG_RST_N)
+	.Clk(CLOCK_50), .Reset(~RESET),
+    
+	// signals connected to NIOS II
+    .from_sw_address(hpi_addr),
+    .from_sw_data_in(hpi_data_in),
+    .from_sw_data_out(hpi_data_out),
+    .from_sw_r(hpi_r),
+    .from_sw_w(hpi_w),
+    .from_sw_cs(hpi_cs),
+    .from_sw_reset(hpi_reset),
+    
+	// signals connected to EZ-OTG chip
+    .OTG_DATA(OTG_DATA),    
+    .OTG_ADDR(OTG_ADDR),    
+    .OTG_RD_N(OTG_RD_N),    
+    .OTG_WR_N(OTG_WE_N),    
+    .OTG_CS_N(OTG_CS_N),
+    .OTG_RST_N(OTG_RST_N)
 );
      
 
@@ -263,45 +263,45 @@ hexdriver hexdrv7 (
    .Out(HEX7)
 );
 
-logic ETH_CLK_125, ETH_CLK_25, ETH_CLK_2_5;
-
-// Ethernet 0 external logic
-
-logic ETH0_MDIO_IN, ETH0_MDIO_OEN, ETH0_MDIO_OUT;
-assign ETH0_MDIO_IN = ENET0_MDIO;
-assign ENET0_MDIO = ETH0_MDIO_OEN ? 1'bZ : ETH0_MDIO_OUT;
-
-assign ENET0_RST_N = RESET;
-
-logic ETH0_MODE_1G, ETH0_MODE_10M, ETH0_OUTPUT_CLK;
-
-assign ETH0_OUTPUT_CLK = ETH0_MODE_1G ? ETH_CLK_125 : ETH0_MODE_10M ? ETH_CLK_2_5 : ETH_CLK_25;
-
-eth_ddio ETH0_DDIO(
-	.datain_h(1'b1),
-	.datain_l(1'b0),
-	.outclock(ETH0_OUTPUT_CLK),
-	.dataout(ENET0_GTX_CLK)
-);
-
-// Ethernet 1 external logic
-
-logic ETH1_MDIO_IN, ETH1_MDIO_OEN, ETH1_MDIO_OUT;
-assign ETH1_MDIO_IN = ENET1_MDIO;
-assign ENET1_MDIO = ETH1_MDIO_OEN ? 1'bZ : ETH1_MDIO_OUT;
-
-assign ENET1_RST_N = RESET;
-
-logic ETH1_MODE_1G, ETH1_MODE_10M, ETH1_OUTPUT_CLK;
-
-assign ETH1_OUTPUT_CLK = ETH1_MODE_1G ? ETH_CLK_125 : ETH1_MODE_10M ? ETH_CLK_2_5 : ETH_CLK_25;
-
-eth_ddio ETH1_DDIO(
-	.datain_h(1'b1),
-	.datain_l(1'b0),
-	.outclock(ETH1_OUTPUT_CLK),
-	.dataout(ENET1_GTX_CLK)
-);
+//logic ETH_CLK_125, ETH_CLK_25, ETH_CLK_2_5;
+//
+//// Ethernet 0 external logic
+//
+//logic ETH0_MDIO_IN, ETH0_MDIO_OEN, ETH0_MDIO_OUT;
+//assign ETH0_MDIO_IN = ENET0_MDIO;
+//assign ENET0_MDIO = ETH0_MDIO_OEN ? 1'bZ : ETH0_MDIO_OUT;
+//
+//assign ENET0_RST_N = RESET;
+//
+//logic ETH0_MODE_1G, ETH0_MODE_10M, ETH0_OUTPUT_CLK;
+//
+//assign ETH0_OUTPUT_CLK = ETH0_MODE_1G ? ETH_CLK_125 : ETH0_MODE_10M ? ETH_CLK_2_5 : ETH_CLK_25;
+//
+//eth_ddio ETH0_DDIO(
+//	.datain_h(1'b1),
+//	.datain_l(1'b0),
+//	.outclock(ETH0_OUTPUT_CLK),
+//	.dataout(ENET0_GTX_CLK)
+//);
+//
+//// Ethernet 1 external logic
+//
+//logic ETH1_MDIO_IN, ETH1_MDIO_OEN, ETH1_MDIO_OUT;
+//assign ETH1_MDIO_IN = ENET1_MDIO;
+//assign ENET1_MDIO = ETH1_MDIO_OEN ? 1'bZ : ETH1_MDIO_OUT;
+//
+//assign ENET1_RST_N = RESET;
+//
+//logic ETH1_MODE_1G, ETH1_MODE_10M, ETH1_OUTPUT_CLK;
+//
+//assign ETH1_OUTPUT_CLK = ETH1_MODE_1G ? ETH_CLK_125 : ETH1_MODE_10M ? ETH_CLK_2_5 : ETH_CLK_25;
+//
+//eth_ddio ETH1_DDIO(
+//	.datain_h(1'b1),
+//	.datain_l(1'b0),
+//	.outclock(ETH1_OUTPUT_CLK),
+//	.dataout(ENET1_GTX_CLK)
+//);
 
 // VGA Controller
 logic[9:0] VGA_DrawX, VGA_DrawY;
@@ -312,15 +312,40 @@ logic [7:0][15:0] VGA_SPRITE_DATA;
 logic [63:0] VGA_SPRITE_ISOBJ;
 logic [63:0][15:0] VGA_SPRITE_PIXEL;
 
+//logic BUF_VGA_HS, BUF_VGA_VS, BUF_VGA_BLANK_N, BUF_VGA_SYNC_N;
+//logic [7:0] BUF_VGA_R, BUF_VGA_G, BUF_VGA_B;
+//
+//always_ff @ (posedge VGA_CLK) begin
+//	VGA_HS <= BUF_VGA_HS;
+//	VGA_VS <= BUF_VGA_VS;
+//	VGA_BLANK_N <= BUF_VGA_BLANK_N;
+//	VGA_SYNC_N <= BUF_VGA_SYNC_N;
+//	VGA_R <= BUF_VGA_R;
+//	VGA_G <= BUF_VGA_G;
+//	VGA_B <= BUF_VGA_B;
+//end
+//
+//VGA_controller VGA(
+//	.Clk(CLOCK_50), .Reset(~RESET),
+//	.VGA_HS(BUF_VGA_HS), .VGA_VS(BUF_VGA_VS), .VGA_CLK, .VGA_BLANK_N(BUF_VGA_BLANK_N), .VGA_SYNC_N(BUF_VGA_SYNC_N),
+//	.DrawX(VGA_DrawX), .DrawY(VGA_DrawY)
+//);
+//
+//VGA_layer VGA_layer_manager(
+//	.VGA_VAL,
+//	.VGA_R(BUF_VGA_R), .VGA_G(BUF_VGA_G), .VGA_B(BUF_VGA_B),
+//	.VGA_SPRITE_ISOBJ, .VGA_SPRITE_PIXEL
+//);
+
 VGA_controller VGA(
 	.Clk(CLOCK_50), .Reset(~RESET),
-	.VGA_HS, .VGA_VS, .VGA_CLK, .VGA_BLANK_N, .VGA_SYNC_N,
+	.VGA_HS(VGA_HS), .VGA_VS(VGA_VS), .VGA_CLK, .VGA_BLANK_N(VGA_BLANK_N), .VGA_SYNC_N(VGA_SYNC_N),
 	.DrawX(VGA_DrawX), .DrawY(VGA_DrawY)
 );
 
-VGA_layer #(64) VGA_layer_manager(
+VGA_layer VGA_layer_manager(
 	.VGA_VAL,
-	.VGA_R, .VGA_G, .VGA_B,
+	.VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B),
 	.VGA_SPRITE_ISOBJ, .VGA_SPRITE_PIXEL
 );
 
@@ -341,7 +366,7 @@ VGA_entities VGA_entities_manager (
 genvar i;
 generate
 	for(i = 0; i < 8; i++) begin: generate_vga_sprites
-		VGA_sprite (
+		VGA_sprite VGA_sprite_instance (
 			.Clk(CLOCK_50), .Reset(1'b0),
 			.VGA_DrawX, .VGA_DrawY,
 			.SpriteX(VGA_entities_export[4*i][10:0]),
@@ -355,7 +380,7 @@ generate
 		);
 	end
 	for(i = 8; i < 64; i++) begin: generate_vga_bullets
-		bullet (
+		bullet bullet_instance (
 			.BulletX(VGA_entities_export[4*i][10:0]),
 			.BulletY(VGA_entities_export[4*i+1][10:0]),
 			.BulletRadius(VGA_entities_export[4*i+2][10:0]),
@@ -373,6 +398,7 @@ ECE385 ECE385_sys(
 	.io_keys_export(KEY),
 	.io_led_green_export(LEDG),
 	.io_led_red_export(LEDR),
+	.io_switches_export(SW),
 	.io_hex_export(HEX_EXPORT),
 	.io_vga_sync_export(VGA_VS),
 	.reset_reset_n(RESET),

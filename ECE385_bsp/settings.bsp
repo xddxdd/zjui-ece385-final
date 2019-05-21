@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 20, 2019 11:32:28 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1558366348730</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 21, 2019 12:19:04 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1558369144279</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\xuyh0\Desktop\zjui-ece385\final\ECE385_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\ECE385.sopcinfo</SopcDesignFile>
@@ -908,12 +908,6 @@
                 <slaveDescriptor>nios2_onchip_mem</slaveDescriptor>
                 <addressRange>0x00420000 - 0x0043FFFF</addressRange>
                 <addressSpan>131072</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_8</slaveDescriptor>
-                <addressRange>0x00440000 - 0x00441FFF</addressRange>
-                <addressSpan>8192</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
