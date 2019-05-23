@@ -369,10 +369,10 @@ generate
 		VGA_sprite VGA_sprite_instance (
 			.Clk(CLOCK_50), .Reset(1'b0),
 			.VGA_DrawX, .VGA_DrawY,
-			.SpriteX(VGA_entities_export[4*i][10:0]),
-			.SpriteY(VGA_entities_export[4*i+1][10:0]),
-			.SpriteWidth(VGA_entities_export[4*i+2][10:0]),
-			.SpriteHeight(VGA_entities_export[4*i+3][10:0]),
+			.SpriteX(VGA_entities_export[4*i][19:4]),
+			.SpriteY(VGA_entities_export[4*i+1][19:4]),
+			.SpriteWidth(VGA_entities_export[4*i+2][15:0]),
+			.SpriteHeight(VGA_entities_export[4*i+3][15:0]),
 			.AVL_Addr(VGA_SPRITE_ADDR[i]),
 			.AVL_ReadData(VGA_SPRITE_DATA[i]),
 			.VGA_isObject(VGA_SPRITE_ISOBJ[i]),
@@ -381,9 +381,9 @@ generate
 	end
 	for(i = 8; i < 64; i++) begin: generate_vga_bullets
 		bullet bullet_instance (
-			.BulletX(VGA_entities_export[4*i][10:0]),
-			.BulletY(VGA_entities_export[4*i+1][10:0]),
-			.BulletRadius(VGA_entities_export[4*i+2][10:0]),
+			.BulletX(VGA_entities_export[4*i][19:4]),
+			.BulletY(VGA_entities_export[4*i+1][19:4]),
+			.BulletRadius(VGA_entities_export[4*i+2][15:0]),
 			.BulletColor(VGA_entities_export[4*i+3][15:0]),
 			.DrawX(VGA_DrawX), .DrawY(VGA_DrawY),
 			.VGA_isObject(VGA_SPRITE_ISOBJ[i]),

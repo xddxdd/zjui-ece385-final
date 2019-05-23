@@ -1,6 +1,7 @@
 #include "sprites.h"
 #include "system.h"
 #include "vga.h"
+#include "main.h"
 
 vga_sprite_info_t vga_planes_info[N_PLANES];
 uint16_t* vga_planes_sprite_data[N_PLANES] = {
@@ -35,7 +36,13 @@ void sprites_init(vga_entity_manage_t* vga_entity_type) {
 		vga_entity_type->info_arr[i].vy = 0;
 		vga_entity_type->info_arr[i].ax = 0;
 		vga_entity_type->info_arr[i].ay = 0;
+		vga_entity_type->info_arr[i].type = 0;
+		vga_entity_type->info_arr[i].frame_created = 0;
 		vga_entity_type->info_arr[i].physical = vga_entity_type->mmap_addr + i;
+		vga_entity_type->info_arr[i].physical->x = 0;
+		vga_entity_type->info_arr[i].physical->y = 0;
+		vga_entity_type->info_arr[i].physical->width = 0;
+		vga_entity_type->info_arr[i].physical->height = 0;
 		if(vga_entity_type->mmap_sprite_data) {
 			vga_entity_type->info_arr[i].sprite_data = vga_entity_type->mmap_sprite_data[i];
 		} else {
@@ -53,7 +60,12 @@ uint8_t sprites_allocate(vga_entity_manage_t* vga_entity_type) {
 			vga_entity_type->info_arr[i].vy = 0;
 			vga_entity_type->info_arr[i].ax = 0;
 			vga_entity_type->info_arr[i].ay = 0;
+			vga_entity_type->info_arr[i].frame_created = frame_count;
 			vga_entity_type->info_arr[i].physical = vga_entity_type->mmap_addr + i;
+			vga_entity_type->info_arr[i].physical->x = 0;
+			vga_entity_type->info_arr[i].physical->y = 0;
+			vga_entity_type->info_arr[i].physical->width = 0;
+			vga_entity_type->info_arr[i].physical->height = 0;
 			if(vga_entity_type->mmap_sprite_data) {
 				vga_entity_type->info_arr[i].sprite_data = vga_entity_type->mmap_sprite_data[i];
 			} else {
@@ -97,14 +109,14 @@ uint8_t sprites_visible(vga_entity_manage_t* vga_entity_type, uint8_t id) {
 
 	if(vga_entity_type == VGA_SPRITE_PLANE) {
 		// Plane x, y: left-top corner
-		if(vga_entity_type->info_arr[id].physical->x >= VGA_WIDTH) return 0;
-		if(vga_entity_type->info_arr[id].physical->y >= VGA_HEIGHT) return 0;
+		if(vga_entity_type->info_arr[id].physical->x >= VGA_SPRITE_WIDTH) return 0;
+		if(vga_entity_type->info_arr[id].physical->y >= VGA_SPRITE_HEIGHT) return 0;
 
-		if(vga_entity_type->info_arr[id].physical->x + vga_entity_type->info_arr[id].physical->width
+		if(vga_entity_type->info_arr[id].physical->x + (vga_entity_type->info_arr[id].physical->width << VGA_SPRITE_HW_SHIFT_BITS)
 				< 0) {
 			return 0;
 		}
-		if(vga_entity_type->info_arr[id].physical->y + vga_entity_type->info_arr[id].physical->height
+		if(vga_entity_type->info_arr[id].physical->y + (vga_entity_type->info_arr[id].physical->height << VGA_SPRITE_HW_SHIFT_BITS)
 				< 0) {
 			return 0;
 		}
@@ -112,20 +124,20 @@ uint8_t sprites_visible(vga_entity_manage_t* vga_entity_type, uint8_t id) {
 		return 1;
 	} else if(vga_entity_type == VGA_SPRITE_BULLET) {
 		// Bullet x, y: center of bullet
-		if(vga_entity_type->info_arr[id].physical->x - vga_entity_type->info_arr[id].physical->bullet_radius
-				>= VGA_WIDTH) {
+		if(vga_entity_type->info_arr[id].physical->x - (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
+				>= VGA_SPRITE_WIDTH) {
 			return 0;
 		}
-		if(vga_entity_type->info_arr[id].physical->y - vga_entity_type->info_arr[id].physical->bullet_radius
-				>= VGA_HEIGHT) {
+		if(vga_entity_type->info_arr[id].physical->y - (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
+				>= VGA_SPRITE_HEIGHT) {
 			return 0;
 		}
 
-		if(vga_entity_type->info_arr[id].physical->x + vga_entity_type->info_arr[id].physical->bullet_radius
+		if(vga_entity_type->info_arr[id].physical->x + (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
 				< 0) {
 			return 0;
 		}
-		if(vga_entity_type->info_arr[id].physical->y + vga_entity_type->info_arr[id].physical->bullet_radius
+		if(vga_entity_type->info_arr[id].physical->y + (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
 				< 0) {
 			return 0;
 		}
@@ -159,77 +171,52 @@ uint8_t sprites_limit_speed(vga_entity_manage_t* vga_entity_type, uint8_t id) {
 		// Plane x, y: left-top corner
 
 		// Limit X
-		if(vga_entity_type->info_arr[id].physical->x >= VGA_WIDTH) {
-			vga_entity_type->info_arr[id].physical->x = VGA_WIDTH - 1;
+		if(vga_entity_type->info_arr[id].physical->x >= VGA_SPRITE_WIDTH) {
+			vga_entity_type->info_arr[id].physical->x = VGA_SPRITE_WIDTH - 1;
 		}
-		if(vga_entity_type->info_arr[id].physical->x + vga_entity_type->info_arr[id].physical->width < 0) {
-			vga_entity_type->info_arr[id].physical->x = -vga_entity_type->info_arr[id].physical->width;
-		}
-
-		// Limit VX
-		if(vga_entity_type->info_arr[id].physical->x + vga_entity_type->info_arr[id].vx >= VGA_WIDTH) {
-			vga_entity_type->info_arr[id].vx = VGA_WIDTH - vga_entity_type->info_arr[id].physical->x - 1;
-		}
-		if(vga_entity_type->info_arr[id].physical->x + vga_entity_type->info_arr[id].vx < 0) {
-			vga_entity_type->info_arr[id].vx = - vga_entity_type->info_arr[id].physical->x;
+		if(vga_entity_type->info_arr[id].physical->x
+				+ (vga_entity_type->info_arr[id].physical->width << VGA_SPRITE_HW_SHIFT_BITS)
+				< 0) {
+			vga_entity_type->info_arr[id].physical->x = -(vga_entity_type->info_arr[id].physical->width << VGA_SPRITE_HW_SHIFT_BITS);
 		}
 
 		// Limit Y
-		if(vga_entity_type->info_arr[id].physical->y >= VGA_HEIGHT) {
-			vga_entity_type->info_arr[id].physical->y = VGA_HEIGHT - 1;
+		if(vga_entity_type->info_arr[id].physical->y >= VGA_SPRITE_HEIGHT) {
+			vga_entity_type->info_arr[id].physical->y = VGA_SPRITE_HEIGHT - 1;
 		}
-		if(vga_entity_type->info_arr[id].physical->y + vga_entity_type->info_arr[id].physical->height < 0) {
-			vga_entity_type->info_arr[id].physical->y = -vga_entity_type->info_arr[id].physical->height;
-		}
-
-		// Limit VY
-		if(vga_entity_type->info_arr[id].physical->y + vga_entity_type->info_arr[id].vy >= VGA_HEIGHT) {
-			vga_entity_type->info_arr[id].vy = VGA_HEIGHT - vga_entity_type->info_arr[id].physical->y - 1;
-		}
-		if(vga_entity_type->info_arr[id].physical->y + vga_entity_type->info_arr[id].vy < 0) {
-			vga_entity_type->info_arr[id].vy = - vga_entity_type->info_arr[id].physical->y;
+		if(vga_entity_type->info_arr[id].physical->y
+				+ (vga_entity_type->info_arr[id].physical->height << VGA_SPRITE_HW_SHIFT_BITS)
+				< 0) {
+			vga_entity_type->info_arr[id].physical->y = -(vga_entity_type->info_arr[id].physical->height << VGA_SPRITE_HW_SHIFT_BITS);
 		}
 	} else if(vga_entity_type == VGA_SPRITE_BULLET) {
 		// Bullet x, y: center of bullet
 
 		// Limit X
-		if(vga_entity_type->info_arr[id].physical->x - vga_entity_type->info_arr[id].physical->bullet_radius >= VGA_WIDTH) {
-			vga_entity_type->info_arr[id].physical->x = VGA_WIDTH + vga_entity_type->info_arr[id].physical->bullet_radius - 1;
+		if(vga_entity_type->info_arr[id].physical->x
+				- (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
+				>= VGA_SPRITE_WIDTH) {
+			vga_entity_type->info_arr[id].physical->x = VGA_SPRITE_WIDTH
+					+ (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS) - 1;
 		}
-		if(vga_entity_type->info_arr[id].physical->x + vga_entity_type->info_arr[id].physical->bullet_radius < 0) {
-			vga_entity_type->info_arr[id].physical->x = -vga_entity_type->info_arr[id].physical->bullet_radius;
-		}
-
-		// Limit VX
-		if(vga_entity_type->info_arr[id].physical->x + vga_entity_type->info_arr[id].vx
-				- vga_entity_type->info_arr[id].physical->bullet_radius >= VGA_WIDTH) {
-			vga_entity_type->info_arr[id].vx = VGA_WIDTH - vga_entity_type->info_arr[id].physical->x
-					+ vga_entity_type->info_arr[id].physical->bullet_radius - 1;
-		}
-		if(vga_entity_type->info_arr[id].physical->x + vga_entity_type->info_arr[id].vx
-				+ vga_entity_type->info_arr[id].physical->bullet_radius < 0) {
-			vga_entity_type->info_arr[id].vx = - vga_entity_type->info_arr[id].physical->x
-					- vga_entity_type->info_arr[id].physical->bullet_radius;
+		if(vga_entity_type->info_arr[id].physical->x
+				+ (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
+				< 0) {
+			vga_entity_type->info_arr[id].physical->x = -(vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS);
 		}
 
 		// Limit Y
-		if(vga_entity_type->info_arr[id].physical->y - vga_entity_type->info_arr[id].physical->bullet_radius >= VGA_HEIGHT) {
-			vga_entity_type->info_arr[id].physical->y = VGA_HEIGHT + vga_entity_type->info_arr[id].physical->bullet_radius - 1;
+		if(vga_entity_type->info_arr[id].physical->y
+				- (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
+				>= VGA_SPRITE_HEIGHT) {
+			vga_entity_type->info_arr[id].physical->y = VGA_SPRITE_HEIGHT
+					+ (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
+					- 1;
 		}
-		if(vga_entity_type->info_arr[id].physical->y + vga_entity_type->info_arr[id].physical->height < 0) {
-			vga_entity_type->info_arr[id].physical->y = -vga_entity_type->info_arr[id].physical->bullet_radius;
-		}
-
-		// Limit VY
-		if(vga_entity_type->info_arr[id].physical->y + vga_entity_type->info_arr[id].vy
-				- vga_entity_type->info_arr[id].physical->bullet_radius >= VGA_HEIGHT) {
-			vga_entity_type->info_arr[id].vy = VGA_HEIGHT - vga_entity_type->info_arr[id].physical->y
-					+ vga_entity_type->info_arr[id].physical->bullet_radius - 1;
-		}
-		if(vga_entity_type->info_arr[id].physical->y + vga_entity_type->info_arr[id].vy
-				+ vga_entity_type->info_arr[id].physical->bullet_radius < 0) {
-			vga_entity_type->info_arr[id].vy = - vga_entity_type->info_arr[id].physical->y
-					- vga_entity_type->info_arr[id].physical->bullet_radius;
+		if(vga_entity_type->info_arr[id].physical->y
+				+ (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
+				< 0) {
+			vga_entity_type->info_arr[id].physical->y = -(vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS);
 		}
 	}
 	return 0;
@@ -240,8 +227,6 @@ uint8_t sprites_tick(vga_entity_manage_t* vga_entity_type) {
 	uint8_t processed = 0;
 	for(int i = 0; i < vga_entity_type->max_size; i++) {
 		if(!vga_entity_type->info_arr[i].used) continue;
-		vga_entity_type->info_arr[i].physical->x += vga_entity_type->info_arr[i].vx;
-		vga_entity_type->info_arr[i].physical->y += vga_entity_type->info_arr[i].vy;
 
 		// If sprite fly off screen, deallocate immediately
 		if(!sprites_visible(vga_entity_type, i)) {
@@ -249,9 +234,60 @@ uint8_t sprites_tick(vga_entity_manage_t* vga_entity_type) {
 			continue;
 		}
 
+		vga_entity_type->info_arr[i].physical->x += vga_entity_type->info_arr[i].vx;
+		vga_entity_type->info_arr[i].physical->y += vga_entity_type->info_arr[i].vy;
+
 		vga_entity_type->info_arr[i].vx += vga_entity_type->info_arr[i].ax;
 		vga_entity_type->info_arr[i].vy += vga_entity_type->info_arr[i].ay;
 		processed++;
 	}
 	return processed;
+}
+
+// Return # of sprites removed
+int32_t sprites_collision_detect() {
+	vga_entity_manage_t* planes = VGA_SPRITE_PLANE;
+	vga_entity_manage_t* bullets = VGA_SPRITE_BULLET;
+	int32_t collided = 0;
+	for(int i = 0; i < planes->max_size; i++) {
+		volatile vga_sprite_info_t* plane_info = planes->info_arr + i;
+		if(!plane_info->used) continue;
+		if(plane_info->type >= 2) continue;
+		for(int j = 0; j < bullets->max_size; j++) {
+			volatile vga_sprite_info_t* bullet_info = bullets->info_arr + j;
+			if(!bullet_info->used) continue;
+			if(bullet_info->type >= 2) continue;
+
+			// Avoid friendly fire
+			if(bullet_info->type == plane_info->type) continue;
+
+			if(bullet_info->physical->x >= plane_info->physical->x
+					&& bullet_info->physical->x < plane_info->physical->x + (plane_info->physical->width << VGA_SPRITE_HW_SHIFT_BITS)
+					&& bullet_info->physical->y >= plane_info->physical->y
+					&& bullet_info->physical->y < plane_info->physical->y + (plane_info->physical->height << VGA_SPRITE_HW_SHIFT_BITS)
+			) {
+				// Collision happened
+				// Remove the bullet
+				sprites_deallocate(VGA_SPRITE_BULLET, j);
+				// TODO: Set the plane on explosion
+				// Remove the plane
+				if((--plane_info->hp) == 0) {
+					if(plane_info->type != 0) {
+						sprites_deallocate(VGA_SPRITE_PLANE, i);
+					} else {
+						// Update player HP
+						*io_led_red = 0;
+
+						sprites_deallocate(VGA_SPRITE_PLANE, i);
+
+						// TODO: end the game
+						while(1);
+					}
+				}
+
+				collided++;
+			}
+		}
+	}
+	return collided;
 }
