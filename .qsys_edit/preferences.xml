@@ -10,7 +10,7 @@
   </columns>
  </systemtable>
  <library
-   expandedCategories="Library/Basic Functions/Simulation; Debug and Verification/Verification,Library/Basic Functions/Clocks; PLLs and Resets/PLL,Library/Basic Functions/Bridges and Adaptors,Library,Library/Basic Functions/Clocks; PLLs and Resets,Library/Basic Functions/DMA,Library/Basic Functions/Simulation; Debug and Verification,Library/Basic Functions/Configuration and Programming,Library/Basic Functions/DMA/mSGDMA Sub-core,Library/Basic Functions,Library/Basic Functions/Simulation; Debug and Verification/Simulation,Library/Basic Functions/Bridges and Adaptors/Memory Mapped,Library/Basic Functions/Bridges and Adaptors/Interrupt,Library/Basic Functions/Simulation; Debug and Verification/Debug and Performance,Library/Basic Functions/Bridges and Adaptors/Streaming,Library/Basic Functions/Bridges and Adaptors/Reset,Library/Basic Functions/Bridges and Adaptors/Clock,Project,Library/Basic Functions/On Chip Memory" />
- <window width="1938" height="1048" x="-9" y="-9" />
+   expandedCategories="Library,Project,Library/Processors and Peripherals/Peripherals,Library/Processors and Peripherals/Hard Processor Components,Library/Processors and Peripherals/Embedded Processors,Library/Processors and Peripherals/Hard Processor Systems,Library/Processors and Peripherals" />
+ <window width="1920" height="1030" x="0" y="0" />
  <generation path="qsys" block_symbol_file="0" />
 </preferences>

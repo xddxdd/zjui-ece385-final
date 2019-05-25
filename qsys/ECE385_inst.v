@@ -6,7 +6,6 @@
 		.io_led_red_export                              (<connected-to-io_led_red_export>),                              //                              io_led_red.export
 		.io_switches_export                             (<connected-to-io_switches_export>),                             //                             io_switches.export
 		.io_vga_sync_export                             (<connected-to-io_vga_sync_export>),                             //                             io_vga_sync.export
-		.nios2_pll_c0_conduit_export                    (<connected-to-nios2_pll_c0_conduit_export>),                    //                    nios2_pll_c0_conduit.export
 		.nios2_pll_sdram_clk                            (<connected-to-nios2_pll_sdram_clk>),                            //                         nios2_pll_sdram.clk
 		.nios2_pll_vga_clk                              (<connected-to-nios2_pll_vga_clk>),                              //                           nios2_pll_vga.clk
 		.otg_hpi_address_export                         (<connected-to-otg_hpi_address_export>),                         //                         otg_hpi_address.export
@@ -116,6 +115,7 @@
 		.vga_sprite_params_pass_readdata                (<connected-to-vga_sprite_params_pass_readdata>),                //                                        .readdata
 		.vga_sprite_params_pass_write                   (<connected-to-vga_sprite_params_pass_write>),                   //                                        .write
 		.vga_sprite_params_pass_writedata               (<connected-to-vga_sprite_params_pass_writedata>),               //                                        .writedata
-		.vga_sprite_params_reset_reset                  (<connected-to-vga_sprite_params_reset_reset>)                   //                 vga_sprite_params_reset.reset
+		.vga_sprite_params_reset_reset                  (<connected-to-vga_sprite_params_reset_reset>),                  //                 vga_sprite_params_reset.reset
+		.io_hwrng_export                                (<connected-to-io_hwrng_export>)                                 //                                io_hwrng.export
 	);
 

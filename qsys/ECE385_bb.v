@@ -7,7 +7,6 @@ module ECE385 (
 	io_led_red_export,
 	io_switches_export,
 	io_vga_sync_export,
-	nios2_pll_c0_conduit_export,
 	nios2_pll_sdram_clk,
 	nios2_pll_vga_clk,
 	otg_hpi_address_export,
@@ -117,7 +116,8 @@ module ECE385 (
 	vga_sprite_params_pass_readdata,
 	vga_sprite_params_pass_write,
 	vga_sprite_params_pass_writedata,
-	vga_sprite_params_reset_reset);	
+	vga_sprite_params_reset_reset,
+	io_hwrng_export);	
 
 	input		clk_clk;
 	output	[31:0]	io_hex_export;
@@ -126,7 +126,6 @@ module ECE385 (
 	output	[17:0]	io_led_red_export;
 	input	[17:0]	io_switches_export;
 	input		io_vga_sync_export;
-	output		nios2_pll_c0_conduit_export;
 	output		nios2_pll_sdram_clk;
 	output		nios2_pll_vga_clk;
 	output	[1:0]	otg_hpi_address_export;
@@ -237,4 +236,5 @@ module ECE385 (
 	output		vga_sprite_params_pass_write;
 	output	[31:0]	vga_sprite_params_pass_writedata;
 	output		vga_sprite_params_reset_reset;
+	input	[31:0]	io_hwrng_export;
 endmodule

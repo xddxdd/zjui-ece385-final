@@ -6,6 +6,7 @@
 module ECE385 (
 		input  wire        clk_clk,                                        //                                     clk.clk
 		output wire [31:0] io_hex_export,                                  //                                  io_hex.export
+		input  wire [31:0] io_hwrng_export,                                //                                io_hwrng.export
 		input  wire [3:0]  io_keys_export,                                 //                                 io_keys.export
 		output wire [8:0]  io_led_green_export,                            //                            io_led_green.export
 		output wire [17:0] io_led_red_export,                              //                              io_led_red.export
@@ -267,6 +268,8 @@ module ECE385 (
 	wire         mm_interconnect_0_vga_sprite_7_s1_write;                         // mm_interconnect_0:vga_sprite_7_s1_write -> vga_sprite_7:write
 	wire  [31:0] mm_interconnect_0_vga_sprite_7_s1_writedata;                     // mm_interconnect_0:vga_sprite_7_s1_writedata -> vga_sprite_7:writedata
 	wire         mm_interconnect_0_vga_sprite_7_s1_clken;                         // mm_interconnect_0:vga_sprite_7_s1_clken -> vga_sprite_7:clken
+	wire  [31:0] mm_interconnect_0_io_hwrng_s1_readdata;                          // io_hwrng:readdata -> mm_interconnect_0:io_hwrng_s1_readdata
+	wire   [1:0] mm_interconnect_0_io_hwrng_s1_address;                           // mm_interconnect_0:io_hwrng_s1_address -> io_hwrng:address
 	wire         mm_interconnect_0_usb_keycode_s2_chipselect;                     // mm_interconnect_0:usb_keycode_s2_chipselect -> usb_keycode:chipselect2
 	wire  [31:0] mm_interconnect_0_usb_keycode_s2_readdata;                       // usb_keycode:readdata2 -> mm_interconnect_0:usb_keycode_s2_readdata
 	wire   [7:0] mm_interconnect_0_usb_keycode_s2_address;                        // mm_interconnect_0:usb_keycode_s2_address -> usb_keycode:address2
@@ -349,7 +352,7 @@ module ECE385 (
 	wire         irq_mapper_receiver1_irq;                                        // nios2_timer:irq -> irq_mapper:receiver1_irq
 	wire  [31:0] nios2_cpu_irq_irq;                                               // irq_mapper:sender_irq -> nios2_cpu:irq
 	wire  [31:0] usb_nios2_cpu_irq_irq;                                           // irq_mapper_001:sender_irq -> usb_nios2_cpu:irq
-	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, irq_mapper_001:reset, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_keycode:reset, usb_keycode:reset2, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n, usb_status:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [io_hex:reset_n, io_hwrng:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, irq_mapper_001:reset, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_keycode:reset, usb_keycode:reset2, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n, usb_status:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
 	wire         rst_controller_reset_out_reset_req;                              // rst_controller:reset_req -> [nios2_onchip_mem:reset_req, rst_translator:reset_req_in, usb_nios2_cpu:reset_req]
 	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
 	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator_001:reset_req_in]
@@ -364,6 +367,14 @@ module ECE385 (
 		.chipselect (mm_interconnect_0_io_hex_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_io_hex_s1_readdata),   //                    .readdata
 		.out_port   (io_hex_export)                           // external_connection.export
+	);
+
+	ECE385_io_hwrng io_hwrng (
+		.clk      (clk_clk),                                //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),        //               reset.reset_n
+		.address  (mm_interconnect_0_io_hwrng_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_io_hwrng_s1_readdata), //                    .readdata
+		.in_port  (io_hwrng_export)                         // external_connection.export
 	);
 
 	ECE385_io_keys io_keys (
@@ -941,6 +952,8 @@ module ECE385 (
 		.io_hex_s1_readdata                                (mm_interconnect_0_io_hex_s1_readdata),                            //                                            .readdata
 		.io_hex_s1_writedata                               (mm_interconnect_0_io_hex_s1_writedata),                           //                                            .writedata
 		.io_hex_s1_chipselect                              (mm_interconnect_0_io_hex_s1_chipselect),                          //                                            .chipselect
+		.io_hwrng_s1_address                               (mm_interconnect_0_io_hwrng_s1_address),                           //                                 io_hwrng_s1.address
+		.io_hwrng_s1_readdata                              (mm_interconnect_0_io_hwrng_s1_readdata),                          //                                            .readdata
 		.io_keys_s1_address                                (mm_interconnect_0_io_keys_s1_address),                            //                                  io_keys_s1.address
 		.io_keys_s1_readdata                               (mm_interconnect_0_io_keys_s1_readdata),                           //                                            .readdata
 		.io_led_green_s1_address                           (mm_interconnect_0_io_led_green_s1_address),                       //                             io_led_green_s1.address

@@ -392,6 +392,10 @@ generate
 	end
 endgenerate
 
+// Hardware Random Number Generator
+logic [31:0] random;
+hwrng rng(.clk(CLOCK_50), .reset(1'b0), .random);
+
 // Main system
 ECE385 ECE385_sys(
 	.clk_clk(CLOCK_50),
@@ -401,6 +405,7 @@ ECE385 ECE385_sys(
 	.io_switches_export(SW),
 	.io_hex_export(HEX_EXPORT),
 	.io_vga_sync_export(VGA_VS),
+	.io_hwrng_export(random),
 	.reset_reset_n(RESET),
 	
 	.sdram_addr(DRAM_ADDR),
