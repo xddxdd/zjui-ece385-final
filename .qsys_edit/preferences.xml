@@ -3,14 +3,14 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="30" />
+   <connections preferredWidth="335" />
    <irq preferredWidth="47" />
    <inputclock preferredWidth="98" />
    <name preferredWidth="270" />
   </columns>
  </systemtable>
  <library
-   expandedCategories="Library,Project,Library/Processors and Peripherals/Peripherals,Library/Processors and Peripherals/Hard Processor Components,Library/Processors and Peripherals/Embedded Processors,Library/Processors and Peripherals/Hard Processor Systems,Library/Processors and Peripherals" />
+   expandedCategories="Library/Processors and Peripherals/Peripherals,Library/Interface Protocols/PCI Express/QSYS Example Designs,Library/Processors and Peripherals,Library/Interface Protocols,Project,Library/Interface Protocols/PCI Express,Library" />
  <window width="1920" height="1030" x="0" y="0" />
  <generation path="qsys" block_symbol_file="0" />
 </preferences>

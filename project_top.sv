@@ -68,20 +68,20 @@ module project_top(
 	output logic          		VGA_VS,
 
 	//////////// Audio //////////
-//	input logic          		AUD_ADCDAT,
-//	inout logic          		AUD_ADCLRCK,
-//	inout logic          		AUD_BCLK,
-//	output logic          		AUD_DACDAT,
-//	inout logic          		AUD_DACLRCK,
-//	output logic          		AUD_XCK,
+	input logic          		AUD_ADCDAT,
+	inout logic          		AUD_ADCLRCK,
+	inout logic          		AUD_BCLK,
+	output logic          		AUD_DACDAT,
+	inout logic          		AUD_DACLRCK,
+	output logic          		AUD_XCK,
 
 	//////////// I2C for EEPROM //////////
 //	output logic          		EEP_I2C_SCLK,
 //	inout logic          		EEP_I2C_SDAT,
 
 	//////////// I2C for Audio Tv-Decoder HSMC  //////////
-//	output logic          		I2C_SCLK,
-//	inout logic          		I2C_SDAT,
+	output logic          		I2C_SCLK,
+	inout logic          		I2C_SDAT,
 
 	//////////// Ethernet 0 //////////
 //	output logic          		ENET0_GTX_CLK,
@@ -203,29 +203,32 @@ always_ff @ (posedge CLOCK_50) begin
 end
 
 // USB OTG
-logic [1:0] hpi_addr;
-logic [15:0] hpi_data_in, hpi_data_out;
-logic hpi_r, hpi_w, hpi_cs, hpi_reset;
-hpi_io_intf hpi_io_inst(
-	.Clk(CLOCK_50), .Reset(~RESET),
-    
-	// signals connected to NIOS II
-    .from_sw_address(hpi_addr),
-    .from_sw_data_in(hpi_data_in),
-    .from_sw_data_out(hpi_data_out),
-    .from_sw_r(hpi_r),
-    .from_sw_w(hpi_w),
-    .from_sw_cs(hpi_cs),
-    .from_sw_reset(hpi_reset),
-    
-	// signals connected to EZ-OTG chip
-    .OTG_DATA(OTG_DATA),    
-    .OTG_ADDR(OTG_ADDR),    
-    .OTG_RD_N(OTG_RD_N),    
-    .OTG_WR_N(OTG_WE_N),    
-    .OTG_CS_N(OTG_CS_N),
-    .OTG_RST_N(OTG_RST_N)
-);
+//logic [1:0] hpi_addr;
+//logic [15:0] hpi_data_in, hpi_data_out;
+//logic hpi_r, hpi_w, hpi_cs, hpi_reset;
+//hpi_io_intf hpi_io_inst(
+//	.Clk(CLOCK_50), .Reset(~RESET),
+//    
+//	// signals connected to NIOS II
+//    .from_sw_address(hpi_addr),
+//    .from_sw_data_in(hpi_data_in),
+//    .from_sw_data_out(hpi_data_out),
+//    .from_sw_r(hpi_r),
+//    .from_sw_w(hpi_w),
+//    .from_sw_cs(hpi_cs),
+//    .from_sw_reset(hpi_reset),
+//    
+//	// signals connected to EZ-OTG chip
+//    .OTG_DATA(OTG_DATA),    
+//    .OTG_ADDR(OTG_ADDR),    
+//    .OTG_RD_N(OTG_RD_N),    
+//    .OTG_WR_N(OTG_WE_N),    
+//    .OTG_CS_N(OTG_CS_N),
+//    .OTG_RST_N(OTG_RST_N)
+//);
+
+logic [15:0] OTG_DATA_OUT;
+assign OTG_DATA = OTG_WE_N ? {16{1'bZ}} : OTG_DATA_OUT;
      
 
 // Hex display
@@ -354,7 +357,7 @@ logic [7:0] VGA_entities_manager_addr;
 logic [31:0] VGA_entities_manager_readdata, VGA_entities_manager_writedata;
 logic [255:0][31:0] VGA_entities_export;
 VGA_entities VGA_entities_manager (
-	.CLK(CLOCK_50), .RESET(1'b0),
+	.CLK(CLOCK_50), .RESET(~RESET),
 	.AVL_READ(VGA_entities_manager_read),
 	.AVL_WRITE(VGA_entities_manager_write),
 	.AVL_ADDR(VGA_entities_manager_addr),
@@ -367,7 +370,7 @@ genvar i;
 generate
 	for(i = 0; i < 8; i++) begin: generate_vga_sprites
 		VGA_sprite VGA_sprite_instance (
-			.Clk(CLOCK_50), .Reset(1'b0),
+			.Clk(CLOCK_50), .Reset(~RESET),
 			.VGA_DrawX, .VGA_DrawY,
 			.SpriteX(VGA_entities_export[4*i][19:4]),
 			.SpriteY(VGA_entities_export[4*i+1][19:4]),
@@ -394,7 +397,31 @@ endgenerate
 
 // Hardware Random Number Generator
 logic [31:0] random;
-hwrng rng(.clk(CLOCK_50), .reset(1'b0), .random);
+hwrng rng(.clk(CLOCK_50), .reset(~RESET), .random);
+
+// Wolfson 8731 Music chip
+logic [15:0] WM8731_LDATA, WM8731_RDATA;
+logic WM8731_DATA_OVER;
+wm8731 wm8731_inst(
+	.clk(CLOCK_50), .Reset(~RESET), .INIT(1'b1),
+	
+	.AUD_ADCDAT(AUD_ADCDAT), .AUD_ADCLRCK(AUD_ADCLRCK), .AUD_BCLK(AUD_BCLK),
+	.AUD_DACDAT(AUD_DACDAT), .AUD_DACLRCK(AUD_DACLRCK), .AUD_MCLK(AUD_XCK),
+	.I2C_SDAT(I2C_SDAT), .I2C_SCLK(I2C_SCLK),
+	
+	.LDATA(WM8731_LDATA), .RDATA(WM8731_RDATA),
+	.data_over(WM8731_DATA_OVER),
+);
+
+logic [31:0] WM8731_MEM_ADDR_END, WM8731_MEM_ADDR, WM8731_MEM_DATA;
+wm8731_buffer wm8731_buf(
+	.Clk(CLOCK_50), .Reset(~RESET),
+	.data_over(WM8731_DATA_OVER),
+	.LDATA(WM8731_LDATA), .RDATA(WM8731_RDATA),
+	.MEM_ADDR_END(WM8731_MEM_ADDR_END),
+	.MEM_ADDR(WM8731_MEM_ADDR),
+	.MEM_DATA(WM8731_MEM_DATA)
+);
 
 // Main system
 ECE385 ECE385_sys(
@@ -433,84 +460,84 @@ ECE385 ECE385_sys(
 	.nios2_pll_vga_clk(VGA_CLK),
 	
 	.vga_sprite_0_clk2_clk(CLOCK_50),
-	.vga_sprite_0_reset2_reset(1'b0),
+	.vga_sprite_0_reset2_reset(~RESET),
 	.vga_sprite_0_s2_address(VGA_SPRITE_ADDR[0]),
 	.vga_sprite_0_s2_chipselect(1'b1),
 	.vga_sprite_0_s2_clken(1'b1),
 	.vga_sprite_0_s2_write(1'b0),
 	.vga_sprite_0_s2_readdata(VGA_SPRITE_DATA[0]),
-	.vga_sprite_0_s2_writedata(32'b0),
-	.vga_sprite_0_s2_byteenable(4'b1),
+	.vga_sprite_0_s2_writedata(16'b0),
+	.vga_sprite_0_s2_byteenable(2'b11),
 	
 	.vga_sprite_1_clk2_clk(CLOCK_50),
-	.vga_sprite_1_reset2_reset(1'b0),
+	.vga_sprite_1_reset2_reset(~RESET),
 	.vga_sprite_1_s2_address(VGA_SPRITE_ADDR[1]),
 	.vga_sprite_1_s2_chipselect(1'b1),
 	.vga_sprite_1_s2_clken(1'b1),
 	.vga_sprite_1_s2_write(1'b0),
 	.vga_sprite_1_s2_readdata(VGA_SPRITE_DATA[1]),
-	.vga_sprite_1_s2_writedata(32'b0),
-	.vga_sprite_1_s2_byteenable(4'b1),
+	.vga_sprite_1_s2_writedata(16'b0),
+	.vga_sprite_1_s2_byteenable(2'b11),
 	
 	.vga_sprite_2_clk2_clk(CLOCK_50),
-	.vga_sprite_2_reset2_reset(1'b0),
+	.vga_sprite_2_reset2_reset(~RESET),
 	.vga_sprite_2_s2_address(VGA_SPRITE_ADDR[2]),
 	.vga_sprite_2_s2_chipselect(1'b1),
 	.vga_sprite_2_s2_clken(1'b1),
 	.vga_sprite_2_s2_write(1'b0),
 	.vga_sprite_2_s2_readdata(VGA_SPRITE_DATA[2]),
-	.vga_sprite_2_s2_writedata(32'b0),
-	.vga_sprite_2_s2_byteenable(4'b1),
+	.vga_sprite_2_s2_writedata(16'b0),
+	.vga_sprite_2_s2_byteenable(2'b11),
 	
 	.vga_sprite_3_clk2_clk(CLOCK_50),
-	.vga_sprite_3_reset2_reset(1'b0),
+	.vga_sprite_3_reset2_reset(~RESET),
 	.vga_sprite_3_s2_address(VGA_SPRITE_ADDR[3]),
 	.vga_sprite_3_s2_chipselect(1'b1),
 	.vga_sprite_3_s2_clken(1'b1),
 	.vga_sprite_3_s2_write(1'b0),
 	.vga_sprite_3_s2_readdata(VGA_SPRITE_DATA[3]),
-	.vga_sprite_3_s2_writedata(32'b0),
-	.vga_sprite_3_s2_byteenable(4'b1),
+	.vga_sprite_3_s2_writedata(16'b0),
+	.vga_sprite_3_s2_byteenable(2'b11),
 
 	.vga_sprite_4_clk2_clk(CLOCK_50),
-	.vga_sprite_4_reset2_reset(1'b0),
+	.vga_sprite_4_reset2_reset(~RESET),
 	.vga_sprite_4_s2_address(VGA_SPRITE_ADDR[4]),
 	.vga_sprite_4_s2_chipselect(1'b1),
 	.vga_sprite_4_s2_clken(1'b1),
 	.vga_sprite_4_s2_write(1'b0),
 	.vga_sprite_4_s2_readdata(VGA_SPRITE_DATA[4]),
-	.vga_sprite_4_s2_writedata(32'b0),
-	.vga_sprite_4_s2_byteenable(4'b1),
+	.vga_sprite_4_s2_writedata(16'b0),
+	.vga_sprite_4_s2_byteenable(2'b11),
 
 	.vga_sprite_5_clk2_clk(CLOCK_50),
-	.vga_sprite_5_reset2_reset(1'b0),
+	.vga_sprite_5_reset2_reset(~RESET),
 	.vga_sprite_5_s2_address(VGA_SPRITE_ADDR[5]),
 	.vga_sprite_5_s2_chipselect(1'b1),
 	.vga_sprite_5_s2_clken(1'b1),
 	.vga_sprite_5_s2_write(1'b0),
 	.vga_sprite_5_s2_readdata(VGA_SPRITE_DATA[5]),
-	.vga_sprite_5_s2_writedata(32'b0),
-	.vga_sprite_5_s2_byteenable(4'b1),
+	.vga_sprite_5_s2_writedata(16'b0),
+	.vga_sprite_5_s2_byteenable(2'b11),
 
 	.vga_sprite_6_clk2_clk(CLOCK_50),
-	.vga_sprite_6_reset2_reset(1'b0),
+	.vga_sprite_6_reset2_reset(~RESET),
 	.vga_sprite_6_s2_address(VGA_SPRITE_ADDR[6]),
 	.vga_sprite_6_s2_chipselect(1'b1),
 	.vga_sprite_6_s2_clken(1'b1),
 	.vga_sprite_6_s2_write(1'b0),
 	.vga_sprite_6_s2_readdata(VGA_SPRITE_DATA[6]),
-	.vga_sprite_6_s2_writedata(32'b0),
-	.vga_sprite_6_s2_byteenable(4'b1),
+	.vga_sprite_6_s2_writedata(16'b0),
+	.vga_sprite_6_s2_byteenable(2'b11),
 
 	.vga_sprite_7_clk2_clk(CLOCK_50),
-	.vga_sprite_7_reset2_reset(1'b0),
+	.vga_sprite_7_reset2_reset(~RESET),
 	.vga_sprite_7_s2_address(VGA_SPRITE_ADDR[7]),
 	.vga_sprite_7_s2_chipselect(1'b1),
 	.vga_sprite_7_s2_clken(1'b1),
 	.vga_sprite_7_s2_write(1'b0),
 	.vga_sprite_7_s2_readdata(VGA_SPRITE_DATA[7]),
-	.vga_sprite_7_s2_writedata(32'b0),
-	.vga_sprite_7_s2_byteenable(4'b1),
+	.vga_sprite_7_s2_writedata(16'b0),
+	.vga_sprite_7_s2_byteenable(2'b11),
 
 	.vga_sprite_params_pass_address(VGA_entities_manager_addr),
 	.vga_sprite_params_pass_write(VGA_entities_manager_write),
@@ -550,13 +577,33 @@ ECE385 ECE385_sys(
 //	.eth_pll_25_clk(ETH_CLK_25),
 //	.eth_pll_2_5_clk(ETH_CLK_2_5),
 
-    .otg_hpi_address_export(hpi_addr),
-    .otg_hpi_data_in_port(hpi_data_in),
-    .otg_hpi_data_out_port(hpi_data_out),
-    .otg_hpi_cs_export(hpi_cs),
-    .otg_hpi_r_export(hpi_r),
-    .otg_hpi_w_export(hpi_w),
-    .otg_hpi_reset_export(hpi_reset)
+    .otg_hpi_address_export(OTG_ADDR),
+    .otg_hpi_data_in_port(OTG_DATA),
+    .otg_hpi_data_out_port(OTG_DATA_OUT),
+    .otg_hpi_cs_export(OTG_CS_N),
+    .otg_hpi_r_export(OTG_RD_N),
+    .otg_hpi_w_export(OTG_WE_N),
+    .otg_hpi_reset_export(OTG_RST_N),
+	
+//    .otg_hpi_address_export(hpi_addr),
+//    .otg_hpi_data_in_port(hpi_data_in),
+//    .otg_hpi_data_out_port(hpi_data_out),
+//    .otg_hpi_cs_export(hpi_cs),
+//    .otg_hpi_r_export(hpi_r),
+//    .otg_hpi_w_export(hpi_w),
+//    .otg_hpi_reset_export(hpi_reset),
+
+	.audio_mem_clk2_clk(CLOCK_50),
+	.audio_mem_reset2_reset(~RESET),
+	.audio_mem_s2_address(WM8731_MEM_ADDR[13:0]),
+	.audio_mem_s2_chipselect(1'b1),
+	.audio_mem_s2_clken(1'b1),
+	.audio_mem_s2_write(1'b0),
+	.audio_mem_s2_readdata(WM8731_MEM_DATA),
+	.audio_mem_s2_writedata(32'b0),
+	.audio_mem_s2_byteenable(4'b1111),
+	.audio_position_export(WM8731_MEM_ADDR),
+	.audio_position_end_export(WM8731_MEM_ADDR_END)
 );
 	
 endmodule

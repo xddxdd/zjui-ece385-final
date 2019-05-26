@@ -2,6 +2,7 @@
 module ECE385 (
 	clk_clk,
 	io_hex_export,
+	io_hwrng_export,
 	io_keys_export,
 	io_led_green_export,
 	io_led_red_export,
@@ -117,10 +118,21 @@ module ECE385 (
 	vga_sprite_params_pass_write,
 	vga_sprite_params_pass_writedata,
 	vga_sprite_params_reset_reset,
-	io_hwrng_export);	
+	audio_mem_s2_address,
+	audio_mem_s2_chipselect,
+	audio_mem_s2_clken,
+	audio_mem_s2_write,
+	audio_mem_s2_readdata,
+	audio_mem_s2_writedata,
+	audio_mem_s2_byteenable,
+	audio_mem_clk2_clk,
+	audio_mem_reset2_reset,
+	audio_position_end_export,
+	audio_position_export);	
 
 	input		clk_clk;
 	output	[31:0]	io_hex_export;
+	input	[31:0]	io_hwrng_export;
 	input	[3:0]	io_keys_export;
 	output	[8:0]	io_led_green_export;
 	output	[17:0]	io_led_red_export;
@@ -236,5 +248,15 @@ module ECE385 (
 	output		vga_sprite_params_pass_write;
 	output	[31:0]	vga_sprite_params_pass_writedata;
 	output		vga_sprite_params_reset_reset;
-	input	[31:0]	io_hwrng_export;
+	input	[13:0]	audio_mem_s2_address;
+	input		audio_mem_s2_chipselect;
+	input		audio_mem_s2_clken;
+	input		audio_mem_s2_write;
+	output	[31:0]	audio_mem_s2_readdata;
+	input	[31:0]	audio_mem_s2_writedata;
+	input	[3:0]	audio_mem_s2_byteenable;
+	input		audio_mem_clk2_clk;
+	input		audio_mem_reset2_reset;
+	output	[31:0]	audio_position_end_export;
+	input	[31:0]	audio_position_export;
 endmodule

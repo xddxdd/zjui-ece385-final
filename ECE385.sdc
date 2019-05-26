@@ -48,6 +48,10 @@ set_input_delay -add_delay -max -clock [get_clocks {CLOCK_50}]  3.000 [get_ports
 set_input_delay -add_delay -min -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {SRAM_*}]
 set_input_delay -add_delay -max -clock [get_clocks {CLOCK_50}]  3.000 [get_ports {OTG_*}]
 set_input_delay -add_delay -min -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {OTG_*}]
+set_input_delay -add_delay -max -clock [get_clocks {CLOCK_50}]  3.000 [get_ports {AUD_*}]
+set_input_delay -add_delay -min -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {AUD_*}]
+set_input_delay -add_delay -max -clock [get_clocks {CLOCK_50}]  3.000 [get_ports {I2C_*}]
+set_input_delay -add_delay -min -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {I2C_*}]
 
 set_input_delay -add_delay -max -clock [get_clocks {CLOCK_50}]  3.000 [get_ports {altera_reserved_tck}]
 set_input_delay -add_delay -min -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {altera_reserved_tck}]
@@ -89,6 +93,8 @@ set_input_delay -add_delay -min -clock [get_clocks {CLOCK_50}]  2.000 [get_ports
 set_output_delay -add_delay  -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {DRAM_*}]
 set_output_delay -add_delay  -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {SRAM_*}]
 set_output_delay -add_delay  -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {OTG_*}]
+set_output_delay -add_delay  -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {AUD_*}]
+set_output_delay -add_delay  -clock [get_clocks {CLOCK_50}]  2.000 [get_ports {I2C_*}]
 
 #set_output_delay -add_delay  -clock [get_clocks {ECE385_sys|lantian_mdio:eth0_mdio|counter[2]}]  2.000 [get_ports {ENET0_MDC}]
 #set_output_delay -add_delay  -clock [get_clocks {ECE385_sys|lantian_mdio:eth0_mdio|counter[2]}]  2.000 [get_ports {ENET0_MDIO}]
