@@ -1,5 +1,16 @@
 
 module ECE385 (
+	audio_mem_clk2_clk,
+	audio_mem_reset2_reset,
+	audio_mem_s2_address,
+	audio_mem_s2_chipselect,
+	audio_mem_s2_clken,
+	audio_mem_s2_write,
+	audio_mem_s2_readdata,
+	audio_mem_s2_writedata,
+	audio_mem_s2_byteenable,
+	audio_position_export,
+	audio_position_end_export,
 	clk_clk,
 	io_hex_export,
 	io_hwrng_export,
@@ -34,8 +45,9 @@ module ECE385 (
 	sram_sram_oe_n,
 	sram_sram_ub_n,
 	sram_sram_we_n,
+	usb_clk_clk,
 	usb_nios2_cpu_custom_instruction_master_readra,
-	usb_status_export,
+	usb_reset_reset_n,
 	vga_vga_drawx,
 	vga_vga_drawy,
 	vga_vga_val,
@@ -118,18 +130,19 @@ module ECE385 (
 	vga_sprite_params_pass_write,
 	vga_sprite_params_pass_writedata,
 	vga_sprite_params_reset_reset,
-	audio_mem_s2_address,
-	audio_mem_s2_chipselect,
-	audio_mem_s2_clken,
-	audio_mem_s2_write,
-	audio_mem_s2_readdata,
-	audio_mem_s2_writedata,
-	audio_mem_s2_byteenable,
-	audio_mem_clk2_clk,
-	audio_mem_reset2_reset,
-	audio_position_end_export,
-	audio_position_export);	
+	vga_background_offset_export);	
 
+	input		audio_mem_clk2_clk;
+	input		audio_mem_reset2_reset;
+	input	[13:0]	audio_mem_s2_address;
+	input		audio_mem_s2_chipselect;
+	input		audio_mem_s2_clken;
+	input		audio_mem_s2_write;
+	output	[31:0]	audio_mem_s2_readdata;
+	input	[31:0]	audio_mem_s2_writedata;
+	input	[3:0]	audio_mem_s2_byteenable;
+	input	[31:0]	audio_position_export;
+	output	[31:0]	audio_position_end_export;
 	input		clk_clk;
 	output	[31:0]	io_hex_export;
 	input	[31:0]	io_hwrng_export;
@@ -164,8 +177,9 @@ module ECE385 (
 	output		sram_sram_oe_n;
 	output		sram_sram_ub_n;
 	output		sram_sram_we_n;
+	input		usb_clk_clk;
 	output		usb_nios2_cpu_custom_instruction_master_readra;
-	output		usb_status_export;
+	input		usb_reset_reset_n;
 	input	[9:0]	vga_vga_drawx;
 	input	[9:0]	vga_vga_drawy;
 	output	[15:0]	vga_vga_val;
@@ -248,15 +262,5 @@ module ECE385 (
 	output		vga_sprite_params_pass_write;
 	output	[31:0]	vga_sprite_params_pass_writedata;
 	output		vga_sprite_params_reset_reset;
-	input	[13:0]	audio_mem_s2_address;
-	input		audio_mem_s2_chipselect;
-	input		audio_mem_s2_clken;
-	input		audio_mem_s2_write;
-	output	[31:0]	audio_mem_s2_readdata;
-	input	[31:0]	audio_mem_s2_writedata;
-	input	[3:0]	audio_mem_s2_byteenable;
-	input		audio_mem_clk2_clk;
-	input		audio_mem_reset2_reset;
-	output	[31:0]	audio_position_end_export;
-	input	[31:0]	audio_position_export;
+	output	[31:0]	vga_background_offset_export;
 endmodule

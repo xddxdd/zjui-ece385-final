@@ -146,6 +146,7 @@ C_SRCS += main.c
 C_SRCS += vga.c
 C_SRCS += resource.c
 C_SRCS += sprites.c
+C_SRCS += rng.c
 CXX_SRCS :=
 ASM_SRCS :=
 

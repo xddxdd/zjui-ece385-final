@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
 # SOPC Builder design path: ../ECE385.sopcinfo
 #
-# Generated: Tue May 21 00:19:05 CST 2019
+# Generated: Mon May 27 18:42:06 CST 2019
 
 # DO NOT MODIFY THIS FILE
 #
@@ -49,32 +49,35 @@
 # nios2_onchip_mem
 memory 0x420000 0x440000 cache
 
+# audio_mem
+memory 0x440000 0x450000 cache
+
 # vga_sprite_7
-memory 0x442000 0x444000 cache
-
-# vga_sprite_6
-memory 0x444000 0x446000 cache
-
-# vga_sprite_5
-memory 0x446000 0x448000 cache
-
-# vga_sprite_4
-memory 0x448000 0x44a000 cache
-
-# vga_sprite_3
-memory 0x44a000 0x44c000 cache
-
-# vga_sprite_2
-memory 0x44c000 0x44e000 cache
-
-# vga_sprite_1
-memory 0x44e000 0x450000 cache
-
-# vga_sprite_0
 memory 0x450000 0x452000 cache
 
+# vga_sprite_6
+memory 0x452000 0x454000 cache
+
+# vga_sprite_5
+memory 0x454000 0x456000 cache
+
+# vga_sprite_4
+memory 0x456000 0x458000 cache
+
+# vga_sprite_3
+memory 0x458000 0x45a000 cache
+
+# vga_sprite_2
+memory 0x45a000 0x45c000 cache
+
+# vga_sprite_1
+memory 0x45c000 0x45e000 cache
+
+# vga_sprite_0
+memory 0x45e000 0x460000 cache
+
 # usb_keycode
-memory 0x453400 0x453800 cache
+memory 0x461000 0x461400 cache
 
 # sdram
 memory 0x8000000 0x10000000 cache

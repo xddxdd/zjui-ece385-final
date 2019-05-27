@@ -161,9 +161,16 @@ SOPC_SYSID_FLAG += --sidp=0x800
 ELF_PATCH_FLAG  += --sidp 0x800
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1558368967
-SOPC_SYSID_FLAG += --timestamp=1558368967
-ELF_PATCH_FLAG  += --timestamp 1558368967
+# setting SOPC_TIMESTAMP is 1558964584
+SOPC_SYSID_FLAG += --timestamp=1558964584
+ELF_PATCH_FLAG  += --timestamp 1558964584
+
+# Enable JTAG UART driver to recover when host is inactive causing buffer to 
+# full without returning error. Printf will not fail with this recovery. none 
+# setting altera_avalon_jtag_uart_driver.enable_jtag_uart_ignore_fifo_full_error is false
+
+# Small-footprint (polled mode) driver none 
+# setting altera_avalon_jtag_uart_driver.enable_small_driver is false
 
 # Build a custom version of newlib with the specified space-separated compiler 
 # flags. The custom newlib build will be placed in the <bsp root>/newlib 
@@ -345,18 +352,18 @@ ALT_CFLAGS += -mgpopt=global
 
 # Slave descriptor of STDERR character-mode device. This setting is used by the 
 # ALT_STDERR family of defines in system.h. none 
-# setting hal.stderr is none
-ELF_PATCH_FLAG  += --stderr_dev none
+# setting hal.stderr is usb_jtag_uart
+ELF_PATCH_FLAG  += --stderr_dev usb_jtag_uart
 
 # Slave descriptor of STDIN character-mode device. This setting is used by the 
 # ALT_STDIN family of defines in system.h. none 
-# setting hal.stdin is none
-ELF_PATCH_FLAG  += --stdin_dev none
+# setting hal.stdin is usb_jtag_uart
+ELF_PATCH_FLAG  += --stdin_dev usb_jtag_uart
 
 # Slave descriptor of STDOUT character-mode device. This setting is used by the 
 # ALT_STDOUT family of defines in system.h. none 
-# setting hal.stdout is none
-ELF_PATCH_FLAG  += --stdout_dev none
+# setting hal.stdout is usb_jtag_uart
+ELF_PATCH_FLAG  += --stdout_dev usb_jtag_uart
 
 
 #------------------------------------------------------------------------------

@@ -533,7 +533,7 @@ alt_u16 UsbWaitTDListDone()
 	int wait_cycle = 0;
 	while (usb_ctl_val != HUSB_TDListDone)  // k, read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) return 0xffff;
+		if((++wait_cycle) & 0x100) return 0xffff;
 		if(usb_ctl_val == 0x0000)
 		{
 		}
@@ -560,7 +560,7 @@ alt_u16 UsbGetRetryCnt()
 
 		while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 		{
-			if((++wait_cycle) & 0x10000) return 0xffff;
+			if((++wait_cycle) & 0x100) return 0xffff;
 		}
 	}
 	//usleep(1000);

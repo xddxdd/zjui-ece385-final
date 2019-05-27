@@ -61,7 +61,7 @@
    {
       datum _sortIndex
       {
-         value = "39";
+         value = "38";
          type = "int";
       }
    }
@@ -77,7 +77,7 @@
    {
       datum _sortIndex
       {
-         value = "41";
+         value = "40";
          type = "int";
       }
    }
@@ -85,7 +85,7 @@
    {
       datum baseAddress
       {
-         value = "4593808";
+         value = "4593824";
          type = "String";
       }
    }
@@ -93,7 +93,7 @@
    {
       datum _sortIndex
       {
-         value = "40";
+         value = "39";
          type = "int";
       }
    }
@@ -101,7 +101,7 @@
    {
       datum baseAddress
       {
-         value = "4593824";
+         value = "4593840";
          type = "String";
       }
    }
@@ -190,7 +190,7 @@
    {
       datum _sortIndex
       {
-         value = "38";
+         value = "37";
          type = "int";
       }
       datum sopceditor_expanded
@@ -203,7 +203,7 @@
    {
       datum baseAddress
       {
-         value = "4593840";
+         value = "4593856";
          type = "String";
       }
    }
@@ -224,7 +224,7 @@
    {
       datum baseAddress
       {
-         value = "4593888";
+         value = "4593904";
          type = "String";
       }
    }
@@ -292,7 +292,7 @@
       }
       datum baseAddress
       {
-         value = "4593872";
+         value = "4593888";
          type = "String";
       }
    }
@@ -300,7 +300,7 @@
    {
       datum _sortIndex
       {
-         value = "32";
+         value = "31";
          type = "int";
       }
       datum sopceditor_expanded
@@ -313,7 +313,7 @@
    {
       datum baseAddress
       {
-         value = "4593856";
+         value = "4593872";
          type = "String";
       }
    }
@@ -355,7 +355,7 @@
    {
       datum baseAddress
       {
-         value = "4593936";
+         value = "4593952";
          type = "String";
       }
    }
@@ -402,7 +402,7 @@
    {
       datum baseAddress
       {
-         value = "4593904";
+         value = "4593920";
          type = "String";
       }
    }
@@ -423,7 +423,7 @@
    {
       datum baseAddress
       {
-         value = "4593928";
+         value = "4593944";
          type = "String";
       }
    }
@@ -495,6 +495,14 @@
          type = "String";
       }
    }
+   element usb_clk
+   {
+      datum _sortIndex
+      {
+         value = "41";
+         type = "int";
+      }
+   }
    element usb_hpi_address
    {
       datum _sortIndex
@@ -512,7 +520,7 @@
    {
       datum baseAddress
       {
-         value = "2080";
+         value = "2064";
          type = "String";
       }
    }
@@ -533,7 +541,7 @@
    {
       datum baseAddress
       {
-         value = "2144";
+         value = "2128";
          type = "String";
       }
    }
@@ -554,7 +562,7 @@
    {
       datum baseAddress
       {
-         value = "2096";
+         value = "2080";
          type = "String";
       }
    }
@@ -575,7 +583,7 @@
    {
       datum baseAddress
       {
-         value = "2112";
+         value = "2096";
          type = "String";
       }
    }
@@ -596,7 +604,7 @@
    {
       datum baseAddress
       {
-         value = "2160";
+         value = "2144";
          type = "String";
       }
    }
@@ -617,7 +625,28 @@
    {
       datum baseAddress
       {
-         value = "2128";
+         value = "2112";
+         type = "String";
+      }
+   }
+   element usb_jtag_uart
+   {
+      datum _sortIndex
+      {
+         value = "42";
+         type = "int";
+      }
+   }
+   element usb_jtag_uart.avalon_jtag_slave
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "2056";
          type = "String";
       }
    }
@@ -738,24 +767,19 @@
          type = "String";
       }
    }
-   element usb_status
+   element vga_background_offset
    {
       datum _sortIndex
       {
-         value = "31";
+         value = "43";
          type = "int";
       }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
    }
-   element usb_status.s1
+   element vga_background_offset.s1
    {
       datum baseAddress
       {
-         value = "2064";
+         value = "4593808";
          type = "String";
       }
    }
@@ -847,7 +871,7 @@
    {
       datum _sortIndex
       {
-         value = "33";
+         value = "32";
          type = "int";
       }
       datum sopceditor_expanded
@@ -868,7 +892,7 @@
    {
       datum _sortIndex
       {
-         value = "34";
+         value = "33";
          type = "int";
       }
       datum sopceditor_expanded
@@ -889,7 +913,7 @@
    {
       datum _sortIndex
       {
-         value = "35";
+         value = "34";
          type = "int";
       }
       datum sopceditor_expanded
@@ -910,7 +934,7 @@
    {
       datum _sortIndex
       {
-         value = "36";
+         value = "35";
          type = "int";
       }
       datum sopceditor_expanded
@@ -931,7 +955,7 @@
    {
       datum _sortIndex
       {
-         value = "37";
+         value = "36";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1071,17 +1095,23 @@
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface name="sdram" internal="sdram.wire" type="conduit" dir="end" />
  <interface name="sram" internal="sram_multiplexer.sram" type="conduit" dir="end" />
+ <interface name="usb_clk" internal="usb_clk.clk_in" type="clock" dir="end" />
  <interface
    name="usb_nios2_cpu_custom_instruction_master"
    internal="usb_nios2_cpu.custom_instruction_master"
    type="nios_custom_instruction"
    dir="start" />
  <interface
-   name="usb_status"
-   internal="usb_status.external_connection"
-   type="conduit"
+   name="usb_reset"
+   internal="usb_clk.clk_in_reset"
+   type="reset"
    dir="end" />
  <interface name="vga" internal="sram_multiplexer.vga" type="conduit" dir="end" />
+ <interface
+   name="vga_background_offset"
+   internal="vga_background_offset.external_connection"
+   type="conduit"
+   dir="end" />
  <interface
    name="vga_sprite_0_clk2"
    internal="vga_sprite_0.clk2"
@@ -1594,7 +1624,7 @@
   <parameter name="dataAddrWidth" value="28" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sram_multiplexer.avl' start='0x0' end='0x400000' type='sram_multiplexer.avl' /><slave name='nios2_onchip_mem.s1' start='0x420000' end='0x440000' type='altera_avalon_onchip_memory2.s1' /><slave name='audio_mem.s1' start='0x440000' end='0x450000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_7.s1' start='0x450000' end='0x452000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_6.s1' start='0x452000' end='0x454000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_5.s1' start='0x454000' end='0x456000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_4.s1' start='0x456000' end='0x458000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_3.s1' start='0x458000' end='0x45A000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_2.s1' start='0x45A000' end='0x45C000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_1.s1' start='0x45C000' end='0x45E000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_0.s1' start='0x45E000' end='0x460000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x460800' end='0x461000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='usb_keycode.s2' start='0x461000' end='0x461400' type='altera_avalon_onchip_memory2.s2' /><slave name='vga_sprite_params.avl' start='0x461400' end='0x461800' type='avalon_mm_passthrough.avl' /><slave name='io_hex.s1' start='0x461800' end='0x461820' type='altera_avalon_pio.s1' /><slave name='io_led_green.s1' start='0x461820' end='0x461840' type='altera_avalon_pio.s1' /><slave name='nios2_timer.s1' start='0x461840' end='0x461860' type='altera_avalon_timer.s1' /><slave name='io_led_red.s1' start='0x461860' end='0x461880' type='altera_avalon_pio.s1' /><slave name='audio_position.s1' start='0x461890' end='0x4618A0' type='altera_avalon_pio.s1' /><slave name='audio_position_end.s1' start='0x4618A0' end='0x4618B0' type='altera_avalon_pio.s1' /><slave name='io_hwrng.s1' start='0x4618B0' end='0x4618C0' type='altera_avalon_pio.s1' /><slave name='io_vga_sync.s1' start='0x4618C0' end='0x4618D0' type='altera_avalon_pio.s1' /><slave name='io_switches.s1' start='0x4618D0' end='0x4618E0' type='altera_avalon_pio.s1' /><slave name='io_keys.s1' start='0x4618E0' end='0x4618F0' type='altera_avalon_pio.s1' /><slave name='nios2_pll.pll_slave' start='0x4618F0' end='0x461900' type='altpll.pll_slave' /><slave name='nios2_sysid.control_slave' start='0x461908' end='0x461910' type='altera_avalon_sysid_qsys.control_slave' /><slave name='nios2_jtag_uart.avalon_jtag_slave' start='0x461910' end='0x461918' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='sdram.s1' start='0x8000000' end='0x10000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sram_multiplexer.avl' start='0x0' end='0x400000' type='sram_multiplexer.avl' /><slave name='nios2_onchip_mem.s1' start='0x420000' end='0x440000' type='altera_avalon_onchip_memory2.s1' /><slave name='audio_mem.s1' start='0x440000' end='0x450000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_7.s1' start='0x450000' end='0x452000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_6.s1' start='0x452000' end='0x454000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_5.s1' start='0x454000' end='0x456000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_4.s1' start='0x456000' end='0x458000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_3.s1' start='0x458000' end='0x45A000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_2.s1' start='0x45A000' end='0x45C000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_1.s1' start='0x45C000' end='0x45E000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_0.s1' start='0x45E000' end='0x460000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x460800' end='0x461000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='usb_keycode.s2' start='0x461000' end='0x461400' type='altera_avalon_onchip_memory2.s2' /><slave name='vga_sprite_params.avl' start='0x461400' end='0x461800' type='avalon_mm_passthrough.avl' /><slave name='io_hex.s1' start='0x461800' end='0x461820' type='altera_avalon_pio.s1' /><slave name='io_led_green.s1' start='0x461820' end='0x461840' type='altera_avalon_pio.s1' /><slave name='nios2_timer.s1' start='0x461840' end='0x461860' type='altera_avalon_timer.s1' /><slave name='io_led_red.s1' start='0x461860' end='0x461880' type='altera_avalon_pio.s1' /><slave name='vga_background_offset.s1' start='0x461890' end='0x4618A0' type='altera_avalon_pio.s1' /><slave name='audio_position.s1' start='0x4618A0' end='0x4618B0' type='altera_avalon_pio.s1' /><slave name='audio_position_end.s1' start='0x4618B0' end='0x4618C0' type='altera_avalon_pio.s1' /><slave name='io_hwrng.s1' start='0x4618C0' end='0x4618D0' type='altera_avalon_pio.s1' /><slave name='io_vga_sync.s1' start='0x4618D0' end='0x4618E0' type='altera_avalon_pio.s1' /><slave name='io_switches.s1' start='0x4618E0' end='0x4618F0' type='altera_avalon_pio.s1' /><slave name='io_keys.s1' start='0x4618F0' end='0x461900' type='altera_avalon_pio.s1' /><slave name='nios2_pll.pll_slave' start='0x461900' end='0x461910' type='altpll.pll_slave' /><slave name='nios2_sysid.control_slave' start='0x461918' end='0x461920' type='altera_avalon_sysid_qsys.control_slave' /><slave name='nios2_jtag_uart.avalon_jtag_slave' start='0x461920' end='0x461928' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='sdram.s1' start='0x8000000' end='0x10000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -1633,14 +1663,14 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Tiny" />
   <parameter name="instAddrWidth" value="28" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='nios2_onchip_mem.s1' start='0x420000' end='0x440000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x460800' end='0x461000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='nios2_pll.pll_slave' start='0x4618F0' end='0x461900' type='altpll.pll_slave' /><slave name='nios2_sysid.control_slave' start='0x461908' end='0x461910' type='altera_avalon_sysid_qsys.control_slave' /><slave name='sdram.s1' start='0x8000000' end='0x10000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='nios2_onchip_mem.s1' start='0x420000' end='0x440000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x460800' end='0x461000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='nios2_pll.pll_slave' start='0x461900' end='0x461910' type='altpll.pll_slave' /><slave name='nios2_sysid.control_slave' start='0x461918' end='0x461920' type='altera_avalon_sysid_qsys.control_slave' /><slave name='sdram.s1' start='0x8000000' end='0x10000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="instructionMasterHighPerformanceMapParam" value="" />
   <parameter name="instruction_master_high_performance_paddr_base" value="0" />
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="33" />
+  <parameter name="internalIrqMaskSystemInfo" value="3" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -2027,6 +2057,12 @@
    kind="sram_multiplexer"
    version="1.0"
    enabled="1" />
+ <module name="usb_clk" kind="clock_source" version="18.1" enabled="1">
+  <parameter name="clockFrequency" value="50000000" />
+  <parameter name="clockFrequencyKnown" value="true" />
+  <parameter name="inputClockFrequency" value="0" />
+  <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
  <module
    name="usb_hpi_address"
    kind="altera_avalon_pio"
@@ -2124,6 +2160,25 @@
   <parameter name="width" value="1" />
  </module>
  <module
+   name="usb_jtag_uart"
+   kind="altera_avalon_jtag_uart"
+   version="18.1"
+   enabled="1">
+  <parameter name="allowMultipleConnections" value="false" />
+  <parameter name="avalonSpec" value="2.0" />
+  <parameter name="clkFreq" value="50000000" />
+  <parameter name="hubInstanceID" value="0" />
+  <parameter name="readBufferDepth" value="256" />
+  <parameter name="readIRQThreshold" value="8" />
+  <parameter name="simInputCharacterStream" value="" />
+  <parameter name="simInteractiveOptions">NO_INTERACTIVE_WINDOWS</parameter>
+  <parameter name="useRegistersForReadBuffer" value="false" />
+  <parameter name="useRegistersForWriteBuffer" value="false" />
+  <parameter name="useRelativePathForSimFile" value="false" />
+  <parameter name="writeBufferDepth" value="256" />
+  <parameter name="writeIRQThreshold" value="8" />
+ </module>
+ <module
    name="usb_keycode"
    kind="altera_avalon_onchip_memory2"
    version="18.1"
@@ -2160,8 +2215,8 @@
    kind="altera_nios2_gen2"
    version="18.1"
    enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="3" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="3" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="7" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="7" />
   <parameter name="AUTO_DEVICE" value="EP4CE115F29C7" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
   <parameter name="bht_ramBlockType" value="Automatic" />
@@ -2179,7 +2234,7 @@
   <parameter name="dataAddrWidth" value="17" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='usb_nios2_cpu.debug_mem_slave' start='0x0' end='0x800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='usb_nios2_sysid.control_slave' start='0x800' end='0x808' type='altera_avalon_sysid_qsys.control_slave' /><slave name='usb_status.s1' start='0x810' end='0x820' type='altera_avalon_pio.s1' /><slave name='usb_hpi_address.s1' start='0x820' end='0x830' type='altera_avalon_pio.s1' /><slave name='usb_hpi_data.s1' start='0x830' end='0x840' type='altera_avalon_pio.s1' /><slave name='usb_hpi_r.s1' start='0x840' end='0x850' type='altera_avalon_pio.s1' /><slave name='usb_hpi_w.s1' start='0x850' end='0x860' type='altera_avalon_pio.s1' /><slave name='usb_hpi_cs.s1' start='0x860' end='0x870' type='altera_avalon_pio.s1' /><slave name='usb_hpi_reset.s1' start='0x870' end='0x880' type='altera_avalon_pio.s1' /><slave name='usb_keycode.s1' start='0xC00' end='0x1000' type='altera_avalon_onchip_memory2.s1' /><slave name='usb_nios2_onchip_mem.s1' start='0x10000' end='0x14000' type='altera_avalon_onchip_memory2.s1' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='usb_nios2_cpu.debug_mem_slave' start='0x0' end='0x800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='usb_nios2_sysid.control_slave' start='0x800' end='0x808' type='altera_avalon_sysid_qsys.control_slave' /><slave name='usb_jtag_uart.avalon_jtag_slave' start='0x808' end='0x810' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='usb_hpi_address.s1' start='0x810' end='0x820' type='altera_avalon_pio.s1' /><slave name='usb_hpi_data.s1' start='0x820' end='0x830' type='altera_avalon_pio.s1' /><slave name='usb_hpi_r.s1' start='0x830' end='0x840' type='altera_avalon_pio.s1' /><slave name='usb_hpi_w.s1' start='0x840' end='0x850' type='altera_avalon_pio.s1' /><slave name='usb_hpi_cs.s1' start='0x850' end='0x860' type='altera_avalon_pio.s1' /><slave name='usb_hpi_reset.s1' start='0x860' end='0x870' type='altera_avalon_pio.s1' /><slave name='usb_keycode.s1' start='0xC00' end='0x1000' type='altera_avalon_onchip_memory2.s1' /><slave name='usb_nios2_onchip_mem.s1' start='0x10000' end='0x14000' type='altera_avalon_onchip_memory2.s1' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -2218,14 +2273,14 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Tiny" />
   <parameter name="instAddrWidth" value="17" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='usb_nios2_cpu.debug_mem_slave' start='0x0' end='0x800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='usb_nios2_sysid.control_slave' start='0x800' end='0x808' type='altera_avalon_sysid_qsys.control_slave' /><slave name='usb_nios2_onchip_mem.s1' start='0x10000' end='0x14000' type='altera_avalon_onchip_memory2.s1' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='usb_nios2_cpu.debug_mem_slave' start='0x0' end='0x800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='usb_nios2_sysid.control_slave' start='0x800' end='0x808' type='altera_avalon_sysid_qsys.control_slave' /><slave name='usb_jtag_uart.avalon_jtag_slave' start='0x808' end='0x810' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='usb_nios2_onchip_mem.s1' start='0x10000' end='0x14000' type='altera_avalon_onchip_memory2.s1' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="instructionMasterHighPerformanceMapParam" value="" />
   <parameter name="instruction_master_high_performance_paddr_base" value="0" />
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="0" />
+  <parameter name="internalIrqMaskSystemInfo" value="1" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -2376,7 +2431,11 @@
    enabled="1">
   <parameter name="id" value="0" />
  </module>
- <module name="usb_status" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module
+   name="vga_background_offset"
+   kind="altera_avalon_pio"
+   version="18.1"
+   enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2388,7 +2447,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="1" />
+  <parameter name="width" value="32" />
  </module>
  <module
    name="vga_sprite_0"
@@ -2659,7 +2718,16 @@
    start="nios2_cpu.data_master"
    end="nios2_jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00461910" />
+  <parameter name="baseAddress" value="0x00461920" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="usb_nios2_cpu.data_master"
+   end="usb_jtag_uart.avalon_jtag_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0808" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2704,7 +2772,7 @@
    start="nios2_cpu.data_master"
    end="nios2_sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00461908" />
+  <parameter name="baseAddress" value="0x00461918" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2740,7 +2808,7 @@
    start="nios2_cpu.data_master"
    end="nios2_pll.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x004618f0" />
+  <parameter name="baseAddress" value="0x00461900" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2794,7 +2862,7 @@
    start="nios2_cpu.data_master"
    end="io_keys.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x004618e0" />
+  <parameter name="baseAddress" value="0x004618f0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2803,7 +2871,7 @@
    start="nios2_cpu.data_master"
    end="io_switches.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x004618d0" />
+  <parameter name="baseAddress" value="0x004618e0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2875,7 +2943,7 @@
    start="usb_nios2_cpu.data_master"
    end="usb_hpi_reset.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0870" />
+  <parameter name="baseAddress" value="0x0860" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2884,7 +2952,7 @@
    start="usb_nios2_cpu.data_master"
    end="usb_hpi_cs.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0860" />
+  <parameter name="baseAddress" value="0x0850" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2893,7 +2961,7 @@
    start="usb_nios2_cpu.data_master"
    end="usb_hpi_w.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0850" />
+  <parameter name="baseAddress" value="0x0840" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2902,7 +2970,7 @@
    start="usb_nios2_cpu.data_master"
    end="usb_hpi_r.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0840" />
+  <parameter name="baseAddress" value="0x0830" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2911,7 +2979,7 @@
    start="usb_nios2_cpu.data_master"
    end="usb_hpi_data.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0830" />
+  <parameter name="baseAddress" value="0x0820" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2920,7 +2988,7 @@
    start="usb_nios2_cpu.data_master"
    end="usb_hpi_address.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0820" />
+  <parameter name="baseAddress" value="0x0810" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2935,19 +3003,10 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="usb_nios2_cpu.data_master"
-   end="usb_status.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0810" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
    start="nios2_cpu.data_master"
    end="io_vga_sync.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x004618c0" />
+  <parameter name="baseAddress" value="0x004618d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2992,7 +3051,7 @@
    start="nios2_cpu.data_master"
    end="io_hwrng.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x004618b0" />
+  <parameter name="baseAddress" value="0x004618c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3010,7 +3069,7 @@
    start="nios2_cpu.data_master"
    end="audio_position_end.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x004618a0" />
+  <parameter name="baseAddress" value="0x004618b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3018,6 +3077,15 @@
    version="18.1"
    start="nios2_cpu.data_master"
    end="audio_position.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x004618a0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_cpu.data_master"
+   end="vga_background_offset.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00461890" />
   <parameter name="defaultConnection" value="false" />
@@ -3034,10 +3102,19 @@
  <connection
    kind="avalon"
    version="18.1"
+   start="usb_nios2_cpu.instruction_master"
+   end="usb_jtag_uart.avalon_jtag_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0808" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
    start="nios2_cpu.instruction_master"
    end="nios2_sysid.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00461908" />
+  <parameter name="baseAddress" value="0x00461918" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3073,7 +3150,7 @@
    start="nios2_cpu.instruction_master"
    end="nios2_pll.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x004618f0" />
+  <parameter name="baseAddress" value="0x00461900" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3119,26 +3196,9 @@
    version="18.1"
    start="clk_0.clk"
    end="nios2_jtag_uart.clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="usb_hpi_address.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_hpi_data.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_hpi_r.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_hpi_w.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_hpi_cs.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_hpi_reset.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="io_led_red.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="nios2_timer.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="io_hex.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_nios2_cpu.clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="usb_nios2_sysid.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_status.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="io_vga_sync.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="io_hwrng.clk" />
  <connection
@@ -3154,23 +3214,65 @@
  <connection
    kind="clock"
    version="18.1"
+   start="usb_clk.clk"
+   end="usb_nios2_cpu.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="usb_clk.clk"
+   end="usb_nios2_sysid.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="usb_clk.clk"
+   end="usb_hpi_address.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="usb_clk.clk"
+   end="usb_hpi_data.clk" />
+ <connection kind="clock" version="18.1" start="usb_clk.clk" end="usb_hpi_r.clk" />
+ <connection kind="clock" version="18.1" start="usb_clk.clk" end="usb_hpi_w.clk" />
+ <connection kind="clock" version="18.1" start="usb_clk.clk" end="usb_hpi_cs.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="usb_clk.clk"
+   end="usb_hpi_reset.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="usb_clk.clk"
+   end="usb_jtag_uart.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_0.clk"
+   end="vga_background_offset.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
    start="clk_0.clk"
    end="nios2_onchip_mem.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="vga_sprite_0.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="vga_sprite_1.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="vga_sprite_3.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="vga_sprite_2.clk1" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="usb_nios2_onchip_mem.clk1" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_keycode.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="vga_sprite_4.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="vga_sprite_5.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="vga_sprite_6.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="vga_sprite_7.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="audio_mem.clk1" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="usb_clk.clk"
+   end="usb_nios2_onchip_mem.clk1" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="usb_clk.clk"
+   end="usb_keycode.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="usb_keycode.clk2" />
  <connection
    kind="clock"
@@ -3194,13 +3296,20 @@
    version="18.1"
    start="nios2_cpu.irq"
    end="nios2_jtag_uart.irq">
-  <parameter name="irqNumber" value="5" />
+  <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_cpu.irq"
    end="nios2_timer.irq">
+  <parameter name="irqNumber" value="1" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="usb_nios2_cpu.irq"
+   end="usb_jtag_uart.irq">
   <parameter name="irqNumber" value="0" />
  </connection>
  <connection
@@ -3229,36 +3338,6 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="nios2_jtag_uart.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_hpi_address.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_hpi_data.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_hpi_r.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_hpi_w.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_hpi_cs.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_hpi_reset.reset" />
  <connection
    kind="reset"
    version="18.1"
@@ -3308,21 +3387,6 @@
    kind="reset"
    version="18.1"
    start="clk_0.clk_reset"
-   end="usb_nios2_cpu.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_nios2_sysid.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_status.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
    end="io_vga_sync.reset" />
  <connection
    kind="reset"
@@ -3344,6 +3408,56 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="audio_position.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_nios2_sysid.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_nios2_cpu.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_hpi_address.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_hpi_data.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_hpi_r.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_hpi_w.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_hpi_cs.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_hpi_reset.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_jtag_uart.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="vga_background_offset.reset" />
  <connection
    kind="reset"
    version="18.1"
@@ -3373,16 +3487,6 @@
    kind="reset"
    version="18.1"
    start="clk_0.clk_reset"
-   end="usb_nios2_onchip_mem.reset1" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="usb_keycode.reset1" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
    end="vga_sprite_4.reset1" />
  <connection
    kind="reset"
@@ -3404,6 +3508,16 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="audio_mem.reset1" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_nios2_onchip_mem.reset1" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="usb_clk.clk_reset"
+   end="usb_keycode.reset1" />
  <connection
    kind="reset"
    version="18.1"

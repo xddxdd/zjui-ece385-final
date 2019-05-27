@@ -4,7 +4,7 @@
  * Machine generated for CPU 'usb_nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Tue May 21 00:19:05 CST 2019
+ * Generated: Mon May 27 21:47:45 CST 2019
  */
 
 /*
@@ -133,6 +133,7 @@
  *
  */
 
+#define __ALTERA_AVALON_JTAG_UART
 #define __ALTERA_AVALON_ONCHIP_MEMORY2
 #define __ALTERA_AVALON_PIO
 #define __ALTERA_AVALON_SYSID_QSYS
@@ -145,6 +146,7 @@
  */
 
 #define ALT_DEVICE_FAMILY "Cyclone IV E"
+#define ALT_ENHANCED_INTERRUPT_API_PRESENT
 #define ALT_IRQ_BASE NULL
 #define ALT_LOG_PORT "/dev/null"
 #define ALT_LOG_PORT_BASE 0x0
@@ -153,18 +155,24 @@
 #define ALT_NUM_EXTERNAL_INTERRUPT_CONTROLLERS 0
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
-#define ALT_STDERR "/dev/null"
-#define ALT_STDERR_BASE 0x0
-#define ALT_STDERR_DEV null
-#define ALT_STDERR_TYPE ""
-#define ALT_STDIN "/dev/null"
-#define ALT_STDIN_BASE 0x0
-#define ALT_STDIN_DEV null
-#define ALT_STDIN_TYPE ""
-#define ALT_STDOUT "/dev/null"
-#define ALT_STDOUT_BASE 0x0
-#define ALT_STDOUT_DEV null
-#define ALT_STDOUT_TYPE ""
+#define ALT_STDERR "/dev/usb_jtag_uart"
+#define ALT_STDERR_BASE 0x808
+#define ALT_STDERR_DEV usb_jtag_uart
+#define ALT_STDERR_IS_JTAG_UART
+#define ALT_STDERR_PRESENT
+#define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
+#define ALT_STDIN "/dev/usb_jtag_uart"
+#define ALT_STDIN_BASE 0x808
+#define ALT_STDIN_DEV usb_jtag_uart
+#define ALT_STDIN_IS_JTAG_UART
+#define ALT_STDIN_PRESENT
+#define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
+#define ALT_STDOUT "/dev/usb_jtag_uart"
+#define ALT_STDOUT_BASE 0x808
+#define ALT_STDOUT_DEV usb_jtag_uart
+#define ALT_STDOUT_IS_JTAG_UART
+#define ALT_STDOUT_PRESENT
+#define ALT_STDOUT_TYPE "altera_avalon_jtag_uart"
 #define ALT_SYSTEM_NAME "ECE385"
 
 
@@ -185,7 +193,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_hpi_address altera_avalon_pio
-#define USB_HPI_ADDRESS_BASE 0x820
+#define USB_HPI_ADDRESS_BASE 0x810
 #define USB_HPI_ADDRESS_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_HPI_ADDRESS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_HPI_ADDRESS_CAPTURE 0
@@ -212,7 +220,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_hpi_cs altera_avalon_pio
-#define USB_HPI_CS_BASE 0x860
+#define USB_HPI_CS_BASE 0x850
 #define USB_HPI_CS_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_HPI_CS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_HPI_CS_CAPTURE 0
@@ -239,7 +247,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_hpi_data altera_avalon_pio
-#define USB_HPI_DATA_BASE 0x830
+#define USB_HPI_DATA_BASE 0x820
 #define USB_HPI_DATA_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_HPI_DATA_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_HPI_DATA_CAPTURE 0
@@ -266,7 +274,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_hpi_r altera_avalon_pio
-#define USB_HPI_R_BASE 0x840
+#define USB_HPI_R_BASE 0x830
 #define USB_HPI_R_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_HPI_R_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_HPI_R_CAPTURE 0
@@ -293,7 +301,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_hpi_reset altera_avalon_pio
-#define USB_HPI_RESET_BASE 0x870
+#define USB_HPI_RESET_BASE 0x860
 #define USB_HPI_RESET_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_HPI_RESET_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_HPI_RESET_CAPTURE 0
@@ -320,7 +328,7 @@
  */
 
 #define ALT_MODULE_CLASS_usb_hpi_w altera_avalon_pio
-#define USB_HPI_W_BASE 0x850
+#define USB_HPI_W_BASE 0x840
 #define USB_HPI_W_BIT_CLEARING_EDGE_REGISTER 0
 #define USB_HPI_W_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define USB_HPI_W_CAPTURE 0
@@ -339,6 +347,24 @@
 #define USB_HPI_W_RESET_VALUE 0
 #define USB_HPI_W_SPAN 16
 #define USB_HPI_W_TYPE "altera_avalon_pio"
+
+
+/*
+ * usb_jtag_uart configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_usb_jtag_uart altera_avalon_jtag_uart
+#define USB_JTAG_UART_BASE 0x808
+#define USB_JTAG_UART_IRQ 0
+#define USB_JTAG_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define USB_JTAG_UART_NAME "/dev/usb_jtag_uart"
+#define USB_JTAG_UART_READ_DEPTH 256
+#define USB_JTAG_UART_READ_THRESHOLD 8
+#define USB_JTAG_UART_SPAN 8
+#define USB_JTAG_UART_TYPE "altera_avalon_jtag_uart"
+#define USB_JTAG_UART_WRITE_DEPTH 256
+#define USB_JTAG_UART_WRITE_THRESHOLD 8
 
 
 /*
@@ -411,34 +437,7 @@
 #define USB_NIOS2_SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define USB_NIOS2_SYSID_NAME "/dev/usb_nios2_sysid"
 #define USB_NIOS2_SYSID_SPAN 8
-#define USB_NIOS2_SYSID_TIMESTAMP 1558368967
+#define USB_NIOS2_SYSID_TIMESTAMP 1558964584
 #define USB_NIOS2_SYSID_TYPE "altera_avalon_sysid_qsys"
-
-
-/*
- * usb_status configuration
- *
- */
-
-#define ALT_MODULE_CLASS_usb_status altera_avalon_pio
-#define USB_STATUS_BASE 0x810
-#define USB_STATUS_BIT_CLEARING_EDGE_REGISTER 0
-#define USB_STATUS_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define USB_STATUS_CAPTURE 0
-#define USB_STATUS_DATA_WIDTH 1
-#define USB_STATUS_DO_TEST_BENCH_WIRING 0
-#define USB_STATUS_DRIVEN_SIM_VALUE 0
-#define USB_STATUS_EDGE_TYPE "NONE"
-#define USB_STATUS_FREQ 50000000
-#define USB_STATUS_HAS_IN 0
-#define USB_STATUS_HAS_OUT 1
-#define USB_STATUS_HAS_TRI 0
-#define USB_STATUS_IRQ -1
-#define USB_STATUS_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define USB_STATUS_IRQ_TYPE "NONE"
-#define USB_STATUS_NAME "/dev/usb_status"
-#define USB_STATUS_RESET_VALUE 0
-#define USB_STATUS_SPAN 16
-#define USB_STATUS_TYPE "altera_avalon_pio"
 
 #endif /* __SYSTEM_H_ */

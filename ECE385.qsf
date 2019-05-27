@@ -1183,10 +1183,10 @@ set_global_assignment -name MUX_RESTRUCTURE OFF
 set_global_assignment -name ROUTER_CLOCKING_TOPOLOGY_ANALYSIS ON
 set_global_assignment -name PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ON
 set_global_assignment -name OPTIMIZATION_MODE BALANCED
+set_global_assignment -name SYSTEMVERILOG_FILE hpi_io_intf.sv
 set_global_assignment -name VHDL_FILE comp/wm8731_audio/wm8731.vhdl
 set_global_assignment -name SYSTEMVERILOG_FILE comp/vga/bullet.sv
 set_global_assignment -name SYSTEMVERILOG_FILE comp/vga/vga_entities.sv
-set_global_assignment -name SYSTEMVERILOG_FILE hpi_io_intf.sv
 set_global_assignment -name SYSTEMVERILOG_FILE comp/vga/VGA_sprite.sv
 set_global_assignment -name SYSTEMVERILOG_FILE comp/SRAM_Multiplexer.sv
 set_global_assignment -name SYSTEMVERILOG_FILE comp/vga/VGA_controller.sv

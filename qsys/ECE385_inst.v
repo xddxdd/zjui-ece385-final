@@ -1,4 +1,15 @@
 	ECE385 u0 (
+		.audio_mem_clk2_clk                             (<connected-to-audio_mem_clk2_clk>),                             //                          audio_mem_clk2.clk
+		.audio_mem_reset2_reset                         (<connected-to-audio_mem_reset2_reset>),                         //                        audio_mem_reset2.reset
+		.audio_mem_s2_address                           (<connected-to-audio_mem_s2_address>),                           //                            audio_mem_s2.address
+		.audio_mem_s2_chipselect                        (<connected-to-audio_mem_s2_chipselect>),                        //                                        .chipselect
+		.audio_mem_s2_clken                             (<connected-to-audio_mem_s2_clken>),                             //                                        .clken
+		.audio_mem_s2_write                             (<connected-to-audio_mem_s2_write>),                             //                                        .write
+		.audio_mem_s2_readdata                          (<connected-to-audio_mem_s2_readdata>),                          //                                        .readdata
+		.audio_mem_s2_writedata                         (<connected-to-audio_mem_s2_writedata>),                         //                                        .writedata
+		.audio_mem_s2_byteenable                        (<connected-to-audio_mem_s2_byteenable>),                        //                                        .byteenable
+		.audio_position_export                          (<connected-to-audio_position_export>),                          //                          audio_position.export
+		.audio_position_end_export                      (<connected-to-audio_position_end_export>),                      //                      audio_position_end.export
 		.clk_clk                                        (<connected-to-clk_clk>),                                        //                                     clk.clk
 		.io_hex_export                                  (<connected-to-io_hex_export>),                                  //                                  io_hex.export
 		.io_hwrng_export                                (<connected-to-io_hwrng_export>),                                //                                io_hwrng.export
@@ -33,8 +44,9 @@
 		.sram_sram_oe_n                                 (<connected-to-sram_sram_oe_n>),                                 //                                        .sram_oe_n
 		.sram_sram_ub_n                                 (<connected-to-sram_sram_ub_n>),                                 //                                        .sram_ub_n
 		.sram_sram_we_n                                 (<connected-to-sram_sram_we_n>),                                 //                                        .sram_we_n
+		.usb_clk_clk                                    (<connected-to-usb_clk_clk>),                                    //                                 usb_clk.clk
 		.usb_nios2_cpu_custom_instruction_master_readra (<connected-to-usb_nios2_cpu_custom_instruction_master_readra>), // usb_nios2_cpu_custom_instruction_master.readra
-		.usb_status_export                              (<connected-to-usb_status_export>),                              //                              usb_status.export
+		.usb_reset_reset_n                              (<connected-to-usb_reset_reset_n>),                              //                               usb_reset.reset_n
 		.vga_vga_drawx                                  (<connected-to-vga_vga_drawx>),                                  //                                     vga.vga_drawx
 		.vga_vga_drawy                                  (<connected-to-vga_vga_drawy>),                                  //                                        .vga_drawy
 		.vga_vga_val                                    (<connected-to-vga_vga_val>),                                    //                                        .vga_val
@@ -117,16 +129,6 @@
 		.vga_sprite_params_pass_write                   (<connected-to-vga_sprite_params_pass_write>),                   //                                        .write
 		.vga_sprite_params_pass_writedata               (<connected-to-vga_sprite_params_pass_writedata>),               //                                        .writedata
 		.vga_sprite_params_reset_reset                  (<connected-to-vga_sprite_params_reset_reset>),                  //                 vga_sprite_params_reset.reset
-		.audio_mem_s2_address                           (<connected-to-audio_mem_s2_address>),                           //                            audio_mem_s2.address
-		.audio_mem_s2_chipselect                        (<connected-to-audio_mem_s2_chipselect>),                        //                                        .chipselect
-		.audio_mem_s2_clken                             (<connected-to-audio_mem_s2_clken>),                             //                                        .clken
-		.audio_mem_s2_write                             (<connected-to-audio_mem_s2_write>),                             //                                        .write
-		.audio_mem_s2_readdata                          (<connected-to-audio_mem_s2_readdata>),                          //                                        .readdata
-		.audio_mem_s2_writedata                         (<connected-to-audio_mem_s2_writedata>),                         //                                        .writedata
-		.audio_mem_s2_byteenable                        (<connected-to-audio_mem_s2_byteenable>),                        //                                        .byteenable
-		.audio_mem_clk2_clk                             (<connected-to-audio_mem_clk2_clk>),                             //                          audio_mem_clk2.clk
-		.audio_mem_reset2_reset                         (<connected-to-audio_mem_reset2_reset>),                         //                        audio_mem_reset2.reset
-		.audio_position_end_export                      (<connected-to-audio_position_end_export>),                      //                      audio_position_end.export
-		.audio_position_export                          (<connected-to-audio_position_export>)                           //                          audio_position.export
+		.vga_background_offset_export                   (<connected-to-vga_background_offset_export>)                    //                   vga_background_offset.export
 	);
 

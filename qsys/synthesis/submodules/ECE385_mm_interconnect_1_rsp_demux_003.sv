@@ -29,7 +29,7 @@
 // Generation parameters:
 //   output_name:         ECE385_mm_interconnect_1_rsp_demux_003
 //   ST_DATA_W:           95
-//   ST_CHANNEL_W:        11
+//   ST_CHANNEL_W:        10
 //   NUM_OUTPUTS:         1
 //   VALID_WIDTH:         1
 // ------------------------------------------
@@ -47,7 +47,7 @@ module ECE385_mm_interconnect_1_rsp_demux_003
     // -------------------
     input  [1-1      : 0]   sink_valid,
     input  [95-1    : 0]   sink_data, // ST_DATA_W=95
-    input  [11-1 : 0]   sink_channel, // ST_CHANNEL_W=11
+    input  [10-1 : 0]   sink_channel, // ST_CHANNEL_W=10
     input                         sink_startofpacket,
     input                         sink_endofpacket,
     output                        sink_ready,
@@ -57,7 +57,7 @@ module ECE385_mm_interconnect_1_rsp_demux_003
     // -------------------
     output reg                      src0_valid,
     output reg [95-1    : 0] src0_data, // ST_DATA_W=95
-    output reg [11-1 : 0] src0_channel, // ST_CHANNEL_W=11
+    output reg [10-1 : 0] src0_channel, // ST_CHANNEL_W=10
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
@@ -94,7 +94,7 @@ module ECE385_mm_interconnect_1_rsp_demux_003
     // -------------------
     assign ready_vector[0] = src0_ready;
 
-    assign sink_ready = |(sink_channel & {{10{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+    assign sink_ready = |(sink_channel & {{9{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
 
 endmodule
 

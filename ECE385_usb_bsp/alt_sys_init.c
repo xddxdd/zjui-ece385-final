@@ -4,7 +4,7 @@
  * Machine generated for CPU 'usb_nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Mon May 20 18:54:09 CST 2019
+ * Generated: Mon May 27 19:23:32 CST 2019
  */
 
 /*
@@ -59,6 +59,7 @@
  */
 
 #include "altera_nios2_gen2_irq.h"
+#include "altera_avalon_jtag_uart.h"
 #include "altera_avalon_sysid_qsys.h"
 
 /*
@@ -66,6 +67,7 @@
  */
 
 ALTERA_NIOS2_GEN2_IRQ_INSTANCE ( USB_NIOS2_CPU, usb_nios2_cpu);
+ALTERA_AVALON_JTAG_UART_INSTANCE ( USB_JTAG_UART, usb_jtag_uart);
 ALTERA_AVALON_SYSID_QSYS_INSTANCE ( USB_NIOS2_SYSID, usb_nios2_sysid);
 
 /*
@@ -89,5 +91,6 @@ void alt_irq_init ( const void* base )
 
 void alt_sys_init( void )
 {
+    ALTERA_AVALON_JTAG_UART_INIT ( USB_JTAG_UART, usb_jtag_uart);
     ALTERA_AVALON_SYSID_QSYS_INIT ( USB_NIOS2_SYSID, usb_nios2_sysid);
 }

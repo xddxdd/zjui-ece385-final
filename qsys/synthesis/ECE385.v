@@ -49,11 +49,13 @@ module ECE385 (
 		output wire        sram_sram_oe_n,                                 //                                        .sram_oe_n
 		output wire        sram_sram_ub_n,                                 //                                        .sram_ub_n
 		output wire        sram_sram_we_n,                                 //                                        .sram_we_n
+		input  wire        usb_clk_clk,                                    //                                 usb_clk.clk
 		output wire        usb_nios2_cpu_custom_instruction_master_readra, // usb_nios2_cpu_custom_instruction_master.readra
-		output wire        usb_status_export,                              //                              usb_status.export
+		input  wire        usb_reset_reset_n,                              //                               usb_reset.reset_n
 		input  wire [9:0]  vga_vga_drawx,                                  //                                     vga.vga_drawx
 		input  wire [9:0]  vga_vga_drawy,                                  //                                        .vga_drawy
 		output wire [15:0] vga_vga_val,                                    //                                        .vga_val
+		output wire [31:0] vga_background_offset_export,                   //                   vga_background_offset.export
 		input  wire        vga_sprite_0_clk2_clk,                          //                       vga_sprite_0_clk2.clk
 		input  wire        vga_sprite_0_reset2_reset,                      //                     vga_sprite_0_reset2.reset
 		input  wire [11:0] vga_sprite_0_s2_address,                        //                         vga_sprite_0_s2.address
@@ -294,6 +296,11 @@ module ECE385 (
 	wire  [31:0] mm_interconnect_0_audio_position_end_s1_writedata;               // mm_interconnect_0:audio_position_end_s1_writedata -> audio_position_end:writedata
 	wire  [31:0] mm_interconnect_0_audio_position_s1_readdata;                    // audio_position:readdata -> mm_interconnect_0:audio_position_s1_readdata
 	wire   [1:0] mm_interconnect_0_audio_position_s1_address;                     // mm_interconnect_0:audio_position_s1_address -> audio_position:address
+	wire         mm_interconnect_0_vga_background_offset_s1_chipselect;           // mm_interconnect_0:vga_background_offset_s1_chipselect -> vga_background_offset:chipselect
+	wire  [31:0] mm_interconnect_0_vga_background_offset_s1_readdata;             // vga_background_offset:readdata -> mm_interconnect_0:vga_background_offset_s1_readdata
+	wire   [1:0] mm_interconnect_0_vga_background_offset_s1_address;              // mm_interconnect_0:vga_background_offset_s1_address -> vga_background_offset:address
+	wire         mm_interconnect_0_vga_background_offset_s1_write;                // mm_interconnect_0:vga_background_offset_s1_write -> vga_background_offset:write_n
+	wire  [31:0] mm_interconnect_0_vga_background_offset_s1_writedata;            // mm_interconnect_0:vga_background_offset_s1_writedata -> vga_background_offset:writedata
 	wire         mm_interconnect_0_usb_keycode_s2_chipselect;                     // mm_interconnect_0:usb_keycode_s2_chipselect -> usb_keycode:chipselect2
 	wire  [31:0] mm_interconnect_0_usb_keycode_s2_readdata;                       // usb_keycode:readdata2 -> mm_interconnect_0:usb_keycode_s2_readdata
 	wire   [7:0] mm_interconnect_0_usb_keycode_s2_address;                        // mm_interconnect_0:usb_keycode_s2_address -> usb_keycode:address2
@@ -313,6 +320,13 @@ module ECE385 (
 	wire         usb_nios2_cpu_instruction_master_waitrequest;                    // mm_interconnect_1:usb_nios2_cpu_instruction_master_waitrequest -> usb_nios2_cpu:i_waitrequest
 	wire  [16:0] usb_nios2_cpu_instruction_master_address;                        // usb_nios2_cpu:i_address -> mm_interconnect_1:usb_nios2_cpu_instruction_master_address
 	wire         usb_nios2_cpu_instruction_master_read;                           // usb_nios2_cpu:i_read -> mm_interconnect_1:usb_nios2_cpu_instruction_master_read
+	wire         mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_chipselect;    // mm_interconnect_1:usb_jtag_uart_avalon_jtag_slave_chipselect -> usb_jtag_uart:av_chipselect
+	wire  [31:0] mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_readdata;      // usb_jtag_uart:av_readdata -> mm_interconnect_1:usb_jtag_uart_avalon_jtag_slave_readdata
+	wire         mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_waitrequest;   // usb_jtag_uart:av_waitrequest -> mm_interconnect_1:usb_jtag_uart_avalon_jtag_slave_waitrequest
+	wire   [0:0] mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_address;       // mm_interconnect_1:usb_jtag_uart_avalon_jtag_slave_address -> usb_jtag_uart:av_address
+	wire         mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_read;          // mm_interconnect_1:usb_jtag_uart_avalon_jtag_slave_read -> usb_jtag_uart:av_read_n
+	wire         mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_write;         // mm_interconnect_1:usb_jtag_uart_avalon_jtag_slave_write -> usb_jtag_uart:av_write_n
+	wire  [31:0] mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_writedata;     // mm_interconnect_1:usb_jtag_uart_avalon_jtag_slave_writedata -> usb_jtag_uart:av_writedata
 	wire  [31:0] mm_interconnect_1_usb_nios2_sysid_control_slave_readdata;        // usb_nios2_sysid:readdata -> mm_interconnect_1:usb_nios2_sysid_control_slave_readdata
 	wire   [0:0] mm_interconnect_1_usb_nios2_sysid_control_slave_address;         // mm_interconnect_1:usb_nios2_sysid_control_slave_address -> usb_nios2_sysid:address
 	wire  [31:0] mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_readdata;        // usb_nios2_cpu:debug_mem_slave_readdata -> mm_interconnect_1:usb_nios2_cpu_debug_mem_slave_readdata
@@ -367,20 +381,18 @@ module ECE385 (
 	wire         mm_interconnect_1_usb_keycode_s1_write;                          // mm_interconnect_1:usb_keycode_s1_write -> usb_keycode:write
 	wire  [31:0] mm_interconnect_1_usb_keycode_s1_writedata;                      // mm_interconnect_1:usb_keycode_s1_writedata -> usb_keycode:writedata
 	wire         mm_interconnect_1_usb_keycode_s1_clken;                          // mm_interconnect_1:usb_keycode_s1_clken -> usb_keycode:clken
-	wire         mm_interconnect_1_usb_status_s1_chipselect;                      // mm_interconnect_1:usb_status_s1_chipselect -> usb_status:chipselect
-	wire  [31:0] mm_interconnect_1_usb_status_s1_readdata;                        // usb_status:readdata -> mm_interconnect_1:usb_status_s1_readdata
-	wire   [1:0] mm_interconnect_1_usb_status_s1_address;                         // mm_interconnect_1:usb_status_s1_address -> usb_status:address
-	wire         mm_interconnect_1_usb_status_s1_write;                           // mm_interconnect_1:usb_status_s1_write -> usb_status:write_n
-	wire  [31:0] mm_interconnect_1_usb_status_s1_writedata;                       // mm_interconnect_1:usb_status_s1_writedata -> usb_status:writedata
 	wire         irq_mapper_receiver0_irq;                                        // nios2_jtag_uart:av_irq -> irq_mapper:receiver0_irq
 	wire         irq_mapper_receiver1_irq;                                        // nios2_timer:irq -> irq_mapper:receiver1_irq
 	wire  [31:0] nios2_cpu_irq_irq;                                               // irq_mapper:sender_irq -> nios2_cpu:irq
+	wire         irq_mapper_001_receiver0_irq;                                    // usb_jtag_uart:av_irq -> irq_mapper_001:receiver0_irq
 	wire  [31:0] usb_nios2_cpu_irq_irq;                                           // irq_mapper_001:sender_irq -> usb_nios2_cpu:irq
-	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_mem:reset, audio_position:reset_n, audio_position_end:reset_n, io_hex:reset_n, io_hwrng:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, irq_mapper_001:reset, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_keycode:reset, usb_keycode:reset2, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n, usb_status:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
-	wire         rst_controller_reset_out_reset_req;                              // rst_controller:reset_req -> [nios2_onchip_mem:reset_req, rst_translator:reset_req_in, usb_nios2_cpu:reset_req]
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_mem:reset, audio_position:reset_n, audio_position_end:reset_n, io_hex:reset_n, io_hwrng:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET, usb_keycode:reset2, vga_background_offset:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
+	wire         rst_controller_reset_out_reset_req;                              // rst_controller:reset_req -> [nios2_onchip_mem:reset_req, rst_translator:reset_req_in]
 	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
 	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator_001:reset_req_in]
 	wire         nios2_cpu_debug_reset_request_reset;                             // nios2_cpu:debug_reset_request -> rst_controller_001:reset_in1
+	wire         rst_controller_002_reset_out_reset;                              // rst_controller_002:reset_out -> [irq_mapper_001:reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, rst_translator_002:in_reset, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_jtag_uart:rst_n, usb_keycode:reset, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n]
+	wire         rst_controller_002_reset_out_reset_req;                          // rst_controller_002:reset_req -> [rst_translator_002:reset_req_in, usb_nios2_cpu:reset_req]
 
 	ECE385_audio_mem audio_mem (
 		.clk         (clk_clk),                                   //   clk1.clk
@@ -636,8 +648,8 @@ module ECE385 (
 	);
 
 	ECE385_usb_hpi_address usb_hpi_address (
-		.clk        (clk_clk),                                         //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),                 //               reset.reset_n
+		.clk        (usb_clk_clk),                                     //                 clk.clk
+		.reset_n    (~rst_controller_002_reset_out_reset),             //               reset.reset_n
 		.address    (mm_interconnect_1_usb_hpi_address_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_1_usb_hpi_address_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_1_usb_hpi_address_s1_writedata),  //                    .writedata
@@ -647,8 +659,8 @@ module ECE385 (
 	);
 
 	ECE385_usb_hpi_cs usb_hpi_cs (
-		.clk        (clk_clk),                                    //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),            //               reset.reset_n
+		.clk        (usb_clk_clk),                                //                 clk.clk
+		.reset_n    (~rst_controller_002_reset_out_reset),        //               reset.reset_n
 		.address    (mm_interconnect_1_usb_hpi_cs_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_1_usb_hpi_cs_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_1_usb_hpi_cs_s1_writedata),  //                    .writedata
@@ -658,8 +670,8 @@ module ECE385 (
 	);
 
 	ECE385_usb_hpi_data usb_hpi_data (
-		.clk        (clk_clk),                                      //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),              //               reset.reset_n
+		.clk        (usb_clk_clk),                                  //                 clk.clk
+		.reset_n    (~rst_controller_002_reset_out_reset),          //               reset.reset_n
 		.address    (mm_interconnect_1_usb_hpi_data_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_1_usb_hpi_data_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_1_usb_hpi_data_s1_writedata),  //                    .writedata
@@ -670,8 +682,8 @@ module ECE385 (
 	);
 
 	ECE385_usb_hpi_cs usb_hpi_r (
-		.clk        (clk_clk),                                   //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),           //               reset.reset_n
+		.clk        (usb_clk_clk),                               //                 clk.clk
+		.reset_n    (~rst_controller_002_reset_out_reset),       //               reset.reset_n
 		.address    (mm_interconnect_1_usb_hpi_r_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_1_usb_hpi_r_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_1_usb_hpi_r_s1_writedata),  //                    .writedata
@@ -681,8 +693,8 @@ module ECE385 (
 	);
 
 	ECE385_usb_hpi_cs usb_hpi_reset (
-		.clk        (clk_clk),                                       //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),               //               reset.reset_n
+		.clk        (usb_clk_clk),                                   //                 clk.clk
+		.reset_n    (~rst_controller_002_reset_out_reset),           //               reset.reset_n
 		.address    (mm_interconnect_1_usb_hpi_reset_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_1_usb_hpi_reset_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_1_usb_hpi_reset_s1_writedata),  //                    .writedata
@@ -692,8 +704,8 @@ module ECE385 (
 	);
 
 	ECE385_usb_hpi_cs usb_hpi_w (
-		.clk        (clk_clk),                                   //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),           //               reset.reset_n
+		.clk        (usb_clk_clk),                               //                 clk.clk
+		.reset_n    (~rst_controller_002_reset_out_reset),       //               reset.reset_n
 		.address    (mm_interconnect_1_usb_hpi_w_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_1_usb_hpi_w_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_1_usb_hpi_w_s1_writedata),  //                    .writedata
@@ -702,8 +714,21 @@ module ECE385 (
 		.out_port   (otg_hpi_w_export)                           // external_connection.export
 	);
 
+	ECE385_nios2_jtag_uart usb_jtag_uart (
+		.clk            (usb_clk_clk),                                                   //               clk.clk
+		.rst_n          (~rst_controller_002_reset_out_reset),                           //             reset.reset_n
+		.av_chipselect  (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_chipselect),  // avalon_jtag_slave.chipselect
+		.av_address     (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_address),     //                  .address
+		.av_read_n      (~mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_read),       //                  .read_n
+		.av_readdata    (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_readdata),    //                  .readdata
+		.av_write_n     (~mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_write),      //                  .write_n
+		.av_writedata   (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_writedata),   //                  .writedata
+		.av_waitrequest (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_waitrequest), //                  .waitrequest
+		.av_irq         (irq_mapper_001_receiver0_irq)                                   //               irq.irq
+	);
+
 	ECE385_usb_keycode usb_keycode (
-		.clk         (clk_clk),                                     //   clk1.clk
+		.clk         (usb_clk_clk),                                 //   clk1.clk
 		.address     (mm_interconnect_1_usb_keycode_s1_address),    //     s1.address
 		.clken       (mm_interconnect_1_usb_keycode_s1_clken),      //       .clken
 		.chipselect  (mm_interconnect_1_usb_keycode_s1_chipselect), //       .chipselect
@@ -711,7 +736,7 @@ module ECE385 (
 		.readdata    (mm_interconnect_1_usb_keycode_s1_readdata),   //       .readdata
 		.writedata   (mm_interconnect_1_usb_keycode_s1_writedata),  //       .writedata
 		.byteenable  (mm_interconnect_1_usb_keycode_s1_byteenable), //       .byteenable
-		.reset       (rst_controller_reset_out_reset),              // reset1.reset
+		.reset       (rst_controller_002_reset_out_reset),          // reset1.reset
 		.address2    (mm_interconnect_0_usb_keycode_s2_address),    //     s2.address
 		.chipselect2 (mm_interconnect_0_usb_keycode_s2_chipselect), //       .chipselect
 		.clken2      (mm_interconnect_0_usb_keycode_s2_clken),      //       .clken
@@ -727,9 +752,9 @@ module ECE385 (
 	);
 
 	ECE385_usb_nios2_cpu usb_nios2_cpu (
-		.clk                                 (clk_clk),                                                     //                       clk.clk
-		.reset_n                             (~rst_controller_reset_out_reset),                             //                     reset.reset_n
-		.reset_req                           (rst_controller_reset_out_reset_req),                          //                          .reset_req
+		.clk                                 (usb_clk_clk),                                                 //                       clk.clk
+		.reset_n                             (~rst_controller_002_reset_out_reset),                         //                     reset.reset_n
+		.reset_req                           (rst_controller_002_reset_out_reset_req),                      //                          .reset_req
 		.d_address                           (usb_nios2_cpu_data_master_address),                           //               data_master.address
 		.d_byteenable                        (usb_nios2_cpu_data_master_byteenable),                        //                          .byteenable
 		.d_read                              (usb_nios2_cpu_data_master_read),                              //                          .read
@@ -756,7 +781,7 @@ module ECE385 (
 	);
 
 	ECE385_usb_nios2_onchip_mem usb_nios2_onchip_mem (
-		.clk        (clk_clk),                                              //   clk1.clk
+		.clk        (usb_clk_clk),                                          //   clk1.clk
 		.address    (mm_interconnect_1_usb_nios2_onchip_mem_s1_address),    //     s1.address
 		.clken      (mm_interconnect_1_usb_nios2_onchip_mem_s1_clken),      //       .clken
 		.chipselect (mm_interconnect_1_usb_nios2_onchip_mem_s1_chipselect), //       .chipselect
@@ -764,27 +789,27 @@ module ECE385 (
 		.readdata   (mm_interconnect_1_usb_nios2_onchip_mem_s1_readdata),   //       .readdata
 		.writedata  (mm_interconnect_1_usb_nios2_onchip_mem_s1_writedata),  //       .writedata
 		.byteenable (mm_interconnect_1_usb_nios2_onchip_mem_s1_byteenable), //       .byteenable
-		.reset      (rst_controller_reset_out_reset),                       // reset1.reset
+		.reset      (rst_controller_002_reset_out_reset),                   // reset1.reset
 		.reset_req  (1'b0),                                                 // (terminated)
 		.freeze     (1'b0)                                                  // (terminated)
 	);
 
 	ECE385_nios2_sysid usb_nios2_sysid (
-		.clock    (clk_clk),                                                  //           clk.clk
-		.reset_n  (~rst_controller_reset_out_reset),                          //         reset.reset_n
+		.clock    (usb_clk_clk),                                              //           clk.clk
+		.reset_n  (~rst_controller_002_reset_out_reset),                      //         reset.reset_n
 		.readdata (mm_interconnect_1_usb_nios2_sysid_control_slave_readdata), // control_slave.readdata
 		.address  (mm_interconnect_1_usb_nios2_sysid_control_slave_address)   //              .address
 	);
 
-	ECE385_usb_hpi_cs usb_status (
-		.clk        (clk_clk),                                    //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),            //               reset.reset_n
-		.address    (mm_interconnect_1_usb_status_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_1_usb_status_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_1_usb_status_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_1_usb_status_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_1_usb_status_s1_readdata),   //                    .readdata
-		.out_port   (usb_status_export)                           // external_connection.export
+	ECE385_audio_position_end vga_background_offset (
+		.clk        (clk_clk),                                               //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),                       //               reset.reset_n
+		.address    (mm_interconnect_0_vga_background_offset_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_vga_background_offset_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_vga_background_offset_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_vga_background_offset_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_vga_background_offset_s1_readdata),   //                    .readdata
+		.out_port   (vga_background_offset_export)                           // external_connection.export
 	);
 
 	ECE385_vga_sprite_0 vga_sprite_0 (
@@ -1106,6 +1131,11 @@ module ECE385 (
 		.usb_keycode_s2_byteenable                         (mm_interconnect_0_usb_keycode_s2_byteenable),                     //                                            .byteenable
 		.usb_keycode_s2_chipselect                         (mm_interconnect_0_usb_keycode_s2_chipselect),                     //                                            .chipselect
 		.usb_keycode_s2_clken                              (mm_interconnect_0_usb_keycode_s2_clken),                          //                                            .clken
+		.vga_background_offset_s1_address                  (mm_interconnect_0_vga_background_offset_s1_address),              //                    vga_background_offset_s1.address
+		.vga_background_offset_s1_write                    (mm_interconnect_0_vga_background_offset_s1_write),                //                                            .write
+		.vga_background_offset_s1_readdata                 (mm_interconnect_0_vga_background_offset_s1_readdata),             //                                            .readdata
+		.vga_background_offset_s1_writedata                (mm_interconnect_0_vga_background_offset_s1_writedata),            //                                            .writedata
+		.vga_background_offset_s1_chipselect               (mm_interconnect_0_vga_background_offset_s1_chipselect),           //                                            .chipselect
 		.vga_sprite_0_s1_address                           (mm_interconnect_0_vga_sprite_0_s1_address),                       //                             vga_sprite_0_s1.address
 		.vga_sprite_0_s1_write                             (mm_interconnect_0_vga_sprite_0_s1_write),                         //                                            .write
 		.vga_sprite_0_s1_readdata                          (mm_interconnect_0_vga_sprite_0_s1_readdata),                      //                                            .readdata
@@ -1170,79 +1200,81 @@ module ECE385 (
 	);
 
 	ECE385_mm_interconnect_1 mm_interconnect_1 (
-		.clk_0_clk_clk                                   (clk_clk),                                                     //                                 clk_0_clk.clk
-		.usb_nios2_cpu_reset_reset_bridge_in_reset_reset (rst_controller_reset_out_reset),                              // usb_nios2_cpu_reset_reset_bridge_in_reset.reset
-		.usb_nios2_cpu_data_master_address               (usb_nios2_cpu_data_master_address),                           //                 usb_nios2_cpu_data_master.address
-		.usb_nios2_cpu_data_master_waitrequest           (usb_nios2_cpu_data_master_waitrequest),                       //                                          .waitrequest
-		.usb_nios2_cpu_data_master_byteenable            (usb_nios2_cpu_data_master_byteenable),                        //                                          .byteenable
-		.usb_nios2_cpu_data_master_read                  (usb_nios2_cpu_data_master_read),                              //                                          .read
-		.usb_nios2_cpu_data_master_readdata              (usb_nios2_cpu_data_master_readdata),                          //                                          .readdata
-		.usb_nios2_cpu_data_master_write                 (usb_nios2_cpu_data_master_write),                             //                                          .write
-		.usb_nios2_cpu_data_master_writedata             (usb_nios2_cpu_data_master_writedata),                         //                                          .writedata
-		.usb_nios2_cpu_data_master_debugaccess           (usb_nios2_cpu_data_master_debugaccess),                       //                                          .debugaccess
-		.usb_nios2_cpu_instruction_master_address        (usb_nios2_cpu_instruction_master_address),                    //          usb_nios2_cpu_instruction_master.address
-		.usb_nios2_cpu_instruction_master_waitrequest    (usb_nios2_cpu_instruction_master_waitrequest),                //                                          .waitrequest
-		.usb_nios2_cpu_instruction_master_read           (usb_nios2_cpu_instruction_master_read),                       //                                          .read
-		.usb_nios2_cpu_instruction_master_readdata       (usb_nios2_cpu_instruction_master_readdata),                   //                                          .readdata
-		.usb_hpi_address_s1_address                      (mm_interconnect_1_usb_hpi_address_s1_address),                //                        usb_hpi_address_s1.address
-		.usb_hpi_address_s1_write                        (mm_interconnect_1_usb_hpi_address_s1_write),                  //                                          .write
-		.usb_hpi_address_s1_readdata                     (mm_interconnect_1_usb_hpi_address_s1_readdata),               //                                          .readdata
-		.usb_hpi_address_s1_writedata                    (mm_interconnect_1_usb_hpi_address_s1_writedata),              //                                          .writedata
-		.usb_hpi_address_s1_chipselect                   (mm_interconnect_1_usb_hpi_address_s1_chipselect),             //                                          .chipselect
-		.usb_hpi_cs_s1_address                           (mm_interconnect_1_usb_hpi_cs_s1_address),                     //                             usb_hpi_cs_s1.address
-		.usb_hpi_cs_s1_write                             (mm_interconnect_1_usb_hpi_cs_s1_write),                       //                                          .write
-		.usb_hpi_cs_s1_readdata                          (mm_interconnect_1_usb_hpi_cs_s1_readdata),                    //                                          .readdata
-		.usb_hpi_cs_s1_writedata                         (mm_interconnect_1_usb_hpi_cs_s1_writedata),                   //                                          .writedata
-		.usb_hpi_cs_s1_chipselect                        (mm_interconnect_1_usb_hpi_cs_s1_chipselect),                  //                                          .chipselect
-		.usb_hpi_data_s1_address                         (mm_interconnect_1_usb_hpi_data_s1_address),                   //                           usb_hpi_data_s1.address
-		.usb_hpi_data_s1_write                           (mm_interconnect_1_usb_hpi_data_s1_write),                     //                                          .write
-		.usb_hpi_data_s1_readdata                        (mm_interconnect_1_usb_hpi_data_s1_readdata),                  //                                          .readdata
-		.usb_hpi_data_s1_writedata                       (mm_interconnect_1_usb_hpi_data_s1_writedata),                 //                                          .writedata
-		.usb_hpi_data_s1_chipselect                      (mm_interconnect_1_usb_hpi_data_s1_chipselect),                //                                          .chipselect
-		.usb_hpi_r_s1_address                            (mm_interconnect_1_usb_hpi_r_s1_address),                      //                              usb_hpi_r_s1.address
-		.usb_hpi_r_s1_write                              (mm_interconnect_1_usb_hpi_r_s1_write),                        //                                          .write
-		.usb_hpi_r_s1_readdata                           (mm_interconnect_1_usb_hpi_r_s1_readdata),                     //                                          .readdata
-		.usb_hpi_r_s1_writedata                          (mm_interconnect_1_usb_hpi_r_s1_writedata),                    //                                          .writedata
-		.usb_hpi_r_s1_chipselect                         (mm_interconnect_1_usb_hpi_r_s1_chipselect),                   //                                          .chipselect
-		.usb_hpi_reset_s1_address                        (mm_interconnect_1_usb_hpi_reset_s1_address),                  //                          usb_hpi_reset_s1.address
-		.usb_hpi_reset_s1_write                          (mm_interconnect_1_usb_hpi_reset_s1_write),                    //                                          .write
-		.usb_hpi_reset_s1_readdata                       (mm_interconnect_1_usb_hpi_reset_s1_readdata),                 //                                          .readdata
-		.usb_hpi_reset_s1_writedata                      (mm_interconnect_1_usb_hpi_reset_s1_writedata),                //                                          .writedata
-		.usb_hpi_reset_s1_chipselect                     (mm_interconnect_1_usb_hpi_reset_s1_chipselect),               //                                          .chipselect
-		.usb_hpi_w_s1_address                            (mm_interconnect_1_usb_hpi_w_s1_address),                      //                              usb_hpi_w_s1.address
-		.usb_hpi_w_s1_write                              (mm_interconnect_1_usb_hpi_w_s1_write),                        //                                          .write
-		.usb_hpi_w_s1_readdata                           (mm_interconnect_1_usb_hpi_w_s1_readdata),                     //                                          .readdata
-		.usb_hpi_w_s1_writedata                          (mm_interconnect_1_usb_hpi_w_s1_writedata),                    //                                          .writedata
-		.usb_hpi_w_s1_chipselect                         (mm_interconnect_1_usb_hpi_w_s1_chipselect),                   //                                          .chipselect
-		.usb_keycode_s1_address                          (mm_interconnect_1_usb_keycode_s1_address),                    //                            usb_keycode_s1.address
-		.usb_keycode_s1_write                            (mm_interconnect_1_usb_keycode_s1_write),                      //                                          .write
-		.usb_keycode_s1_readdata                         (mm_interconnect_1_usb_keycode_s1_readdata),                   //                                          .readdata
-		.usb_keycode_s1_writedata                        (mm_interconnect_1_usb_keycode_s1_writedata),                  //                                          .writedata
-		.usb_keycode_s1_byteenable                       (mm_interconnect_1_usb_keycode_s1_byteenable),                 //                                          .byteenable
-		.usb_keycode_s1_chipselect                       (mm_interconnect_1_usb_keycode_s1_chipselect),                 //                                          .chipselect
-		.usb_keycode_s1_clken                            (mm_interconnect_1_usb_keycode_s1_clken),                      //                                          .clken
-		.usb_nios2_cpu_debug_mem_slave_address           (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_address),     //             usb_nios2_cpu_debug_mem_slave.address
-		.usb_nios2_cpu_debug_mem_slave_write             (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_write),       //                                          .write
-		.usb_nios2_cpu_debug_mem_slave_read              (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_read),        //                                          .read
-		.usb_nios2_cpu_debug_mem_slave_readdata          (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_readdata),    //                                          .readdata
-		.usb_nios2_cpu_debug_mem_slave_writedata         (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_writedata),   //                                          .writedata
-		.usb_nios2_cpu_debug_mem_slave_byteenable        (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_byteenable),  //                                          .byteenable
-		.usb_nios2_cpu_debug_mem_slave_waitrequest       (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_waitrequest), //                                          .waitrequest
-		.usb_nios2_cpu_debug_mem_slave_debugaccess       (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_debugaccess), //                                          .debugaccess
-		.usb_nios2_onchip_mem_s1_address                 (mm_interconnect_1_usb_nios2_onchip_mem_s1_address),           //                   usb_nios2_onchip_mem_s1.address
-		.usb_nios2_onchip_mem_s1_write                   (mm_interconnect_1_usb_nios2_onchip_mem_s1_write),             //                                          .write
-		.usb_nios2_onchip_mem_s1_readdata                (mm_interconnect_1_usb_nios2_onchip_mem_s1_readdata),          //                                          .readdata
-		.usb_nios2_onchip_mem_s1_writedata               (mm_interconnect_1_usb_nios2_onchip_mem_s1_writedata),         //                                          .writedata
-		.usb_nios2_onchip_mem_s1_byteenable              (mm_interconnect_1_usb_nios2_onchip_mem_s1_byteenable),        //                                          .byteenable
-		.usb_nios2_onchip_mem_s1_chipselect              (mm_interconnect_1_usb_nios2_onchip_mem_s1_chipselect),        //                                          .chipselect
-		.usb_nios2_onchip_mem_s1_clken                   (mm_interconnect_1_usb_nios2_onchip_mem_s1_clken),             //                                          .clken
-		.usb_nios2_sysid_control_slave_address           (mm_interconnect_1_usb_nios2_sysid_control_slave_address),     //             usb_nios2_sysid_control_slave.address
-		.usb_nios2_sysid_control_slave_readdata          (mm_interconnect_1_usb_nios2_sysid_control_slave_readdata),    //                                          .readdata
-		.usb_status_s1_address                           (mm_interconnect_1_usb_status_s1_address),                     //                             usb_status_s1.address
-		.usb_status_s1_write                             (mm_interconnect_1_usb_status_s1_write),                       //                                          .write
-		.usb_status_s1_readdata                          (mm_interconnect_1_usb_status_s1_readdata),                    //                                          .readdata
-		.usb_status_s1_writedata                         (mm_interconnect_1_usb_status_s1_writedata),                   //                                          .writedata
-		.usb_status_s1_chipselect                        (mm_interconnect_1_usb_status_s1_chipselect)                   //                                          .chipselect
+		.usb_clk_clk_clk                                 (usb_clk_clk),                                                   //                               usb_clk_clk.clk
+		.usb_nios2_cpu_reset_reset_bridge_in_reset_reset (rst_controller_002_reset_out_reset),                            // usb_nios2_cpu_reset_reset_bridge_in_reset.reset
+		.usb_nios2_cpu_data_master_address               (usb_nios2_cpu_data_master_address),                             //                 usb_nios2_cpu_data_master.address
+		.usb_nios2_cpu_data_master_waitrequest           (usb_nios2_cpu_data_master_waitrequest),                         //                                          .waitrequest
+		.usb_nios2_cpu_data_master_byteenable            (usb_nios2_cpu_data_master_byteenable),                          //                                          .byteenable
+		.usb_nios2_cpu_data_master_read                  (usb_nios2_cpu_data_master_read),                                //                                          .read
+		.usb_nios2_cpu_data_master_readdata              (usb_nios2_cpu_data_master_readdata),                            //                                          .readdata
+		.usb_nios2_cpu_data_master_write                 (usb_nios2_cpu_data_master_write),                               //                                          .write
+		.usb_nios2_cpu_data_master_writedata             (usb_nios2_cpu_data_master_writedata),                           //                                          .writedata
+		.usb_nios2_cpu_data_master_debugaccess           (usb_nios2_cpu_data_master_debugaccess),                         //                                          .debugaccess
+		.usb_nios2_cpu_instruction_master_address        (usb_nios2_cpu_instruction_master_address),                      //          usb_nios2_cpu_instruction_master.address
+		.usb_nios2_cpu_instruction_master_waitrequest    (usb_nios2_cpu_instruction_master_waitrequest),                  //                                          .waitrequest
+		.usb_nios2_cpu_instruction_master_read           (usb_nios2_cpu_instruction_master_read),                         //                                          .read
+		.usb_nios2_cpu_instruction_master_readdata       (usb_nios2_cpu_instruction_master_readdata),                     //                                          .readdata
+		.usb_hpi_address_s1_address                      (mm_interconnect_1_usb_hpi_address_s1_address),                  //                        usb_hpi_address_s1.address
+		.usb_hpi_address_s1_write                        (mm_interconnect_1_usb_hpi_address_s1_write),                    //                                          .write
+		.usb_hpi_address_s1_readdata                     (mm_interconnect_1_usb_hpi_address_s1_readdata),                 //                                          .readdata
+		.usb_hpi_address_s1_writedata                    (mm_interconnect_1_usb_hpi_address_s1_writedata),                //                                          .writedata
+		.usb_hpi_address_s1_chipselect                   (mm_interconnect_1_usb_hpi_address_s1_chipselect),               //                                          .chipselect
+		.usb_hpi_cs_s1_address                           (mm_interconnect_1_usb_hpi_cs_s1_address),                       //                             usb_hpi_cs_s1.address
+		.usb_hpi_cs_s1_write                             (mm_interconnect_1_usb_hpi_cs_s1_write),                         //                                          .write
+		.usb_hpi_cs_s1_readdata                          (mm_interconnect_1_usb_hpi_cs_s1_readdata),                      //                                          .readdata
+		.usb_hpi_cs_s1_writedata                         (mm_interconnect_1_usb_hpi_cs_s1_writedata),                     //                                          .writedata
+		.usb_hpi_cs_s1_chipselect                        (mm_interconnect_1_usb_hpi_cs_s1_chipselect),                    //                                          .chipselect
+		.usb_hpi_data_s1_address                         (mm_interconnect_1_usb_hpi_data_s1_address),                     //                           usb_hpi_data_s1.address
+		.usb_hpi_data_s1_write                           (mm_interconnect_1_usb_hpi_data_s1_write),                       //                                          .write
+		.usb_hpi_data_s1_readdata                        (mm_interconnect_1_usb_hpi_data_s1_readdata),                    //                                          .readdata
+		.usb_hpi_data_s1_writedata                       (mm_interconnect_1_usb_hpi_data_s1_writedata),                   //                                          .writedata
+		.usb_hpi_data_s1_chipselect                      (mm_interconnect_1_usb_hpi_data_s1_chipselect),                  //                                          .chipselect
+		.usb_hpi_r_s1_address                            (mm_interconnect_1_usb_hpi_r_s1_address),                        //                              usb_hpi_r_s1.address
+		.usb_hpi_r_s1_write                              (mm_interconnect_1_usb_hpi_r_s1_write),                          //                                          .write
+		.usb_hpi_r_s1_readdata                           (mm_interconnect_1_usb_hpi_r_s1_readdata),                       //                                          .readdata
+		.usb_hpi_r_s1_writedata                          (mm_interconnect_1_usb_hpi_r_s1_writedata),                      //                                          .writedata
+		.usb_hpi_r_s1_chipselect                         (mm_interconnect_1_usb_hpi_r_s1_chipselect),                     //                                          .chipselect
+		.usb_hpi_reset_s1_address                        (mm_interconnect_1_usb_hpi_reset_s1_address),                    //                          usb_hpi_reset_s1.address
+		.usb_hpi_reset_s1_write                          (mm_interconnect_1_usb_hpi_reset_s1_write),                      //                                          .write
+		.usb_hpi_reset_s1_readdata                       (mm_interconnect_1_usb_hpi_reset_s1_readdata),                   //                                          .readdata
+		.usb_hpi_reset_s1_writedata                      (mm_interconnect_1_usb_hpi_reset_s1_writedata),                  //                                          .writedata
+		.usb_hpi_reset_s1_chipselect                     (mm_interconnect_1_usb_hpi_reset_s1_chipselect),                 //                                          .chipselect
+		.usb_hpi_w_s1_address                            (mm_interconnect_1_usb_hpi_w_s1_address),                        //                              usb_hpi_w_s1.address
+		.usb_hpi_w_s1_write                              (mm_interconnect_1_usb_hpi_w_s1_write),                          //                                          .write
+		.usb_hpi_w_s1_readdata                           (mm_interconnect_1_usb_hpi_w_s1_readdata),                       //                                          .readdata
+		.usb_hpi_w_s1_writedata                          (mm_interconnect_1_usb_hpi_w_s1_writedata),                      //                                          .writedata
+		.usb_hpi_w_s1_chipselect                         (mm_interconnect_1_usb_hpi_w_s1_chipselect),                     //                                          .chipselect
+		.usb_jtag_uart_avalon_jtag_slave_address         (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_address),     //           usb_jtag_uart_avalon_jtag_slave.address
+		.usb_jtag_uart_avalon_jtag_slave_write           (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_write),       //                                          .write
+		.usb_jtag_uart_avalon_jtag_slave_read            (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_read),        //                                          .read
+		.usb_jtag_uart_avalon_jtag_slave_readdata        (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_readdata),    //                                          .readdata
+		.usb_jtag_uart_avalon_jtag_slave_writedata       (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_writedata),   //                                          .writedata
+		.usb_jtag_uart_avalon_jtag_slave_waitrequest     (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_waitrequest), //                                          .waitrequest
+		.usb_jtag_uart_avalon_jtag_slave_chipselect      (mm_interconnect_1_usb_jtag_uart_avalon_jtag_slave_chipselect),  //                                          .chipselect
+		.usb_keycode_s1_address                          (mm_interconnect_1_usb_keycode_s1_address),                      //                            usb_keycode_s1.address
+		.usb_keycode_s1_write                            (mm_interconnect_1_usb_keycode_s1_write),                        //                                          .write
+		.usb_keycode_s1_readdata                         (mm_interconnect_1_usb_keycode_s1_readdata),                     //                                          .readdata
+		.usb_keycode_s1_writedata                        (mm_interconnect_1_usb_keycode_s1_writedata),                    //                                          .writedata
+		.usb_keycode_s1_byteenable                       (mm_interconnect_1_usb_keycode_s1_byteenable),                   //                                          .byteenable
+		.usb_keycode_s1_chipselect                       (mm_interconnect_1_usb_keycode_s1_chipselect),                   //                                          .chipselect
+		.usb_keycode_s1_clken                            (mm_interconnect_1_usb_keycode_s1_clken),                        //                                          .clken
+		.usb_nios2_cpu_debug_mem_slave_address           (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_address),       //             usb_nios2_cpu_debug_mem_slave.address
+		.usb_nios2_cpu_debug_mem_slave_write             (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_write),         //                                          .write
+		.usb_nios2_cpu_debug_mem_slave_read              (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_read),          //                                          .read
+		.usb_nios2_cpu_debug_mem_slave_readdata          (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_readdata),      //                                          .readdata
+		.usb_nios2_cpu_debug_mem_slave_writedata         (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_writedata),     //                                          .writedata
+		.usb_nios2_cpu_debug_mem_slave_byteenable        (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_byteenable),    //                                          .byteenable
+		.usb_nios2_cpu_debug_mem_slave_waitrequest       (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_waitrequest),   //                                          .waitrequest
+		.usb_nios2_cpu_debug_mem_slave_debugaccess       (mm_interconnect_1_usb_nios2_cpu_debug_mem_slave_debugaccess),   //                                          .debugaccess
+		.usb_nios2_onchip_mem_s1_address                 (mm_interconnect_1_usb_nios2_onchip_mem_s1_address),             //                   usb_nios2_onchip_mem_s1.address
+		.usb_nios2_onchip_mem_s1_write                   (mm_interconnect_1_usb_nios2_onchip_mem_s1_write),               //                                          .write
+		.usb_nios2_onchip_mem_s1_readdata                (mm_interconnect_1_usb_nios2_onchip_mem_s1_readdata),            //                                          .readdata
+		.usb_nios2_onchip_mem_s1_writedata               (mm_interconnect_1_usb_nios2_onchip_mem_s1_writedata),           //                                          .writedata
+		.usb_nios2_onchip_mem_s1_byteenable              (mm_interconnect_1_usb_nios2_onchip_mem_s1_byteenable),          //                                          .byteenable
+		.usb_nios2_onchip_mem_s1_chipselect              (mm_interconnect_1_usb_nios2_onchip_mem_s1_chipselect),          //                                          .chipselect
+		.usb_nios2_onchip_mem_s1_clken                   (mm_interconnect_1_usb_nios2_onchip_mem_s1_clken),               //                                          .clken
+		.usb_nios2_sysid_control_slave_address           (mm_interconnect_1_usb_nios2_sysid_control_slave_address),       //             usb_nios2_sysid_control_slave.address
+		.usb_nios2_sysid_control_slave_readdata          (mm_interconnect_1_usb_nios2_sysid_control_slave_readdata)       //                                          .readdata
 	);
 
 	ECE385_irq_mapper irq_mapper (
@@ -1254,9 +1286,10 @@ module ECE385 (
 	);
 
 	ECE385_irq_mapper_001 irq_mapper_001 (
-		.clk        (clk_clk),                        //       clk.clk
-		.reset      (rst_controller_reset_out_reset), // clk_reset.reset
-		.sender_irq (usb_nios2_cpu_irq_irq)           //    sender.irq
+		.clk           (usb_clk_clk),                        //       clk.clk
+		.reset         (rst_controller_002_reset_out_reset), // clk_reset.reset
+		.receiver0_irq (irq_mapper_001_receiver0_irq),       // receiver0.irq
+		.sender_irq    (usb_nios2_cpu_irq_irq)               //    sender.irq
 	);
 
 	altera_reset_controller #(
@@ -1354,6 +1387,69 @@ module ECE385 (
 		.reset_out      (rst_controller_001_reset_out_reset),     // reset_out.reset
 		.reset_req      (rst_controller_001_reset_out_reset_req), //          .reset_req
 		.reset_req_in0  (1'b0),                                   // (terminated)
+		.reset_req_in1  (1'b0),                                   // (terminated)
+		.reset_in2      (1'b0),                                   // (terminated)
+		.reset_req_in2  (1'b0),                                   // (terminated)
+		.reset_in3      (1'b0),                                   // (terminated)
+		.reset_req_in3  (1'b0),                                   // (terminated)
+		.reset_in4      (1'b0),                                   // (terminated)
+		.reset_req_in4  (1'b0),                                   // (terminated)
+		.reset_in5      (1'b0),                                   // (terminated)
+		.reset_req_in5  (1'b0),                                   // (terminated)
+		.reset_in6      (1'b0),                                   // (terminated)
+		.reset_req_in6  (1'b0),                                   // (terminated)
+		.reset_in7      (1'b0),                                   // (terminated)
+		.reset_req_in7  (1'b0),                                   // (terminated)
+		.reset_in8      (1'b0),                                   // (terminated)
+		.reset_req_in8  (1'b0),                                   // (terminated)
+		.reset_in9      (1'b0),                                   // (terminated)
+		.reset_req_in9  (1'b0),                                   // (terminated)
+		.reset_in10     (1'b0),                                   // (terminated)
+		.reset_req_in10 (1'b0),                                   // (terminated)
+		.reset_in11     (1'b0),                                   // (terminated)
+		.reset_req_in11 (1'b0),                                   // (terminated)
+		.reset_in12     (1'b0),                                   // (terminated)
+		.reset_req_in12 (1'b0),                                   // (terminated)
+		.reset_in13     (1'b0),                                   // (terminated)
+		.reset_req_in13 (1'b0),                                   // (terminated)
+		.reset_in14     (1'b0),                                   // (terminated)
+		.reset_req_in14 (1'b0),                                   // (terminated)
+		.reset_in15     (1'b0),                                   // (terminated)
+		.reset_req_in15 (1'b0)                                    // (terminated)
+	);
+
+	altera_reset_controller #(
+		.NUM_RESET_INPUTS          (1),
+		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
+		.SYNC_DEPTH                (2),
+		.RESET_REQUEST_PRESENT     (1),
+		.RESET_REQ_WAIT_TIME       (1),
+		.MIN_RST_ASSERTION_TIME    (3),
+		.RESET_REQ_EARLY_DSRT_TIME (1),
+		.USE_RESET_REQUEST_IN0     (0),
+		.USE_RESET_REQUEST_IN1     (0),
+		.USE_RESET_REQUEST_IN2     (0),
+		.USE_RESET_REQUEST_IN3     (0),
+		.USE_RESET_REQUEST_IN4     (0),
+		.USE_RESET_REQUEST_IN5     (0),
+		.USE_RESET_REQUEST_IN6     (0),
+		.USE_RESET_REQUEST_IN7     (0),
+		.USE_RESET_REQUEST_IN8     (0),
+		.USE_RESET_REQUEST_IN9     (0),
+		.USE_RESET_REQUEST_IN10    (0),
+		.USE_RESET_REQUEST_IN11    (0),
+		.USE_RESET_REQUEST_IN12    (0),
+		.USE_RESET_REQUEST_IN13    (0),
+		.USE_RESET_REQUEST_IN14    (0),
+		.USE_RESET_REQUEST_IN15    (0),
+		.ADAPT_RESET_REQUEST       (0)
+	) rst_controller_002 (
+		.reset_in0      (~usb_reset_reset_n),                     // reset_in0.reset
+		.clk            (usb_clk_clk),                            //       clk.clk
+		.reset_out      (rst_controller_002_reset_out_reset),     // reset_out.reset
+		.reset_req      (rst_controller_002_reset_out_reset_req), //          .reset_req
+		.reset_req_in0  (1'b0),                                   // (terminated)
+		.reset_in1      (1'b0),                                   // (terminated)
 		.reset_req_in1  (1'b0),                                   // (terminated)
 		.reset_in2      (1'b0),                                   // (terminated)
 		.reset_req_in2  (1'b0),                                   // (terminated)

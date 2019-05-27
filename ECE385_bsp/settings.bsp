@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 21, 2019 9:28:33 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1558445313379</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 27, 2019 9:48:26 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1558964906106</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\xuyh0\Desktop\zjui-ece385\final\ECE385_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\ECE385.sopcinfo</SopcDesignFile>
@@ -734,7 +734,7 @@
                 <SettingName>hal.enable_small_c_library</SettingName>
                 <Identifier>none</Identifier>
                 <Type>Boolean</Type>
-                <Value>0</Value>
+                <Value>1</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Causes the small newlib (C library) to be used. This reduces code and data footprint at the expense of reduced functionality. Several newlib features are removed such as floating-point support in printf(), stdin input routines, and buffered I/O. The small C library is not compatible with Micrium MicroC/OS-II. If true, adds -msmallc to ALT_LDFLAGS in public.mk.</Description>
@@ -794,7 +794,7 @@
                 <SettingName>hal.enable_reduced_device_drivers</SettingName>
                 <Identifier>ALT_USE_SMALL_DRIVERS</Identifier>
                 <Type>Boolean</Type>
-                <Value>0</Value>
+                <Value>1</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Certain drivers are compiled with reduced functionality to reduce code footprint. Not all drivers observe this setting. The altera_avalon_uart and altera_avalon_jtag_uart drivers switch from interrupt-driven to polled operation. CAUTION: Several device drivers are disabled entirely. These include the altera_avalon_cfi_flash, altera_avalon_epcs_flash_controller, and altera_avalon_lcd_16207 drivers. This can result in certain API (HAL flash access routines) to fail. You can define a symbol provided by each driver to prevent it from being removed. If true, adds -DALT_USE_SMALL_DRIVERS to ALT_CPPFLAGS in public.mk.</Description>
@@ -911,122 +911,152 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>audio_mem</slaveDescriptor>
+                <addressRange>0x00440000 - 0x0044FFFF</addressRange>
+                <addressSpan>65536</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>vga_sprite_7</slaveDescriptor>
-                <addressRange>0x00442000 - 0x00443FFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_6</slaveDescriptor>
-                <addressRange>0x00444000 - 0x00445FFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_5</slaveDescriptor>
-                <addressRange>0x00446000 - 0x00447FFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_4</slaveDescriptor>
-                <addressRange>0x00448000 - 0x00449FFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_3</slaveDescriptor>
-                <addressRange>0x0044A000 - 0x0044BFFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_2</slaveDescriptor>
-                <addressRange>0x0044C000 - 0x0044DFFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_1</slaveDescriptor>
-                <addressRange>0x0044E000 - 0x0044FFFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>vga_sprite_0</slaveDescriptor>
                 <addressRange>0x00450000 - 0x00451FFF</addressRange>
                 <addressSpan>8192</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>vga_sprite_params</slaveDescriptor>
-                <addressRange>0x00453000 - 0x004533FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
+                <slaveDescriptor>vga_sprite_6</slaveDescriptor>
+                <addressRange>0x00452000 - 0x00453FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_5</slaveDescriptor>
+                <addressRange>0x00454000 - 0x00455FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_4</slaveDescriptor>
+                <addressRange>0x00456000 - 0x00457FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_3</slaveDescriptor>
+                <addressRange>0x00458000 - 0x00459FFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_2</slaveDescriptor>
+                <addressRange>0x0045A000 - 0x0045BFFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_1</slaveDescriptor>
+                <addressRange>0x0045C000 - 0x0045DFFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>vga_sprite_0</slaveDescriptor>
+                <addressRange>0x0045E000 - 0x0045FFFF</addressRange>
+                <addressSpan>8192</addressSpan>
+                <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>usb_keycode</slaveDescriptor>
-                <addressRange>0x00453400 - 0x004537FF</addressRange>
+                <addressRange>0x00461000 - 0x004613FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>vga_sprite_params</slaveDescriptor>
+                <addressRange>0x00461400 - 0x004617FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>io_hex</slaveDescriptor>
-                <addressRange>0x00453800 - 0x0045381F</addressRange>
+                <addressRange>0x00461800 - 0x0046181F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_green</slaveDescriptor>
-                <addressRange>0x00453820 - 0x0045383F</addressRange>
+                <addressRange>0x00461820 - 0x0046183F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_timer</slaveDescriptor>
-                <addressRange>0x00453840 - 0x0045385F</addressRange>
+                <addressRange>0x00461840 - 0x0046185F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_red</slaveDescriptor>
-                <addressRange>0x00453860 - 0x0045387F</addressRange>
+                <addressRange>0x00461860 - 0x0046187F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>vga_background_offset</slaveDescriptor>
+                <addressRange>0x00461890 - 0x0046189F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>audio_position</slaveDescriptor>
+                <addressRange>0x004618A0 - 0x004618AF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>audio_position_end</slaveDescriptor>
+                <addressRange>0x004618B0 - 0x004618BF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>io_hwrng</slaveDescriptor>
+                <addressRange>0x004618C0 - 0x004618CF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>io_vga_sync</slaveDescriptor>
-                <addressRange>0x00453890 - 0x0045389F</addressRange>
+                <addressRange>0x004618D0 - 0x004618DF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_switches</slaveDescriptor>
-                <addressRange>0x004538A0 - 0x004538AF</addressRange>
+                <addressRange>0x004618E0 - 0x004618EF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_keys</slaveDescriptor>
-                <addressRange>0x004538B0 - 0x004538BF</addressRange>
+                <addressRange>0x004618F0 - 0x004618FF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_pll</slaveDescriptor>
-                <addressRange>0x004538C0 - 0x004538CF</addressRange>
+                <addressRange>0x00461900 - 0x0046190F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_sysid</slaveDescriptor>
-                <addressRange>0x004538D8 - 0x004538DF</addressRange>
+                <addressRange>0x00461918 - 0x0046191F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_jtag_uart</slaveDescriptor>
-                <addressRange>0x004538E0 - 0x004538E7</addressRange>
+                <addressRange>0x00461920 - 0x00461927</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
@@ -1059,5 +1089,9 @@
         <LinkerSection>
                 <sectionName>.stack</sectionName>
                 <regionName>nios2_onchip_mem</regionName>
+        </LinkerSection>
+        <LinkerSection>
+                <sectionName>.resources</sectionName>
+                <regionName>sdram</regionName>
         </LinkerSection>
 </sch:Settings>

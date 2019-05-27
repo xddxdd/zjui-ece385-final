@@ -11,6 +11,7 @@
 //#include <stdio.h>
 //#include <string.h>
 //#include <stdlib.h>
+#include <sys/alt_stdio.h>
 #include <io.h>
 #include <fcntl.h>
 
@@ -27,7 +28,6 @@
 #include "comm.h"
 
 volatile keycode_comm_t* keycode_comm = (keycode_comm_t*) USB_KEYCODE_BASE;
-volatile int* status_led = (int*) USB_STATUS_BASE;
 
 //----------------------------------------------------------------------------------------//
 //
@@ -41,7 +41,7 @@ int main(void)
 	/*while(1)
 	{
 		IO_write(HPI_MAILBOX,COMM_EXEC_INT);
-		//printf("[ERROR]:routine mailbox data is %x\n",IO_read(HPI_MAILBOX));
+		alt_printf("[ERROR]:routine mailbox data is %x\n",IO_read(HPI_MAILBOX));
 		//UsbWrite(0xc008,0x000f);
 		//UsbRead(0xc008);
 		usleep(10*10000);
@@ -59,11 +59,10 @@ int main(void)
 	alt_u16 code;
 	int wait_cycle = 0;
 
-	//printf("USB keyboard setup...\n\n");
+	alt_printf("USB keyboard setup...\n\n");
 
 	//----------------------------------------SIE1 initial---------------------------------------------------//
 USB_HOT_PLUG:
-	*status_led = 0;
 	keycode_comm->keyboard_present = 0;
 	UsbSoftReset();
 
@@ -102,16 +101,16 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & 0xFFFF) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 	}
 	while (IO_read(HPI_MAILBOX) != COMM_ACK)
 	{
-		//printf("[ERROR]:routine mailbox data is %x\n",IO_read(HPI_MAILBOX));
+		alt_printf("[ERROR]:routine mailbox data is %x\n",IO_read(HPI_MAILBOX));
 		goto USB_HOT_PLUG;
 	}
 	// STEP 1b end
 
-	//printf("STEP 1 Complete");
+	alt_printf("STEP 1 Complete");
 	// STEP 2 begin
 	UsbWrite(COMM_INT_NUM,HUSB_RESET_INT); //husb reset
 	UsbWrite(COMM_R0,0x003c);//reset time
@@ -133,7 +132,7 @@ USB_HOT_PLUG:
 
 	while (IO_read(HPI_MAILBOX) != COMM_ACK)
 	{
-		//printf("[ERROR]:routine mailbox data is %x\n",IO_read(HPI_MAILBOX));
+		alt_printf("[ERROR]:routine mailbox data is %x\n",IO_read(HPI_MAILBOX));
 		goto USB_HOT_PLUG;
 	}
 	// STEP 2 end
@@ -153,12 +152,12 @@ USB_HOT_PLUG:
 		}
 		if(!(usb_ctl_val & no_device))
 		{
-			//printf("\n[INFO]: no device is present in SIE1!\n");
-			//printf("[INFO]: please insert a USB keyboard in SIE1!\n");
+			alt_printf("\n[INFO]: no device is present in SIE1!\n");
+			alt_printf("[INFO]: please insert a USB keyboard in SIE1!\n");
 			wait_cycle = 0;
 			while (!(usb_ctl_val & no_device))
 			{
-				if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+				if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 				usb_ctl_val = UsbRead(ctl_reg);
 				if(usb_ctl_val & no_device)
 					goto USB_HOT_PLUG;
@@ -172,11 +171,11 @@ USB_HOT_PLUG:
 		/* check for low speed or full speed by reading D+ and D- lines */
 		if (usb_ctl_val & fs_device)
 		{
-			//printf("[INFO]: full speed device\n");
+			alt_printf("[INFO]: full speed device\n");
 		}
 		else
 		{
-			//printf("[INFO]: low speed device\n");
+			alt_printf("[INFO]: low speed device\n");
 		}
 	}
 
@@ -188,7 +187,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		UsbSetAddress();
 		usleep(10*1000);
 	}
@@ -196,11 +195,11 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506); // i
-	//printf("[ENUM PROCESS]:step 3 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]:step 3 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508); // n
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]:step 3 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]:step 3 TD Control Byte is %x\n",usb_ctl_val);
 	while (usb_ctl_val != 0x03) // retries occurred
 	{
 		usb_ctl_val = UsbGetRetryCnt();
@@ -208,7 +207,7 @@ USB_HOT_PLUG:
 		goto USB_HOT_PLUG;
 	}
 
-	//printf("------------[ENUM PROCESS]:set address done!---------------\n");
+	alt_printf("------------[ENUM PROCESS]:set address done!---------------\n");
 
 	// STEP 4 begin
 	//-------------------------------get device descriptor-1 -----------------------------------//
@@ -219,7 +218,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		// TASK: Call the appropriate function again if it wasn't processed successfully.
 		UsbGetDeviceDesc1();
 		usleep(10*1000);
@@ -228,19 +227,19 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
-	//printf("[ENUM PROCESS]:step 4 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]:step 4 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508);
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]:step 4 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]:step 4 TD Control Byte is %x\n",usb_ctl_val);
 	wait_cycle = 0;
 	while (usb_ctl_val != 0x03)
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		usb_ctl_val = UsbGetRetryCnt();
 	}
 
-	//printf("---------------[ENUM PROCESS]:get device descriptor-1 done!-----------------\n");
+	alt_printf("---------------[ENUM PROCESS]:get device descriptor-1 done!-----------------\n");
 
 
 	//--------------------------------get device descriptor-2---------------------------------------------//
@@ -252,7 +251,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		//resend the get device descriptor
 		//get device descriptor
 		// TASK: Call the appropriate function again if it wasn't processed successfully.
@@ -263,19 +262,19 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
-	//printf("[ENUM PROCESS]:step 4 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]:step 4 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508);
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]:step 4 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]:step 4 TD Control Byte is %x\n",usb_ctl_val);
 	wait_cycle = 0;
 	while (usb_ctl_val != 0x03)
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		usb_ctl_val = UsbGetRetryCnt();
 	}
 
-	//printf("------------[ENUM PROCESS]:get device descriptor-2 done!--------------\n");
+	alt_printf("------------[ENUM PROCESS]:get device descriptor-2 done!--------------\n");
 
 
 	// STEP 5 begin
@@ -287,7 +286,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		//resend the get device descriptor
 		//get device descriptor
 
@@ -299,18 +298,18 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
-	//printf("[ENUM PROCESS]:step 5 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]:step 5 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508);
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]:step 5 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]:step 5 TD Control Byte is %x\n",usb_ctl_val);
 	wait_cycle = 0;
 	while (usb_ctl_val != 0x03)
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		usb_ctl_val = UsbGetRetryCnt();
 	}
-	//printf("------------[ENUM PROCESS]:get configuration descriptor-1 pass------------\n");
+	alt_printf("------------[ENUM PROCESS]:get configuration descriptor-1 pass------------\n");
 
 	// STEP 6 begin
 	//-----------------------------------get configuration descriptor-2------------------------------------//
@@ -323,7 +322,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		// TASK: Call the appropriate function again if it wasn't processed successfully.
 		UsbGetConfigDesc2();
 		usleep(10*1000);
@@ -332,20 +331,20 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
-	//printf("[ENUM PROCESS]:step 6 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]:step 6 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508);
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]:step 6 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]:step 6 TD Control Byte is %x\n",usb_ctl_val);
 	wait_cycle = 0;
 	while (usb_ctl_val != 0x03)
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		usb_ctl_val = UsbGetRetryCnt();
 	}
 
 
-	//printf("-----------[ENUM PROCESS]:get configuration descriptor-2 done!------------\n");
+	alt_printf("-----------[ENUM PROCESS]:get configuration descriptor-2 done!------------\n");
 
 
 	// ---------------------------------get device info---------------------------------------------//
@@ -354,15 +353,15 @@ USB_HOT_PLUG:
 	IO_write(HPI_ADDR,0x056c);
 	code = IO_read(HPI_DATA);
 	code = code & 0x003;
-	//printf("\ncode = %x\n", code);
+	alt_printf("\ncode = %x\n", code);
 
 	if (code == 0x01)
 	{
-		//printf("\n[INFO]:check TD rec data7 \n[INFO]:Keyboard Detected!!!\n\n");
+		alt_printf("\n[INFO]:check TD rec data7 \n[INFO]:Keyboard Detected!!!\n\n");
 	}
 	else
 	{
-		//printf("\n[INFO]:Keyboard Not Detected!!! \n\n");
+		alt_printf("\n[INFO]:Keyboard Not Detected!!! \n\n");
 	}
 
 	// TASK: Write the address to read from the memory for the endpoint descriptor to HPI_ADDR.
@@ -380,7 +379,7 @@ USB_HOT_PLUG:
 	//UsbPrintMem();
 	IO_write(HPI_ADDR,0x057c);
 	data_size = (IO_read(HPI_DATA))&0x0ff;
-	//printf("[ENUM PROCESS]:data packet size is %d\n",data_size);
+	alt_printf("[ENUM PROCESS]:data packet size is %d\n",data_size);
 	// STEP 7 begin
 	//------------------------------------set configuration -----------------------------------------//
 	// TASK: Call the appropriate function for this step.
@@ -388,7 +387,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		// TASK: Call the appropriate function again if it wasn't processed successfully.
 		UsbSetConfig();		// Set Configuration
 		usleep(10*1000);
@@ -397,19 +396,19 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
-	//printf("[ENUM PROCESS]:step 7 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]:step 7 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508);
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]:step 7 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]:step 7 TD Control Byte is %x\n",usb_ctl_val);
 	wait_cycle = 0;
 	while (usb_ctl_val != 0x03)
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		usb_ctl_val = UsbGetRetryCnt();
 	}
 
-	//printf("------------[ENUM PROCESS]:set configuration done!-------------------\n");
+	alt_printf("------------[ENUM PROCESS]:set configuration done!-------------------\n");
 
 	//----------------------------------------------class request out ------------------------------------------//
 	// TASK: Call the appropriate function for this step.
@@ -417,7 +416,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		// TASK: Call the appropriate function again if it wasn't processed successfully.
 		UsbClassRequest();
 		usleep(10*1000);
@@ -426,20 +425,20 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
-	//printf("[ENUM PROCESS]:step 8 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]:step 8 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508);
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]:step 8 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]:step 8 TD Control Byte is %x\n",usb_ctl_val);
 	wait_cycle = 0;
 	while (usb_ctl_val != 0x03)
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		usb_ctl_val = UsbGetRetryCnt();
 	}
 
 
-	//printf("------------[ENUM PROCESS]:class request out done!-------------------\n");
+	alt_printf("------------[ENUM PROCESS]:class request out done!-------------------\n");
 
 	// STEP 8 begin
 	//----------------------------------get descriptor(class 0x21 = HID) request out --------------------------------//
@@ -448,7 +447,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		// TASK: Call the appropriate function again if it wasn't processed successfully.
 		UsbGetHidDesc();
 		usleep(10*1000);
@@ -457,19 +456,19 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
-	//printf("[ENUM PROCESS]:step 8 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]:step 8 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508);
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]:step 8 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]:step 8 TD Control Byte is %x\n",usb_ctl_val);
 	wait_cycle = 0;
 	while (usb_ctl_val != 0x03)
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		usb_ctl_val = UsbGetRetryCnt();
 	}
 
-	//printf("------------[ENUM PROCESS]:get descriptor (class 0x21) done!-------------------\n");
+	alt_printf("------------[ENUM PROCESS]:get descriptor (class 0x21) done!-------------------\n");
 
 	// STEP 9 begin
 	//-------------------------------get descriptor (class 0x22 = report)-------------------------------------------//
@@ -479,7 +478,7 @@ USB_HOT_PLUG:
 	wait_cycle = 0;
 	while (!(IO_read(HPI_STATUS) & HPI_STATUS_SIE1msg_FLAG) )  //read sie1 msg register
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		// TASK: Call the appropriate function again if it wasn't processed successfully.
 		UsbGetReportDesc();
 		usleep(10*1000);
@@ -488,19 +487,19 @@ USB_HOT_PLUG:
 	if(0xffff == UsbWaitTDListDone()) goto USB_HOT_PLUG;
 
 	IO_write(HPI_ADDR,0x0506);
-	//printf("[ENUM PROCESS]: step 9 TD Status Byte is %x\n",IO_read(HPI_DATA));
+	alt_printf("[ENUM PROCESS]: step 9 TD Status Byte is %x\n",IO_read(HPI_DATA));
 
 	IO_write(HPI_ADDR,0x0508);
 	usb_ctl_val = IO_read(HPI_DATA);
-	//printf("[ENUM PROCESS]: step 9 TD Control Byte is %x\n",usb_ctl_val);
+	alt_printf("[ENUM PROCESS]: step 9 TD Control Byte is %x\n",usb_ctl_val);
 	wait_cycle = 0;
 	while (usb_ctl_val != 0x03)
 	{
-		if((++wait_cycle) & 0x10000) goto USB_HOT_PLUG;
+		if((++wait_cycle) & 0x100) goto USB_HOT_PLUG;
 		usb_ctl_val = UsbGetRetryCnt();
 	}
 
-	//printf("---------------[ENUM PROCESS]:get descriptor (class 0x22) done!----------------\n");
+	alt_printf("---------------[ENUM PROCESS]:get descriptor (class 0x22) done!----------------\n");
 
 
 
@@ -510,8 +509,6 @@ USB_HOT_PLUG:
 	while(1)
 	{
 		toggle++;
-		// Blink status LED
-		if(toggle == 0) *status_led ++;
 
 		IO_write(HPI_ADDR,0x0500); //the start address
 		//data phase IN-1
@@ -561,7 +558,7 @@ USB_HOT_PLUG:
 		// The first two keycodes are stored in 0x051E. Other keycodes are in 
 		// subsequent addresses.
 		keycode = UsbRead(0x051e);
-		//printf("\nfirst two keycode values are %04x\n",keycode);
+		alt_printf("\nfirst two keycode values are %x\n",keycode);
 		// We only need the first keycode, which is at the lower byte of keycode.
 		// Send the keycode to hardware via PIO.
 		keycode_comm->keycode[0] = keycode & 0xff;
@@ -581,8 +578,8 @@ USB_HOT_PLUG:
 			}
 			if(!(usb_ctl_val & no_device))
 			{
-				//printf("\n[INFO]: the keyboard has been removed!!! \n");
-				//printf("[INFO]: please insert again!!! \n");
+				alt_printf("\n[INFO]: the keyboard has been removed!!! \n");
+				alt_printf("[INFO]: please insert again!!! \n");
 			}
 		}
 

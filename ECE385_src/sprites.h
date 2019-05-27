@@ -29,7 +29,11 @@ typedef struct {
 	volatile uint16_t* sprite_data;
 	int32_t used;
 	int32_t vx;
+	int32_t vx_max;
+	int32_t vx_min;
 	int32_t vy;
+	int32_t vy_max;
+	int32_t vy_min;
 	int32_t ax;
 	int32_t ay;
 	int32_t type;

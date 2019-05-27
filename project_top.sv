@@ -197,38 +197,39 @@ module project_top(
 );
 
 // Reset signal
-logic RESET;
+logic RESET, RESET_USB;
 always_ff @ (posedge CLOCK_50) begin
 	RESET <= KEY[0];
+	RESET_USB <= KEY[1];
 end
 
 // USB OTG
-//logic [1:0] hpi_addr;
-//logic [15:0] hpi_data_in, hpi_data_out;
-//logic hpi_r, hpi_w, hpi_cs, hpi_reset;
-//hpi_io_intf hpi_io_inst(
-//	.Clk(CLOCK_50), .Reset(~RESET),
-//    
-//	// signals connected to NIOS II
-//    .from_sw_address(hpi_addr),
-//    .from_sw_data_in(hpi_data_in),
-//    .from_sw_data_out(hpi_data_out),
-//    .from_sw_r(hpi_r),
-//    .from_sw_w(hpi_w),
-//    .from_sw_cs(hpi_cs),
-//    .from_sw_reset(hpi_reset),
-//    
-//	// signals connected to EZ-OTG chip
-//    .OTG_DATA(OTG_DATA),    
-//    .OTG_ADDR(OTG_ADDR),    
-//    .OTG_RD_N(OTG_RD_N),    
-//    .OTG_WR_N(OTG_WE_N),    
-//    .OTG_CS_N(OTG_CS_N),
-//    .OTG_RST_N(OTG_RST_N)
-//);
+logic [1:0] hpi_addr;
+logic [15:0] hpi_data_in, hpi_data_out;
+logic hpi_r, hpi_w, hpi_cs, hpi_reset;
+hpi_io_intf hpi_io_inst(
+	.Clk(CLOCK_50), .Reset(~RESET),
+    
+	// signals connected to NIOS II
+    .from_sw_address(hpi_addr),
+    .from_sw_data_in(hpi_data_in),
+    .from_sw_data_out(hpi_data_out),
+    .from_sw_r(hpi_r),
+    .from_sw_w(hpi_w),
+    .from_sw_cs(hpi_cs),
+    .from_sw_reset(hpi_reset),
+    
+	// signals connected to EZ-OTG chip
+    .OTG_DATA(OTG_DATA),    
+    .OTG_ADDR(OTG_ADDR),    
+    .OTG_RD_N(OTG_RD_N),    
+    .OTG_WR_N(OTG_WE_N),    
+    .OTG_CS_N(OTG_CS_N),
+    .OTG_RST_N(OTG_RST_N)
+);
 
-logic [15:0] OTG_DATA_OUT;
-assign OTG_DATA = OTG_WE_N ? {16{1'bZ}} : OTG_DATA_OUT;
+//logic [15:0] OTG_DATA_OUT;
+//assign OTG_DATA = OTG_WE_N ? {16{1'bZ}} : OTG_DATA_OUT;
      
 
 // Hex display
@@ -314,31 +315,7 @@ logic [7:0][11:0] VGA_SPRITE_ADDR;
 logic [7:0][15:0] VGA_SPRITE_DATA;
 logic [63:0] VGA_SPRITE_ISOBJ;
 logic [63:0][15:0] VGA_SPRITE_PIXEL;
-
-//logic BUF_VGA_HS, BUF_VGA_VS, BUF_VGA_BLANK_N, BUF_VGA_SYNC_N;
-//logic [7:0] BUF_VGA_R, BUF_VGA_G, BUF_VGA_B;
-//
-//always_ff @ (posedge VGA_CLK) begin
-//	VGA_HS <= BUF_VGA_HS;
-//	VGA_VS <= BUF_VGA_VS;
-//	VGA_BLANK_N <= BUF_VGA_BLANK_N;
-//	VGA_SYNC_N <= BUF_VGA_SYNC_N;
-//	VGA_R <= BUF_VGA_R;
-//	VGA_G <= BUF_VGA_G;
-//	VGA_B <= BUF_VGA_B;
-//end
-//
-//VGA_controller VGA(
-//	.Clk(CLOCK_50), .Reset(~RESET),
-//	.VGA_HS(BUF_VGA_HS), .VGA_VS(BUF_VGA_VS), .VGA_CLK, .VGA_BLANK_N(BUF_VGA_BLANK_N), .VGA_SYNC_N(BUF_VGA_SYNC_N),
-//	.DrawX(VGA_DrawX), .DrawY(VGA_DrawY)
-//);
-//
-//VGA_layer VGA_layer_manager(
-//	.VGA_VAL,
-//	.VGA_R(BUF_VGA_R), .VGA_G(BUF_VGA_G), .VGA_B(BUF_VGA_B),
-//	.VGA_SPRITE_ISOBJ, .VGA_SPRITE_PIXEL
-//);
+logic [31:0] VGA_BG_OFFSET;
 
 VGA_controller VGA(
 	.Clk(CLOCK_50), .Reset(~RESET),
@@ -426,6 +403,11 @@ wm8731_buffer wm8731_buf(
 // Main system
 ECE385 ECE385_sys(
 	.clk_clk(CLOCK_50),
+	.reset_reset_n(RESET),
+	
+	.usb_clk_clk(CLOCK_50),
+	.usb_reset_reset_n(RESET_USB),
+	
 	.io_keys_export(KEY),
 	.io_led_green_export(LEDG),
 	.io_led_red_export(LEDR),
@@ -433,7 +415,6 @@ ECE385 ECE385_sys(
 	.io_hex_export(HEX_EXPORT),
 	.io_vga_sync_export(VGA_VS),
 	.io_hwrng_export(random),
-	.reset_reset_n(RESET),
 	
 	.sdram_addr(DRAM_ADDR),
 	.sdram_ba(DRAM_BA),
@@ -456,7 +437,8 @@ ECE385 ECE385_sys(
 	
 	.vga_vga_val(VGA_VAL),
 	.vga_vga_drawx(VGA_DrawX),
-	.vga_vga_drawy(VGA_DrawY),
+	.vga_vga_drawy(VGA_DrawY + VGA_BG_OFFSET[9:0]),
+	.vga_background_offset_export(VGA_BG_OFFSET),
 	.nios2_pll_vga_clk(VGA_CLK),
 	
 	.vga_sprite_0_clk2_clk(CLOCK_50),
@@ -577,21 +559,21 @@ ECE385 ECE385_sys(
 //	.eth_pll_25_clk(ETH_CLK_25),
 //	.eth_pll_2_5_clk(ETH_CLK_2_5),
 
-    .otg_hpi_address_export(OTG_ADDR),
-    .otg_hpi_data_in_port(OTG_DATA),
-    .otg_hpi_data_out_port(OTG_DATA_OUT),
-    .otg_hpi_cs_export(OTG_CS_N),
-    .otg_hpi_r_export(OTG_RD_N),
-    .otg_hpi_w_export(OTG_WE_N),
-    .otg_hpi_reset_export(OTG_RST_N),
+//    .otg_hpi_address_export(OTG_ADDR),
+//    .otg_hpi_data_in_port(OTG_DATA),
+//    .otg_hpi_data_out_port(OTG_DATA_OUT),
+//    .otg_hpi_cs_export(OTG_CS_N),
+//    .otg_hpi_r_export(OTG_RD_N),
+//    .otg_hpi_w_export(OTG_WE_N),
+//    .otg_hpi_reset_export(OTG_RST_N),
 	
-//    .otg_hpi_address_export(hpi_addr),
-//    .otg_hpi_data_in_port(hpi_data_in),
-//    .otg_hpi_data_out_port(hpi_data_out),
-//    .otg_hpi_cs_export(hpi_cs),
-//    .otg_hpi_r_export(hpi_r),
-//    .otg_hpi_w_export(hpi_w),
-//    .otg_hpi_reset_export(hpi_reset),
+    .otg_hpi_address_export(hpi_addr),
+    .otg_hpi_data_in_port(hpi_data_in),
+    .otg_hpi_data_out_port(hpi_data_out),
+    .otg_hpi_cs_export(hpi_cs),
+    .otg_hpi_r_export(hpi_r),
+    .otg_hpi_w_export(hpi_w),
+    .otg_hpi_reset_export(hpi_reset),
 
 	.audio_mem_clk2_clk(CLOCK_50),
 	.audio_mem_reset2_reset(~RESET),

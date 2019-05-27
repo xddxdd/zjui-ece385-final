@@ -22,7 +22,7 @@
 // Parameters
 //   NUM_RCVRS        : 2
 //   SENDER_IRW_WIDTH : 32
-//   IRQ_MAP          : 0:5,1:0
+//   IRQ_MAP          : 0:0,1:1
 //
 // -------------------------------------------------------
 
@@ -52,8 +52,8 @@ module ECE385_irq_mapper
     always @* begin
 	sender_irq = 0;
 
-        sender_irq[5] = receiver0_irq;
-        sender_irq[0] = receiver1_irq;
+        sender_irq[0] = receiver0_irq;
+        sender_irq[1] = receiver1_irq;
     end
 
 endmodule

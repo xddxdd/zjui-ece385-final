@@ -238,7 +238,19 @@ uint8_t sprites_tick(vga_entity_manage_t* vga_entity_type) {
 		vga_entity_type->info_arr[i].physical->y += vga_entity_type->info_arr[i].vy;
 
 		vga_entity_type->info_arr[i].vx += vga_entity_type->info_arr[i].ax;
+		if(vga_entity_type->info_arr[i].vx < vga_entity_type->info_arr[i].vx_min) {
+			vga_entity_type->info_arr[i].vx = vga_entity_type->info_arr[i].vx_min;
+		}
+		if(vga_entity_type->info_arr[i].vx > vga_entity_type->info_arr[i].vx_max) {
+			vga_entity_type->info_arr[i].vx = vga_entity_type->info_arr[i].vx_max;
+		}
 		vga_entity_type->info_arr[i].vy += vga_entity_type->info_arr[i].ay;
+		if(vga_entity_type->info_arr[i].vy < vga_entity_type->info_arr[i].vy_min) {
+			vga_entity_type->info_arr[i].vy = vga_entity_type->info_arr[i].vy_min;
+		}
+		if(vga_entity_type->info_arr[i].vy > vga_entity_type->info_arr[i].vy_max) {
+			vga_entity_type->info_arr[i].vy = vga_entity_type->info_arr[i].vy_max;
+		}
 		processed++;
 	}
 	return processed;
@@ -253,6 +265,66 @@ int32_t sprites_collision_detect() {
 		volatile vga_sprite_info_t* plane_info = planes->info_arr + i;
 		if(!plane_info->used) continue;
 		if(plane_info->type >= 2) continue;
+		for(int j = i + 1; j < planes->max_size; j++) {
+			volatile vga_sprite_info_t* plane2_info = planes->info_arr + j;
+			if(!plane2_info->used) continue;
+			if(plane2_info->type >= 2) continue;
+
+			// Avoid friendly fire
+			if(plane2_info->type == plane_info->type) continue;
+
+			if(plane2_info->physical->x + (plane2_info->physical->width << VGA_SPRITE_HW_SHIFT_BITS) >= plane_info->physical->x
+					&& plane2_info->physical->x < plane_info->physical->x + (plane_info->physical->width << VGA_SPRITE_HW_SHIFT_BITS)
+					&& plane2_info->physical->y + (plane2_info->physical->height << VGA_SPRITE_HW_SHIFT_BITS)  >= plane_info->physical->y
+					&& plane2_info->physical->y < plane_info->physical->y + (plane_info->physical->height << VGA_SPRITE_HW_SHIFT_BITS)
+			) {
+				// Collision happened
+				if(plane_info->type == 0) {
+					// First plane is friendly, remove second plane
+					sprites_deallocate(VGA_SPRITE_PLANE, j);
+					// TODO: Set the plane on explosion
+
+					// Deal damage to first plane
+					if((--plane_info->hp) == 0) {
+						if(plane_info->type != 0) {
+							sprites_deallocate(VGA_SPRITE_PLANE, i);
+						} else {
+							// Update player HP
+							*io_led_red = 0;
+
+							sprites_deallocate(VGA_SPRITE_PLANE, i);
+
+							// TODO: end the game
+							while(1);
+						}
+					}
+
+					collided++;
+				} else {
+					// Second plane is friendly, remove first plane
+					sprites_deallocate(VGA_SPRITE_PLANE, i);
+					// TODO: Set the plane on explosion
+
+					// Deal damage to second plane
+					if((--plane2_info->hp) == 0) {
+						if(plane2_info->type != 0) {
+							sprites_deallocate(VGA_SPRITE_PLANE, j);
+						} else {
+							// Update player HP
+							*io_led_red = 0;
+
+							sprites_deallocate(VGA_SPRITE_PLANE, j);
+
+							// TODO: end the game
+							while(1);
+						}
+					}
+
+					collided++;
+				}
+			}
+		}
+
 		for(int j = 0; j < bullets->max_size; j++) {
 			volatile vga_sprite_info_t* bullet_info = bullets->info_arr + j;
 			if(!bullet_info->used) continue;
