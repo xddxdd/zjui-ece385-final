@@ -47,23 +47,23 @@ module ECE385_mm_interconnect_0_router_001_default_decode
      parameter DEFAULT_CHANNEL = 4,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 16 
+               DEFAULT_DESTID = 23 
    )
-  (output [94 - 90 : 0] default_destination_id,
-   output [29-1 : 0] default_wr_channel,
-   output [29-1 : 0] default_rd_channel,
-   output [29-1 : 0] default_src_channel
+  (output [96 - 91 : 0] default_destination_id,
+   output [36-1 : 0] default_wr_channel,
+   output [36-1 : 0] default_rd_channel,
+   output [36-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[94 - 90 : 0];
+    DEFAULT_DESTID[96 - 91 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 29'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 36'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module ECE385_mm_interconnect_0_router_001_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 29'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 29'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 36'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 36'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module ECE385_mm_interconnect_0_router_001
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [108-1 : 0]    sink_data,
+    input  [110-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module ECE385_mm_interconnect_0_router_001
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [108-1    : 0] src_data,
-    output reg [29-1 : 0] src_channel,
+    output reg [110-1    : 0] src_data,
+    output reg [36-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -114,12 +114,12 @@ module ECE385_mm_interconnect_0_router_001
     // -------------------------------------------------------
     localparam PKT_ADDR_H = 63;
     localparam PKT_ADDR_L = 36;
-    localparam PKT_DEST_ID_H = 94;
-    localparam PKT_DEST_ID_L = 90;
-    localparam PKT_PROTECTION_H = 98;
-    localparam PKT_PROTECTION_L = 96;
-    localparam ST_DATA_W = 108;
-    localparam ST_CHANNEL_W = 29;
+    localparam PKT_DEST_ID_H = 96;
+    localparam PKT_DEST_ID_L = 91;
+    localparam PKT_PROTECTION_H = 100;
+    localparam PKT_PROTECTION_L = 98;
+    localparam ST_DATA_W = 110;
+    localparam ST_CHANNEL_W = 36;
     localparam DECODER_TYPE = 0;
 
     localparam PKT_TRANS_WRITE = 66;
@@ -134,10 +134,10 @@ module ECE385_mm_interconnect_0_router_001
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h440000 - 64'h420000); 
-    localparam PAD1 = log2ceil(64'h461000 - 64'h460800); 
-    localparam PAD2 = log2ceil(64'h461910 - 64'h461900); 
-    localparam PAD3 = log2ceil(64'h461920 - 64'h461918); 
+    localparam PAD0 = log2ceil(64'h430000 - 64'h420000); 
+    localparam PAD1 = log2ceil(64'h441000 - 64'h440800); 
+    localparam PAD2 = log2ceil(64'h441b20 - 64'h441b10); 
+    localparam PAD3 = log2ceil(64'h441b30 - 64'h441b28); 
     localparam PAD4 = log2ceil(64'h10000000 - 64'h8000000); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
@@ -168,7 +168,7 @@ module ECE385_mm_interconnect_0_router_001
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [29-1 : 0] default_src_channel;
+    wire [36-1 : 0] default_src_channel;
 
 
 
@@ -197,34 +197,34 @@ module ECE385_mm_interconnect_0_router_001
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
 
-    // ( 0x420000 .. 0x440000 )
+    // ( 0x420000 .. 0x430000 )
     if ( {address[RG:PAD0],{PAD0{1'b0}}} == 28'h420000   ) begin
-            src_channel = 29'b01000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 12;
+            src_channel = 36'b01000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 19;
     end
 
-    // ( 0x460800 .. 0x461000 )
-    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 28'h460800   ) begin
-            src_channel = 29'b00010;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 10;
+    // ( 0x440800 .. 0x441000 )
+    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 28'h440800   ) begin
+            src_channel = 36'b00010;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 17;
     end
 
-    // ( 0x461900 .. 0x461910 )
-    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 28'h461900   ) begin
-            src_channel = 29'b00100;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 13;
+    // ( 0x441b10 .. 0x441b20 )
+    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 28'h441b10   ) begin
+            src_channel = 36'b00100;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 20;
     end
 
-    // ( 0x461918 .. 0x461920 )
-    if ( {address[RG:PAD3],{PAD3{1'b0}}} == 28'h461918  && read_transaction  ) begin
-            src_channel = 29'b00001;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 14;
+    // ( 0x441b28 .. 0x441b30 )
+    if ( {address[RG:PAD3],{PAD3{1'b0}}} == 28'h441b28  && read_transaction  ) begin
+            src_channel = 36'b00001;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 21;
     end
 
     // ( 0x8000000 .. 0x10000000 )
     if ( {address[RG:PAD4],{PAD4{1'b0}}} == 28'h8000000   ) begin
-            src_channel = 29'b10000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 16;
+            src_channel = 36'b10000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 23;
     end
 
 end

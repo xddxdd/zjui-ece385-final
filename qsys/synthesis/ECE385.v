@@ -16,6 +16,52 @@ module ECE385 (
 		input  wire [31:0] audio_position_export,                          //                          audio_position.export
 		output wire [31:0] audio_position_end_export,                      //                      audio_position_end.export
 		input  wire        clk_clk,                                        //                                     clk.clk
+		output wire        eth0_mdio_mdc,                                  //                               eth0_mdio.mdc
+		input  wire        eth0_mdio_mdio_in,                              //                                        .mdio_in
+		output wire        eth0_mdio_mdio_out,                             //                                        .mdio_out
+		output wire        eth0_mdio_mdio_oen,                             //                                        .mdio_oen
+		input  wire [4:0]  eth0_mdio_phy_addr,                             //                                        .phy_addr
+		input  wire [7:0]  eth0_rx_fifo_in_data,                           //                         eth0_rx_fifo_in.data
+		input  wire        eth0_rx_fifo_in_valid,                          //                                        .valid
+		output wire        eth0_rx_fifo_in_ready,                          //                                        .ready
+		input  wire        eth0_rx_fifo_in_startofpacket,                  //                                        .startofpacket
+		input  wire        eth0_rx_fifo_in_endofpacket,                    //                                        .endofpacket
+		input  wire [2:0]  eth0_rx_fifo_in_error,                          //                                        .error
+		input  wire        eth0_rx_fifo_in_clk_clk,                        //                     eth0_rx_fifo_in_clk.clk
+		input  wire        eth0_rx_fifo_in_clk_reset_reset_n,              //               eth0_rx_fifo_in_clk_reset.reset_n
+		output wire [7:0]  eth0_tx_fifo_out_data,                          //                        eth0_tx_fifo_out.data
+		output wire        eth0_tx_fifo_out_valid,                         //                                        .valid
+		input  wire        eth0_tx_fifo_out_ready,                         //                                        .ready
+		output wire        eth0_tx_fifo_out_startofpacket,                 //                                        .startofpacket
+		output wire        eth0_tx_fifo_out_endofpacket,                   //                                        .endofpacket
+		output wire [1:0]  eth0_tx_fifo_out_error,                         //                                        .error
+		input  wire        eth0_tx_fifo_out_clk_clk,                       //                    eth0_tx_fifo_out_clk.clk
+		input  wire        eth0_tx_fifo_out_clk_reset_reset_n,             //              eth0_tx_fifo_out_clk_reset.reset_n
+		output wire        eth1_mdio_mdc,                                  //                               eth1_mdio.mdc
+		input  wire        eth1_mdio_mdio_in,                              //                                        .mdio_in
+		output wire        eth1_mdio_mdio_out,                             //                                        .mdio_out
+		output wire        eth1_mdio_mdio_oen,                             //                                        .mdio_oen
+		input  wire [4:0]  eth1_mdio_phy_addr,                             //                                        .phy_addr
+		input  wire [7:0]  eth1_rx_fifo_in_data,                           //                         eth1_rx_fifo_in.data
+		input  wire        eth1_rx_fifo_in_valid,                          //                                        .valid
+		output wire        eth1_rx_fifo_in_ready,                          //                                        .ready
+		input  wire        eth1_rx_fifo_in_startofpacket,                  //                                        .startofpacket
+		input  wire        eth1_rx_fifo_in_endofpacket,                    //                                        .endofpacket
+		input  wire [2:0]  eth1_rx_fifo_in_error,                          //                                        .error
+		input  wire        eth1_rx_fifo_in_clk_clk,                        //                     eth1_rx_fifo_in_clk.clk
+		input  wire        eth1_rx_fifo_in_clk_reset_reset_n,              //               eth1_rx_fifo_in_clk_reset.reset_n
+		output wire [7:0]  eth1_tx_fifo_out_data,                          //                        eth1_tx_fifo_out.data
+		output wire        eth1_tx_fifo_out_valid,                         //                                        .valid
+		input  wire        eth1_tx_fifo_out_ready,                         //                                        .ready
+		output wire        eth1_tx_fifo_out_startofpacket,                 //                                        .startofpacket
+		output wire        eth1_tx_fifo_out_endofpacket,                   //                                        .endofpacket
+		output wire [1:0]  eth1_tx_fifo_out_error,                         //                                        .error
+		input  wire        eth1_tx_fifo_out_clk_clk,                       //                    eth1_tx_fifo_out_clk.clk
+		input  wire        eth1_tx_fifo_out_clk_reset_reset_n,             //              eth1_tx_fifo_out_clk_reset.reset_n
+		output wire        eth_pll_125_clk,                                //                             eth_pll_125.clk
+		output wire        eth_pll_25_clk,                                 //                              eth_pll_25.clk
+		output wire        eth_pll_2_5_clk,                                //                             eth_pll_2_5.clk
+		output wire        eth_pll_c3_conduit_export,                      //                      eth_pll_c3_conduit.export
 		output wire [31:0] io_hex_export,                                  //                                  io_hex.export
 		input  wire [31:0] io_hwrng_export,                                //                                io_hwrng.export
 		input  wire [3:0]  io_keys_export,                                 //                                 io_keys.export
@@ -128,7 +174,6 @@ module ECE385 (
 		output wire [15:0] vga_sprite_7_s2_readdata,                       //                                        .readdata
 		input  wire [15:0] vga_sprite_7_s2_writedata,                      //                                        .writedata
 		input  wire [1:0]  vga_sprite_7_s2_byteenable,                     //                                        .byteenable
-		output wire        vga_sprite_params_clk_clk,                      //                   vga_sprite_params_clk.clk
 		output wire [7:0]  vga_sprite_params_pass_address,                 //                  vga_sprite_params_pass.address
 		output wire        vga_sprite_params_pass_read,                    //                                        .read
 		input  wire [31:0] vga_sprite_params_pass_readdata,                //                                        .readdata
@@ -137,6 +182,30 @@ module ECE385 (
 		output wire        vga_sprite_params_reset_reset                   //                 vga_sprite_params_reset.reset
 	);
 
+	wire         eth0_rx_fifo_out_valid;                                          // eth0_rx_fifo:out_valid -> eth0_rx_dma:in_valid
+	wire   [7:0] eth0_rx_fifo_out_data;                                           // eth0_rx_fifo:out_data -> eth0_rx_dma:in_data
+	wire         eth0_rx_fifo_out_ready;                                          // eth0_rx_dma:in_ready -> eth0_rx_fifo:out_ready
+	wire         eth0_rx_fifo_out_startofpacket;                                  // eth0_rx_fifo:out_startofpacket -> eth0_rx_dma:in_startofpacket
+	wire         eth0_rx_fifo_out_endofpacket;                                    // eth0_rx_fifo:out_endofpacket -> eth0_rx_dma:in_endofpacket
+	wire   [2:0] eth0_rx_fifo_out_error;                                          // eth0_rx_fifo:out_error -> eth0_rx_dma:in_error
+	wire         eth0_tx_dma_out_valid;                                           // eth0_tx_dma:out_valid -> eth0_tx_fifo:in_valid
+	wire   [7:0] eth0_tx_dma_out_data;                                            // eth0_tx_dma:out_data -> eth0_tx_fifo:in_data
+	wire         eth0_tx_dma_out_ready;                                           // eth0_tx_fifo:in_ready -> eth0_tx_dma:out_ready
+	wire         eth0_tx_dma_out_startofpacket;                                   // eth0_tx_dma:out_startofpacket -> eth0_tx_fifo:in_startofpacket
+	wire         eth0_tx_dma_out_endofpacket;                                     // eth0_tx_dma:out_endofpacket -> eth0_tx_fifo:in_endofpacket
+	wire   [1:0] eth0_tx_dma_out_error;                                           // eth0_tx_dma:out_error -> eth0_tx_fifo:in_error
+	wire         eth1_rx_fifo_out_valid;                                          // eth1_rx_fifo:out_valid -> eth1_rx_dma:in_valid
+	wire   [7:0] eth1_rx_fifo_out_data;                                           // eth1_rx_fifo:out_data -> eth1_rx_dma:in_data
+	wire         eth1_rx_fifo_out_ready;                                          // eth1_rx_dma:in_ready -> eth1_rx_fifo:out_ready
+	wire         eth1_rx_fifo_out_startofpacket;                                  // eth1_rx_fifo:out_startofpacket -> eth1_rx_dma:in_startofpacket
+	wire         eth1_rx_fifo_out_endofpacket;                                    // eth1_rx_fifo:out_endofpacket -> eth1_rx_dma:in_endofpacket
+	wire   [2:0] eth1_rx_fifo_out_error;                                          // eth1_rx_fifo:out_error -> eth1_rx_dma:in_error
+	wire         eth1_tx_dma_out_valid;                                           // eth1_tx_dma:out_valid -> eth1_tx_fifo:in_valid
+	wire   [7:0] eth1_tx_dma_out_data;                                            // eth1_tx_dma:out_data -> eth1_tx_fifo:in_data
+	wire         eth1_tx_dma_out_ready;                                           // eth1_tx_fifo:in_ready -> eth1_tx_dma:out_ready
+	wire         eth1_tx_dma_out_startofpacket;                                   // eth1_tx_dma:out_startofpacket -> eth1_tx_fifo:in_startofpacket
+	wire         eth1_tx_dma_out_endofpacket;                                     // eth1_tx_dma:out_endofpacket -> eth1_tx_fifo:in_endofpacket
+	wire   [1:0] eth1_tx_dma_out_error;                                           // eth1_tx_dma:out_error -> eth1_tx_fifo:in_error
 	wire         nios2_pll_c2_clk;                                                // nios2_pll:c2 -> sram_multiplexer:CLK2
 	wire  [31:0] nios2_cpu_data_master_readdata;                                  // mm_interconnect_0:nios2_cpu_data_master_readdata -> nios2_cpu:d_readdata
 	wire         nios2_cpu_data_master_waitrequest;                               // mm_interconnect_0:nios2_cpu_data_master_waitrequest -> nios2_cpu:d_waitrequest
@@ -157,6 +226,18 @@ module ECE385 (
 	wire         mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_read;        // mm_interconnect_0:nios2_jtag_uart_avalon_jtag_slave_read -> nios2_jtag_uart:av_read_n
 	wire         mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_write;       // mm_interconnect_0:nios2_jtag_uart_avalon_jtag_slave_write -> nios2_jtag_uart:av_write_n
 	wire  [31:0] mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_writedata;   // mm_interconnect_0:nios2_jtag_uart_avalon_jtag_slave_writedata -> nios2_jtag_uart:av_writedata
+	wire  [31:0] mm_interconnect_0_eth1_mdio_avalon_slave_readdata;               // eth1_mdio:avalon_slave_readdata -> mm_interconnect_0:eth1_mdio_avalon_slave_readdata
+	wire         mm_interconnect_0_eth1_mdio_avalon_slave_waitrequest;            // eth1_mdio:avalon_slave_waitrequest -> mm_interconnect_0:eth1_mdio_avalon_slave_waitrequest
+	wire   [4:0] mm_interconnect_0_eth1_mdio_avalon_slave_address;                // mm_interconnect_0:eth1_mdio_avalon_slave_address -> eth1_mdio:avalon_slave_address
+	wire         mm_interconnect_0_eth1_mdio_avalon_slave_read;                   // mm_interconnect_0:eth1_mdio_avalon_slave_read -> eth1_mdio:avalon_slave_read
+	wire         mm_interconnect_0_eth1_mdio_avalon_slave_write;                  // mm_interconnect_0:eth1_mdio_avalon_slave_write -> eth1_mdio:avalon_slave_write
+	wire  [31:0] mm_interconnect_0_eth1_mdio_avalon_slave_writedata;              // mm_interconnect_0:eth1_mdio_avalon_slave_writedata -> eth1_mdio:avalon_slave_writedata
+	wire  [31:0] mm_interconnect_0_eth0_mdio_avalon_slave_readdata;               // eth0_mdio:avalon_slave_readdata -> mm_interconnect_0:eth0_mdio_avalon_slave_readdata
+	wire         mm_interconnect_0_eth0_mdio_avalon_slave_waitrequest;            // eth0_mdio:avalon_slave_waitrequest -> mm_interconnect_0:eth0_mdio_avalon_slave_waitrequest
+	wire   [4:0] mm_interconnect_0_eth0_mdio_avalon_slave_address;                // mm_interconnect_0:eth0_mdio_avalon_slave_address -> eth0_mdio:avalon_slave_address
+	wire         mm_interconnect_0_eth0_mdio_avalon_slave_read;                   // mm_interconnect_0:eth0_mdio_avalon_slave_read -> eth0_mdio:avalon_slave_read
+	wire         mm_interconnect_0_eth0_mdio_avalon_slave_write;                  // mm_interconnect_0:eth0_mdio_avalon_slave_write -> eth0_mdio:avalon_slave_write
+	wire  [31:0] mm_interconnect_0_eth0_mdio_avalon_slave_writedata;              // mm_interconnect_0:eth0_mdio_avalon_slave_writedata -> eth0_mdio:avalon_slave_writedata
 	wire  [31:0] mm_interconnect_0_sram_multiplexer_avl_readdata;                 // sram_multiplexer:AVL_READDATA -> mm_interconnect_0:sram_multiplexer_avl_readdata
 	wire  [19:0] mm_interconnect_0_sram_multiplexer_avl_address;                  // mm_interconnect_0:sram_multiplexer_avl_address -> sram_multiplexer:AVL_ADDR
 	wire         mm_interconnect_0_sram_multiplexer_avl_read;                     // mm_interconnect_0:sram_multiplexer_avl_read -> sram_multiplexer:AVL_READ
@@ -169,6 +250,30 @@ module ECE385 (
 	wire  [31:0] mm_interconnect_0_vga_sprite_params_avl_writedata;               // mm_interconnect_0:vga_sprite_params_avl_writedata -> vga_sprite_params:AVL_WRITEDATA
 	wire  [31:0] mm_interconnect_0_nios2_sysid_control_slave_readdata;            // nios2_sysid:readdata -> mm_interconnect_0:nios2_sysid_control_slave_readdata
 	wire   [0:0] mm_interconnect_0_nios2_sysid_control_slave_address;             // mm_interconnect_0:nios2_sysid_control_slave_address -> nios2_sysid:address
+	wire         mm_interconnect_0_eth0_rx_dma_csr_chipselect;                    // mm_interconnect_0:eth0_rx_dma_csr_chipselect -> eth0_rx_dma:csr_chipselect
+	wire  [31:0] mm_interconnect_0_eth0_rx_dma_csr_readdata;                      // eth0_rx_dma:csr_readdata -> mm_interconnect_0:eth0_rx_dma_csr_readdata
+	wire   [3:0] mm_interconnect_0_eth0_rx_dma_csr_address;                       // mm_interconnect_0:eth0_rx_dma_csr_address -> eth0_rx_dma:csr_address
+	wire         mm_interconnect_0_eth0_rx_dma_csr_read;                          // mm_interconnect_0:eth0_rx_dma_csr_read -> eth0_rx_dma:csr_read
+	wire         mm_interconnect_0_eth0_rx_dma_csr_write;                         // mm_interconnect_0:eth0_rx_dma_csr_write -> eth0_rx_dma:csr_write
+	wire  [31:0] mm_interconnect_0_eth0_rx_dma_csr_writedata;                     // mm_interconnect_0:eth0_rx_dma_csr_writedata -> eth0_rx_dma:csr_writedata
+	wire         mm_interconnect_0_eth0_tx_dma_csr_chipselect;                    // mm_interconnect_0:eth0_tx_dma_csr_chipselect -> eth0_tx_dma:csr_chipselect
+	wire  [31:0] mm_interconnect_0_eth0_tx_dma_csr_readdata;                      // eth0_tx_dma:csr_readdata -> mm_interconnect_0:eth0_tx_dma_csr_readdata
+	wire   [3:0] mm_interconnect_0_eth0_tx_dma_csr_address;                       // mm_interconnect_0:eth0_tx_dma_csr_address -> eth0_tx_dma:csr_address
+	wire         mm_interconnect_0_eth0_tx_dma_csr_read;                          // mm_interconnect_0:eth0_tx_dma_csr_read -> eth0_tx_dma:csr_read
+	wire         mm_interconnect_0_eth0_tx_dma_csr_write;                         // mm_interconnect_0:eth0_tx_dma_csr_write -> eth0_tx_dma:csr_write
+	wire  [31:0] mm_interconnect_0_eth0_tx_dma_csr_writedata;                     // mm_interconnect_0:eth0_tx_dma_csr_writedata -> eth0_tx_dma:csr_writedata
+	wire         mm_interconnect_0_eth1_rx_dma_csr_chipselect;                    // mm_interconnect_0:eth1_rx_dma_csr_chipselect -> eth1_rx_dma:csr_chipselect
+	wire  [31:0] mm_interconnect_0_eth1_rx_dma_csr_readdata;                      // eth1_rx_dma:csr_readdata -> mm_interconnect_0:eth1_rx_dma_csr_readdata
+	wire   [3:0] mm_interconnect_0_eth1_rx_dma_csr_address;                       // mm_interconnect_0:eth1_rx_dma_csr_address -> eth1_rx_dma:csr_address
+	wire         mm_interconnect_0_eth1_rx_dma_csr_read;                          // mm_interconnect_0:eth1_rx_dma_csr_read -> eth1_rx_dma:csr_read
+	wire         mm_interconnect_0_eth1_rx_dma_csr_write;                         // mm_interconnect_0:eth1_rx_dma_csr_write -> eth1_rx_dma:csr_write
+	wire  [31:0] mm_interconnect_0_eth1_rx_dma_csr_writedata;                     // mm_interconnect_0:eth1_rx_dma_csr_writedata -> eth1_rx_dma:csr_writedata
+	wire         mm_interconnect_0_eth1_tx_dma_csr_chipselect;                    // mm_interconnect_0:eth1_tx_dma_csr_chipselect -> eth1_tx_dma:csr_chipselect
+	wire  [31:0] mm_interconnect_0_eth1_tx_dma_csr_readdata;                      // eth1_tx_dma:csr_readdata -> mm_interconnect_0:eth1_tx_dma_csr_readdata
+	wire   [3:0] mm_interconnect_0_eth1_tx_dma_csr_address;                       // mm_interconnect_0:eth1_tx_dma_csr_address -> eth1_tx_dma:csr_address
+	wire         mm_interconnect_0_eth1_tx_dma_csr_read;                          // mm_interconnect_0:eth1_tx_dma_csr_read -> eth1_tx_dma:csr_read
+	wire         mm_interconnect_0_eth1_tx_dma_csr_write;                         // mm_interconnect_0:eth1_tx_dma_csr_write -> eth1_tx_dma:csr_write
+	wire  [31:0] mm_interconnect_0_eth1_tx_dma_csr_writedata;                     // mm_interconnect_0:eth1_tx_dma_csr_writedata -> eth1_tx_dma:csr_writedata
 	wire  [31:0] mm_interconnect_0_nios2_cpu_debug_mem_slave_readdata;            // nios2_cpu:debug_mem_slave_readdata -> mm_interconnect_0:nios2_cpu_debug_mem_slave_readdata
 	wire         mm_interconnect_0_nios2_cpu_debug_mem_slave_waitrequest;         // nios2_cpu:debug_mem_slave_waitrequest -> mm_interconnect_0:nios2_cpu_debug_mem_slave_waitrequest
 	wire         mm_interconnect_0_nios2_cpu_debug_mem_slave_debugaccess;         // mm_interconnect_0:nios2_cpu_debug_mem_slave_debugaccess -> nios2_cpu:debug_mem_slave_debugaccess
@@ -182,9 +287,14 @@ module ECE385 (
 	wire         mm_interconnect_0_nios2_pll_pll_slave_read;                      // mm_interconnect_0:nios2_pll_pll_slave_read -> nios2_pll:read
 	wire         mm_interconnect_0_nios2_pll_pll_slave_write;                     // mm_interconnect_0:nios2_pll_pll_slave_write -> nios2_pll:write
 	wire  [31:0] mm_interconnect_0_nios2_pll_pll_slave_writedata;                 // mm_interconnect_0:nios2_pll_pll_slave_writedata -> nios2_pll:writedata
+	wire  [31:0] mm_interconnect_0_eth_pll_pll_slave_readdata;                    // eth_pll:readdata -> mm_interconnect_0:eth_pll_pll_slave_readdata
+	wire   [1:0] mm_interconnect_0_eth_pll_pll_slave_address;                     // mm_interconnect_0:eth_pll_pll_slave_address -> eth_pll:address
+	wire         mm_interconnect_0_eth_pll_pll_slave_read;                        // mm_interconnect_0:eth_pll_pll_slave_read -> eth_pll:read
+	wire         mm_interconnect_0_eth_pll_pll_slave_write;                       // mm_interconnect_0:eth_pll_pll_slave_write -> eth_pll:write
+	wire  [31:0] mm_interconnect_0_eth_pll_pll_slave_writedata;                   // mm_interconnect_0:eth_pll_pll_slave_writedata -> eth_pll:writedata
 	wire         mm_interconnect_0_nios2_onchip_mem_s1_chipselect;                // mm_interconnect_0:nios2_onchip_mem_s1_chipselect -> nios2_onchip_mem:chipselect
 	wire  [31:0] mm_interconnect_0_nios2_onchip_mem_s1_readdata;                  // nios2_onchip_mem:readdata -> mm_interconnect_0:nios2_onchip_mem_s1_readdata
-	wire  [14:0] mm_interconnect_0_nios2_onchip_mem_s1_address;                   // mm_interconnect_0:nios2_onchip_mem_s1_address -> nios2_onchip_mem:address
+	wire  [13:0] mm_interconnect_0_nios2_onchip_mem_s1_address;                   // mm_interconnect_0:nios2_onchip_mem_s1_address -> nios2_onchip_mem:address
 	wire   [3:0] mm_interconnect_0_nios2_onchip_mem_s1_byteenable;                // mm_interconnect_0:nios2_onchip_mem_s1_byteenable -> nios2_onchip_mem:byteenable
 	wire         mm_interconnect_0_nios2_onchip_mem_s1_write;                     // mm_interconnect_0:nios2_onchip_mem_s1_write -> nios2_onchip_mem:write
 	wire  [31:0] mm_interconnect_0_nios2_onchip_mem_s1_writedata;                 // mm_interconnect_0:nios2_onchip_mem_s1_writedata -> nios2_onchip_mem:writedata
@@ -381,18 +491,82 @@ module ECE385 (
 	wire         mm_interconnect_1_usb_keycode_s1_write;                          // mm_interconnect_1:usb_keycode_s1_write -> usb_keycode:write
 	wire  [31:0] mm_interconnect_1_usb_keycode_s1_writedata;                      // mm_interconnect_1:usb_keycode_s1_writedata -> usb_keycode:writedata
 	wire         mm_interconnect_1_usb_keycode_s1_clken;                          // mm_interconnect_1:usb_keycode_s1_clken -> usb_keycode:clken
-	wire         irq_mapper_receiver0_irq;                                        // nios2_jtag_uart:av_irq -> irq_mapper:receiver0_irq
-	wire         irq_mapper_receiver1_irq;                                        // nios2_timer:irq -> irq_mapper:receiver1_irq
+	wire  [31:0] eth0_rx_dma_descriptor_read_readdata;                            // mm_interconnect_2:eth0_rx_dma_descriptor_read_readdata -> eth0_rx_dma:descriptor_read_readdata
+	wire         eth0_rx_dma_descriptor_read_waitrequest;                         // mm_interconnect_2:eth0_rx_dma_descriptor_read_waitrequest -> eth0_rx_dma:descriptor_read_waitrequest
+	wire  [31:0] eth0_rx_dma_descriptor_read_address;                             // eth0_rx_dma:descriptor_read_address -> mm_interconnect_2:eth0_rx_dma_descriptor_read_address
+	wire         eth0_rx_dma_descriptor_read_read;                                // eth0_rx_dma:descriptor_read_read -> mm_interconnect_2:eth0_rx_dma_descriptor_read_read
+	wire         eth0_rx_dma_descriptor_read_readdatavalid;                       // mm_interconnect_2:eth0_rx_dma_descriptor_read_readdatavalid -> eth0_rx_dma:descriptor_read_readdatavalid
+	wire  [31:0] eth0_tx_dma_descriptor_read_readdata;                            // mm_interconnect_2:eth0_tx_dma_descriptor_read_readdata -> eth0_tx_dma:descriptor_read_readdata
+	wire         eth0_tx_dma_descriptor_read_waitrequest;                         // mm_interconnect_2:eth0_tx_dma_descriptor_read_waitrequest -> eth0_tx_dma:descriptor_read_waitrequest
+	wire  [31:0] eth0_tx_dma_descriptor_read_address;                             // eth0_tx_dma:descriptor_read_address -> mm_interconnect_2:eth0_tx_dma_descriptor_read_address
+	wire         eth0_tx_dma_descriptor_read_read;                                // eth0_tx_dma:descriptor_read_read -> mm_interconnect_2:eth0_tx_dma_descriptor_read_read
+	wire         eth0_tx_dma_descriptor_read_readdatavalid;                       // mm_interconnect_2:eth0_tx_dma_descriptor_read_readdatavalid -> eth0_tx_dma:descriptor_read_readdatavalid
+	wire  [31:0] eth1_rx_dma_descriptor_read_readdata;                            // mm_interconnect_2:eth1_rx_dma_descriptor_read_readdata -> eth1_rx_dma:descriptor_read_readdata
+	wire         eth1_rx_dma_descriptor_read_waitrequest;                         // mm_interconnect_2:eth1_rx_dma_descriptor_read_waitrequest -> eth1_rx_dma:descriptor_read_waitrequest
+	wire  [31:0] eth1_rx_dma_descriptor_read_address;                             // eth1_rx_dma:descriptor_read_address -> mm_interconnect_2:eth1_rx_dma_descriptor_read_address
+	wire         eth1_rx_dma_descriptor_read_read;                                // eth1_rx_dma:descriptor_read_read -> mm_interconnect_2:eth1_rx_dma_descriptor_read_read
+	wire         eth1_rx_dma_descriptor_read_readdatavalid;                       // mm_interconnect_2:eth1_rx_dma_descriptor_read_readdatavalid -> eth1_rx_dma:descriptor_read_readdatavalid
+	wire  [31:0] eth1_tx_dma_descriptor_read_readdata;                            // mm_interconnect_2:eth1_tx_dma_descriptor_read_readdata -> eth1_tx_dma:descriptor_read_readdata
+	wire         eth1_tx_dma_descriptor_read_waitrequest;                         // mm_interconnect_2:eth1_tx_dma_descriptor_read_waitrequest -> eth1_tx_dma:descriptor_read_waitrequest
+	wire  [31:0] eth1_tx_dma_descriptor_read_address;                             // eth1_tx_dma:descriptor_read_address -> mm_interconnect_2:eth1_tx_dma_descriptor_read_address
+	wire         eth1_tx_dma_descriptor_read_read;                                // eth1_tx_dma:descriptor_read_read -> mm_interconnect_2:eth1_tx_dma_descriptor_read_read
+	wire         eth1_tx_dma_descriptor_read_readdatavalid;                       // mm_interconnect_2:eth1_tx_dma_descriptor_read_readdatavalid -> eth1_tx_dma:descriptor_read_readdatavalid
+	wire         eth0_rx_dma_descriptor_write_waitrequest;                        // mm_interconnect_2:eth0_rx_dma_descriptor_write_waitrequest -> eth0_rx_dma:descriptor_write_waitrequest
+	wire  [31:0] eth0_rx_dma_descriptor_write_address;                            // eth0_rx_dma:descriptor_write_address -> mm_interconnect_2:eth0_rx_dma_descriptor_write_address
+	wire         eth0_rx_dma_descriptor_write_write;                              // eth0_rx_dma:descriptor_write_write -> mm_interconnect_2:eth0_rx_dma_descriptor_write_write
+	wire  [31:0] eth0_rx_dma_descriptor_write_writedata;                          // eth0_rx_dma:descriptor_write_writedata -> mm_interconnect_2:eth0_rx_dma_descriptor_write_writedata
+	wire         eth0_tx_dma_descriptor_write_waitrequest;                        // mm_interconnect_2:eth0_tx_dma_descriptor_write_waitrequest -> eth0_tx_dma:descriptor_write_waitrequest
+	wire  [31:0] eth0_tx_dma_descriptor_write_address;                            // eth0_tx_dma:descriptor_write_address -> mm_interconnect_2:eth0_tx_dma_descriptor_write_address
+	wire         eth0_tx_dma_descriptor_write_write;                              // eth0_tx_dma:descriptor_write_write -> mm_interconnect_2:eth0_tx_dma_descriptor_write_write
+	wire  [31:0] eth0_tx_dma_descriptor_write_writedata;                          // eth0_tx_dma:descriptor_write_writedata -> mm_interconnect_2:eth0_tx_dma_descriptor_write_writedata
+	wire         eth1_rx_dma_descriptor_write_waitrequest;                        // mm_interconnect_2:eth1_rx_dma_descriptor_write_waitrequest -> eth1_rx_dma:descriptor_write_waitrequest
+	wire  [31:0] eth1_rx_dma_descriptor_write_address;                            // eth1_rx_dma:descriptor_write_address -> mm_interconnect_2:eth1_rx_dma_descriptor_write_address
+	wire         eth1_rx_dma_descriptor_write_write;                              // eth1_rx_dma:descriptor_write_write -> mm_interconnect_2:eth1_rx_dma_descriptor_write_write
+	wire  [31:0] eth1_rx_dma_descriptor_write_writedata;                          // eth1_rx_dma:descriptor_write_writedata -> mm_interconnect_2:eth1_rx_dma_descriptor_write_writedata
+	wire         eth1_tx_dma_descriptor_write_waitrequest;                        // mm_interconnect_2:eth1_tx_dma_descriptor_write_waitrequest -> eth1_tx_dma:descriptor_write_waitrequest
+	wire  [31:0] eth1_tx_dma_descriptor_write_address;                            // eth1_tx_dma:descriptor_write_address -> mm_interconnect_2:eth1_tx_dma_descriptor_write_address
+	wire         eth1_tx_dma_descriptor_write_write;                              // eth1_tx_dma:descriptor_write_write -> mm_interconnect_2:eth1_tx_dma_descriptor_write_write
+	wire  [31:0] eth1_tx_dma_descriptor_write_writedata;                          // eth1_tx_dma:descriptor_write_writedata -> mm_interconnect_2:eth1_tx_dma_descriptor_write_writedata
+	wire   [7:0] eth0_tx_dma_m_read_readdata;                                     // mm_interconnect_2:eth0_tx_dma_m_read_readdata -> eth0_tx_dma:m_read_readdata
+	wire         eth0_tx_dma_m_read_waitrequest;                                  // mm_interconnect_2:eth0_tx_dma_m_read_waitrequest -> eth0_tx_dma:m_read_waitrequest
+	wire  [31:0] eth0_tx_dma_m_read_address;                                      // eth0_tx_dma:m_read_address -> mm_interconnect_2:eth0_tx_dma_m_read_address
+	wire         eth0_tx_dma_m_read_read;                                         // eth0_tx_dma:m_read_read -> mm_interconnect_2:eth0_tx_dma_m_read_read
+	wire         eth0_tx_dma_m_read_readdatavalid;                                // mm_interconnect_2:eth0_tx_dma_m_read_readdatavalid -> eth0_tx_dma:m_read_readdatavalid
+	wire   [7:0] eth1_tx_dma_m_read_readdata;                                     // mm_interconnect_2:eth1_tx_dma_m_read_readdata -> eth1_tx_dma:m_read_readdata
+	wire         eth1_tx_dma_m_read_waitrequest;                                  // mm_interconnect_2:eth1_tx_dma_m_read_waitrequest -> eth1_tx_dma:m_read_waitrequest
+	wire  [31:0] eth1_tx_dma_m_read_address;                                      // eth1_tx_dma:m_read_address -> mm_interconnect_2:eth1_tx_dma_m_read_address
+	wire         eth1_tx_dma_m_read_read;                                         // eth1_tx_dma:m_read_read -> mm_interconnect_2:eth1_tx_dma_m_read_read
+	wire         eth1_tx_dma_m_read_readdatavalid;                                // mm_interconnect_2:eth1_tx_dma_m_read_readdatavalid -> eth1_tx_dma:m_read_readdatavalid
+	wire         eth0_rx_dma_m_write_waitrequest;                                 // mm_interconnect_2:eth0_rx_dma_m_write_waitrequest -> eth0_rx_dma:m_write_waitrequest
+	wire  [31:0] eth0_rx_dma_m_write_address;                                     // eth0_rx_dma:m_write_address -> mm_interconnect_2:eth0_rx_dma_m_write_address
+	wire         eth0_rx_dma_m_write_write;                                       // eth0_rx_dma:m_write_write -> mm_interconnect_2:eth0_rx_dma_m_write_write
+	wire   [7:0] eth0_rx_dma_m_write_writedata;                                   // eth0_rx_dma:m_write_writedata -> mm_interconnect_2:eth0_rx_dma_m_write_writedata
+	wire         eth1_rx_dma_m_write_waitrequest;                                 // mm_interconnect_2:eth1_rx_dma_m_write_waitrequest -> eth1_rx_dma:m_write_waitrequest
+	wire  [31:0] eth1_rx_dma_m_write_address;                                     // eth1_rx_dma:m_write_address -> mm_interconnect_2:eth1_rx_dma_m_write_address
+	wire         eth1_rx_dma_m_write_write;                                       // eth1_rx_dma:m_write_write -> mm_interconnect_2:eth1_rx_dma_m_write_write
+	wire   [7:0] eth1_rx_dma_m_write_writedata;                                   // eth1_rx_dma:m_write_writedata -> mm_interconnect_2:eth1_rx_dma_m_write_writedata
+	wire         mm_interconnect_2_nios2_onchip_mem_s2_chipselect;                // mm_interconnect_2:nios2_onchip_mem_s2_chipselect -> nios2_onchip_mem:chipselect2
+	wire  [31:0] mm_interconnect_2_nios2_onchip_mem_s2_readdata;                  // nios2_onchip_mem:readdata2 -> mm_interconnect_2:nios2_onchip_mem_s2_readdata
+	wire  [13:0] mm_interconnect_2_nios2_onchip_mem_s2_address;                   // mm_interconnect_2:nios2_onchip_mem_s2_address -> nios2_onchip_mem:address2
+	wire   [3:0] mm_interconnect_2_nios2_onchip_mem_s2_byteenable;                // mm_interconnect_2:nios2_onchip_mem_s2_byteenable -> nios2_onchip_mem:byteenable2
+	wire         mm_interconnect_2_nios2_onchip_mem_s2_write;                     // mm_interconnect_2:nios2_onchip_mem_s2_write -> nios2_onchip_mem:write2
+	wire  [31:0] mm_interconnect_2_nios2_onchip_mem_s2_writedata;                 // mm_interconnect_2:nios2_onchip_mem_s2_writedata -> nios2_onchip_mem:writedata2
+	wire         mm_interconnect_2_nios2_onchip_mem_s2_clken;                     // mm_interconnect_2:nios2_onchip_mem_s2_clken -> nios2_onchip_mem:clken2
+	wire         irq_mapper_receiver0_irq;                                        // eth0_rx_dma:csr_irq -> irq_mapper:receiver0_irq
+	wire         irq_mapper_receiver1_irq;                                        // eth0_tx_dma:csr_irq -> irq_mapper:receiver1_irq
+	wire         irq_mapper_receiver2_irq;                                        // eth1_rx_dma:csr_irq -> irq_mapper:receiver2_irq
+	wire         irq_mapper_receiver3_irq;                                        // eth1_tx_dma:csr_irq -> irq_mapper:receiver3_irq
+	wire         irq_mapper_receiver4_irq;                                        // nios2_jtag_uart:av_irq -> irq_mapper:receiver4_irq
+	wire         irq_mapper_receiver5_irq;                                        // nios2_timer:irq -> irq_mapper:receiver5_irq
 	wire  [31:0] nios2_cpu_irq_irq;                                               // irq_mapper:sender_irq -> nios2_cpu:irq
 	wire         irq_mapper_001_receiver0_irq;                                    // usb_jtag_uart:av_irq -> irq_mapper_001:receiver0_irq
 	wire  [31:0] usb_nios2_cpu_irq_irq;                                           // irq_mapper_001:sender_irq -> usb_nios2_cpu:irq
-	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_mem:reset, audio_position:reset_n, audio_position_end:reset_n, io_hex:reset_n, io_hwrng:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, rst_translator:in_reset, sdram:reset_n, sram_multiplexer:RESET, usb_keycode:reset2, vga_background_offset:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
-	wire         rst_controller_reset_out_reset_req;                              // rst_controller:reset_req -> [nios2_onchip_mem:reset_req, rst_translator:reset_req_in]
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_mem:reset, audio_position:reset_n, audio_position_end:reset_n, eth0_mdio:reset, eth0_rx_dma:system_reset_n, eth0_rx_fifo:out_reset_n, eth0_tx_dma:system_reset_n, eth0_tx_fifo:in_reset_n, eth1_mdio:reset, eth1_rx_dma:system_reset_n, eth1_rx_fifo:out_reset_n, eth1_tx_dma:system_reset_n, eth1_tx_fifo:in_reset_n, eth_pll:reset, io_hex:reset_n, io_hwrng:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, mm_interconnect_2:eth0_rx_dma_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, sdram:reset_n, sram_multiplexer:RESET, usb_keycode:reset2, vga_background_offset:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
 	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
-	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator_001:reset_req_in]
+	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator:reset_req_in]
 	wire         nios2_cpu_debug_reset_request_reset;                             // nios2_cpu:debug_reset_request -> rst_controller_001:reset_in1
-	wire         rst_controller_002_reset_out_reset;                              // rst_controller_002:reset_out -> [irq_mapper_001:reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, rst_translator_002:in_reset, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_jtag_uart:rst_n, usb_keycode:reset, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n]
-	wire         rst_controller_002_reset_out_reset_req;                          // rst_controller_002:reset_req -> [rst_translator_002:reset_req_in, usb_nios2_cpu:reset_req]
+	wire         rst_controller_002_reset_out_reset;                              // rst_controller_002:reset_out -> [irq_mapper_001:reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, rst_translator_001:in_reset, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_jtag_uart:rst_n, usb_keycode:reset, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n]
+	wire         rst_controller_002_reset_out_reset_req;                          // rst_controller_002:reset_req -> [rst_translator_001:reset_req_in, usb_nios2_cpu:reset_req]
 
 	ECE385_audio_mem audio_mem (
 		.clk         (clk_clk),                                   //   clk1.clk
@@ -435,6 +609,375 @@ module ECE385 (
 		.chipselect (mm_interconnect_0_audio_position_end_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_audio_position_end_s1_readdata),   //                    .readdata
 		.out_port   (audio_position_end_export)                           // external_connection.export
+	);
+
+	lantian_mdio #(
+		.CLOCK_DIVIDER (8'b00010100)
+	) eth0_mdio (
+		.avalon_slave_address     (mm_interconnect_0_eth0_mdio_avalon_slave_address),     // avalon_slave.address
+		.avalon_slave_read        (mm_interconnect_0_eth0_mdio_avalon_slave_read),        //             .read
+		.avalon_slave_readdata    (mm_interconnect_0_eth0_mdio_avalon_slave_readdata),    //             .readdata
+		.avalon_slave_waitrequest (mm_interconnect_0_eth0_mdio_avalon_slave_waitrequest), //             .waitrequest
+		.avalon_slave_write       (mm_interconnect_0_eth0_mdio_avalon_slave_write),       //             .write
+		.avalon_slave_writedata   (mm_interconnect_0_eth0_mdio_avalon_slave_writedata),   //             .writedata
+		.clk                      (clk_clk),                                              //        clock.clk
+		.reset                    (rst_controller_reset_out_reset),                       //        reset.reset
+		.mdc                      (eth0_mdio_mdc),                                        //         mdio.mdc
+		.mdio_in                  (eth0_mdio_mdio_in),                                    //             .mdio_in
+		.mdio_out                 (eth0_mdio_mdio_out),                                   //             .mdio_out
+		.mdio_oen                 (eth0_mdio_mdio_oen),                                   //             .mdio_oen
+		.phy_addr                 (eth0_mdio_phy_addr)                                    //             .phy_addr
+	);
+
+	ECE385_eth0_rx_dma eth0_rx_dma (
+		.clk                           (clk_clk),                                      //              clk.clk
+		.system_reset_n                (~rst_controller_reset_out_reset),              //            reset.reset_n
+		.csr_chipselect                (mm_interconnect_0_eth0_rx_dma_csr_chipselect), //              csr.chipselect
+		.csr_address                   (mm_interconnect_0_eth0_rx_dma_csr_address),    //                 .address
+		.csr_read                      (mm_interconnect_0_eth0_rx_dma_csr_read),       //                 .read
+		.csr_write                     (mm_interconnect_0_eth0_rx_dma_csr_write),      //                 .write
+		.csr_writedata                 (mm_interconnect_0_eth0_rx_dma_csr_writedata),  //                 .writedata
+		.csr_readdata                  (mm_interconnect_0_eth0_rx_dma_csr_readdata),   //                 .readdata
+		.descriptor_read_readdata      (eth0_rx_dma_descriptor_read_readdata),         //  descriptor_read.readdata
+		.descriptor_read_readdatavalid (eth0_rx_dma_descriptor_read_readdatavalid),    //                 .readdatavalid
+		.descriptor_read_waitrequest   (eth0_rx_dma_descriptor_read_waitrequest),      //                 .waitrequest
+		.descriptor_read_address       (eth0_rx_dma_descriptor_read_address),          //                 .address
+		.descriptor_read_read          (eth0_rx_dma_descriptor_read_read),             //                 .read
+		.descriptor_write_waitrequest  (eth0_rx_dma_descriptor_write_waitrequest),     // descriptor_write.waitrequest
+		.descriptor_write_address      (eth0_rx_dma_descriptor_write_address),         //                 .address
+		.descriptor_write_write        (eth0_rx_dma_descriptor_write_write),           //                 .write
+		.descriptor_write_writedata    (eth0_rx_dma_descriptor_write_writedata),       //                 .writedata
+		.csr_irq                       (irq_mapper_receiver0_irq),                     //          csr_irq.irq
+		.in_startofpacket              (eth0_rx_fifo_out_startofpacket),               //               in.startofpacket
+		.in_endofpacket                (eth0_rx_fifo_out_endofpacket),                 //                 .endofpacket
+		.in_data                       (eth0_rx_fifo_out_data),                        //                 .data
+		.in_valid                      (eth0_rx_fifo_out_valid),                       //                 .valid
+		.in_ready                      (eth0_rx_fifo_out_ready),                       //                 .ready
+		.in_error                      (eth0_rx_fifo_out_error),                       //                 .error
+		.m_write_waitrequest           (eth0_rx_dma_m_write_waitrequest),              //          m_write.waitrequest
+		.m_write_address               (eth0_rx_dma_m_write_address),                  //                 .address
+		.m_write_write                 (eth0_rx_dma_m_write_write),                    //                 .write
+		.m_write_writedata             (eth0_rx_dma_m_write_writedata)                 //                 .writedata
+	);
+
+	altera_avalon_dc_fifo #(
+		.SYMBOLS_PER_BEAT   (1),
+		.BITS_PER_SYMBOL    (8),
+		.FIFO_DEPTH         (2048),
+		.CHANNEL_WIDTH      (0),
+		.ERROR_WIDTH        (3),
+		.USE_PACKETS        (1),
+		.USE_IN_FILL_LEVEL  (0),
+		.USE_OUT_FILL_LEVEL (0),
+		.WR_SYNC_DEPTH      (3),
+		.RD_SYNC_DEPTH      (3)
+	) eth0_rx_fifo (
+		.in_clk            (eth0_rx_fifo_in_clk_clk),              //        in_clk.clk
+		.in_reset_n        (eth0_rx_fifo_in_clk_reset_reset_n),    //  in_clk_reset.reset_n
+		.out_clk           (clk_clk),                              //       out_clk.clk
+		.out_reset_n       (~rst_controller_reset_out_reset),      // out_clk_reset.reset_n
+		.in_data           (eth0_rx_fifo_in_data),                 //            in.data
+		.in_valid          (eth0_rx_fifo_in_valid),                //              .valid
+		.in_ready          (eth0_rx_fifo_in_ready),                //              .ready
+		.in_startofpacket  (eth0_rx_fifo_in_startofpacket),        //              .startofpacket
+		.in_endofpacket    (eth0_rx_fifo_in_endofpacket),          //              .endofpacket
+		.in_error          (eth0_rx_fifo_in_error),                //              .error
+		.out_data          (eth0_rx_fifo_out_data),                //           out.data
+		.out_valid         (eth0_rx_fifo_out_valid),               //              .valid
+		.out_ready         (eth0_rx_fifo_out_ready),               //              .ready
+		.out_startofpacket (eth0_rx_fifo_out_startofpacket),       //              .startofpacket
+		.out_endofpacket   (eth0_rx_fifo_out_endofpacket),         //              .endofpacket
+		.out_error         (eth0_rx_fifo_out_error),               //              .error
+		.in_csr_address    (1'b0),                                 //   (terminated)
+		.in_csr_read       (1'b0),                                 //   (terminated)
+		.in_csr_write      (1'b0),                                 //   (terminated)
+		.in_csr_readdata   (),                                     //   (terminated)
+		.in_csr_writedata  (32'b00000000000000000000000000000000), //   (terminated)
+		.out_csr_address   (1'b0),                                 //   (terminated)
+		.out_csr_read      (1'b0),                                 //   (terminated)
+		.out_csr_write     (1'b0),                                 //   (terminated)
+		.out_csr_readdata  (),                                     //   (terminated)
+		.out_csr_writedata (32'b00000000000000000000000000000000), //   (terminated)
+		.in_empty          (1'b0),                                 //   (terminated)
+		.out_empty         (),                                     //   (terminated)
+		.in_channel        (1'b0),                                 //   (terminated)
+		.out_channel       (),                                     //   (terminated)
+		.space_avail_data  ()                                      //   (terminated)
+	);
+
+	ECE385_eth0_tx_dma eth0_tx_dma (
+		.clk                           (clk_clk),                                      //              clk.clk
+		.system_reset_n                (~rst_controller_reset_out_reset),              //            reset.reset_n
+		.csr_chipselect                (mm_interconnect_0_eth0_tx_dma_csr_chipselect), //              csr.chipselect
+		.csr_address                   (mm_interconnect_0_eth0_tx_dma_csr_address),    //                 .address
+		.csr_read                      (mm_interconnect_0_eth0_tx_dma_csr_read),       //                 .read
+		.csr_write                     (mm_interconnect_0_eth0_tx_dma_csr_write),      //                 .write
+		.csr_writedata                 (mm_interconnect_0_eth0_tx_dma_csr_writedata),  //                 .writedata
+		.csr_readdata                  (mm_interconnect_0_eth0_tx_dma_csr_readdata),   //                 .readdata
+		.descriptor_read_readdata      (eth0_tx_dma_descriptor_read_readdata),         //  descriptor_read.readdata
+		.descriptor_read_readdatavalid (eth0_tx_dma_descriptor_read_readdatavalid),    //                 .readdatavalid
+		.descriptor_read_waitrequest   (eth0_tx_dma_descriptor_read_waitrequest),      //                 .waitrequest
+		.descriptor_read_address       (eth0_tx_dma_descriptor_read_address),          //                 .address
+		.descriptor_read_read          (eth0_tx_dma_descriptor_read_read),             //                 .read
+		.descriptor_write_waitrequest  (eth0_tx_dma_descriptor_write_waitrequest),     // descriptor_write.waitrequest
+		.descriptor_write_address      (eth0_tx_dma_descriptor_write_address),         //                 .address
+		.descriptor_write_write        (eth0_tx_dma_descriptor_write_write),           //                 .write
+		.descriptor_write_writedata    (eth0_tx_dma_descriptor_write_writedata),       //                 .writedata
+		.csr_irq                       (irq_mapper_receiver1_irq),                     //          csr_irq.irq
+		.m_read_readdata               (eth0_tx_dma_m_read_readdata),                  //           m_read.readdata
+		.m_read_readdatavalid          (eth0_tx_dma_m_read_readdatavalid),             //                 .readdatavalid
+		.m_read_waitrequest            (eth0_tx_dma_m_read_waitrequest),               //                 .waitrequest
+		.m_read_address                (eth0_tx_dma_m_read_address),                   //                 .address
+		.m_read_read                   (eth0_tx_dma_m_read_read),                      //                 .read
+		.out_data                      (eth0_tx_dma_out_data),                         //              out.data
+		.out_valid                     (eth0_tx_dma_out_valid),                        //                 .valid
+		.out_ready                     (eth0_tx_dma_out_ready),                        //                 .ready
+		.out_endofpacket               (eth0_tx_dma_out_endofpacket),                  //                 .endofpacket
+		.out_startofpacket             (eth0_tx_dma_out_startofpacket),                //                 .startofpacket
+		.out_error                     (eth0_tx_dma_out_error)                         //                 .error
+	);
+
+	altera_avalon_dc_fifo #(
+		.SYMBOLS_PER_BEAT   (1),
+		.BITS_PER_SYMBOL    (8),
+		.FIFO_DEPTH         (2048),
+		.CHANNEL_WIDTH      (0),
+		.ERROR_WIDTH        (2),
+		.USE_PACKETS        (1),
+		.USE_IN_FILL_LEVEL  (0),
+		.USE_OUT_FILL_LEVEL (0),
+		.WR_SYNC_DEPTH      (3),
+		.RD_SYNC_DEPTH      (3)
+	) eth0_tx_fifo (
+		.in_clk            (clk_clk),                              //        in_clk.clk
+		.in_reset_n        (~rst_controller_reset_out_reset),      //  in_clk_reset.reset_n
+		.out_clk           (eth0_tx_fifo_out_clk_clk),             //       out_clk.clk
+		.out_reset_n       (eth0_tx_fifo_out_clk_reset_reset_n),   // out_clk_reset.reset_n
+		.in_data           (eth0_tx_dma_out_data),                 //            in.data
+		.in_valid          (eth0_tx_dma_out_valid),                //              .valid
+		.in_ready          (eth0_tx_dma_out_ready),                //              .ready
+		.in_startofpacket  (eth0_tx_dma_out_startofpacket),        //              .startofpacket
+		.in_endofpacket    (eth0_tx_dma_out_endofpacket),          //              .endofpacket
+		.in_error          (eth0_tx_dma_out_error),                //              .error
+		.out_data          (eth0_tx_fifo_out_data),                //           out.data
+		.out_valid         (eth0_tx_fifo_out_valid),               //              .valid
+		.out_ready         (eth0_tx_fifo_out_ready),               //              .ready
+		.out_startofpacket (eth0_tx_fifo_out_startofpacket),       //              .startofpacket
+		.out_endofpacket   (eth0_tx_fifo_out_endofpacket),         //              .endofpacket
+		.out_error         (eth0_tx_fifo_out_error),               //              .error
+		.in_csr_address    (1'b0),                                 //   (terminated)
+		.in_csr_read       (1'b0),                                 //   (terminated)
+		.in_csr_write      (1'b0),                                 //   (terminated)
+		.in_csr_readdata   (),                                     //   (terminated)
+		.in_csr_writedata  (32'b00000000000000000000000000000000), //   (terminated)
+		.out_csr_address   (1'b0),                                 //   (terminated)
+		.out_csr_read      (1'b0),                                 //   (terminated)
+		.out_csr_write     (1'b0),                                 //   (terminated)
+		.out_csr_readdata  (),                                     //   (terminated)
+		.out_csr_writedata (32'b00000000000000000000000000000000), //   (terminated)
+		.in_empty          (1'b0),                                 //   (terminated)
+		.out_empty         (),                                     //   (terminated)
+		.in_channel        (1'b0),                                 //   (terminated)
+		.out_channel       (),                                     //   (terminated)
+		.space_avail_data  ()                                      //   (terminated)
+	);
+
+	lantian_mdio #(
+		.CLOCK_DIVIDER (8'b00010100)
+	) eth1_mdio (
+		.avalon_slave_address     (mm_interconnect_0_eth1_mdio_avalon_slave_address),     // avalon_slave.address
+		.avalon_slave_read        (mm_interconnect_0_eth1_mdio_avalon_slave_read),        //             .read
+		.avalon_slave_readdata    (mm_interconnect_0_eth1_mdio_avalon_slave_readdata),    //             .readdata
+		.avalon_slave_waitrequest (mm_interconnect_0_eth1_mdio_avalon_slave_waitrequest), //             .waitrequest
+		.avalon_slave_write       (mm_interconnect_0_eth1_mdio_avalon_slave_write),       //             .write
+		.avalon_slave_writedata   (mm_interconnect_0_eth1_mdio_avalon_slave_writedata),   //             .writedata
+		.clk                      (clk_clk),                                              //        clock.clk
+		.reset                    (rst_controller_reset_out_reset),                       //        reset.reset
+		.mdc                      (eth1_mdio_mdc),                                        //         mdio.mdc
+		.mdio_in                  (eth1_mdio_mdio_in),                                    //             .mdio_in
+		.mdio_out                 (eth1_mdio_mdio_out),                                   //             .mdio_out
+		.mdio_oen                 (eth1_mdio_mdio_oen),                                   //             .mdio_oen
+		.phy_addr                 (eth1_mdio_phy_addr)                                    //             .phy_addr
+	);
+
+	ECE385_eth0_rx_dma eth1_rx_dma (
+		.clk                           (clk_clk),                                      //              clk.clk
+		.system_reset_n                (~rst_controller_reset_out_reset),              //            reset.reset_n
+		.csr_chipselect                (mm_interconnect_0_eth1_rx_dma_csr_chipselect), //              csr.chipselect
+		.csr_address                   (mm_interconnect_0_eth1_rx_dma_csr_address),    //                 .address
+		.csr_read                      (mm_interconnect_0_eth1_rx_dma_csr_read),       //                 .read
+		.csr_write                     (mm_interconnect_0_eth1_rx_dma_csr_write),      //                 .write
+		.csr_writedata                 (mm_interconnect_0_eth1_rx_dma_csr_writedata),  //                 .writedata
+		.csr_readdata                  (mm_interconnect_0_eth1_rx_dma_csr_readdata),   //                 .readdata
+		.descriptor_read_readdata      (eth1_rx_dma_descriptor_read_readdata),         //  descriptor_read.readdata
+		.descriptor_read_readdatavalid (eth1_rx_dma_descriptor_read_readdatavalid),    //                 .readdatavalid
+		.descriptor_read_waitrequest   (eth1_rx_dma_descriptor_read_waitrequest),      //                 .waitrequest
+		.descriptor_read_address       (eth1_rx_dma_descriptor_read_address),          //                 .address
+		.descriptor_read_read          (eth1_rx_dma_descriptor_read_read),             //                 .read
+		.descriptor_write_waitrequest  (eth1_rx_dma_descriptor_write_waitrequest),     // descriptor_write.waitrequest
+		.descriptor_write_address      (eth1_rx_dma_descriptor_write_address),         //                 .address
+		.descriptor_write_write        (eth1_rx_dma_descriptor_write_write),           //                 .write
+		.descriptor_write_writedata    (eth1_rx_dma_descriptor_write_writedata),       //                 .writedata
+		.csr_irq                       (irq_mapper_receiver2_irq),                     //          csr_irq.irq
+		.in_startofpacket              (eth1_rx_fifo_out_startofpacket),               //               in.startofpacket
+		.in_endofpacket                (eth1_rx_fifo_out_endofpacket),                 //                 .endofpacket
+		.in_data                       (eth1_rx_fifo_out_data),                        //                 .data
+		.in_valid                      (eth1_rx_fifo_out_valid),                       //                 .valid
+		.in_ready                      (eth1_rx_fifo_out_ready),                       //                 .ready
+		.in_error                      (eth1_rx_fifo_out_error),                       //                 .error
+		.m_write_waitrequest           (eth1_rx_dma_m_write_waitrequest),              //          m_write.waitrequest
+		.m_write_address               (eth1_rx_dma_m_write_address),                  //                 .address
+		.m_write_write                 (eth1_rx_dma_m_write_write),                    //                 .write
+		.m_write_writedata             (eth1_rx_dma_m_write_writedata)                 //                 .writedata
+	);
+
+	altera_avalon_dc_fifo #(
+		.SYMBOLS_PER_BEAT   (1),
+		.BITS_PER_SYMBOL    (8),
+		.FIFO_DEPTH         (2048),
+		.CHANNEL_WIDTH      (0),
+		.ERROR_WIDTH        (3),
+		.USE_PACKETS        (1),
+		.USE_IN_FILL_LEVEL  (0),
+		.USE_OUT_FILL_LEVEL (0),
+		.WR_SYNC_DEPTH      (3),
+		.RD_SYNC_DEPTH      (3)
+	) eth1_rx_fifo (
+		.in_clk            (eth1_rx_fifo_in_clk_clk),              //        in_clk.clk
+		.in_reset_n        (eth1_rx_fifo_in_clk_reset_reset_n),    //  in_clk_reset.reset_n
+		.out_clk           (clk_clk),                              //       out_clk.clk
+		.out_reset_n       (~rst_controller_reset_out_reset),      // out_clk_reset.reset_n
+		.in_data           (eth1_rx_fifo_in_data),                 //            in.data
+		.in_valid          (eth1_rx_fifo_in_valid),                //              .valid
+		.in_ready          (eth1_rx_fifo_in_ready),                //              .ready
+		.in_startofpacket  (eth1_rx_fifo_in_startofpacket),        //              .startofpacket
+		.in_endofpacket    (eth1_rx_fifo_in_endofpacket),          //              .endofpacket
+		.in_error          (eth1_rx_fifo_in_error),                //              .error
+		.out_data          (eth1_rx_fifo_out_data),                //           out.data
+		.out_valid         (eth1_rx_fifo_out_valid),               //              .valid
+		.out_ready         (eth1_rx_fifo_out_ready),               //              .ready
+		.out_startofpacket (eth1_rx_fifo_out_startofpacket),       //              .startofpacket
+		.out_endofpacket   (eth1_rx_fifo_out_endofpacket),         //              .endofpacket
+		.out_error         (eth1_rx_fifo_out_error),               //              .error
+		.in_csr_address    (1'b0),                                 //   (terminated)
+		.in_csr_read       (1'b0),                                 //   (terminated)
+		.in_csr_write      (1'b0),                                 //   (terminated)
+		.in_csr_readdata   (),                                     //   (terminated)
+		.in_csr_writedata  (32'b00000000000000000000000000000000), //   (terminated)
+		.out_csr_address   (1'b0),                                 //   (terminated)
+		.out_csr_read      (1'b0),                                 //   (terminated)
+		.out_csr_write     (1'b0),                                 //   (terminated)
+		.out_csr_readdata  (),                                     //   (terminated)
+		.out_csr_writedata (32'b00000000000000000000000000000000), //   (terminated)
+		.in_empty          (1'b0),                                 //   (terminated)
+		.out_empty         (),                                     //   (terminated)
+		.in_channel        (1'b0),                                 //   (terminated)
+		.out_channel       (),                                     //   (terminated)
+		.space_avail_data  ()                                      //   (terminated)
+	);
+
+	ECE385_eth1_tx_dma eth1_tx_dma (
+		.clk                           (clk_clk),                                      //              clk.clk
+		.system_reset_n                (~rst_controller_reset_out_reset),              //            reset.reset_n
+		.csr_chipselect                (mm_interconnect_0_eth1_tx_dma_csr_chipselect), //              csr.chipselect
+		.csr_address                   (mm_interconnect_0_eth1_tx_dma_csr_address),    //                 .address
+		.csr_read                      (mm_interconnect_0_eth1_tx_dma_csr_read),       //                 .read
+		.csr_write                     (mm_interconnect_0_eth1_tx_dma_csr_write),      //                 .write
+		.csr_writedata                 (mm_interconnect_0_eth1_tx_dma_csr_writedata),  //                 .writedata
+		.csr_readdata                  (mm_interconnect_0_eth1_tx_dma_csr_readdata),   //                 .readdata
+		.descriptor_read_readdata      (eth1_tx_dma_descriptor_read_readdata),         //  descriptor_read.readdata
+		.descriptor_read_readdatavalid (eth1_tx_dma_descriptor_read_readdatavalid),    //                 .readdatavalid
+		.descriptor_read_waitrequest   (eth1_tx_dma_descriptor_read_waitrequest),      //                 .waitrequest
+		.descriptor_read_address       (eth1_tx_dma_descriptor_read_address),          //                 .address
+		.descriptor_read_read          (eth1_tx_dma_descriptor_read_read),             //                 .read
+		.descriptor_write_waitrequest  (eth1_tx_dma_descriptor_write_waitrequest),     // descriptor_write.waitrequest
+		.descriptor_write_address      (eth1_tx_dma_descriptor_write_address),         //                 .address
+		.descriptor_write_write        (eth1_tx_dma_descriptor_write_write),           //                 .write
+		.descriptor_write_writedata    (eth1_tx_dma_descriptor_write_writedata),       //                 .writedata
+		.csr_irq                       (irq_mapper_receiver3_irq),                     //          csr_irq.irq
+		.m_read_readdata               (eth1_tx_dma_m_read_readdata),                  //           m_read.readdata
+		.m_read_readdatavalid          (eth1_tx_dma_m_read_readdatavalid),             //                 .readdatavalid
+		.m_read_waitrequest            (eth1_tx_dma_m_read_waitrequest),               //                 .waitrequest
+		.m_read_address                (eth1_tx_dma_m_read_address),                   //                 .address
+		.m_read_read                   (eth1_tx_dma_m_read_read),                      //                 .read
+		.out_data                      (eth1_tx_dma_out_data),                         //              out.data
+		.out_valid                     (eth1_tx_dma_out_valid),                        //                 .valid
+		.out_ready                     (eth1_tx_dma_out_ready),                        //                 .ready
+		.out_endofpacket               (eth1_tx_dma_out_endofpacket),                  //                 .endofpacket
+		.out_startofpacket             (eth1_tx_dma_out_startofpacket),                //                 .startofpacket
+		.out_error                     (eth1_tx_dma_out_error)                         //                 .error
+	);
+
+	altera_avalon_dc_fifo #(
+		.SYMBOLS_PER_BEAT   (1),
+		.BITS_PER_SYMBOL    (8),
+		.FIFO_DEPTH         (2048),
+		.CHANNEL_WIDTH      (0),
+		.ERROR_WIDTH        (2),
+		.USE_PACKETS        (1),
+		.USE_IN_FILL_LEVEL  (0),
+		.USE_OUT_FILL_LEVEL (0),
+		.WR_SYNC_DEPTH      (3),
+		.RD_SYNC_DEPTH      (3)
+	) eth1_tx_fifo (
+		.in_clk            (clk_clk),                              //        in_clk.clk
+		.in_reset_n        (~rst_controller_reset_out_reset),      //  in_clk_reset.reset_n
+		.out_clk           (eth1_tx_fifo_out_clk_clk),             //       out_clk.clk
+		.out_reset_n       (eth1_tx_fifo_out_clk_reset_reset_n),   // out_clk_reset.reset_n
+		.in_data           (eth1_tx_dma_out_data),                 //            in.data
+		.in_valid          (eth1_tx_dma_out_valid),                //              .valid
+		.in_ready          (eth1_tx_dma_out_ready),                //              .ready
+		.in_startofpacket  (eth1_tx_dma_out_startofpacket),        //              .startofpacket
+		.in_endofpacket    (eth1_tx_dma_out_endofpacket),          //              .endofpacket
+		.in_error          (eth1_tx_dma_out_error),                //              .error
+		.out_data          (eth1_tx_fifo_out_data),                //           out.data
+		.out_valid         (eth1_tx_fifo_out_valid),               //              .valid
+		.out_ready         (eth1_tx_fifo_out_ready),               //              .ready
+		.out_startofpacket (eth1_tx_fifo_out_startofpacket),       //              .startofpacket
+		.out_endofpacket   (eth1_tx_fifo_out_endofpacket),         //              .endofpacket
+		.out_error         (eth1_tx_fifo_out_error),               //              .error
+		.in_csr_address    (1'b0),                                 //   (terminated)
+		.in_csr_read       (1'b0),                                 //   (terminated)
+		.in_csr_write      (1'b0),                                 //   (terminated)
+		.in_csr_readdata   (),                                     //   (terminated)
+		.in_csr_writedata  (32'b00000000000000000000000000000000), //   (terminated)
+		.out_csr_address   (1'b0),                                 //   (terminated)
+		.out_csr_read      (1'b0),                                 //   (terminated)
+		.out_csr_write     (1'b0),                                 //   (terminated)
+		.out_csr_readdata  (),                                     //   (terminated)
+		.out_csr_writedata (32'b00000000000000000000000000000000), //   (terminated)
+		.in_empty          (1'b0),                                 //   (terminated)
+		.out_empty         (),                                     //   (terminated)
+		.in_channel        (1'b0),                                 //   (terminated)
+		.out_channel       (),                                     //   (terminated)
+		.space_avail_data  ()                                      //   (terminated)
+	);
+
+	ECE385_eth_pll eth_pll (
+		.clk                (clk_clk),                                       //       inclk_interface.clk
+		.reset              (rst_controller_reset_out_reset),                // inclk_interface_reset.reset
+		.read               (mm_interconnect_0_eth_pll_pll_slave_read),      //             pll_slave.read
+		.write              (mm_interconnect_0_eth_pll_pll_slave_write),     //                      .write
+		.address            (mm_interconnect_0_eth_pll_pll_slave_address),   //                      .address
+		.readdata           (mm_interconnect_0_eth_pll_pll_slave_readdata),  //                      .readdata
+		.writedata          (mm_interconnect_0_eth_pll_pll_slave_writedata), //                      .writedata
+		.inclk0             (clk_clk),                                       //                inclk0.clk
+		.c0                 (eth_pll_125_clk),                               //                    c0.clk
+		.c1                 (eth_pll_25_clk),                                //                    c1.clk
+		.c2                 (eth_pll_2_5_clk),                               //                    c2.clk
+		.c3                 (eth_pll_c3_conduit_export),                     //            c3_conduit.export
+		.scandone           (),                                              //           (terminated)
+		.scandataout        (),                                              //           (terminated)
+		.areset             (1'b0),                                          //           (terminated)
+		.locked             (),                                              //           (terminated)
+		.phasedone          (),                                              //           (terminated)
+		.phasecounterselect (4'b0000),                                       //           (terminated)
+		.phaseupdown        (1'b0),                                          //           (terminated)
+		.phasestep          (1'b0),                                          //           (terminated)
+		.scanclk            (1'b0),                                          //           (terminated)
+		.scanclkena         (1'b0),                                          //           (terminated)
+		.scandata           (1'b0),                                          //           (terminated)
+		.configupdate       (1'b0)                                           //           (terminated)
 	);
 
 	ECE385_io_hex io_hex (
@@ -541,21 +1084,28 @@ module ECE385 (
 		.av_write_n     (~mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_write),      //                  .write_n
 		.av_writedata   (mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_writedata),   //                  .writedata
 		.av_waitrequest (mm_interconnect_0_nios2_jtag_uart_avalon_jtag_slave_waitrequest), //                  .waitrequest
-		.av_irq         (irq_mapper_receiver0_irq)                                         //               irq.irq
+		.av_irq         (irq_mapper_receiver4_irq)                                         //               irq.irq
 	);
 
 	ECE385_nios2_onchip_mem nios2_onchip_mem (
-		.clk        (clk_clk),                                          //   clk1.clk
-		.address    (mm_interconnect_0_nios2_onchip_mem_s1_address),    //     s1.address
-		.clken      (mm_interconnect_0_nios2_onchip_mem_s1_clken),      //       .clken
-		.chipselect (mm_interconnect_0_nios2_onchip_mem_s1_chipselect), //       .chipselect
-		.write      (mm_interconnect_0_nios2_onchip_mem_s1_write),      //       .write
-		.readdata   (mm_interconnect_0_nios2_onchip_mem_s1_readdata),   //       .readdata
-		.writedata  (mm_interconnect_0_nios2_onchip_mem_s1_writedata),  //       .writedata
-		.byteenable (mm_interconnect_0_nios2_onchip_mem_s1_byteenable), //       .byteenable
-		.reset      (rst_controller_reset_out_reset),                   // reset1.reset
-		.reset_req  (rst_controller_reset_out_reset_req),               //       .reset_req
-		.freeze     (1'b0)                                              // (terminated)
+		.address     (mm_interconnect_0_nios2_onchip_mem_s1_address),    //     s1.address
+		.clken       (mm_interconnect_0_nios2_onchip_mem_s1_clken),      //       .clken
+		.chipselect  (mm_interconnect_0_nios2_onchip_mem_s1_chipselect), //       .chipselect
+		.write       (mm_interconnect_0_nios2_onchip_mem_s1_write),      //       .write
+		.readdata    (mm_interconnect_0_nios2_onchip_mem_s1_readdata),   //       .readdata
+		.writedata   (mm_interconnect_0_nios2_onchip_mem_s1_writedata),  //       .writedata
+		.byteenable  (mm_interconnect_0_nios2_onchip_mem_s1_byteenable), //       .byteenable
+		.address2    (mm_interconnect_2_nios2_onchip_mem_s2_address),    //     s2.address
+		.chipselect2 (mm_interconnect_2_nios2_onchip_mem_s2_chipselect), //       .chipselect
+		.clken2      (mm_interconnect_2_nios2_onchip_mem_s2_clken),      //       .clken
+		.write2      (mm_interconnect_2_nios2_onchip_mem_s2_write),      //       .write
+		.readdata2   (mm_interconnect_2_nios2_onchip_mem_s2_readdata),   //       .readdata
+		.writedata2  (mm_interconnect_2_nios2_onchip_mem_s2_writedata),  //       .writedata
+		.byteenable2 (mm_interconnect_2_nios2_onchip_mem_s2_byteenable), //       .byteenable
+		.clk         (clk_clk),                                          //   clk1.clk
+		.reset       (rst_controller_reset_out_reset),                   // reset1.reset
+		.freeze      (1'b0),                                             // (terminated)
+		.reset_req   (1'b0)                                              // (terminated)
 	);
 
 	ECE385_nios2_pll nios2_pll (
@@ -600,7 +1150,7 @@ module ECE385 (
 		.readdata   (mm_interconnect_0_nios2_timer_s1_readdata),   //      .readdata
 		.chipselect (mm_interconnect_0_nios2_timer_s1_chipselect), //      .chipselect
 		.write_n    (~mm_interconnect_0_nios2_timer_s1_write),     //      .write_n
-		.irq        (irq_mapper_receiver1_irq)                     //   irq.irq
+		.irq        (irq_mapper_receiver5_irq)                     //   irq.irq
 	);
 
 	ECE385_sdram sdram (
@@ -1014,7 +1564,7 @@ module ECE385 (
 		.AVL_WRITEDATA  (mm_interconnect_0_vga_sprite_params_avl_writedata), //             .writedata
 		.AVL_READDATA   (mm_interconnect_0_vga_sprite_params_avl_readdata),  //             .readdata
 		.AVL_ADDR       (mm_interconnect_0_vga_sprite_params_avl_address),   //             .address
-		.PASS_CLK       (vga_sprite_params_clk_clk),                         // clock_source.clk
+		.PASS_CLK       (),                                                  // clock_source.clk
 		.PASS_RESET     (vga_sprite_params_reset_reset),                     // reset_source.reset
 		.PASS_ADDR      (vga_sprite_params_pass_address),                    //         pass.address
 		.PASS_READ      (vga_sprite_params_pass_read),                       //             .read
@@ -1053,6 +1603,47 @@ module ECE385 (
 		.audio_position_end_s1_readdata                    (mm_interconnect_0_audio_position_end_s1_readdata),                //                                            .readdata
 		.audio_position_end_s1_writedata                   (mm_interconnect_0_audio_position_end_s1_writedata),               //                                            .writedata
 		.audio_position_end_s1_chipselect                  (mm_interconnect_0_audio_position_end_s1_chipselect),              //                                            .chipselect
+		.eth0_mdio_avalon_slave_address                    (mm_interconnect_0_eth0_mdio_avalon_slave_address),                //                      eth0_mdio_avalon_slave.address
+		.eth0_mdio_avalon_slave_write                      (mm_interconnect_0_eth0_mdio_avalon_slave_write),                  //                                            .write
+		.eth0_mdio_avalon_slave_read                       (mm_interconnect_0_eth0_mdio_avalon_slave_read),                   //                                            .read
+		.eth0_mdio_avalon_slave_readdata                   (mm_interconnect_0_eth0_mdio_avalon_slave_readdata),               //                                            .readdata
+		.eth0_mdio_avalon_slave_writedata                  (mm_interconnect_0_eth0_mdio_avalon_slave_writedata),              //                                            .writedata
+		.eth0_mdio_avalon_slave_waitrequest                (mm_interconnect_0_eth0_mdio_avalon_slave_waitrequest),            //                                            .waitrequest
+		.eth0_rx_dma_csr_address                           (mm_interconnect_0_eth0_rx_dma_csr_address),                       //                             eth0_rx_dma_csr.address
+		.eth0_rx_dma_csr_write                             (mm_interconnect_0_eth0_rx_dma_csr_write),                         //                                            .write
+		.eth0_rx_dma_csr_read                              (mm_interconnect_0_eth0_rx_dma_csr_read),                          //                                            .read
+		.eth0_rx_dma_csr_readdata                          (mm_interconnect_0_eth0_rx_dma_csr_readdata),                      //                                            .readdata
+		.eth0_rx_dma_csr_writedata                         (mm_interconnect_0_eth0_rx_dma_csr_writedata),                     //                                            .writedata
+		.eth0_rx_dma_csr_chipselect                        (mm_interconnect_0_eth0_rx_dma_csr_chipselect),                    //                                            .chipselect
+		.eth0_tx_dma_csr_address                           (mm_interconnect_0_eth0_tx_dma_csr_address),                       //                             eth0_tx_dma_csr.address
+		.eth0_tx_dma_csr_write                             (mm_interconnect_0_eth0_tx_dma_csr_write),                         //                                            .write
+		.eth0_tx_dma_csr_read                              (mm_interconnect_0_eth0_tx_dma_csr_read),                          //                                            .read
+		.eth0_tx_dma_csr_readdata                          (mm_interconnect_0_eth0_tx_dma_csr_readdata),                      //                                            .readdata
+		.eth0_tx_dma_csr_writedata                         (mm_interconnect_0_eth0_tx_dma_csr_writedata),                     //                                            .writedata
+		.eth0_tx_dma_csr_chipselect                        (mm_interconnect_0_eth0_tx_dma_csr_chipselect),                    //                                            .chipselect
+		.eth1_mdio_avalon_slave_address                    (mm_interconnect_0_eth1_mdio_avalon_slave_address),                //                      eth1_mdio_avalon_slave.address
+		.eth1_mdio_avalon_slave_write                      (mm_interconnect_0_eth1_mdio_avalon_slave_write),                  //                                            .write
+		.eth1_mdio_avalon_slave_read                       (mm_interconnect_0_eth1_mdio_avalon_slave_read),                   //                                            .read
+		.eth1_mdio_avalon_slave_readdata                   (mm_interconnect_0_eth1_mdio_avalon_slave_readdata),               //                                            .readdata
+		.eth1_mdio_avalon_slave_writedata                  (mm_interconnect_0_eth1_mdio_avalon_slave_writedata),              //                                            .writedata
+		.eth1_mdio_avalon_slave_waitrequest                (mm_interconnect_0_eth1_mdio_avalon_slave_waitrequest),            //                                            .waitrequest
+		.eth1_rx_dma_csr_address                           (mm_interconnect_0_eth1_rx_dma_csr_address),                       //                             eth1_rx_dma_csr.address
+		.eth1_rx_dma_csr_write                             (mm_interconnect_0_eth1_rx_dma_csr_write),                         //                                            .write
+		.eth1_rx_dma_csr_read                              (mm_interconnect_0_eth1_rx_dma_csr_read),                          //                                            .read
+		.eth1_rx_dma_csr_readdata                          (mm_interconnect_0_eth1_rx_dma_csr_readdata),                      //                                            .readdata
+		.eth1_rx_dma_csr_writedata                         (mm_interconnect_0_eth1_rx_dma_csr_writedata),                     //                                            .writedata
+		.eth1_rx_dma_csr_chipselect                        (mm_interconnect_0_eth1_rx_dma_csr_chipselect),                    //                                            .chipselect
+		.eth1_tx_dma_csr_address                           (mm_interconnect_0_eth1_tx_dma_csr_address),                       //                             eth1_tx_dma_csr.address
+		.eth1_tx_dma_csr_write                             (mm_interconnect_0_eth1_tx_dma_csr_write),                         //                                            .write
+		.eth1_tx_dma_csr_read                              (mm_interconnect_0_eth1_tx_dma_csr_read),                          //                                            .read
+		.eth1_tx_dma_csr_readdata                          (mm_interconnect_0_eth1_tx_dma_csr_readdata),                      //                                            .readdata
+		.eth1_tx_dma_csr_writedata                         (mm_interconnect_0_eth1_tx_dma_csr_writedata),                     //                                            .writedata
+		.eth1_tx_dma_csr_chipselect                        (mm_interconnect_0_eth1_tx_dma_csr_chipselect),                    //                                            .chipselect
+		.eth_pll_pll_slave_address                         (mm_interconnect_0_eth_pll_pll_slave_address),                     //                           eth_pll_pll_slave.address
+		.eth_pll_pll_slave_write                           (mm_interconnect_0_eth_pll_pll_slave_write),                       //                                            .write
+		.eth_pll_pll_slave_read                            (mm_interconnect_0_eth_pll_pll_slave_read),                        //                                            .read
+		.eth_pll_pll_slave_readdata                        (mm_interconnect_0_eth_pll_pll_slave_readdata),                    //                                            .readdata
+		.eth_pll_pll_slave_writedata                       (mm_interconnect_0_eth_pll_pll_slave_writedata),                   //                                            .writedata
 		.io_hex_s1_address                                 (mm_interconnect_0_io_hex_s1_address),                             //                                   io_hex_s1.address
 		.io_hex_s1_write                                   (mm_interconnect_0_io_hex_s1_write),                               //                                            .write
 		.io_hex_s1_readdata                                (mm_interconnect_0_io_hex_s1_readdata),                            //                                            .readdata
@@ -1277,11 +1868,81 @@ module ECE385 (
 		.usb_nios2_sysid_control_slave_readdata          (mm_interconnect_1_usb_nios2_sysid_control_slave_readdata)       //                                          .readdata
 	);
 
+	ECE385_mm_interconnect_2 mm_interconnect_2 (
+		.clk_0_clk_clk                                 (clk_clk),                                          //                               clk_0_clk.clk
+		.eth0_rx_dma_reset_reset_bridge_in_reset_reset (rst_controller_reset_out_reset),                   // eth0_rx_dma_reset_reset_bridge_in_reset.reset
+		.eth0_rx_dma_descriptor_read_address           (eth0_rx_dma_descriptor_read_address),              //             eth0_rx_dma_descriptor_read.address
+		.eth0_rx_dma_descriptor_read_waitrequest       (eth0_rx_dma_descriptor_read_waitrequest),          //                                        .waitrequest
+		.eth0_rx_dma_descriptor_read_read              (eth0_rx_dma_descriptor_read_read),                 //                                        .read
+		.eth0_rx_dma_descriptor_read_readdata          (eth0_rx_dma_descriptor_read_readdata),             //                                        .readdata
+		.eth0_rx_dma_descriptor_read_readdatavalid     (eth0_rx_dma_descriptor_read_readdatavalid),        //                                        .readdatavalid
+		.eth0_rx_dma_descriptor_write_address          (eth0_rx_dma_descriptor_write_address),             //            eth0_rx_dma_descriptor_write.address
+		.eth0_rx_dma_descriptor_write_waitrequest      (eth0_rx_dma_descriptor_write_waitrequest),         //                                        .waitrequest
+		.eth0_rx_dma_descriptor_write_write            (eth0_rx_dma_descriptor_write_write),               //                                        .write
+		.eth0_rx_dma_descriptor_write_writedata        (eth0_rx_dma_descriptor_write_writedata),           //                                        .writedata
+		.eth0_rx_dma_m_write_address                   (eth0_rx_dma_m_write_address),                      //                     eth0_rx_dma_m_write.address
+		.eth0_rx_dma_m_write_waitrequest               (eth0_rx_dma_m_write_waitrequest),                  //                                        .waitrequest
+		.eth0_rx_dma_m_write_write                     (eth0_rx_dma_m_write_write),                        //                                        .write
+		.eth0_rx_dma_m_write_writedata                 (eth0_rx_dma_m_write_writedata),                    //                                        .writedata
+		.eth0_tx_dma_descriptor_read_address           (eth0_tx_dma_descriptor_read_address),              //             eth0_tx_dma_descriptor_read.address
+		.eth0_tx_dma_descriptor_read_waitrequest       (eth0_tx_dma_descriptor_read_waitrequest),          //                                        .waitrequest
+		.eth0_tx_dma_descriptor_read_read              (eth0_tx_dma_descriptor_read_read),                 //                                        .read
+		.eth0_tx_dma_descriptor_read_readdata          (eth0_tx_dma_descriptor_read_readdata),             //                                        .readdata
+		.eth0_tx_dma_descriptor_read_readdatavalid     (eth0_tx_dma_descriptor_read_readdatavalid),        //                                        .readdatavalid
+		.eth0_tx_dma_descriptor_write_address          (eth0_tx_dma_descriptor_write_address),             //            eth0_tx_dma_descriptor_write.address
+		.eth0_tx_dma_descriptor_write_waitrequest      (eth0_tx_dma_descriptor_write_waitrequest),         //                                        .waitrequest
+		.eth0_tx_dma_descriptor_write_write            (eth0_tx_dma_descriptor_write_write),               //                                        .write
+		.eth0_tx_dma_descriptor_write_writedata        (eth0_tx_dma_descriptor_write_writedata),           //                                        .writedata
+		.eth0_tx_dma_m_read_address                    (eth0_tx_dma_m_read_address),                       //                      eth0_tx_dma_m_read.address
+		.eth0_tx_dma_m_read_waitrequest                (eth0_tx_dma_m_read_waitrequest),                   //                                        .waitrequest
+		.eth0_tx_dma_m_read_read                       (eth0_tx_dma_m_read_read),                          //                                        .read
+		.eth0_tx_dma_m_read_readdata                   (eth0_tx_dma_m_read_readdata),                      //                                        .readdata
+		.eth0_tx_dma_m_read_readdatavalid              (eth0_tx_dma_m_read_readdatavalid),                 //                                        .readdatavalid
+		.eth1_rx_dma_descriptor_read_address           (eth1_rx_dma_descriptor_read_address),              //             eth1_rx_dma_descriptor_read.address
+		.eth1_rx_dma_descriptor_read_waitrequest       (eth1_rx_dma_descriptor_read_waitrequest),          //                                        .waitrequest
+		.eth1_rx_dma_descriptor_read_read              (eth1_rx_dma_descriptor_read_read),                 //                                        .read
+		.eth1_rx_dma_descriptor_read_readdata          (eth1_rx_dma_descriptor_read_readdata),             //                                        .readdata
+		.eth1_rx_dma_descriptor_read_readdatavalid     (eth1_rx_dma_descriptor_read_readdatavalid),        //                                        .readdatavalid
+		.eth1_rx_dma_descriptor_write_address          (eth1_rx_dma_descriptor_write_address),             //            eth1_rx_dma_descriptor_write.address
+		.eth1_rx_dma_descriptor_write_waitrequest      (eth1_rx_dma_descriptor_write_waitrequest),         //                                        .waitrequest
+		.eth1_rx_dma_descriptor_write_write            (eth1_rx_dma_descriptor_write_write),               //                                        .write
+		.eth1_rx_dma_descriptor_write_writedata        (eth1_rx_dma_descriptor_write_writedata),           //                                        .writedata
+		.eth1_rx_dma_m_write_address                   (eth1_rx_dma_m_write_address),                      //                     eth1_rx_dma_m_write.address
+		.eth1_rx_dma_m_write_waitrequest               (eth1_rx_dma_m_write_waitrequest),                  //                                        .waitrequest
+		.eth1_rx_dma_m_write_write                     (eth1_rx_dma_m_write_write),                        //                                        .write
+		.eth1_rx_dma_m_write_writedata                 (eth1_rx_dma_m_write_writedata),                    //                                        .writedata
+		.eth1_tx_dma_descriptor_read_address           (eth1_tx_dma_descriptor_read_address),              //             eth1_tx_dma_descriptor_read.address
+		.eth1_tx_dma_descriptor_read_waitrequest       (eth1_tx_dma_descriptor_read_waitrequest),          //                                        .waitrequest
+		.eth1_tx_dma_descriptor_read_read              (eth1_tx_dma_descriptor_read_read),                 //                                        .read
+		.eth1_tx_dma_descriptor_read_readdata          (eth1_tx_dma_descriptor_read_readdata),             //                                        .readdata
+		.eth1_tx_dma_descriptor_read_readdatavalid     (eth1_tx_dma_descriptor_read_readdatavalid),        //                                        .readdatavalid
+		.eth1_tx_dma_descriptor_write_address          (eth1_tx_dma_descriptor_write_address),             //            eth1_tx_dma_descriptor_write.address
+		.eth1_tx_dma_descriptor_write_waitrequest      (eth1_tx_dma_descriptor_write_waitrequest),         //                                        .waitrequest
+		.eth1_tx_dma_descriptor_write_write            (eth1_tx_dma_descriptor_write_write),               //                                        .write
+		.eth1_tx_dma_descriptor_write_writedata        (eth1_tx_dma_descriptor_write_writedata),           //                                        .writedata
+		.eth1_tx_dma_m_read_address                    (eth1_tx_dma_m_read_address),                       //                      eth1_tx_dma_m_read.address
+		.eth1_tx_dma_m_read_waitrequest                (eth1_tx_dma_m_read_waitrequest),                   //                                        .waitrequest
+		.eth1_tx_dma_m_read_read                       (eth1_tx_dma_m_read_read),                          //                                        .read
+		.eth1_tx_dma_m_read_readdata                   (eth1_tx_dma_m_read_readdata),                      //                                        .readdata
+		.eth1_tx_dma_m_read_readdatavalid              (eth1_tx_dma_m_read_readdatavalid),                 //                                        .readdatavalid
+		.nios2_onchip_mem_s2_address                   (mm_interconnect_2_nios2_onchip_mem_s2_address),    //                     nios2_onchip_mem_s2.address
+		.nios2_onchip_mem_s2_write                     (mm_interconnect_2_nios2_onchip_mem_s2_write),      //                                        .write
+		.nios2_onchip_mem_s2_readdata                  (mm_interconnect_2_nios2_onchip_mem_s2_readdata),   //                                        .readdata
+		.nios2_onchip_mem_s2_writedata                 (mm_interconnect_2_nios2_onchip_mem_s2_writedata),  //                                        .writedata
+		.nios2_onchip_mem_s2_byteenable                (mm_interconnect_2_nios2_onchip_mem_s2_byteenable), //                                        .byteenable
+		.nios2_onchip_mem_s2_chipselect                (mm_interconnect_2_nios2_onchip_mem_s2_chipselect), //                                        .chipselect
+		.nios2_onchip_mem_s2_clken                     (mm_interconnect_2_nios2_onchip_mem_s2_clken)       //                                        .clken
+	);
+
 	ECE385_irq_mapper irq_mapper (
 		.clk           (clk_clk),                            //       clk.clk
 		.reset         (rst_controller_001_reset_out_reset), // clk_reset.reset
 		.receiver0_irq (irq_mapper_receiver0_irq),           // receiver0.irq
 		.receiver1_irq (irq_mapper_receiver1_irq),           // receiver1.irq
+		.receiver2_irq (irq_mapper_receiver2_irq),           // receiver2.irq
+		.receiver3_irq (irq_mapper_receiver3_irq),           // receiver3.irq
+		.receiver4_irq (irq_mapper_receiver4_irq),           // receiver4.irq
+		.receiver5_irq (irq_mapper_receiver5_irq),           // receiver5.irq
 		.sender_irq    (nios2_cpu_irq_irq)                   //    sender.irq
 	);
 
@@ -1296,7 +1957,7 @@ module ECE385 (
 		.NUM_RESET_INPUTS          (1),
 		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
 		.SYNC_DEPTH                (2),
-		.RESET_REQUEST_PRESENT     (1),
+		.RESET_REQUEST_PRESENT     (0),
 		.RESET_REQ_WAIT_TIME       (1),
 		.MIN_RST_ASSERTION_TIME    (3),
 		.RESET_REQ_EARLY_DSRT_TIME (1),
@@ -1318,41 +1979,41 @@ module ECE385 (
 		.USE_RESET_REQUEST_IN15    (0),
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller (
-		.reset_in0      (~reset_reset_n),                     // reset_in0.reset
-		.clk            (clk_clk),                            //       clk.clk
-		.reset_out      (rst_controller_reset_out_reset),     // reset_out.reset
-		.reset_req      (rst_controller_reset_out_reset_req), //          .reset_req
-		.reset_req_in0  (1'b0),                               // (terminated)
-		.reset_in1      (1'b0),                               // (terminated)
-		.reset_req_in1  (1'b0),                               // (terminated)
-		.reset_in2      (1'b0),                               // (terminated)
-		.reset_req_in2  (1'b0),                               // (terminated)
-		.reset_in3      (1'b0),                               // (terminated)
-		.reset_req_in3  (1'b0),                               // (terminated)
-		.reset_in4      (1'b0),                               // (terminated)
-		.reset_req_in4  (1'b0),                               // (terminated)
-		.reset_in5      (1'b0),                               // (terminated)
-		.reset_req_in5  (1'b0),                               // (terminated)
-		.reset_in6      (1'b0),                               // (terminated)
-		.reset_req_in6  (1'b0),                               // (terminated)
-		.reset_in7      (1'b0),                               // (terminated)
-		.reset_req_in7  (1'b0),                               // (terminated)
-		.reset_in8      (1'b0),                               // (terminated)
-		.reset_req_in8  (1'b0),                               // (terminated)
-		.reset_in9      (1'b0),                               // (terminated)
-		.reset_req_in9  (1'b0),                               // (terminated)
-		.reset_in10     (1'b0),                               // (terminated)
-		.reset_req_in10 (1'b0),                               // (terminated)
-		.reset_in11     (1'b0),                               // (terminated)
-		.reset_req_in11 (1'b0),                               // (terminated)
-		.reset_in12     (1'b0),                               // (terminated)
-		.reset_req_in12 (1'b0),                               // (terminated)
-		.reset_in13     (1'b0),                               // (terminated)
-		.reset_req_in13 (1'b0),                               // (terminated)
-		.reset_in14     (1'b0),                               // (terminated)
-		.reset_req_in14 (1'b0),                               // (terminated)
-		.reset_in15     (1'b0),                               // (terminated)
-		.reset_req_in15 (1'b0)                                // (terminated)
+		.reset_in0      (~reset_reset_n),                 // reset_in0.reset
+		.clk            (clk_clk),                        //       clk.clk
+		.reset_out      (rst_controller_reset_out_reset), // reset_out.reset
+		.reset_req      (),                               // (terminated)
+		.reset_req_in0  (1'b0),                           // (terminated)
+		.reset_in1      (1'b0),                           // (terminated)
+		.reset_req_in1  (1'b0),                           // (terminated)
+		.reset_in2      (1'b0),                           // (terminated)
+		.reset_req_in2  (1'b0),                           // (terminated)
+		.reset_in3      (1'b0),                           // (terminated)
+		.reset_req_in3  (1'b0),                           // (terminated)
+		.reset_in4      (1'b0),                           // (terminated)
+		.reset_req_in4  (1'b0),                           // (terminated)
+		.reset_in5      (1'b0),                           // (terminated)
+		.reset_req_in5  (1'b0),                           // (terminated)
+		.reset_in6      (1'b0),                           // (terminated)
+		.reset_req_in6  (1'b0),                           // (terminated)
+		.reset_in7      (1'b0),                           // (terminated)
+		.reset_req_in7  (1'b0),                           // (terminated)
+		.reset_in8      (1'b0),                           // (terminated)
+		.reset_req_in8  (1'b0),                           // (terminated)
+		.reset_in9      (1'b0),                           // (terminated)
+		.reset_req_in9  (1'b0),                           // (terminated)
+		.reset_in10     (1'b0),                           // (terminated)
+		.reset_req_in10 (1'b0),                           // (terminated)
+		.reset_in11     (1'b0),                           // (terminated)
+		.reset_req_in11 (1'b0),                           // (terminated)
+		.reset_in12     (1'b0),                           // (terminated)
+		.reset_req_in12 (1'b0),                           // (terminated)
+		.reset_in13     (1'b0),                           // (terminated)
+		.reset_req_in13 (1'b0),                           // (terminated)
+		.reset_in14     (1'b0),                           // (terminated)
+		.reset_req_in14 (1'b0),                           // (terminated)
+		.reset_in15     (1'b0),                           // (terminated)
+		.reset_req_in15 (1'b0)                            // (terminated)
 	);
 
 	altera_reset_controller #(

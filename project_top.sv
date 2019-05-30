@@ -84,41 +84,41 @@ module project_top(
 	inout logic          		I2C_SDAT,
 
 	//////////// Ethernet 0 //////////
-//	output logic          		ENET0_GTX_CLK,
-//	input logic          		ENET0_INT_N,
-//	input logic          		ENET0_LINK100,
-//	output logic          		ENET0_MDC,
-//	inout logic          		ENET0_MDIO,
-//	output logic          		ENET0_RST_N,
-//	input logic          		ENET0_RX_CLK,
-//	input logic          		ENET0_RX_COL,
-//	input logic          		ENET0_RX_CRS,
-//	input logic     [3:0]		ENET0_RX_DATA,
-//	input logic          		ENET0_RX_DV,
-//	input logic          		ENET0_RX_ER,
-//	input logic          		ENET0_TX_CLK,
-//	output logic     [3:0]		ENET0_TX_DATA,
-//	output logic          		ENET0_TX_EN,
-//	output logic          		ENET0_TX_ER,
-//	input logic          		ENETCLK_25,
+	output logic          		ENET0_GTX_CLK,
+	input logic          		ENET0_INT_N,
+	input logic          		ENET0_LINK100,
+	output logic          		ENET0_MDC,
+	inout logic          		ENET0_MDIO,
+	output logic          		ENET0_RST_N,
+	input logic          		ENET0_RX_CLK,
+	input logic          		ENET0_RX_COL,
+	input logic          		ENET0_RX_CRS,
+	input logic     [3:0]		ENET0_RX_DATA,
+	input logic          		ENET0_RX_DV,
+	input logic          		ENET0_RX_ER,
+	input logic          		ENET0_TX_CLK,
+	output logic     [3:0]		ENET0_TX_DATA,
+	output logic          		ENET0_TX_EN,
+	output logic          		ENET0_TX_ER,
+	input logic          		ENETCLK_25,
 
 	//////////// Ethernet 1 //////////
-//	output logic          		ENET1_GTX_CLK,
-//	input logic          		ENET1_INT_N,
-//	input logic          		ENET1_LINK100,
-//	output logic          		ENET1_MDC,
-//	inout logic          		ENET1_MDIO,
-//	output logic          		ENET1_RST_N,
-//	input logic          		ENET1_RX_CLK,
-//	input logic          		ENET1_RX_COL,
-//	input logic          		ENET1_RX_CRS,
-//	input logic     [3:0]		ENET1_RX_DATA,
-//	input logic          		ENET1_RX_DV,
-//	input logic          		ENET1_RX_ER,
-//	input logic          		ENET1_TX_CLK,
-//	output logic     [3:0]		ENET1_TX_DATA,
-//	output logic          		ENET1_TX_EN,
-//	output logic          		ENET1_TX_ER,
+	output logic          		ENET1_GTX_CLK,
+	input logic          		ENET1_INT_N,
+	input logic          		ENET1_LINK100,
+	output logic          		ENET1_MDC,
+	inout logic          		ENET1_MDIO,
+	output logic          		ENET1_RST_N,
+	input logic          		ENET1_RX_CLK,
+	input logic          		ENET1_RX_COL,
+	input logic          		ENET1_RX_CRS,
+	input logic     [3:0]		ENET1_RX_DATA,
+	input logic          		ENET1_RX_DV,
+	input logic          		ENET1_RX_ER,
+	input logic          		ENET1_TX_CLK,
+	output logic     [3:0]		ENET1_TX_DATA,
+	output logic          		ENET1_TX_EN,
+	output logic          		ENET1_TX_ER,
 
 	//////////// TV Decoder //////////
 //	input logic          		TD_CLK27,
@@ -267,45 +267,135 @@ hexdriver hexdrv7 (
    .Out(HEX7)
 );
 
-//logic ETH_CLK_125, ETH_CLK_25, ETH_CLK_2_5;
-//
-//// Ethernet 0 external logic
-//
-//logic ETH0_MDIO_IN, ETH0_MDIO_OEN, ETH0_MDIO_OUT;
-//assign ETH0_MDIO_IN = ENET0_MDIO;
-//assign ENET0_MDIO = ETH0_MDIO_OEN ? 1'bZ : ETH0_MDIO_OUT;
-//
-//assign ENET0_RST_N = RESET;
-//
-//logic ETH0_MODE_1G, ETH0_MODE_10M, ETH0_OUTPUT_CLK;
-//
-//assign ETH0_OUTPUT_CLK = ETH0_MODE_1G ? ETH_CLK_125 : ETH0_MODE_10M ? ETH_CLK_2_5 : ETH_CLK_25;
-//
-//eth_ddio ETH0_DDIO(
-//	.datain_h(1'b1),
-//	.datain_l(1'b0),
-//	.outclock(ETH0_OUTPUT_CLK),
-//	.dataout(ENET0_GTX_CLK)
-//);
-//
-//// Ethernet 1 external logic
-//
-//logic ETH1_MDIO_IN, ETH1_MDIO_OEN, ETH1_MDIO_OUT;
-//assign ETH1_MDIO_IN = ENET1_MDIO;
-//assign ENET1_MDIO = ETH1_MDIO_OEN ? 1'bZ : ETH1_MDIO_OUT;
-//
-//assign ENET1_RST_N = RESET;
-//
-//logic ETH1_MODE_1G, ETH1_MODE_10M, ETH1_OUTPUT_CLK;
-//
-//assign ETH1_OUTPUT_CLK = ETH1_MODE_1G ? ETH_CLK_125 : ETH1_MODE_10M ? ETH_CLK_2_5 : ETH_CLK_25;
-//
-//eth_ddio ETH1_DDIO(
-//	.datain_h(1'b1),
-//	.datain_l(1'b0),
-//	.outclock(ETH1_OUTPUT_CLK),
-//	.dataout(ENET1_GTX_CLK)
-//);
+logic ETH_CLK_125, ETH_CLK_25, ETH_CLK_2_5;
+
+// Ethernet 0 external logic
+
+logic ETH0_MDIO_IN, ETH0_MDIO_OEN, ETH0_MDIO_OUT;
+assign ETH0_MDIO_IN = ENET0_MDIO;
+assign ENET0_MDIO = ETH0_MDIO_OEN ? 1'bZ : ETH0_MDIO_OUT;
+
+assign ENET0_RST_N = RESET;
+
+logic ETH0_MODE_1G, ETH0_MODE_100M, ETH0_OUTPUT_CLK;
+
+assign ETH0_OUTPUT_CLK = ETH0_MODE_1G ? ETH_CLK_125 : ETH0_MODE_100M ? ETH_CLK_25 : ETH_CLK_2_5;
+
+eth_ddio ETH0_DDIO(
+	.datain_h(1'b1),
+	.datain_l(1'b0),
+	.outclock(ETH0_OUTPUT_CLK),
+	.dataout(ENET0_GTX_CLK)
+);
+
+logic ETH0_CLK_TX, ETH0_CLK_RX;
+logic [7:0] ETH0_TX_DATA;
+logic ETH0_TX_VALID, ETH0_TX_READY, ETH0_TX_EOP;
+logic [1:0] ETH0_TX_ERROR;
+
+logic [7:0] ETH0_RX_DATA;
+logic ETH0_RX_VALID, ETH0_RX_EOP, ETH0_RX_SOP;
+logic [2:0] ETH0_RX_ERROR;
+
+eth_mac_1g_rgmii #(
+    .ENABLE_PADDING(1),
+    .MIN_FRAME_LENGTH(64)
+) ETH0 (
+    .gtx_clk(ETH_CLK_125),
+    .gtx_rst(~RESET),
+
+    .tx_clk(ETH0_CLK_TX),
+    .tx_rst(~RESET),
+    .tx_axis_tdata(ETH0_TX_DATA),
+    .tx_axis_tvalid(ETH0_TX_VALID),
+    .tx_axis_tready(ETH0_TX_READY),
+    .tx_axis_tlast(ETH0_TX_EOP),
+    .tx_axis_tuser(ETH0_TX_ERROR[0]),
+    .tx_error_underflow(ETH0_TX_ERROR[1]),
+
+    .rx_clk(ETH0_CLK_RX),
+    .rx_rst(~RESET),
+    .rx_axis_tdata(ETH0_RX_DATA),
+    .rx_axis_tvalid(ETH0_RX_VALID),
+    .rx_axis_tlast(ETH0_RX_EOP),
+    .rx_axis_tuser(ETH0_RX_ERROR[0]),
+	.rx_start_packet(ETH0_RX_SOP),
+    .rx_error_bad_frame(ETH0_RX_ERROR[1]),
+    .rx_error_bad_fcs(ETH0_RX_ERROR[2]),
+
+    .rgmii_rx_clk(ENET0_RX_CLK),
+    .rgmii_rxd(ENET0_RX_DATA),
+    .rgmii_rx_ctl(ENET0_RX_DV),
+    .rgmii_tx_clk(ENET0_TX_CLK),
+    .rgmii_txd(ENET0_TX_DATA),
+    .rgmii_tx_ctl(ENET0_TX_EN),
+	
+    .speed({ETH0_MODE_1G, ETH0_MODE_100M})
+);
+
+// Ethernet 1 external logic
+
+logic ETH1_MDIO_IN, ETH1_MDIO_OEN, ETH1_MDIO_OUT;
+assign ETH1_MDIO_IN = ENET1_MDIO;
+assign ENET1_MDIO = ETH1_MDIO_OEN ? 1'bZ : ETH1_MDIO_OUT;
+
+assign ENET1_RST_N = RESET;
+
+logic ETH1_MODE_1G, ETH1_MODE_100M, ETH1_OUTPUT_CLK;
+
+assign ETH1_OUTPUT_CLK = ETH1_MODE_1G ? ETH_CLK_125 : ETH1_MODE_100M ? ETH_CLK_25 : ETH_CLK_2_5;
+
+eth_ddio ETH1_DDIO(
+	.datain_h(1'b1),
+	.datain_l(1'b0),
+	.outclock(ETH1_OUTPUT_CLK),
+	.dataout(ENET1_GTX_CLK)
+);
+
+logic ETH1_CLK_TX, ETH1_CLK_RX;
+logic [7:0] ETH1_TX_DATA;
+logic ETH1_TX_VALID, ETH1_TX_READY, ETH1_TX_EOP;
+logic [1:0] ETH1_TX_ERROR;
+
+logic [7:0] ETH1_RX_DATA;
+logic ETH1_RX_VALID, ETH1_RX_EOP, ETH1_RX_SOP;
+logic [2:0] ETH1_RX_ERROR;
+
+eth_mac_1g_rgmii #(
+    .ENABLE_PADDING(1),
+    .MIN_FRAME_LENGTH(64)
+) ETH1 (
+    .gtx_clk(ETH_CLK_125),
+    .gtx_rst(~RESET),
+
+    .tx_clk(ETH1_CLK_TX),
+    .tx_rst(~RESET),
+    .tx_axis_tdata(ETH1_TX_DATA),
+    .tx_axis_tvalid(ETH1_TX_VALID),
+    .tx_axis_tready(ETH1_TX_READY),
+    .tx_axis_tlast(ETH1_TX_EOP),
+    .tx_axis_tuser(ETH1_TX_ERROR[0]),
+    .tx_error_underflow(ETH1_TX_ERROR[1]),
+
+    .rx_clk(ETH1_CLK_RX),
+    .rx_rst(~RESET),
+    .rx_axis_tdata(ETH1_RX_DATA),
+    .rx_axis_tvalid(ETH1_RX_VALID),
+    .rx_axis_tlast(ETH1_RX_EOP),
+    .rx_axis_tuser(ETH1_RX_ERROR[0]),
+	.rx_start_packet(ETH1_RX_SOP),
+    .rx_error_bad_frame(ETH1_RX_ERROR[1]),
+    .rx_error_bad_fcs(ETH1_RX_ERROR[2]),
+
+    .rgmii_rx_clk(ENET1_RX_CLK),
+    .rgmii_rxd(ENET1_RX_DATA),
+    .rgmii_rx_ctl(ENET1_RX_DV),
+    .rgmii_tx_clk(ENET1_TX_CLK),
+    .rgmii_txd(ENET1_TX_DATA),
+    .rgmii_tx_ctl(ENET1_TX_EN),
+	
+    .speed({ETH1_MODE_1G, ETH1_MODE_100M})
+);
 
 // VGA Controller
 logic[9:0] VGA_DrawX, VGA_DrawY;
@@ -527,46 +617,54 @@ ECE385 ECE385_sys(
 	.vga_sprite_params_pass_readdata(VGA_entities_manager_readdata),
 	.vga_sprite_params_pass_writedata(VGA_entities_manager_writedata),
 	
-//	.eth0_mac_status_eth_mode(ETH0_MODE_1G),
-//	.eth0_mac_status_ena_10(ETH0_MODE_10M),
-//	.eth0_mdio_mdc(ENET0_MDC),
-//	.eth0_mdio_mdio_in(ETH0_MDIO_IN),
-//	.eth0_mdio_mdio_out(ETH0_MDIO_OUT),
-//	.eth0_mdio_mdio_oen(ETH0_MDIO_OEN),
-//	.eth0_mdio_phy_addr(5'b10000),
-//	.eth0_rgmii_rgmii_in(ENET0_RX_DATA),
-//	.eth0_rgmii_rgmii_out(ENET0_TX_DATA),
-//	.eth0_rgmii_rx_control(ENET0_RX_DV),
-//	.eth0_rgmii_tx_control(ENET0_TX_EN),
-//	.eth0_rx_clk_clk(ENET0_RX_CLK),
-//	.eth0_tx_clk_clk(ETH0_OUTPUT_CLK),
+	.eth0_mdio_mdc(ENET0_MDC),
+	.eth0_mdio_mdio_in(ETH0_MDIO_IN),
+	.eth0_mdio_mdio_out(ETH0_MDIO_OUT),
+	.eth0_mdio_mdio_oen(ETH0_MDIO_OEN),
+	.eth0_mdio_phy_addr(5'b10000),
 	
-//	.eth1_mac_status_eth_mode(ETH1_MODE_1G),
-//	.eth1_mac_status_ena_10(ETH1_MODE_10M),
-//	.eth1_mdio_mdc(ENET1_MDC),
-//	.eth1_mdio_mdio_in(ETH1_MDIO_IN),
-//	.eth1_mdio_mdio_out(ETH1_MDIO_OUT),
-//	.eth1_mdio_mdio_oen(ETH1_MDIO_OEN),
-//	.eth1_mdio_phy_addr(5'b10001),
-//	.eth1_rgmii_rgmii_in(ENET1_RX_DATA),
-//	.eth1_rgmii_rgmii_out(ENET1_TX_DATA),
-//	.eth1_rgmii_rx_control(ENET1_RX_DV),
-//	.eth1_rgmii_tx_control(ENET1_TX_EN),
-//	.eth1_rx_clk_clk(ENET1_RX_CLK),
-//	.eth1_tx_clk_clk(ETH1_OUTPUT_CLK),
+	.eth0_rx_fifo_in_data(ETH0_RX_DATA),
+	.eth0_rx_fifo_in_valid(ETH0_RX_VALID),
+	.eth0_rx_fifo_in_startofpacket(ETH0_RX_SOP),
+	.eth0_rx_fifo_in_endofpacket(ETH0_RX_EOP),
+	.eth0_rx_fifo_in_error(ETH0_RX_ERROR),
+	.eth0_rx_fifo_in_clk_clk(ETH0_CLK_RX),
+	.eth0_rx_fifo_in_clk_reset_reset_n(RESET),
 	
-//	.eth_pll_125_clk(ETH_CLK_125),
-//	.eth_pll_25_clk(ETH_CLK_25),
-//	.eth_pll_2_5_clk(ETH_CLK_2_5),
+	.eth0_tx_fifo_out_data(ETH0_TX_DATA),
+	.eth0_tx_fifo_out_valid(ETH0_TX_VALID),
+	.eth0_tx_fifo_out_endofpacket(ETH0_TX_EOP),
+	.eth0_tx_fifo_out_error(ETH0_TX_ERROR),
+	.eth0_tx_fifo_out_clk_clk(ETH0_CLK_TX),
+	.eth0_tx_fifo_out_clk_reset_reset_n(RESET),
+	
+	.eth1_mdio_mdc(ENET1_MDC),
+	.eth1_mdio_mdio_in(ETH1_MDIO_IN),
+	.eth1_mdio_mdio_out(ETH1_MDIO_OUT),
+	.eth1_mdio_mdio_oen(ETH1_MDIO_OEN),
+	.eth1_mdio_phy_addr(5'b10001),
+	
+	.eth1_rx_fifo_in_data(ETH1_RX_DATA),
+	.eth1_rx_fifo_in_valid(ETH1_RX_VALID),
+	.eth1_rx_fifo_in_ready(ETH1_RX_READY),
+	.eth1_rx_fifo_in_startofpacket(ETH1_RX_SOP),
+	.eth1_rx_fifo_in_endofpacket(ETH1_RX_EOP),
+	.eth1_rx_fifo_in_error(ETH1_RX_ERROR),
+	.eth1_rx_fifo_in_clk_clk(ETH1_CLK_RX),
+	.eth1_rx_fifo_in_clk_reset_reset_n(RESET),
+	
+	.eth1_tx_fifo_out_data(ETH1_TX_DATA),
+	.eth1_tx_fifo_out_valid(ETH1_TX_VALID),
+	.eth1_tx_fifo_out_ready(ETH1_TX_READY),
+	.eth1_tx_fifo_out_endofpacket(ETH1_TX_EOP),
+	.eth1_tx_fifo_out_error(ETH1_TX_ERROR),
+	.eth1_tx_fifo_out_clk_clk(ETH1_CLK_TX),
+	.eth1_tx_fifo_out_clk_reset_reset_n(RESET),
+	
+	.eth_pll_125_clk(ETH_CLK_125),
+	.eth_pll_25_clk(ETH_CLK_25),
+	.eth_pll_2_5_clk(ETH_CLK_2_5),
 
-//    .otg_hpi_address_export(OTG_ADDR),
-//    .otg_hpi_data_in_port(OTG_DATA),
-//    .otg_hpi_data_out_port(OTG_DATA_OUT),
-//    .otg_hpi_cs_export(OTG_CS_N),
-//    .otg_hpi_r_export(OTG_RD_N),
-//    .otg_hpi_w_export(OTG_WE_N),
-//    .otg_hpi_reset_export(OTG_RST_N),
-	
     .otg_hpi_address_export(hpi_addr),
     .otg_hpi_data_in_port(hpi_data_in),
     .otg_hpi_data_out_port(hpi_data_out),

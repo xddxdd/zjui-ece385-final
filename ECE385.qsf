@@ -1183,6 +1183,14 @@ set_global_assignment -name MUX_RESTRUCTURE OFF
 set_global_assignment -name ROUTER_CLOCKING_TOPOLOGY_ANALYSIS ON
 set_global_assignment -name PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ON
 set_global_assignment -name OPTIMIZATION_MODE BALANCED
+set_global_assignment -name VERILOG_FILE comp/verilog_ethernet/rgmii_phy_if.v
+set_global_assignment -name VERILOG_FILE comp/verilog_ethernet/oddr.v
+set_global_assignment -name VERILOG_FILE comp/verilog_ethernet/lfsr.v
+set_global_assignment -name VERILOG_FILE comp/verilog_ethernet/iddr.v
+set_global_assignment -name VERILOG_FILE comp/verilog_ethernet/eth_mac_1g_rgmii.v
+set_global_assignment -name VERILOG_FILE comp/verilog_ethernet/eth_mac_1g.v
+set_global_assignment -name VERILOG_FILE comp/verilog_ethernet/axis_gmii_tx.v
+set_global_assignment -name VERILOG_FILE comp/verilog_ethernet/axis_gmii_rx.v
 set_global_assignment -name SYSTEMVERILOG_FILE hpi_io_intf.sv
 set_global_assignment -name VHDL_FILE comp/wm8731_audio/wm8731.vhdl
 set_global_assignment -name SYSTEMVERILOG_FILE comp/vga/bullet.sv

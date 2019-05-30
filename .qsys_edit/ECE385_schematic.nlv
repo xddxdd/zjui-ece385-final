@@ -1,113 +1,117 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst ECE385.vga_sprite_2 -pg 1 -lvl 7 -y 1510
+preplace inst ECE385.vga_sprite_2 -pg 1 -lvl 7 -y 1680
 preplace inst ECE385 -pg 1 -lvl 1 -y 40 -regml 10 -regy -20
-preplace inst ECE385.vga_sprite_3 -pg 1 -lvl 7 -y 2070
-preplace inst ECE385.usb_hpi_w -pg 1 -lvl 3 -y 830
-preplace inst ECE385.sdram -pg 1 -lvl 6 -y 1090
-preplace inst ECE385.nios2_sysid -pg 1 -lvl 6 -y 2530
-preplace inst ECE385.nios2_jtag_uart -pg 1 -lvl 7 -y 470
-preplace inst ECE385.vga_sprite_4 -pg 1 -lvl 7 -y 810
-preplace inst ECE385.usb_nios2_onchip_mem -pg 1 -lvl 3 -y 1110
+preplace inst ECE385.vga_sprite_3 -pg 1 -lvl 7 -y 2240
+preplace inst ECE385.vga_background_offset -pg 1 -lvl 7 -y 180
+preplace inst ECE385.usb_hpi_w -pg 1 -lvl 3 -y 940
+preplace inst ECE385.sdram -pg 1 -lvl 6 -y 1200
+preplace inst ECE385.nios2_sysid -pg 1 -lvl 6 -y 2540
+preplace inst ECE385.nios2_jtag_uart -pg 1 -lvl 7 -y 580
+preplace inst ECE385.vga_sprite_4 -pg 1 -lvl 7 -y 920
+preplace inst ECE385.usb_nios2_onchip_mem -pg 1 -lvl 3 -y 1160
 preplace inst ECE385.usb_nios2_cpu.cpu -pg 1
-preplace inst ECE385.io_vga_sync -pg 1 -lvl 7 -y 370
-preplace inst ECE385.io_led_green -pg 1 -lvl 6 -y 2010
-preplace inst ECE385.io_hwrng -pg 1 -lvl 7 -y 170
-preplace inst ECE385.audio_position_end -pg 1 -lvl 7 -y 2210
-preplace inst ECE385.audio_position -pg 1 -lvl 7 -y 270
-preplace inst ECE385.audio_mem -pg 1 -lvl 7 -y 30
-preplace inst ECE385.vga_sprite_5 -pg 1 -lvl 7 -y 1650
-preplace inst ECE385.usb_hpi_data -pg 1 -lvl 3 -y 430
-preplace inst ECE385.nios2_onchip_mem -pg 1 -lvl 6 -y 2450
-preplace inst ECE385.io_led_red -pg 1 -lvl 6 -y 2110
-preplace inst ECE385.vga_sprite_6 -pg 1 -lvl 7 -y 1790
+preplace inst ECE385.io_vga_sync -pg 1 -lvl 7 -y 480
+preplace inst ECE385.io_led_green -pg 1 -lvl 6 -y 2000
+preplace inst ECE385.io_hwrng -pg 1 -lvl 7 -y 280
+preplace inst ECE385.audio_position_end -pg 1 -lvl 7 -y 2380
+preplace inst ECE385.audio_position -pg 1 -lvl 7 -y 380
+preplace inst ECE385.audio_mem -pg 1 -lvl 7 -y 40
+preplace inst ECE385.vga_sprite_5 -pg 1 -lvl 7 -y 1820
+preplace inst ECE385.usb_hpi_data -pg 1 -lvl 3 -y 520
+preplace inst ECE385.nios2_onchip_mem -pg 1 -lvl 6 -y 2460
+preplace inst ECE385.io_led_red -pg 1 -lvl 6 -y 2140
+preplace inst ECE385.vga_sprite_6 -pg 1 -lvl 7 -y 1960
 preplace inst ECE385.nios2_cpu.cpu -pg 1
 preplace inst ECE385.nios2_cpu.reset_bridge -pg 1
-preplace inst ECE385.io_keys -pg 1 -lvl 6 -y 990
-preplace inst ECE385.vga_sprite_7 -pg 1 -lvl 7 -y 1930
+preplace inst ECE385.io_keys -pg 1 -lvl 6 -y 1080
+preplace inst ECE385.vga_sprite_7 -pg 1 -lvl 7 -y 2100
 preplace inst ECE385.usb_hpi_address -pg 1 -lvl 3 -y 90
-preplace inst ECE385.io_switches -pg 1 -lvl 6 -y 2270
-preplace inst ECE385.clk_0 -pg 1 -lvl 1 -y 1610
-preplace inst ECE385.usb_nios2_cpu -pg 1 -lvl 2 -y 1260
-preplace inst ECE385.sram_multiplexer -pg 1 -lvl 7 -y 570
+preplace inst ECE385.io_switches -pg 1 -lvl 6 -y 2280
+preplace inst ECE385.clk_0 -pg 1 -lvl 1 -y 1630
+preplace inst ECE385.usb_nios2_cpu -pg 1 -lvl 2 -y 1360
+preplace inst ECE385.sram_multiplexer -pg 1 -lvl 7 -y 680
 preplace inst ECE385.nios2_pll -pg 1 -lvl 5 -y 900
 preplace inst ECE385.usb_nios2_cpu.clock_bridge -pg 1
-preplace inst ECE385.nios2_cpu -pg 1 -lvl 6 -y 480
-preplace inst ECE385.usb_hpi_reset -pg 1 -lvl 3 -y 650
+preplace inst ECE385.nios2_cpu -pg 1 -lvl 6 -y 570
+preplace inst ECE385.usb_hpi_reset -pg 1 -lvl 3 -y 760
 preplace inst ECE385.nios2_cpu.clock_bridge -pg 1
-preplace inst ECE385.usb_hpi_r -pg 1 -lvl 3 -y 550
-preplace inst ECE385.usb_nios2_sysid -pg 1 -lvl 3 -y 1490
+preplace inst ECE385.usb_jtag_uart -pg 1 -lvl 3 -y 1380
+preplace inst ECE385.usb_hpi_r -pg 1 -lvl 3 -y 660
+preplace inst ECE385.usb_nios2_sysid -pg 1 -lvl 3 -y 1610
 preplace inst ECE385.usb_nios2_cpu.reset_bridge -pg 1
-preplace inst ECE385.usb_keycode -pg 1 -lvl 7 -y 1210
-preplace inst ECE385.usb_clk -pg 1 -lvl 1 -y 910
-preplace inst ECE385.nios2_timer -pg 1 -lvl 7 -y 710
-preplace inst ECE385.io_hex -pg 1 -lvl 6 -y 800
-preplace inst ECE385.vga_sprite_0 -pg 1 -lvl 7 -y 990
-preplace inst ECE385.vga_sprite_params -pg 1 -lvl 7 -y 1130
-preplace inst ECE385.vga_sprite_1 -pg 1 -lvl 7 -y 1350
-preplace inst ECE385.usb_hpi_cs -pg 1 -lvl 3 -y 220
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga,(SLAVE)sram_multiplexer.vga) 1 0 7 NJ 540 NJ 540 NJ 540 NJ 540 NJ 540 NJ 440 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)audio_mem.s2,(SLAVE)ECE385.audio_mem_s2) 1 0 7 NJ 140 NJ 140 NJ 80 NJ 140 NJ 140 NJ 140 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_7.s2,(SLAVE)ECE385.vga_sprite_7_s2) 1 0 7 NJ 1940 NJ 1940 NJ 1940 NJ 1940 NJ 1940 NJ 1940 NJ
+preplace inst ECE385.usb_keycode -pg 1 -lvl 7 -y 1380
+preplace inst ECE385.usb_clk -pg 1 -lvl 1 -y 1000
+preplace inst ECE385.nios2_timer -pg 1 -lvl 7 -y 820
+preplace inst ECE385.io_hex -pg 1 -lvl 6 -y 860
+preplace inst ECE385.vga_sprite_0 -pg 1 -lvl 7 -y 1160
+preplace inst ECE385.vga_sprite_params -pg 1 -lvl 7 -y 1300
+preplace inst ECE385.vga_sprite_1 -pg 1 -lvl 7 -y 1520
+preplace inst ECE385.usb_hpi_cs -pg 1 -lvl 3 -y 320
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_5.clk2,(SLAVE)ECE385.vga_sprite_5_clk2) 1 0 7 NJ 1700 NJ 1700 NJ 1760 NJ 1680 NJ 1680 NJ 1680 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga,(SLAVE)sram_multiplexer.vga) 1 0 7 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 530 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)audio_mem.s2,(SLAVE)ECE385.audio_mem_s2) 1 0 7 NJ 150 NJ 150 NJ 80 NJ 150 NJ 150 NJ 150 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_2_clk2,(SLAVE)vga_sprite_2.clk2) 1 0 7 NJ 1620 NJ 1620 NJ 1700 NJ 1620 NJ 1620 NJ 1620 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_data,(SLAVE)usb_hpi_data.external_connection) 1 0 3 NJ 530 NJ 530 NJ
 preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.usb_reset,(SLAVE)usb_clk.clk_in_reset) 1 0 1 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)vga_sprite_params.reset_source,(MASTER)ECE385.vga_sprite_params_reset) 1 7 3 NJ 1180 NJ 1180 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_0_clk2,(SLAVE)vga_sprite_0.clk2) 1 0 7 NJ 880 NJ 880 NJ 960 NJ 710 NJ 710 NJ 710 NJ
-preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)vga_sprite_6.reset1,(SLAVE)nios2_sysid.reset,(SLAVE)nios2_timer.reset,(SLAVE)io_hex.reset,(SLAVE)vga_sprite_1.reset1,(SLAVE)io_led_green.reset,(SLAVE)io_vga_sync.reset,(SLAVE)audio_position_end.reset,(MASTER)clk_0.clk_reset,(SLAVE)vga_sprite_params.reset,(SLAVE)vga_sprite_2.reset1,(SLAVE)sram_multiplexer.reset,(SLAVE)vga_sprite_7.reset1,(SLAVE)io_led_red.reset,(SLAVE)vga_sprite_3.reset1,(SLAVE)nios2_pll.inclk_interface_reset,(SLAVE)vga_sprite_4.reset1,(MASTER)nios2_cpu.debug_reset_request,(SLAVE)audio_position.reset,(SLAVE)io_hwrng.reset,(SLAVE)audio_mem.reset1,(SLAVE)nios2_jtag_uart.reset,(SLAVE)nios2_onchip_mem.reset1,(SLAVE)io_switches.reset,(SLAVE)vga_sprite_0.reset1,(SLAVE)sdram.reset,(SLAVE)nios2_cpu.reset,(SLAVE)io_keys.reset,(SLAVE)usb_keycode.reset2,(SLAVE)vga_sprite_5.reset1) 1 1 6 NJ 1640 NJ 1640 NJ 1640 1520 1050 1920 2220 2660
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_1.s2,(SLAVE)ECE385.vga_sprite_1_s2) 1 0 7 NJ 1460 NJ 1460 NJ 1460 NJ 1460 NJ 1460 NJ 1460 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_2_s2,(SLAVE)vga_sprite_2.s2) 1 0 7 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ
-preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)vga_sprite_3.clk1,(SLAVE)vga_sprite_6.clk1,(SLAVE)vga_sprite_0.clk1,(SLAVE)io_hwrng.clk,(SLAVE)vga_sprite_params.clock,(SLAVE)audio_position_end.clk,(SLAVE)nios2_onchip_mem.clk1,(SLAVE)nios2_pll.inclk0,(SLAVE)io_led_green.clk,(SLAVE)vga_sprite_1.clk1,(SLAVE)io_hex.clk,(SLAVE)sram_multiplexer.clock,(SLAVE)io_led_red.clk,(SLAVE)usb_keycode.clk2,(SLAVE)io_keys.clk,(SLAVE)nios2_sysid.clk,(SLAVE)nios2_jtag_uart.clk,(SLAVE)io_switches.clk,(SLAVE)audio_position.clk,(SLAVE)vga_sprite_7.clk1,(MASTER)clk_0.clk,(SLAVE)vga_sprite_4.clk1,(SLAVE)audio_mem.clk1,(SLAVE)sdram.clk,(SLAVE)nios2_pll.inclk_interface,(SLAVE)nios2_cpu.clk,(SLAVE)vga_sprite_5.clk1,(SLAVE)nios2_timer.clk,(SLAVE)io_vga_sync.clk,(SLAVE)vga_sprite_2.clk1) 1 1 6 NJ 1570 NJ 1600 NJ 1540 1480 1010 1880 1800 2700
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_5.reset2,(SLAVE)ECE385.vga_sprite_5_reset2) 1 0 7 NJ 1680 NJ 1680 NJ 1680 NJ 1660 NJ 1640 NJ 1640 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)audio_mem.clk2,(SLAVE)ECE385.audio_mem_clk2) 1 0 7 NJ 40 NJ 40 NJ 40 NJ 60 NJ 60 NJ 60 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)usb_hpi_w.external_connection,(SLAVE)ECE385.otg_hpi_w) 1 0 3 NJ 860 NJ 860 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_led_green.external_connection,(SLAVE)ECE385.io_led_green) 1 0 6 NJ 2040 NJ 2040 NJ 2040 NJ 2040 NJ 2040 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_7.reset2,(SLAVE)ECE385.vga_sprite_7_reset2) 1 0 7 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_1.reset2,(SLAVE)ECE385.vga_sprite_1_reset2) 1 0 7 NJ 1420 NJ 1420 NJ 1420 NJ 1420 NJ 1420 NJ 1420 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_4_reset2,(SLAVE)vga_sprite_4.reset2) 1 0 7 NJ 780 NJ 780 NJ 780 NJ 650 NJ 650 NJ 670 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_hwrng.external_connection,(SLAVE)ECE385.io_hwrng) 1 0 7 NJ 200 NJ 200 NJ 200 NJ 200 NJ 200 NJ 200 NJ
-preplace netloc FAN_OUT<net_container>ECE385</net_container>(MASTER)nios2_cpu.irq,(SLAVE)nios2_timer.irq,(SLAVE)nios2_jtag_uart.irq) 1 6 1 2740
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.vga_sprite_params_clk,(MASTER)vga_sprite_params.clock_source) 1 7 3 NJ 1140 NJ 1140 NJ
-preplace netloc POINT_TO_POINT<net_container>ECE385</net_container>(MASTER)nios2_pll.c2,(SLAVE)sram_multiplexer.clock2) 1 5 2 NJ 650 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)usb_hpi_cs.external_connection,(SLAVE)ECE385.otg_hpi_cs) 1 0 3 NJ 250 NJ 250 NJ
-preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)sram_multiplexer.avl,(SLAVE)io_vga_sync.s1,(SLAVE)vga_sprite_6.s1,(SLAVE)nios2_jtag_uart.avalon_jtag_slave,(SLAVE)usb_keycode.s2,(SLAVE)vga_sprite_4.s1,(SLAVE)nios2_timer.s1,(SLAVE)nios2_onchip_mem.s1,(SLAVE)audio_mem.s1,(SLAVE)io_led_red.s1,(SLAVE)audio_position_end.s1,(SLAVE)io_hwrng.s1,(MASTER)nios2_cpu.instruction_master,(SLAVE)nios2_sysid.control_slave,(SLAVE)nios2_pll.pll_slave,(SLAVE)vga_sprite_2.s1,(SLAVE)sdram.s1,(SLAVE)audio_position.s1,(SLAVE)vga_sprite_1.s1,(SLAVE)vga_sprite_7.s1,(MASTER)nios2_cpu.data_master,(SLAVE)nios2_cpu.debug_mem_slave,(SLAVE)vga_sprite_0.s1,(SLAVE)vga_sprite_params.avl,(SLAVE)io_led_green.s1,(SLAVE)vga_sprite_3.s1,(SLAVE)io_hex.s1,(SLAVE)vga_sprite_5.s1,(SLAVE)io_keys.s1,(SLAVE)io_switches.s1) 1 4 3 1540 1070 1940 1840 2580
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_4_clk2,(SLAVE)vga_sprite_4.clk2) 1 0 7 NJ 670 NJ 670 NJ 760 NJ 620 NJ 620 NJ 620 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_3_clk2,(SLAVE)vga_sprite_3.clk2) 1 0 7 NJ 1960 NJ 1960 NJ 1960 NJ 1960 NJ 1960 NJ 1960 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_led_red,(SLAVE)io_led_red.external_connection) 1 0 6 NJ 2140 NJ 2140 NJ 2140 NJ 2140 NJ 2140 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_2.clk2,(SLAVE)ECE385.vga_sprite_2_clk2) 1 0 7 NJ 1550 NJ 1550 NJ 1580 NJ 1520 NJ 1540 NJ 1540 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)audio_position.external_connection,(SLAVE)ECE385.audio_position) 1 0 7 NJ 330 NJ 330 NJ 330 NJ 300 NJ 300 NJ 300 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.audio_position_end,(SLAVE)audio_position_end.external_connection) 1 0 7 NJ 2240 NJ 2240 NJ 2240 NJ 2240 NJ 2240 NJ 2240 NJ
-preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)usb_nios2_onchip_mem.clk1,(SLAVE)usb_nios2_cpu.clk,(SLAVE)usb_hpi_r.clk,(MASTER)usb_clk.clk,(SLAVE)usb_hpi_data.clk,(SLAVE)usb_hpi_reset.clk,(SLAVE)usb_keycode.clk1,(SLAVE)usb_hpi_w.clk,(SLAVE)usb_nios2_sysid.clk,(SLAVE)usb_hpi_address.clk,(SLAVE)usb_hpi_cs.clk) 1 1 6 400 1120 860 1220 NJ 1220 NJ 1220 NJ 1220 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_hex.external_connection,(SLAVE)ECE385.io_hex) 1 0 6 NJ 800 NJ 800 NJ 800 NJ 670 NJ 670 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_4.s2,(SLAVE)ECE385.vga_sprite_4_s2) 1 0 7 NJ 820 NJ 820 NJ 820 NJ 690 NJ 690 NJ 690 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_keys.external_connection,(SLAVE)ECE385.io_keys) 1 0 6 NJ 1000 NJ 1000 NJ 1010 NJ 1010 NJ 1030 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_vga_sync.external_connection,(SLAVE)ECE385.io_vga_sync) 1 0 7 NJ 400 NJ 400 NJ 400 NJ 400 NJ 400 NJ 400 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_2_reset2,(SLAVE)vga_sprite_2.reset2) 1 0 7 NJ 1440 NJ 1440 NJ 1440 NJ 1440 NJ 1440 NJ 1440 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_3_reset2,(SLAVE)vga_sprite_3.reset2) 1 0 7 NJ 1980 NJ 1980 NJ 1980 NJ 1980 NJ 1980 NJ 1980 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)ECE385.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)vga_sprite_params.reset_source,(MASTER)ECE385.vga_sprite_params_reset) 1 7 3 NJ 1190 NJ 1190 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_7_s2,(SLAVE)vga_sprite_7.s2) 1 0 7 NJ 1970 NJ 1970 NJ 1970 NJ 1970 NJ 1970 NJ 1970 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_3.clk2,(SLAVE)ECE385.vga_sprite_3_clk2) 1 0 7 NJ 2110 NJ 2110 NJ 2110 NJ 2110 NJ 2110 NJ 2110 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_1_s2,(SLAVE)vga_sprite_1.s2) 1 0 7 NJ 1560 NJ 1560 NJ 1510 NJ 1510 NJ 1510 NJ 1510 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_reset,(SLAVE)usb_hpi_reset.external_connection) 1 0 3 NJ 710 NJ 710 NJ
+preplace netloc POINT_TO_POINT<net_container>ECE385</net_container>(SLAVE)usb_jtag_uart.irq,(MASTER)usb_nios2_cpu.irq) 1 2 1 890
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_background_offset.external_connection,(SLAVE)ECE385.vga_background_offset) 1 0 7 NJ 130 NJ 130 NJ 200 NJ 200 NJ 200 NJ 200 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_2_s2,(SLAVE)vga_sprite_2.s2) 1 0 7 NJ 1600 NJ 1600 NJ 1600 NJ 1600 NJ 1600 NJ 1600 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)usb_hpi_address.external_connection,(SLAVE)ECE385.otg_hpi_address) 1 0 3 NJ 110 NJ 110 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_1_reset2,(SLAVE)vga_sprite_1.reset2) 1 0 7 NJ 1540 NJ 1540 NJ 1490 NJ 1490 NJ 1490 NJ 1490 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)usb_hpi_w.external_connection,(SLAVE)ECE385.otg_hpi_w) 1 0 3 NJ 970 NJ 970 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.audio_position,(SLAVE)audio_position.external_connection) 1 0 7 NJ 430 NJ 430 NJ 430 NJ 410 NJ 410 NJ 410 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_7.reset2,(SLAVE)ECE385.vga_sprite_7_reset2) 1 0 7 NJ 1930 NJ 1930 NJ 1930 NJ 1930 NJ 1930 NJ 1930 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_0.clk2,(SLAVE)ECE385.vga_sprite_0_clk2) 1 0 7 NJ 1090 NJ 1090 NJ 1090 NJ 1070 NJ 1070 NJ 1190 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_hex,(SLAVE)io_hex.external_connection) 1 0 6 NJ 770 NJ 770 NJ 890 NJ 810 NJ 770 NJ
+preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)usb_hpi_reset.clk,(MASTER)usb_clk.clk,(SLAVE)usb_hpi_data.clk,(SLAVE)usb_hpi_r.clk,(SLAVE)usb_nios2_sysid.clk,(SLAVE)usb_keycode.clk1,(SLAVE)usb_nios2_cpu.clk,(SLAVE)usb_hpi_w.clk,(SLAVE)usb_nios2_onchip_mem.clk1,(SLAVE)usb_hpi_address.clk,(SLAVE)usb_hpi_cs.clk,(SLAVE)usb_jtag_uart.clk) 1 1 6 370 1170 970 1250 NJ 1250 NJ 1250 NJ 1310 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_4_reset2,(SLAVE)vga_sprite_4.reset2) 1 0 7 NJ 910 NJ 910 NJ 910 NJ 750 NJ 750 NJ 750 NJ
+preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)usb_nios2_onchip_mem.reset1,(SLAVE)usb_hpi_r.reset,(SLAVE)usb_nios2_cpu.reset,(SLAVE)usb_hpi_cs.reset,(SLAVE)usb_hpi_reset.reset,(MASTER)usb_clk.clk_reset,(SLAVE)usb_nios2_sysid.reset,(SLAVE)usb_hpi_w.reset,(SLAVE)usb_keycode.reset1,(SLAVE)usb_hpi_address.reset,(SLAVE)usb_jtag_uart.reset,(SLAVE)usb_hpi_data.reset) 1 1 6 350 1500 910 1270 NJ 1270 NJ 1270 NJ 1330 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.nios2_pll_sdram,(MASTER)nios2_pll.c1) 1 5 5 NJ 1030 NJ 1070 NJ 1070 NJ 1070 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_hwrng.external_connection,(SLAVE)ECE385.io_hwrng) 1 0 7 NJ 310 NJ 310 NJ 310 NJ 310 NJ 310 NJ 310 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_6_s2,(SLAVE)vga_sprite_6.s2) 1 0 7 NJ 1870 NJ 1870 NJ 1870 NJ 1850 NJ 1850 NJ 1850 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_cs,(SLAVE)usb_hpi_cs.external_connection) 1 0 3 NJ 350 NJ 350 NJ
+preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)io_hwrng.reset,(SLAVE)usb_keycode.reset2,(SLAVE)audio_position_end.reset,(SLAVE)io_led_green.reset,(SLAVE)io_keys.reset,(SLAVE)audio_position.reset,(SLAVE)vga_sprite_4.reset1,(SLAVE)vga_sprite_1.reset1,(SLAVE)vga_sprite_6.reset1,(SLAVE)io_led_red.reset,(SLAVE)io_vga_sync.reset,(MASTER)clk_0.clk_reset,(SLAVE)vga_sprite_3.reset1,(SLAVE)io_switches.reset,(SLAVE)io_hex.reset,(SLAVE)nios2_timer.reset,(SLAVE)nios2_jtag_uart.reset,(SLAVE)audio_mem.reset1,(SLAVE)nios2_cpu.reset,(MASTER)nios2_cpu.debug_reset_request,(SLAVE)nios2_onchip_mem.reset1,(SLAVE)vga_sprite_params.reset,(SLAVE)nios2_pll.inclk_interface_reset,(SLAVE)nios2_sysid.reset,(SLAVE)vga_background_offset.reset,(SLAVE)vga_sprite_5.reset1,(SLAVE)vga_sprite_2.reset1,(SLAVE)vga_sprite_7.reset1,(SLAVE)sdram.reset,(SLAVE)sram_multiplexer.reset,(SLAVE)vga_sprite_0.reset1) 1 1 6 NJ 1660 NJ 1740 NJ 1660 1470 1030 1850 2250 2730
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_led_green,(SLAVE)io_led_green.external_connection) 1 0 6 NJ 2030 NJ 2030 NJ 2030 NJ 2030 NJ 2030 NJ
+preplace netloc FAN_OUT<net_container>ECE385</net_container>(MASTER)clk_0.clk,(SLAVE)io_hwrng.clk,(SLAVE)vga_sprite_4.clk1,(SLAVE)io_vga_sync.clk,(SLAVE)vga_sprite_1.clk1,(SLAVE)io_led_green.clk,(SLAVE)io_keys.clk,(SLAVE)sdram.clk,(SLAVE)nios2_onchip_mem.clk1,(SLAVE)sram_multiplexer.clock,(SLAVE)io_switches.clk,(SLAVE)nios2_pll.inclk_interface,(SLAVE)vga_background_offset.clk,(SLAVE)usb_keycode.clk2,(SLAVE)nios2_jtag_uart.clk,(SLAVE)nios2_sysid.clk,(SLAVE)vga_sprite_7.clk1,(SLAVE)nios2_timer.clk,(SLAVE)vga_sprite_6.clk1,(SLAVE)vga_sprite_3.clk1,(SLAVE)nios2_pll.inclk0,(SLAVE)io_led_red.clk,(SLAVE)nios2_cpu.clk,(SLAVE)io_hex.clk,(SLAVE)vga_sprite_0.clk1,(SLAVE)vga_sprite_params.clock,(SLAVE)audio_mem.clk1,(SLAVE)vga_sprite_5.clk1,(SLAVE)audio_position.clk,(SLAVE)audio_position_end.clk,(SLAVE)vga_sprite_2.clk1) 1 1 6 NJ 1640 NJ 1720 NJ 1640 1430 1010 1930 1870 2770
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_4_clk2,(SLAVE)vga_sprite_4.clk2) 1 0 7 NJ 730 NJ 730 NJ 870 NJ 730 NJ 730 NJ 730 NJ
+preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)usb_nios2_cpu.debug_mem_slave,(SLAVE)usb_jtag_uart.avalon_jtag_slave,(SLAVE)usb_hpi_address.s1,(SLAVE)usb_hpi_w.s1,(SLAVE)usb_keycode.s1,(SLAVE)usb_hpi_r.s1,(SLAVE)usb_hpi_reset.s1,(SLAVE)usb_hpi_cs.s1,(SLAVE)usb_hpi_data.s1,(SLAVE)usb_nios2_sysid.control_slave,(SLAVE)usb_nios2_onchip_mem.s1,(MASTER)usb_nios2_cpu.data_master,(MASTER)usb_nios2_cpu.instruction_master) 1 1 6 390 1520 870 1290 NJ 1290 NJ 1290 NJ 1350 NJ
+preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)vga_sprite_4.s1,(SLAVE)io_led_green.s1,(SLAVE)audio_mem.s1,(SLAVE)vga_sprite_6.s1,(SLAVE)io_hwrng.s1,(SLAVE)vga_sprite_7.s1,(SLAVE)audio_position.s1,(SLAVE)io_hex.s1,(SLAVE)io_vga_sync.s1,(SLAVE)io_led_red.s1,(SLAVE)io_switches.s1,(SLAVE)nios2_sysid.control_slave,(SLAVE)nios2_cpu.debug_mem_slave,(SLAVE)vga_sprite_params.avl,(SLAVE)nios2_timer.s1,(SLAVE)usb_keycode.s2,(SLAVE)vga_sprite_0.s1,(SLAVE)nios2_onchip_mem.s1,(SLAVE)vga_sprite_2.s1,(SLAVE)sram_multiplexer.avl,(MASTER)nios2_cpu.instruction_master,(SLAVE)vga_sprite_1.s1,(SLAVE)vga_background_offset.s1,(SLAVE)vga_sprite_5.s1,(SLAVE)nios2_pll.pll_slave,(MASTER)nios2_cpu.data_master,(SLAVE)sdram.s1,(SLAVE)vga_sprite_3.s1,(SLAVE)nios2_jtag_uart.avalon_jtag_slave,(SLAVE)io_keys.s1,(SLAVE)audio_position_end.s1) 1 4 3 1490 1050 1890 2390 2710
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.io_led_red,(SLAVE)io_led_red.external_connection) 1 0 6 NJ 2170 NJ 2170 NJ 2170 NJ 2170 NJ 2170 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)sram_multiplexer.sram,(SLAVE)ECE385.sram) 1 0 7 NJ 550 NJ 550 NJ 630 NJ 630 NJ 630 NJ 710 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_2_reset2,(SLAVE)vga_sprite_2.reset2) 1 0 7 NJ 1580 NJ 1580 NJ 1580 NJ 1580 NJ 1580 NJ 1580 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_keys.external_connection,(SLAVE)ECE385.io_keys) 1 0 6 NJ 1110 NJ 1110 NJ 1110 NJ 1110 NJ 1090 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_vga_sync.external_connection,(SLAVE)ECE385.io_vga_sync) 1 0 7 NJ 510 NJ 510 NJ 510 NJ 510 NJ 510 NJ 510 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_3_reset2,(SLAVE)vga_sprite_3.reset2) 1 0 7 NJ 1990 NJ 1990 NJ 1990 NJ 1990 NJ 1990 NJ 1990 NJ
 preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.usb_nios2_cpu_custom_instruction_master,(MASTER)usb_nios2_cpu.custom_instruction_master) 1 2 8 NJ 1270 NJ 1270 NJ 1270 NJ 1270 NJ 1500 NJ 1500 NJ 1500 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_3_s2,(SLAVE)vga_sprite_3.s2) 1 0 7 NJ 2000 NJ 2000 NJ 2000 NJ 2000 NJ 2000 NJ 2000 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)usb_hpi_reset.external_connection,(SLAVE)ECE385.otg_hpi_reset) 1 0 3 NJ 650 NJ 650 NJ
-preplace netloc INTERCONNECT<net_container>ECE385</net_container>(SLAVE)usb_hpi_reset.s1,(SLAVE)usb_hpi_w.s1,(MASTER)usb_nios2_cpu.instruction_master,(SLAVE)usb_hpi_address.s1,(SLAVE)usb_nios2_cpu.debug_mem_slave,(SLAVE)usb_hpi_data.s1,(SLAVE)usb_hpi_cs.s1,(SLAVE)usb_hpi_r.s1,(SLAVE)usb_nios2_sysid.control_slave,(SLAVE)usb_keycode.s1,(SLAVE)usb_nios2_onchip_mem.s1,(MASTER)usb_nios2_cpu.data_master) 1 1 6 420 1400 900 1300 NJ 1300 NJ 1300 NJ 1300 N
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_5_s2,(SLAVE)vga_sprite_5.s2) 1 0 7 NJ 1700 NJ 1700 NJ 1700 NJ 1680 NJ 1680 NJ 1680 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_address,(SLAVE)usb_hpi_address.external_connection) 1 0 3 NJ 160 NJ 160 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_1_clk2,(SLAVE)vga_sprite_1.clk2) 1 0 7 NJ 980 NJ 980 NJ 980 NJ 750 NJ 750 NJ 750 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_6.clk2,(SLAVE)ECE385.vga_sprite_6_clk2) 1 0 7 NJ 1740 NJ 1740 NJ 1740 NJ 1700 NJ 1700 NJ 1700 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)nios2_pll.c1,(MASTER)ECE385.nios2_pll_sdram) 1 5 5 NJ 950 NJ 960 NJ 960 NJ 960 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_7.clk2,(SLAVE)ECE385.vga_sprite_7_clk2) 1 0 7 NJ 1880 NJ 1880 NJ 1880 NJ 1880 NJ 1880 NJ 1880 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.sram,(SLAVE)sram_multiplexer.sram) 1 0 7 NJ 420 NJ 420 NJ 420 NJ 420 NJ 420 NJ 420 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.otg_hpi_r,(SLAVE)usb_hpi_r.external_connection) 1 0 3 NJ 580 NJ 580 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)usb_hpi_data.external_connection,(SLAVE)ECE385.otg_hpi_data) 1 0 3 NJ 460 NJ 460 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_5_clk2,(SLAVE)vga_sprite_5.clk2) 1 0 7 NJ 1580 NJ 1590 NJ 1620 NJ 1620 NJ 1620 NJ 1620 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_0.s2,(SLAVE)ECE385.vga_sprite_0_s2) 1 0 7 NJ 1030 NJ 1030 NJ 1030 NJ 1030 NJ 890 NJ 930 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_6.s2,(SLAVE)ECE385.vga_sprite_6_s2) 1 0 7 NJ 1860 NJ 1860 NJ 1860 NJ 1860 NJ 1860 NJ 1860 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.usb_nios2_cpu_custom_instruction_master,(MASTER)usb_nios2_cpu.custom_instruction_master) 1 2 8 NJ 1370 NJ 1370 NJ 1370 NJ 1370 NJ 1670 NJ 1670 NJ 1670 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_5_s2,(SLAVE)vga_sprite_5.s2) 1 0 7 NJ 1800 NJ 1800 NJ 1800 NJ 1720 NJ 1720 NJ 1720 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.audio_mem_clk2,(SLAVE)audio_mem.clk2) 1 0 7 NJ 40 NJ 40 NJ 40 NJ 70 NJ 70 NJ 70 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_4_s2,(SLAVE)vga_sprite_4.s2) 1 0 7 NJ 930 NJ 930 NJ 930 NJ 830 NJ 830 NJ 990 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_1_clk2,(SLAVE)vga_sprite_1.clk2) 1 0 7 NJ 1070 NJ 1070 NJ 1070 NJ 850 NJ 850 NJ 850 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)audio_position_end.external_connection,(SLAVE)ECE385.audio_position_end) 1 0 7 NJ 2270 NJ 2270 NJ 2270 NJ 2270 NJ 2270 NJ 2270 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)vga_sprite_params.clock_source,(MASTER)ECE385.vga_sprite_params_clk) 1 7 3 NJ 1150 NJ 1150 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)usb_hpi_r.external_connection,(SLAVE)ECE385.otg_hpi_r) 1 0 3 NJ 690 NJ 690 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_7.clk2,(SLAVE)ECE385.vga_sprite_7_clk2) 1 0 7 NJ 1890 NJ 1890 NJ 1890 NJ 1890 NJ 1890 NJ 1890 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_6_clk2,(SLAVE)vga_sprite_6.clk2) 1 0 7 NJ 1820 NJ 1820 NJ 1820 NJ 1740 NJ 1740 NJ 1740 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_3.s2,(SLAVE)ECE385.vga_sprite_3_s2) 1 0 7 NJ 2130 NJ 2130 NJ 2130 NJ 2130 NJ 2130 NJ 2130 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_0.s2,(SLAVE)ECE385.vga_sprite_0_s2) 1 0 7 NJ 1130 NJ 1130 NJ 1130 NJ 1130 NJ 890 NJ 1010 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_5_reset2,(SLAVE)vga_sprite_5.reset2) 1 0 7 NJ 1720 NJ 1720 NJ 1780 NJ 1700 NJ 1700 NJ 1700 NJ
+preplace netloc POINT_TO_POINT<net_container>ECE385</net_container>(SLAVE)sram_multiplexer.clock2,(MASTER)nios2_pll.c2) 1 5 2 NJ 1050 2810
 preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)usb_clk.clk_in,(SLAVE)ECE385.usb_clk) 1 0 1 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_6_reset2,(SLAVE)vga_sprite_6.reset2) 1 0 7 NJ 1760 NJ 1760 NJ 1760 NJ 1720 NJ 1720 NJ 1720 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.nios2_pll_vga,(MASTER)nios2_pll.c3) 1 5 5 NJ 970 NJ 980 NJ 980 NJ 980 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_switches.external_connection,(SLAVE)ECE385.io_switches) 1 0 6 NJ 2300 NJ 2300 NJ 2300 NJ 2300 NJ 2300 NJ
-preplace netloc FAN_OUT<net_container>ECE385</net_container>(SLAVE)usb_hpi_w.reset,(SLAVE)usb_hpi_data.reset,(SLAVE)usb_hpi_r.reset,(SLAVE)usb_nios2_cpu.reset,(SLAVE)usb_nios2_sysid.reset,(SLAVE)usb_hpi_reset.reset,(SLAVE)usb_nios2_onchip_mem.reset1,(SLAVE)usb_hpi_cs.reset,(MASTER)usb_clk.clk_reset,(SLAVE)usb_hpi_address.reset,(SLAVE)usb_keycode.reset1) 1 1 6 380 1140 880 1250 NJ 1250 NJ 1250 NJ 1250 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)audio_mem.reset2,(SLAVE)ECE385.audio_mem_reset2) 1 0 7 NJ 60 NJ 60 NJ 60 NJ 100 NJ 100 NJ 100 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_0.reset2,(SLAVE)ECE385.vga_sprite_0_reset2) 1 0 7 NJ 900 NJ 940 NJ 940 NJ 730 NJ 730 NJ 910 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.vga_sprite_params_pass,(MASTER)vga_sprite_params.pass) 1 7 3 NJ 1160 NJ 1160 NJ
-preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.sdram,(SLAVE)sdram.wire) 1 0 6 NJ 1100 NJ 1100 NJ 1100 NJ 1100 NJ 1100 NJ
-levelinfo -pg 1 0 130 3470
-levelinfo -hier ECE385 140 210 580 1090 1420 1570 2060 2790 3010 3230 3250
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.vga_sprite_6_reset2,(SLAVE)vga_sprite_6.reset2) 1 0 7 NJ 1840 NJ 1840 NJ 1840 NJ 1760 NJ 1760 NJ 1760 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.nios2_pll_vga,(MASTER)nios2_pll.c3) 1 5 5 NJ 1070 NJ 1090 NJ 1090 NJ 1090 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)io_switches.external_connection,(SLAVE)ECE385.io_switches) 1 0 6 NJ 2310 NJ 2310 NJ 2310 NJ 2310 NJ 2310 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)audio_mem.reset2,(SLAVE)ECE385.audio_mem_reset2) 1 0 7 NJ 60 NJ 60 NJ 60 NJ 110 NJ 110 NJ 110 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)vga_sprite_0.reset2,(SLAVE)ECE385.vga_sprite_0_reset2) 1 0 7 NJ 990 NJ 1050 NJ 1050 NJ 790 NJ 790 NJ 970 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(MASTER)ECE385.vga_sprite_params_pass,(MASTER)vga_sprite_params.pass) 1 7 3 NJ 1170 NJ 1170 NJ
+preplace netloc EXPORT<net_container>ECE385</net_container>(SLAVE)ECE385.sdram,(SLAVE)sdram.wire) 1 0 6 NJ 1150 NJ 1150 NJ 1150 NJ 1150 NJ 1150 NJ
+preplace netloc FAN_OUT<net_container>ECE385</net_container>(MASTER)nios2_cpu.irq,(SLAVE)nios2_jtag_uart.irq,(SLAVE)nios2_timer.irq) 1 6 1 2850
+levelinfo -pg 1 0 140 3440
+levelinfo -hier ECE385 150 180 550 1060 1390 1540 2130 2900 3120 3200 3220
