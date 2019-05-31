@@ -4,7 +4,7 @@
  * Machine generated for CPU 'usb_nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Mon May 27 21:47:45 CST 2019
+ * Generated: Sat Jun 01 01:34:57 CST 2019
  */
 
 /*
@@ -359,11 +359,11 @@
 #define USB_JTAG_UART_IRQ 0
 #define USB_JTAG_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define USB_JTAG_UART_NAME "/dev/usb_jtag_uart"
-#define USB_JTAG_UART_READ_DEPTH 256
+#define USB_JTAG_UART_READ_DEPTH 64
 #define USB_JTAG_UART_READ_THRESHOLD 8
 #define USB_JTAG_UART_SPAN 8
 #define USB_JTAG_UART_TYPE "altera_avalon_jtag_uart"
-#define USB_JTAG_UART_WRITE_DEPTH 256
+#define USB_JTAG_UART_WRITE_DEPTH 64
 #define USB_JTAG_UART_WRITE_THRESHOLD 8
 
 
@@ -437,7 +437,7 @@
 #define USB_NIOS2_SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define USB_NIOS2_SYSID_NAME "/dev/usb_nios2_sysid"
 #define USB_NIOS2_SYSID_SPAN 8
-#define USB_NIOS2_SYSID_TIMESTAMP 1558964584
+#define USB_NIOS2_SYSID_TIMESTAMP 1559323102
 #define USB_NIOS2_SYSID_TYPE "altera_avalon_sysid_qsys"
 
 #endif /* __SYSTEM_H_ */

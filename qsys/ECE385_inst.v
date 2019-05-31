@@ -24,11 +24,25 @@
 		.eth0_rx_fifo_in_error                          (<connected-to-eth0_rx_fifo_in_error>),                          //                                        .error
 		.eth0_rx_fifo_in_clk_clk                        (<connected-to-eth0_rx_fifo_in_clk_clk>),                        //                     eth0_rx_fifo_in_clk.clk
 		.eth0_rx_fifo_in_clk_reset_reset_n              (<connected-to-eth0_rx_fifo_in_clk_reset_reset_n>),              //               eth0_rx_fifo_in_clk_reset.reset_n
+		.eth0_tx_dma_buffer_in_0_data                   (<connected-to-eth0_tx_dma_buffer_in_0_data>),                   //                 eth0_tx_dma_buffer_in_0.data
+		.eth0_tx_dma_buffer_in_0_valid                  (<connected-to-eth0_tx_dma_buffer_in_0_valid>),                  //                                        .valid
+		.eth0_tx_dma_buffer_in_0_ready                  (<connected-to-eth0_tx_dma_buffer_in_0_ready>),                  //                                        .ready
+		.eth0_tx_dma_buffer_in_0_startofpacket          (<connected-to-eth0_tx_dma_buffer_in_0_startofpacket>),          //                                        .startofpacket
+		.eth0_tx_dma_buffer_in_0_endofpacket            (<connected-to-eth0_tx_dma_buffer_in_0_endofpacket>),            //                                        .endofpacket
+		.eth0_tx_dma_buffer_in_0_empty                  (<connected-to-eth0_tx_dma_buffer_in_0_empty>),                  //                                        .empty
+		.eth0_tx_dma_buffer_in_clk_0_clk                (<connected-to-eth0_tx_dma_buffer_in_clk_0_clk>),                //             eth0_tx_dma_buffer_in_clk_0.clk
+		.eth0_tx_dma_buffer_in_rst_0_reset              (<connected-to-eth0_tx_dma_buffer_in_rst_0_reset>),              //             eth0_tx_dma_buffer_in_rst_0.reset
+		.eth0_tx_dma_buffer_out_0_data                  (<connected-to-eth0_tx_dma_buffer_out_0_data>),                  //                eth0_tx_dma_buffer_out_0.data
+		.eth0_tx_dma_buffer_out_0_valid                 (<connected-to-eth0_tx_dma_buffer_out_0_valid>),                 //                                        .valid
+		.eth0_tx_dma_buffer_out_0_ready                 (<connected-to-eth0_tx_dma_buffer_out_0_ready>),                 //                                        .ready
+		.eth0_tx_dma_buffer_out_0_startofpacket         (<connected-to-eth0_tx_dma_buffer_out_0_startofpacket>),         //                                        .startofpacket
+		.eth0_tx_dma_buffer_out_0_endofpacket           (<connected-to-eth0_tx_dma_buffer_out_0_endofpacket>),           //                                        .endofpacket
 		.eth0_tx_fifo_out_data                          (<connected-to-eth0_tx_fifo_out_data>),                          //                        eth0_tx_fifo_out.data
 		.eth0_tx_fifo_out_valid                         (<connected-to-eth0_tx_fifo_out_valid>),                         //                                        .valid
 		.eth0_tx_fifo_out_ready                         (<connected-to-eth0_tx_fifo_out_ready>),                         //                                        .ready
 		.eth0_tx_fifo_out_startofpacket                 (<connected-to-eth0_tx_fifo_out_startofpacket>),                 //                                        .startofpacket
 		.eth0_tx_fifo_out_endofpacket                   (<connected-to-eth0_tx_fifo_out_endofpacket>),                   //                                        .endofpacket
+		.eth0_tx_fifo_out_empty                         (<connected-to-eth0_tx_fifo_out_empty>),                         //                                        .empty
 		.eth0_tx_fifo_out_clk_clk                       (<connected-to-eth0_tx_fifo_out_clk_clk>),                       //                    eth0_tx_fifo_out_clk.clk
 		.eth0_tx_fifo_out_clk_reset_reset_n             (<connected-to-eth0_tx_fifo_out_clk_reset_reset_n>),             //              eth0_tx_fifo_out_clk_reset.reset_n
 		.eth1_mdio_mdc                                  (<connected-to-eth1_mdio_mdc>),                                  //                               eth1_mdio.mdc
@@ -44,19 +58,28 @@
 		.eth1_rx_fifo_in_error                          (<connected-to-eth1_rx_fifo_in_error>),                          //                                        .error
 		.eth1_rx_fifo_in_clk_clk                        (<connected-to-eth1_rx_fifo_in_clk_clk>),                        //                     eth1_rx_fifo_in_clk.clk
 		.eth1_rx_fifo_in_clk_reset_reset_n              (<connected-to-eth1_rx_fifo_in_clk_reset_reset_n>),              //               eth1_rx_fifo_in_clk_reset.reset_n
+		.eth1_tx_dma_buffer_in_0_data                   (<connected-to-eth1_tx_dma_buffer_in_0_data>),                   //                 eth1_tx_dma_buffer_in_0.data
+		.eth1_tx_dma_buffer_in_0_valid                  (<connected-to-eth1_tx_dma_buffer_in_0_valid>),                  //                                        .valid
+		.eth1_tx_dma_buffer_in_0_ready                  (<connected-to-eth1_tx_dma_buffer_in_0_ready>),                  //                                        .ready
+		.eth1_tx_dma_buffer_in_0_startofpacket          (<connected-to-eth1_tx_dma_buffer_in_0_startofpacket>),          //                                        .startofpacket
+		.eth1_tx_dma_buffer_in_0_endofpacket            (<connected-to-eth1_tx_dma_buffer_in_0_endofpacket>),            //                                        .endofpacket
+		.eth1_tx_dma_buffer_in_0_empty                  (<connected-to-eth1_tx_dma_buffer_in_0_empty>),                  //                                        .empty
+		.eth1_tx_dma_buffer_in_clk_0_clk                (<connected-to-eth1_tx_dma_buffer_in_clk_0_clk>),                //             eth1_tx_dma_buffer_in_clk_0.clk
+		.eth1_tx_dma_buffer_in_rst_0_reset              (<connected-to-eth1_tx_dma_buffer_in_rst_0_reset>),              //             eth1_tx_dma_buffer_in_rst_0.reset
+		.eth1_tx_dma_buffer_out_0_data                  (<connected-to-eth1_tx_dma_buffer_out_0_data>),                  //                eth1_tx_dma_buffer_out_0.data
+		.eth1_tx_dma_buffer_out_0_valid                 (<connected-to-eth1_tx_dma_buffer_out_0_valid>),                 //                                        .valid
+		.eth1_tx_dma_buffer_out_0_ready                 (<connected-to-eth1_tx_dma_buffer_out_0_ready>),                 //                                        .ready
+		.eth1_tx_dma_buffer_out_0_startofpacket         (<connected-to-eth1_tx_dma_buffer_out_0_startofpacket>),         //                                        .startofpacket
+		.eth1_tx_dma_buffer_out_0_endofpacket           (<connected-to-eth1_tx_dma_buffer_out_0_endofpacket>),           //                                        .endofpacket
 		.eth1_tx_fifo_out_data                          (<connected-to-eth1_tx_fifo_out_data>),                          //                        eth1_tx_fifo_out.data
 		.eth1_tx_fifo_out_valid                         (<connected-to-eth1_tx_fifo_out_valid>),                         //                                        .valid
 		.eth1_tx_fifo_out_ready                         (<connected-to-eth1_tx_fifo_out_ready>),                         //                                        .ready
 		.eth1_tx_fifo_out_startofpacket                 (<connected-to-eth1_tx_fifo_out_startofpacket>),                 //                                        .startofpacket
 		.eth1_tx_fifo_out_endofpacket                   (<connected-to-eth1_tx_fifo_out_endofpacket>),                   //                                        .endofpacket
+		.eth1_tx_fifo_out_empty                         (<connected-to-eth1_tx_fifo_out_empty>),                         //                                        .empty
 		.eth1_tx_fifo_out_clk_clk                       (<connected-to-eth1_tx_fifo_out_clk_clk>),                       //                    eth1_tx_fifo_out_clk.clk
 		.eth1_tx_fifo_out_clk_reset_reset_n             (<connected-to-eth1_tx_fifo_out_clk_reset_reset_n>),             //              eth1_tx_fifo_out_clk_reset.reset_n
-		.eth_pll_125_clk                                (<connected-to-eth_pll_125_clk>),                                //                             eth_pll_125.clk
-		.eth_pll_25_clk                                 (<connected-to-eth_pll_25_clk>),                                 //                              eth_pll_25.clk
-		.eth_pll_2_5_clk                                (<connected-to-eth_pll_2_5_clk>),                                //                             eth_pll_2_5.clk
-		.eth_pll_c3_conduit_export                      (<connected-to-eth_pll_c3_conduit_export>),                      //                      eth_pll_c3_conduit.export
 		.io_hex_export                                  (<connected-to-io_hex_export>),                                  //                                  io_hex.export
-		.io_hwrng_export                                (<connected-to-io_hwrng_export>),                                //                                io_hwrng.export
 		.io_keys_export                                 (<connected-to-io_keys_export>),                                 //                                 io_keys.export
 		.io_led_green_export                            (<connected-to-io_led_green_export>),                            //                            io_led_green.export
 		.io_led_red_export                              (<connected-to-io_led_red_export>),                              //                              io_led_red.export
@@ -172,6 +195,7 @@
 		.vga_sprite_params_pass_readdata                (<connected-to-vga_sprite_params_pass_readdata>),                //                                        .readdata
 		.vga_sprite_params_pass_write                   (<connected-to-vga_sprite_params_pass_write>),                   //                                        .write
 		.vga_sprite_params_pass_writedata               (<connected-to-vga_sprite_params_pass_writedata>),               //                                        .writedata
-		.vga_sprite_params_reset_reset                  (<connected-to-vga_sprite_params_reset_reset>)                   //                 vga_sprite_params_reset.reset
+		.vga_sprite_params_reset_reset                  (<connected-to-vga_sprite_params_reset_reset>),                  //                 vga_sprite_params_reset.reset
+		.nios2_pll_ethernet_clk                         (<connected-to-nios2_pll_ethernet_clk>)                          //                      nios2_pll_ethernet.clk
 	);
 

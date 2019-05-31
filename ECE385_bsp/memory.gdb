@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
 # SOPC Builder design path: ../ECE385.sopcinfo
 #
-# Generated: Fri May 31 12:58:08 CST 2019
+# Generated: Sat Jun 01 01:21:32 CST 2019
 
 # DO NOT MODIFY THIS FILE
 #
@@ -46,38 +46,38 @@
 # The cache attribute is specified which improves GDB performance
 # by allowing GDB to cache memory contents on the host.
 
-# audio_mem
-memory 0x410000 0x420000 cache
-
-# nios2_onchip_mem
-memory 0x420000 0x430000 cache
-
 # vga_sprite_7
-memory 0x430000 0x432000 cache
+memory 0x0 0x2000 cache
 
 # vga_sprite_6
-memory 0x432000 0x434000 cache
+memory 0x2000 0x4000 cache
+
+# audio_mem
+memory 0x4000 0x8000 cache
 
 # vga_sprite_5
-memory 0x434000 0x436000 cache
+memory 0x8000 0xa000 cache
 
 # vga_sprite_4
-memory 0x436000 0x438000 cache
+memory 0xa000 0xc000 cache
 
 # vga_sprite_3
-memory 0x438000 0x43a000 cache
+memory 0xc000 0xe000 cache
 
 # vga_sprite_2
-memory 0x43a000 0x43c000 cache
+memory 0xe000 0x10000 cache
 
 # vga_sprite_1
-memory 0x43c000 0x43e000 cache
+memory 0x10000 0x12000 cache
 
 # vga_sprite_0
-memory 0x43e000 0x440000 cache
+memory 0x12000 0x14000 cache
 
 # usb_keycode
-memory 0x441000 0x441400 cache
+memory 0x15000 0x15400 cache
+
+# nios2_onchip_mem
+memory 0x40000 0x80000 cache
 
 # sdram
 memory 0x8000000 0x10000000 cache

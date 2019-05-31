@@ -144,9 +144,48 @@ ELF := ECE385_src.elf
 # Paths to C, C++, and assembly source files.
 C_SRCS += main.c
 C_SRCS += vga.c
-C_SRCS += resource.c
 C_SRCS += sprites.c
 C_SRCS += rng.c
+C_SRCS += ethernet.c
+C_SRCS += lwip/core/def.c
+C_SRCS += lwip/core/dns.c
+C_SRCS += lwip/core/inet_chksum.c
+C_SRCS += lwip/core/init.c
+C_SRCS += lwip/core/ip.c
+C_SRCS += lwip/core/ipv4/autoip.c
+C_SRCS += lwip/core/ipv4/dhcp.c
+C_SRCS += lwip/core/ipv4/etharp.c
+C_SRCS += lwip/core/ipv4/icmp.c
+C_SRCS += lwip/core/ipv4/ip4.c
+C_SRCS += lwip/core/ipv4/ip4_addr.c
+C_SRCS += lwip/core/ipv4/ip4_frag.c
+C_SRCS += lwip/core/mem.c
+C_SRCS += lwip/core/memp.c
+C_SRCS += lwip/core/netif.c
+C_SRCS += lwip/core/pbuf.c
+C_SRCS += lwip/core/raw.c
+C_SRCS += lwip/core/stats.c
+C_SRCS += lwip/core/sys.c
+C_SRCS += lwip/core/tcp.c
+C_SRCS += lwip/core/tcp_in.c
+C_SRCS += lwip/core/tcp_out.c
+C_SRCS += lwip/core/timeouts.c
+C_SRCS += lwip/core/udp.c
+C_SRCS += lwip/netif/ethernet.c
+C_SRCS += lwip/core/altcp.c
+C_SRCS += lwip/core/altcp_alloc.c
+C_SRCS += lwip/core/altcp_tcp.c
+C_SRCS += lwip/core/ipv4/igmp.c
+C_SRCS += lwip/core/ipv6/dhcp6.c
+C_SRCS += lwip/core/ipv6/ethip6.c
+C_SRCS += lwip/core/ipv6/icmp6.c
+C_SRCS += lwip/core/ipv6/inet6.c
+C_SRCS += lwip/core/ipv6/ip6.c
+C_SRCS += lwip/core/ipv6/ip6_addr.c
+C_SRCS += lwip/core/ipv6/ip6_frag.c
+C_SRCS += lwip/core/ipv6/mld6.c
+C_SRCS += lwip/core/ipv6/nd6.c
+C_SRCS += lwip_port/compat.c
 CXX_SRCS :=
 ASM_SRCS :=
 
@@ -155,7 +194,7 @@ ASM_SRCS :=
 OBJ_ROOT_DIR := obj
 
 # Options to control objdump.
-CREATE_OBJDUMP := 1
+CREATE_OBJDUMP := 0
 OBJDUMP_INCLUDE_SOURCE := 1
 OBJDUMP_FULL_CONTENTS := 0
 
@@ -184,7 +223,8 @@ SYS_LIB :=
 BSP_ROOT_DIR := ../ECE385_bsp/
 
 # List of application specific include directories, library directories and library names
-APP_INCLUDE_DIRS :=
+APP_INCLUDE_DIRS += lwip/include
+APP_INCLUDE_DIRS += lwip_port
 APP_LIBRARY_DIRS :=
 APP_LIBRARY_NAMES :=
 

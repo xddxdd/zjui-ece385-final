@@ -7,16 +7,10 @@
 
 #include "main.h"
 #include "vga.h"
-#include "resource.h"
+//#include "resource.h"
 #include "comm.h"
 #include "rng.h"
-
-#include "altera_avalon_sgdma.h"
-#include "altera_avalon_sgdma_descriptor.h"
-#include "altera_avalon_sgdma_regs.h"
-
-#include "sys/alt_stdio.h"
-#include "sys/alt_irq.h"
+#include "ethernet.h"
 
 volatile int* io_led_red = (int*) IO_LED_RED_BASE;
 volatile int* io_led_green = (int*) IO_LED_GREEN_BASE;
@@ -24,137 +18,16 @@ volatile keycode_comm_t* keycode_comm = (keycode_comm_t*) USB_KEYCODE_BASE;
 volatile int* io_hex = (int*) IO_HEX_BASE;
 volatile int* io_vga_sync = (int*) IO_VGA_SYNC_BASE;
 volatile uint32_t frame_count = 0;
-volatile int* io_hwrng = (int*) IO_HWRNG_BASE;
 volatile int tmp;
 
+int main(void) {
+	eth_init();
 
-// Function Prototypes
-void eth0_rx_ethernet_isr (void *context);
-void eth1_rx_ethernet_isr (void *context);
-
-// Global Variables
-unsigned int text_length;
-
-// Create a transmit frame
-unsigned char tx_frame[1024] = {
-		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF, 	// destination address (broadcast)
-		0x01,0x60,0x6E,0x11,0x02,0x0F, 	// source address
-		0x00,0x2E, 						// length or type of the payload data
-		'H','e','l','l','o',' ','W','o','r','l','d','\n','\0', // payload data (ended with termination character)
-};
-
-// Create a receive frame
-unsigned char eth0_rx_frame[1024] = { 0 };
-unsigned char eth1_rx_frame[1024] = { 0 };
-
-// Create sgdma transmit and receive devices
-alt_sgdma_dev* eth0_dma_tx_dev;
-alt_sgdma_dev* eth0_dma_rx_dev;
-alt_sgdma_dev* eth1_dma_tx_dev;
-alt_sgdma_dev* eth1_dma_rx_dev;
-
-// Allocate descriptors in the descriptor_memory (onchip memory)
-alt_sgdma_descriptor eth0_tx_descriptor;
-alt_sgdma_descriptor eth0_tx_descriptor_end;
-
-alt_sgdma_descriptor eth0_rx_descriptor;
-alt_sgdma_descriptor eth0_rx_descriptor_end;
-
-alt_sgdma_descriptor eth1_tx_descriptor;
-alt_sgdma_descriptor eth1_tx_descriptor_end;
-
-alt_sgdma_descriptor eth1_rx_descriptor;
-alt_sgdma_descriptor eth1_rx_descriptor_end;
-
-
-/********************************************************************************
- * This program demonstrates use of the Ethernet in the DE2-115 board.
- *
- * It performs the following:
- *  1. Records input text and transmits the text via Ethernet after Enter is
- *     pressed
- *  2. Displays text received via Ethernet frame on the JTAG UART
-********************************************************************************/
-int main(void)
-{
-	printf("Hello World\n");
-
-	eth0_dma_tx_dev = alt_avalon_sgdma_open ("/dev/eth0_tx_dma");
-	eth0_dma_rx_dev = alt_avalon_sgdma_open ("/dev/eth0_rx_dma");
-	eth1_dma_tx_dev = alt_avalon_sgdma_open ("/dev/eth1_tx_dma");
-	eth1_dma_rx_dev = alt_avalon_sgdma_open ("/dev/eth1_rx_dma");
-
-	alt_avalon_sgdma_register_callback(eth0_dma_rx_dev, (alt_avalon_sgdma_callback) eth0_rx_ethernet_isr, 0x00000014, NULL );
-	alt_avalon_sgdma_construct_stream_to_mem_desc(&eth0_rx_descriptor, &eth0_rx_descriptor_end, (alt_u32 *)eth0_rx_frame, 0, 0 );
-	alt_avalon_sgdma_do_async_transfer(eth0_dma_rx_dev, &eth0_rx_descriptor );
-
-	alt_avalon_sgdma_register_callback(eth1_dma_rx_dev, (alt_avalon_sgdma_callback) eth1_rx_ethernet_isr, 0x00000014, NULL );
-	alt_avalon_sgdma_construct_stream_to_mem_desc(&eth1_rx_descriptor, &eth1_rx_descriptor_end, (alt_u32 *)eth1_rx_frame, 0, 0 );
-	alt_avalon_sgdma_do_async_transfer(eth1_dma_rx_dev, &eth1_rx_descriptor );
-
-	do {
-		printf("Initializing eth0\n");
-		volatile int* eth_mdio = ETH0_MDIO_BASE;
-		eth_mdio[0x10] |= 0x0060;
-		eth_mdio[0x14] |= 0x0082;
-		eth_mdio[0x00] |= 0x8000;
-		while(eth_mdio[0x00] & 0x8000);
-	} while(0);
-
-	do {
-		printf("Initializing eth1\n");
-		volatile int* eth_mdio = ETH1_MDIO_BASE;
-		eth_mdio[0x10] |= 0x0060;
-		eth_mdio[0x14] |= 0x0082;
-		eth_mdio[0x00] |= 0x8000;
-		while(eth_mdio[0x00] & 0x8000);
-	} while(0);
-
-	printf("Sending packets\n");
-	while (1) {
-		alt_avalon_sgdma_construct_mem_to_stream_desc(&eth0_tx_descriptor, &eth0_tx_descriptor_end, (alt_u32 *)tx_frame, 62, 0, 1, 1, 0 );
-		alt_avalon_sgdma_do_sync_transfer(eth0_dma_tx_dev, &eth0_tx_descriptor);
-		usleep(100000);
+	while(1) {
+		eth_loop();
+		*io_hex = eth0_ip();
 	}
 
-	return 0;
-}
-
-/****************************************************************************************
- * Subroutine to read incoming Ethernet frames
-****************************************************************************************/
-void eth0_rx_ethernet_isr (void *context)
-{
-	// Wait until receive descriptor transfer is complete
-	while (alt_avalon_sgdma_check_descriptor_status(&eth0_rx_descriptor)) {}
-
-	// Output received text
-	alt_printf( "eth0 recv> %s\n", eth0_rx_frame + 16 );
-
-	// Create new receive sgdma descriptor
-	alt_avalon_sgdma_construct_stream_to_mem_desc(&eth0_rx_descriptor, &eth0_rx_descriptor_end, (alt_u32 *)eth0_rx_frame, 0, 0 );
-
-	// Set up non-blocking transfer of sgdma receive descriptor
-	alt_avalon_sgdma_do_async_transfer(eth0_dma_rx_dev, &eth0_rx_descriptor );
-}
-
-void eth1_rx_ethernet_isr (void *context)
-{
-	// Wait until receive descriptor transfer is complete
-	while (alt_avalon_sgdma_check_descriptor_status(&eth1_rx_descriptor)) {}
-
-	// Output received text
-	alt_printf( "eth1 recv> %s\n", eth1_rx_frame + 16 );
-
-	// Create new receive sgdma descriptor
-	alt_avalon_sgdma_construct_stream_to_mem_desc(&eth1_rx_descriptor, &eth1_rx_descriptor_end, (alt_u32 *)eth1_rx_frame, 0, 0 );
-
-	// Set up non-blocking transfer of sgdma receive descriptor
-	alt_avalon_sgdma_do_async_transfer(eth1_dma_rx_dev, &eth1_rx_descriptor );
-}
-
-//int main(void)
-//{
 //	vga_set(0, 0, VGA_WIDTH, VGA_HEIGHT, background);
 //	sprites_init(VGA_SPRITE_PLANE);
 //	sprites_init(VGA_SPRITE_BULLET);
@@ -226,28 +99,9 @@ void eth1_rx_ethernet_isr (void *context)
 //
 //		while(*io_vga_sync == 1);	// Wait for VSync == 0
 //	}
-//
-////	usleep(5000);
-//
-////	int* eth0_mdio = ETH0_MDIO_BASE;
-////	int* eth1_mdio = ETH1_MDIO_BASE;
-////
-////	printf("Initializing eth0\n");
-////	eth0_mdio[0x10] |= 0x0060;
-////	eth0_mdio[0x14] |= 0x0082;
-////	eth0_mdio[0x00] |= 0x8000;
-////	while(eth0_mdio[0x00] & 0x8000);
-////
-////	printf("Initializing eth1\n");
-////	eth1_mdio[0x10] |= 0x0060;
-////	eth1_mdio[0x14] |= 0x0082;
-////	eth1_mdio[0x00] |= 0x8000;
-////	while(eth1_mdio[0x00] & 0x8000);
-////
-////	printf("Done\n");
-//
-//	return 0;
-//}
+
+	return 0;
+}
 
 void handle_player_plane_keyboard(int player_plane_id, volatile vga_sprite_info_t* player_plane_info) {
 	uint8_t pressed_up = 0, pressed_left = 0, pressed_down = 0, pressed_right = 0;
@@ -348,10 +202,10 @@ void handle_enemy_planes_spawn() {
 			printf("ERR sprites_allocate");
 			return;
 		}
-		if(255 == sprites_load_data(VGA_SPRITE_PLANE, id, plane2, width * height)) {
-			printf("ERR sprites_load_data");
-			return;
-		}
+//		if(255 == sprites_load_data(VGA_SPRITE_PLANE, id, plane2, width * height)) {
+//			printf("ERR sprites_load_data");
+//			return;
+//		}
 		volatile vga_sprite_info_t* sprite_info = sprites_get(VGA_SPRITE_PLANE, id);
 		if(NULL == sprite_info) {
 			printf("ERR sprites_get");

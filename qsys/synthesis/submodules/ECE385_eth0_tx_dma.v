@@ -1273,6 +1273,7 @@ module ECE385_eth0_tx_dma_m_read (
                                     m_read_read,
                                     read_go,
                                     source_stream_data,
+                                    source_stream_empty,
                                     source_stream_endofpacket,
                                     source_stream_startofpacket,
                                     source_stream_valid,
@@ -1284,14 +1285,15 @@ module ECE385_eth0_tx_dma_m_read (
   output  [ 31: 0] m_read_address;
   output           m_read_read;
   output           read_go;
-  output  [  7: 0] source_stream_data;
+  output  [ 31: 0] source_stream_data;
+  output  [  1: 0] source_stream_empty;
   output           source_stream_endofpacket;
   output           source_stream_startofpacket;
   output           source_stream_valid;
   output  [ 23: 0] status_token_fifo_data;
   output           status_token_fifo_wrreq;
   input            clk;
-  input   [  7: 0] m_read_readdata;
+  input   [ 31: 0] m_read_readdata;
   input            m_read_readdatavalid;
   input            m_read_waitrequest;
   input   [ 58: 0] read_command_data;
@@ -1303,6 +1305,7 @@ module ECE385_eth0_tx_dma_m_read (
 
 wire    [ 15: 0] actual_bytes_transferred;
 wire    [  3: 0] burst_size;
+wire    [  5: 0] burst_size_right_shifted;
 wire             burst_value;
 wire    [ 15: 0] bytes_to_transfer;
 wire             e_00;
@@ -1312,6 +1315,8 @@ wire             e_03;
 wire             e_04;
 wire             e_05;
 wire             e_06;
+wire    [  2: 0] empty_operand;
+reg     [  2: 0] empty_value;
 wire             endofpacket;
 wire             generate_eop;
 wire             generate_sop;
@@ -1329,7 +1334,8 @@ reg     [ 15: 0] received_data_counter;
 wire             received_enough_data;
 reg     [ 15: 0] remaining_transactions;
 wire             single_transfer;
-wire    [  7: 0] source_stream_data;
+wire    [ 31: 0] source_stream_data;
+wire    [  1: 0] source_stream_empty;
 wire             source_stream_endofpacket;
 reg              source_stream_startofpacket;
 wire             source_stream_valid;
@@ -1341,7 +1347,7 @@ wire             status_token_fifo_wrreq;
 wire    [  7: 0] status_word;
 wire             still_got_full_burst;
 wire             t_eop;
-reg     [  8: 0] transactions_in_queue;
+reg     [  6: 0] transactions_in_queue;
 reg     [ 15: 0] transactions_left_to_post;
 wire             tx_shift;
   //m_read, which is an e_avalon_master
@@ -1362,13 +1368,14 @@ wire             tx_shift;
   assign generate_eop = read_command_data_reg[57];
   assign generate_sop = read_command_data_reg[58];
   assign burst_size = 1;
+  assign burst_size_right_shifted = {burst_size, 2'b0};
   //Request Path
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
           transactions_left_to_post <= 0;
       else if (m_read_state == 7'b0000100)
-          transactions_left_to_post <= bytes_to_transfer;
+          transactions_left_to_post <= (bytes_to_transfer >> 2) + |bytes_to_transfer[1 : 0];
       else if (~m_read_waitrequest)
         begin
           if (m_read_state == 7'b0001000 )
@@ -1392,7 +1399,7 @@ wire             tx_shift;
     end
 
 
-  assign maximum_transactions_in_queue = transactions_in_queue >= (127 - 1);
+  assign maximum_transactions_in_queue = transactions_in_queue >= (31 - 1);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -1402,13 +1409,13 @@ wire             tx_shift;
     end
 
 
-  assign m_read_address_inc = increment_address ? (m_read_address + burst_size) : m_read_address;
+  assign m_read_address_inc = increment_address ? (m_read_address + burst_size_right_shifted) : m_read_address;
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
           m_read_address <= 0;
       else if (m_read_state == 7'b0000100)
-          m_read_address <= start_address;
+          m_read_address <= {start_address[31 : 2], 2'b0};
       else if (~m_read_waitrequest)
           if (read_go & m_read_read)
               m_read_address <= m_read_address_inc;
@@ -1426,13 +1433,13 @@ wire             tx_shift;
       else if (m_read_readdatavalid)
         begin
           if (single_transfer)
-              received_data_counter <= received_data_counter + 1;
+              received_data_counter <= received_data_counter + 4 - tx_shift - source_stream_empty;
           else if (endofpacket)
-              received_data_counter <= received_data_counter + 1;
+              received_data_counter <= received_data_counter + (|bytes_to_transfer[1 : 0] ? bytes_to_transfer[1 : 0] : 4);
           else if (~|received_data_counter)
-              received_data_counter <= received_data_counter + 1 - tx_shift;
+              received_data_counter <= received_data_counter + 4 - tx_shift;
           else 
-            received_data_counter <= received_data_counter + 1;
+            received_data_counter <= received_data_counter + 4;
         end
       else if (m_read_state == 7'b0000010)
           received_data_counter <= 0;
@@ -1444,7 +1451,7 @@ wire             tx_shift;
       if (reset_n == 0)
           remaining_transactions <= 0;
       else if (m_read_state == 7'b0000100)
-          remaining_transactions <= bytes_to_transfer;
+          remaining_transactions <= (bytes_to_transfer >> 2) + |bytes_to_transfer[1 : 0];
       else if (read_go & m_read_readdatavalid)
           remaining_transactions <= remaining_transactions -1;
     end
@@ -1527,6 +1534,17 @@ wire             tx_shift;
 
 
   assign source_stream_endofpacket = read_go & endofpacket & m_read_readdatavalid & generate_eop;
+  assign source_stream_empty = (endofpacket && source_stream_valid) ? empty_value : 0;
+  assign empty_operand = 3'b100;
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          empty_value <= 0;
+      else 
+        empty_value <= empty_operand - bytes_to_transfer[1 : 0];
+    end
+
+
   //status register
   //T_EOP does not exist for a M-T-S configuration.
   assign t_eop = 1'b0;
@@ -1583,10 +1601,10 @@ module ECE385_eth0_tx_dma_m_readfifo_m_readfifo (
 
   output           m_readfifo_empty;
   output           m_readfifo_full;
-  output  [  9: 0] m_readfifo_q;
-  output  [  7: 0] m_readfifo_usedw;
+  output  [ 35: 0] m_readfifo_q;
+  output  [  5: 0] m_readfifo_usedw;
   input            clk;
-  input   [  9: 0] m_readfifo_data;
+  input   [ 35: 0] m_readfifo_data;
   input            m_readfifo_rdreq;
   input            m_readfifo_wrreq;
   input            reset;
@@ -1594,8 +1612,8 @@ module ECE385_eth0_tx_dma_m_readfifo_m_readfifo (
 
 wire             m_readfifo_empty;
 wire             m_readfifo_full;
-wire    [  9: 0] m_readfifo_q;
-wire    [  7: 0] m_readfifo_usedw;
+wire    [ 35: 0] m_readfifo_q;
+wire    [  5: 0] m_readfifo_usedw;
   scfifo ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo
     (
       .aclr (reset),
@@ -1611,11 +1629,11 @@ wire    [  7: 0] m_readfifo_usedw;
 
   defparam ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.add_ram_output_register = "ON",
            ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.intended_device_family = "CYCLONEIVE",
-           ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_numwords = 256,
+           ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_numwords = 64,
            ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_showahead = "OFF",
            ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_type = "scfifo",
-           ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_width = 10,
-           ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_widthu = 8,
+           ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_width = 36,
+           ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_widthu = 6,
            ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.overflow_checking = "ON",
            ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.underflow_checking = "ON",
            ECE385_eth0_tx_dma_m_readfifo_m_readfifo_m_readfifo.use_eab = "ON";
@@ -1638,6 +1656,7 @@ module ECE385_eth0_tx_dma_m_readfifo (
                                         reset,
                                         reset_n,
                                         sink_stream_data,
+                                        sink_stream_empty,
                                         sink_stream_endofpacket,
                                         sink_stream_startofpacket,
                                         sink_stream_valid,
@@ -1646,6 +1665,7 @@ module ECE385_eth0_tx_dma_m_readfifo (
                                        // outputs:
                                         sink_stream_ready,
                                         source_stream_data,
+                                        source_stream_empty,
                                         source_stream_endofpacket,
                                         source_stream_startofpacket,
                                         source_stream_valid
@@ -1653,14 +1673,16 @@ module ECE385_eth0_tx_dma_m_readfifo (
 ;
 
   output           sink_stream_ready;
-  output  [  7: 0] source_stream_data;
+  output  [ 31: 0] source_stream_data;
+  output  [  1: 0] source_stream_empty;
   output           source_stream_endofpacket;
   output           source_stream_startofpacket;
   output           source_stream_valid;
   input            clk;
   input            reset;
   input            reset_n;
-  input   [  7: 0] sink_stream_data;
+  input   [ 31: 0] sink_stream_data;
+  input   [  1: 0] sink_stream_empty;
   input            sink_stream_endofpacket;
   input            sink_stream_startofpacket;
   input            sink_stream_valid;
@@ -1669,17 +1691,20 @@ module ECE385_eth0_tx_dma_m_readfifo (
 
 reg              delayed_m_readfifo_empty;
 wire             hold_condition;
-reg     [  9: 0] m_readfifo_data;
+reg     [ 35: 0] m_readfifo_data;
 wire             m_readfifo_empty;
 wire             m_readfifo_empty_fall;
 wire             m_readfifo_full;
-wire    [  9: 0] m_readfifo_q;
+wire    [ 35: 0] m_readfifo_q;
 wire             m_readfifo_rdreq;
 reg              m_readfifo_rdreq_delay;
-wire    [  7: 0] m_readfifo_usedw;
+wire    [  5: 0] m_readfifo_usedw;
 reg              m_readfifo_wrreq;
 wire             sink_stream_ready;
-wire    [  7: 0] source_stream_data;
+wire    [ 31: 0] source_stream_data;
+wire    [  1: 0] source_stream_empty;
+reg     [  1: 0] source_stream_empty_hold;
+wire    [  1: 0] source_stream_empty_sig;
 wire             source_stream_endofpacket;
 wire             source_stream_endofpacket_from_fifo;
 reg              source_stream_endofpacket_hold;
@@ -1702,7 +1727,7 @@ reg              transmitted_eop;
       .reset            (reset)
     );
 
-  assign sink_stream_ready = ~m_readfifo_usedw[7] && ~m_readfifo_full;
+  assign sink_stream_ready = ~m_readfifo_usedw[5] && ~m_readfifo_full;
   assign m_readfifo_rdreq = ~m_readfifo_empty & source_stream_ready | m_readfifo_empty_fall & ~hold_condition;
   always @(posedge clk or negedge reset_n)
     begin
@@ -1763,15 +1788,26 @@ reg              transmitted_eop;
     end
 
 
-  assign source_stream_data = m_readfifo_q[7 : 0];
-  assign source_stream_endofpacket_from_fifo = m_readfifo_q[8];
-  assign source_stream_startofpacket = m_readfifo_q[9];
+  assign source_stream_empty_sig = m_readfifo_q[33 : 32];
+  assign source_stream_empty = source_stream_empty_sig | source_stream_empty_hold;
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          source_stream_empty_hold <= 0;
+      else 
+        source_stream_empty_hold <= hold_condition ? source_stream_empty_sig : (source_stream_ready ? 0 : source_stream_empty_hold);
+    end
+
+
+  assign source_stream_data = m_readfifo_q[31 : 0];
+  assign source_stream_endofpacket_from_fifo = m_readfifo_q[34];
+  assign source_stream_startofpacket = m_readfifo_q[35];
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
           m_readfifo_data <= 0;
       else 
-        m_readfifo_data <= {sink_stream_startofpacket, sink_stream_endofpacket, sink_stream_data};
+        m_readfifo_data <= {sink_stream_startofpacket, sink_stream_endofpacket, sink_stream_empty, sink_stream_data};
     end
 
 
@@ -2005,6 +2041,7 @@ module ECE385_eth0_tx_dma (
                              m_read_address,
                              m_read_read,
                              out_data,
+                             out_empty,
                              out_endofpacket,
                              out_startofpacket,
                              out_valid
@@ -2020,7 +2057,8 @@ module ECE385_eth0_tx_dma (
   output  [ 31: 0] descriptor_write_writedata;
   output  [ 31: 0] m_read_address;
   output           m_read_read;
-  output  [  7: 0] out_data;
+  output  [ 31: 0] out_data;
+  output  [  1: 0] out_empty;
   output           out_endofpacket;
   output           out_startofpacket;
   output           out_valid;
@@ -2034,7 +2072,7 @@ module ECE385_eth0_tx_dma (
   input            descriptor_read_readdatavalid;
   input            descriptor_read_waitrequest;
   input            descriptor_write_waitrequest;
-  input   [  7: 0] m_read_readdata;
+  input   [ 31: 0] m_read_readdata;
   input            m_read_readdatavalid;
   input            m_read_waitrequest;
   input            out_ready;
@@ -2049,7 +2087,7 @@ wire             command_fifo_rdreq;
 wire             command_fifo_wrreq;
 wire             csr_irq;
 wire    [ 31: 0] csr_readdata;
-wire    [  7: 0] data_to_fifo;
+wire    [ 31: 0] data_to_fifo;
 wire    [ 31: 0] desc_address_fifo_data;
 wire             desc_address_fifo_empty;
 wire             desc_address_fifo_full;
@@ -2061,10 +2099,12 @@ wire             descriptor_read_read;
 wire    [ 31: 0] descriptor_write_address;
 wire             descriptor_write_write;
 wire    [ 31: 0] descriptor_write_writedata;
+wire    [  1: 0] empty_to_fifo;
 wire             eop_to_fifo;
 wire    [ 31: 0] m_read_address;
 wire             m_read_read;
-wire    [  7: 0] out_data;
+wire    [ 31: 0] out_data;
+wire    [  1: 0] out_empty;
 wire             out_endofpacket;
 wire             out_startofpacket;
 wire             out_valid;
@@ -2075,7 +2115,8 @@ wire             ready_from_fifo;
 wire             reset;
 reg              reset_n;
 wire             sop_to_fifo;
-wire    [  7: 0] source_stream_data;
+wire    [ 31: 0] source_stream_data;
+wire    [  1: 0] source_stream_empty;
 wire             source_stream_endofpacket;
 wire             source_stream_ready;
 wire             source_stream_startofpacket;
@@ -2183,6 +2224,7 @@ wire             valid_to_fifo;
       .read_go                     (read_go),
       .reset_n                     (reset_n),
       .source_stream_data          (data_to_fifo),
+      .source_stream_empty         (empty_to_fifo),
       .source_stream_endofpacket   (eop_to_fifo),
       .source_stream_ready         (ready_from_fifo),
       .source_stream_startofpacket (sop_to_fifo),
@@ -2198,11 +2240,13 @@ wire             valid_to_fifo;
       .reset                       (reset),
       .reset_n                     (reset_n),
       .sink_stream_data            (data_to_fifo),
+      .sink_stream_empty           (empty_to_fifo),
       .sink_stream_endofpacket     (eop_to_fifo),
       .sink_stream_ready           (ready_from_fifo),
       .sink_stream_startofpacket   (sop_to_fifo),
       .sink_stream_valid           (valid_to_fifo),
       .source_stream_data          (source_stream_data),
+      .source_stream_empty         (source_stream_empty),
       .source_stream_endofpacket   (source_stream_endofpacket),
       .source_stream_ready         (source_stream_ready),
       .source_stream_startofpacket (source_stream_startofpacket),
@@ -2252,8 +2296,9 @@ wire             valid_to_fifo;
   //descriptor_write, which is an e_avalon_master
   //csr, which is an e_avalon_slave
   //m_read, which is an e_avalon_master
+  assign out_empty = source_stream_empty;
   //out, which is an e_atlantic_master
-  assign out_data = source_stream_data;
+  assign out_data = {source_stream_data[7 : 0], source_stream_data[15 : 8], source_stream_data[23 : 16], source_stream_data[31 : 24]};
   assign out_valid = source_stream_valid;
   assign source_stream_ready = out_ready;
   assign out_endofpacket = source_stream_endofpacket;

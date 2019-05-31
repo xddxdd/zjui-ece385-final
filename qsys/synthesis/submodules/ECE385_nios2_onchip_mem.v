@@ -48,8 +48,8 @@ module ECE385_nios2_onchip_mem (
 
   output  [ 31: 0] readdata;
   output  [ 31: 0] readdata2;
-  input   [ 13: 0] address;
-  input   [ 13: 0] address2;
+  input   [ 15: 0] address;
+  input   [ 15: 0] address2;
   input   [  3: 0] byteenable;
   input   [  3: 0] byteenable2;
   input            chipselect;
@@ -102,9 +102,9 @@ wire             wren2;
            the_altsyncram.indata_reg_b = "CLOCK0",
            the_altsyncram.init_file = INIT_FILE,
            the_altsyncram.lpm_type = "altsyncram",
-           the_altsyncram.maximum_depth = 16384,
-           the_altsyncram.numwords_a = 16384,
-           the_altsyncram.numwords_b = 16384,
+           the_altsyncram.maximum_depth = 65536,
+           the_altsyncram.numwords_a = 65536,
+           the_altsyncram.numwords_b = 65536,
            the_altsyncram.operation_mode = "BIDIR_DUAL_PORT",
            the_altsyncram.outdata_reg_a = "UNREGISTERED",
            the_altsyncram.outdata_reg_b = "UNREGISTERED",
@@ -114,8 +114,8 @@ wire             wren2;
            the_altsyncram.width_b = 32,
            the_altsyncram.width_byteena_a = 4,
            the_altsyncram.width_byteena_b = 4,
-           the_altsyncram.widthad_a = 14,
-           the_altsyncram.widthad_b = 14,
+           the_altsyncram.widthad_a = 16,
+           the_altsyncram.widthad_b = 16,
            the_altsyncram.wrcontrol_wraddress_reg_b = "CLOCK0";
 
   //s1, which is an e_avalon_slave

@@ -7,6 +7,8 @@
 #define RNG_INCREMENT 12345
 #define RNG_MASK 0x7fffffff
 
+#define LWIP_RAND rng_generate
+
 extern uint32_t rng_num;
 uint32_t rng_generate();
 

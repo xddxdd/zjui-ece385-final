@@ -34,7 +34,7 @@ module ECE385_mm_interconnect_2 (
 		input  wire [31:0] eth0_tx_dma_m_read_address,                    //                      eth0_tx_dma_m_read.address
 		output wire        eth0_tx_dma_m_read_waitrequest,                //                                        .waitrequest
 		input  wire        eth0_tx_dma_m_read_read,                       //                                        .read
-		output wire [7:0]  eth0_tx_dma_m_read_readdata,                   //                                        .readdata
+		output wire [31:0] eth0_tx_dma_m_read_readdata,                   //                                        .readdata
 		output wire        eth0_tx_dma_m_read_readdatavalid,              //                                        .readdatavalid
 		input  wire [31:0] eth1_rx_dma_descriptor_read_address,           //             eth1_rx_dma_descriptor_read.address
 		output wire        eth1_rx_dma_descriptor_read_waitrequest,       //                                        .waitrequest
@@ -61,9 +61,9 @@ module ECE385_mm_interconnect_2 (
 		input  wire [31:0] eth1_tx_dma_m_read_address,                    //                      eth1_tx_dma_m_read.address
 		output wire        eth1_tx_dma_m_read_waitrequest,                //                                        .waitrequest
 		input  wire        eth1_tx_dma_m_read_read,                       //                                        .read
-		output wire [7:0]  eth1_tx_dma_m_read_readdata,                   //                                        .readdata
+		output wire [31:0] eth1_tx_dma_m_read_readdata,                   //                                        .readdata
 		output wire        eth1_tx_dma_m_read_readdatavalid,              //                                        .readdatavalid
-		output wire [13:0] nios2_onchip_mem_s2_address,                   //                     nios2_onchip_mem_s2.address
+		output wire [15:0] nios2_onchip_mem_s2_address,                   //                     nios2_onchip_mem_s2.address
 		output wire        nios2_onchip_mem_s2_write,                     //                                        .write
 		input  wire [31:0] nios2_onchip_mem_s2_readdata,                  //                                        .readdata
 		output wire [31:0] nios2_onchip_mem_s2_writedata,                 //                                        .writedata
@@ -209,27 +209,39 @@ module ECE385_mm_interconnect_2 (
 	wire          rsp_mux_007_src_startofpacket;                                                   // rsp_mux_007:src_startofpacket -> eth1_tx_dma_descriptor_write_agent:rp_startofpacket
 	wire          rsp_mux_007_src_endofpacket;                                                     // rsp_mux_007:src_endofpacket -> eth1_tx_dma_descriptor_write_agent:rp_endofpacket
 	wire          eth0_tx_dma_m_read_translator_avalon_universal_master_0_waitrequest;             // eth0_tx_dma_m_read_agent:av_waitrequest -> eth0_tx_dma_m_read_translator:uav_waitrequest
-	wire    [7:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_readdata;                // eth0_tx_dma_m_read_agent:av_readdata -> eth0_tx_dma_m_read_translator:uav_readdata
+	wire   [31:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_readdata;                // eth0_tx_dma_m_read_agent:av_readdata -> eth0_tx_dma_m_read_translator:uav_readdata
 	wire          eth0_tx_dma_m_read_translator_avalon_universal_master_0_debugaccess;             // eth0_tx_dma_m_read_translator:uav_debugaccess -> eth0_tx_dma_m_read_agent:av_debugaccess
 	wire   [31:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_address;                 // eth0_tx_dma_m_read_translator:uav_address -> eth0_tx_dma_m_read_agent:av_address
 	wire          eth0_tx_dma_m_read_translator_avalon_universal_master_0_read;                    // eth0_tx_dma_m_read_translator:uav_read -> eth0_tx_dma_m_read_agent:av_read
-	wire    [0:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_byteenable;              // eth0_tx_dma_m_read_translator:uav_byteenable -> eth0_tx_dma_m_read_agent:av_byteenable
+	wire    [3:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_byteenable;              // eth0_tx_dma_m_read_translator:uav_byteenable -> eth0_tx_dma_m_read_agent:av_byteenable
 	wire          eth0_tx_dma_m_read_translator_avalon_universal_master_0_readdatavalid;           // eth0_tx_dma_m_read_agent:av_readdatavalid -> eth0_tx_dma_m_read_translator:uav_readdatavalid
 	wire          eth0_tx_dma_m_read_translator_avalon_universal_master_0_lock;                    // eth0_tx_dma_m_read_translator:uav_lock -> eth0_tx_dma_m_read_agent:av_lock
 	wire          eth0_tx_dma_m_read_translator_avalon_universal_master_0_write;                   // eth0_tx_dma_m_read_translator:uav_write -> eth0_tx_dma_m_read_agent:av_write
-	wire    [7:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_writedata;               // eth0_tx_dma_m_read_translator:uav_writedata -> eth0_tx_dma_m_read_agent:av_writedata
-	wire    [0:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_burstcount;              // eth0_tx_dma_m_read_translator:uav_burstcount -> eth0_tx_dma_m_read_agent:av_burstcount
+	wire   [31:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_writedata;               // eth0_tx_dma_m_read_translator:uav_writedata -> eth0_tx_dma_m_read_agent:av_writedata
+	wire    [2:0] eth0_tx_dma_m_read_translator_avalon_universal_master_0_burstcount;              // eth0_tx_dma_m_read_translator:uav_burstcount -> eth0_tx_dma_m_read_agent:av_burstcount
+	wire          rsp_mux_008_src_valid;                                                           // rsp_mux_008:src_valid -> eth0_tx_dma_m_read_agent:rp_valid
+	wire  [107:0] rsp_mux_008_src_data;                                                            // rsp_mux_008:src_data -> eth0_tx_dma_m_read_agent:rp_data
+	wire          rsp_mux_008_src_ready;                                                           // eth0_tx_dma_m_read_agent:rp_ready -> rsp_mux_008:src_ready
+	wire   [11:0] rsp_mux_008_src_channel;                                                         // rsp_mux_008:src_channel -> eth0_tx_dma_m_read_agent:rp_channel
+	wire          rsp_mux_008_src_startofpacket;                                                   // rsp_mux_008:src_startofpacket -> eth0_tx_dma_m_read_agent:rp_startofpacket
+	wire          rsp_mux_008_src_endofpacket;                                                     // rsp_mux_008:src_endofpacket -> eth0_tx_dma_m_read_agent:rp_endofpacket
 	wire          eth1_tx_dma_m_read_translator_avalon_universal_master_0_waitrequest;             // eth1_tx_dma_m_read_agent:av_waitrequest -> eth1_tx_dma_m_read_translator:uav_waitrequest
-	wire    [7:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_readdata;                // eth1_tx_dma_m_read_agent:av_readdata -> eth1_tx_dma_m_read_translator:uav_readdata
+	wire   [31:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_readdata;                // eth1_tx_dma_m_read_agent:av_readdata -> eth1_tx_dma_m_read_translator:uav_readdata
 	wire          eth1_tx_dma_m_read_translator_avalon_universal_master_0_debugaccess;             // eth1_tx_dma_m_read_translator:uav_debugaccess -> eth1_tx_dma_m_read_agent:av_debugaccess
 	wire   [31:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_address;                 // eth1_tx_dma_m_read_translator:uav_address -> eth1_tx_dma_m_read_agent:av_address
 	wire          eth1_tx_dma_m_read_translator_avalon_universal_master_0_read;                    // eth1_tx_dma_m_read_translator:uav_read -> eth1_tx_dma_m_read_agent:av_read
-	wire    [0:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_byteenable;              // eth1_tx_dma_m_read_translator:uav_byteenable -> eth1_tx_dma_m_read_agent:av_byteenable
+	wire    [3:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_byteenable;              // eth1_tx_dma_m_read_translator:uav_byteenable -> eth1_tx_dma_m_read_agent:av_byteenable
 	wire          eth1_tx_dma_m_read_translator_avalon_universal_master_0_readdatavalid;           // eth1_tx_dma_m_read_agent:av_readdatavalid -> eth1_tx_dma_m_read_translator:uav_readdatavalid
 	wire          eth1_tx_dma_m_read_translator_avalon_universal_master_0_lock;                    // eth1_tx_dma_m_read_translator:uav_lock -> eth1_tx_dma_m_read_agent:av_lock
 	wire          eth1_tx_dma_m_read_translator_avalon_universal_master_0_write;                   // eth1_tx_dma_m_read_translator:uav_write -> eth1_tx_dma_m_read_agent:av_write
-	wire    [7:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_writedata;               // eth1_tx_dma_m_read_translator:uav_writedata -> eth1_tx_dma_m_read_agent:av_writedata
-	wire    [0:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_burstcount;              // eth1_tx_dma_m_read_translator:uav_burstcount -> eth1_tx_dma_m_read_agent:av_burstcount
+	wire   [31:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_writedata;               // eth1_tx_dma_m_read_translator:uav_writedata -> eth1_tx_dma_m_read_agent:av_writedata
+	wire    [2:0] eth1_tx_dma_m_read_translator_avalon_universal_master_0_burstcount;              // eth1_tx_dma_m_read_translator:uav_burstcount -> eth1_tx_dma_m_read_agent:av_burstcount
+	wire          rsp_mux_009_src_valid;                                                           // rsp_mux_009:src_valid -> eth1_tx_dma_m_read_agent:rp_valid
+	wire  [107:0] rsp_mux_009_src_data;                                                            // rsp_mux_009:src_data -> eth1_tx_dma_m_read_agent:rp_data
+	wire          rsp_mux_009_src_ready;                                                           // eth1_tx_dma_m_read_agent:rp_ready -> rsp_mux_009:src_ready
+	wire   [11:0] rsp_mux_009_src_channel;                                                         // rsp_mux_009:src_channel -> eth1_tx_dma_m_read_agent:rp_channel
+	wire          rsp_mux_009_src_startofpacket;                                                   // rsp_mux_009:src_startofpacket -> eth1_tx_dma_m_read_agent:rp_startofpacket
+	wire          rsp_mux_009_src_endofpacket;                                                     // rsp_mux_009:src_endofpacket -> eth1_tx_dma_m_read_agent:rp_endofpacket
 	wire          eth0_rx_dma_m_write_translator_avalon_universal_master_0_waitrequest;            // eth0_rx_dma_m_write_agent:av_waitrequest -> eth0_rx_dma_m_write_translator:uav_waitrequest
 	wire    [7:0] eth0_rx_dma_m_write_translator_avalon_universal_master_0_readdata;               // eth0_rx_dma_m_write_agent:av_readdata -> eth0_rx_dma_m_write_translator:uav_readdata
 	wire          eth0_rx_dma_m_write_translator_avalon_universal_master_0_debugaccess;            // eth0_rx_dma_m_write_translator:uav_debugaccess -> eth0_rx_dma_m_write_agent:av_debugaccess
@@ -368,15 +380,27 @@ module ECE385_mm_interconnect_2 (
 	wire          router_007_src_startofpacket;                                                    // router_007:src_startofpacket -> cmd_demux_007:sink_startofpacket
 	wire          router_007_src_endofpacket;                                                      // router_007:src_endofpacket -> cmd_demux_007:sink_endofpacket
 	wire          eth0_tx_dma_m_read_agent_cp_valid;                                               // eth0_tx_dma_m_read_agent:cp_valid -> router_008:sink_valid
-	wire   [80:0] eth0_tx_dma_m_read_agent_cp_data;                                                // eth0_tx_dma_m_read_agent:cp_data -> router_008:sink_data
+	wire  [107:0] eth0_tx_dma_m_read_agent_cp_data;                                                // eth0_tx_dma_m_read_agent:cp_data -> router_008:sink_data
 	wire          eth0_tx_dma_m_read_agent_cp_ready;                                               // router_008:sink_ready -> eth0_tx_dma_m_read_agent:cp_ready
 	wire          eth0_tx_dma_m_read_agent_cp_startofpacket;                                       // eth0_tx_dma_m_read_agent:cp_startofpacket -> router_008:sink_startofpacket
 	wire          eth0_tx_dma_m_read_agent_cp_endofpacket;                                         // eth0_tx_dma_m_read_agent:cp_endofpacket -> router_008:sink_endofpacket
+	wire          router_008_src_valid;                                                            // router_008:src_valid -> cmd_demux_008:sink_valid
+	wire  [107:0] router_008_src_data;                                                             // router_008:src_data -> cmd_demux_008:sink_data
+	wire          router_008_src_ready;                                                            // cmd_demux_008:sink_ready -> router_008:src_ready
+	wire   [11:0] router_008_src_channel;                                                          // router_008:src_channel -> cmd_demux_008:sink_channel
+	wire          router_008_src_startofpacket;                                                    // router_008:src_startofpacket -> cmd_demux_008:sink_startofpacket
+	wire          router_008_src_endofpacket;                                                      // router_008:src_endofpacket -> cmd_demux_008:sink_endofpacket
 	wire          eth1_tx_dma_m_read_agent_cp_valid;                                               // eth1_tx_dma_m_read_agent:cp_valid -> router_009:sink_valid
-	wire   [80:0] eth1_tx_dma_m_read_agent_cp_data;                                                // eth1_tx_dma_m_read_agent:cp_data -> router_009:sink_data
+	wire  [107:0] eth1_tx_dma_m_read_agent_cp_data;                                                // eth1_tx_dma_m_read_agent:cp_data -> router_009:sink_data
 	wire          eth1_tx_dma_m_read_agent_cp_ready;                                               // router_009:sink_ready -> eth1_tx_dma_m_read_agent:cp_ready
 	wire          eth1_tx_dma_m_read_agent_cp_startofpacket;                                       // eth1_tx_dma_m_read_agent:cp_startofpacket -> router_009:sink_startofpacket
 	wire          eth1_tx_dma_m_read_agent_cp_endofpacket;                                         // eth1_tx_dma_m_read_agent:cp_endofpacket -> router_009:sink_endofpacket
+	wire          router_009_src_valid;                                                            // router_009:src_valid -> cmd_demux_009:sink_valid
+	wire  [107:0] router_009_src_data;                                                             // router_009:src_data -> cmd_demux_009:sink_data
+	wire          router_009_src_ready;                                                            // cmd_demux_009:sink_ready -> router_009:src_ready
+	wire   [11:0] router_009_src_channel;                                                          // router_009:src_channel -> cmd_demux_009:sink_channel
+	wire          router_009_src_startofpacket;                                                    // router_009:src_startofpacket -> cmd_demux_009:sink_startofpacket
+	wire          router_009_src_endofpacket;                                                      // router_009:src_endofpacket -> cmd_demux_009:sink_endofpacket
 	wire          eth0_rx_dma_m_write_agent_cp_valid;                                              // eth0_rx_dma_m_write_agent:cp_valid -> router_010:sink_valid
 	wire   [80:0] eth0_rx_dma_m_write_agent_cp_data;                                               // eth0_rx_dma_m_write_agent:cp_data -> router_010:sink_data
 	wire          eth0_rx_dma_m_write_agent_cp_ready;                                              // router_010:sink_ready -> eth0_rx_dma_m_write_agent:cp_ready
@@ -542,30 +566,6 @@ module ECE385_mm_interconnect_2 (
 	wire   [11:0] rsp_demux_src11_channel;                                                         // rsp_demux:src11_channel -> rsp_mux_011:sink0_channel
 	wire          rsp_demux_src11_startofpacket;                                                   // rsp_demux:src11_startofpacket -> rsp_mux_011:sink0_startofpacket
 	wire          rsp_demux_src11_endofpacket;                                                     // rsp_demux:src11_endofpacket -> rsp_mux_011:sink0_endofpacket
-	wire          rsp_mux_008_src_valid;                                                           // rsp_mux_008:src_valid -> eth0_tx_dma_m_read_rsp_width_adapter:in_valid
-	wire  [107:0] rsp_mux_008_src_data;                                                            // rsp_mux_008:src_data -> eth0_tx_dma_m_read_rsp_width_adapter:in_data
-	wire          rsp_mux_008_src_ready;                                                           // eth0_tx_dma_m_read_rsp_width_adapter:in_ready -> rsp_mux_008:src_ready
-	wire   [11:0] rsp_mux_008_src_channel;                                                         // rsp_mux_008:src_channel -> eth0_tx_dma_m_read_rsp_width_adapter:in_channel
-	wire          rsp_mux_008_src_startofpacket;                                                   // rsp_mux_008:src_startofpacket -> eth0_tx_dma_m_read_rsp_width_adapter:in_startofpacket
-	wire          rsp_mux_008_src_endofpacket;                                                     // rsp_mux_008:src_endofpacket -> eth0_tx_dma_m_read_rsp_width_adapter:in_endofpacket
-	wire          eth0_tx_dma_m_read_rsp_width_adapter_src_valid;                                  // eth0_tx_dma_m_read_rsp_width_adapter:out_valid -> eth0_tx_dma_m_read_agent:rp_valid
-	wire   [80:0] eth0_tx_dma_m_read_rsp_width_adapter_src_data;                                   // eth0_tx_dma_m_read_rsp_width_adapter:out_data -> eth0_tx_dma_m_read_agent:rp_data
-	wire          eth0_tx_dma_m_read_rsp_width_adapter_src_ready;                                  // eth0_tx_dma_m_read_agent:rp_ready -> eth0_tx_dma_m_read_rsp_width_adapter:out_ready
-	wire   [11:0] eth0_tx_dma_m_read_rsp_width_adapter_src_channel;                                // eth0_tx_dma_m_read_rsp_width_adapter:out_channel -> eth0_tx_dma_m_read_agent:rp_channel
-	wire          eth0_tx_dma_m_read_rsp_width_adapter_src_startofpacket;                          // eth0_tx_dma_m_read_rsp_width_adapter:out_startofpacket -> eth0_tx_dma_m_read_agent:rp_startofpacket
-	wire          eth0_tx_dma_m_read_rsp_width_adapter_src_endofpacket;                            // eth0_tx_dma_m_read_rsp_width_adapter:out_endofpacket -> eth0_tx_dma_m_read_agent:rp_endofpacket
-	wire          rsp_mux_009_src_valid;                                                           // rsp_mux_009:src_valid -> eth1_tx_dma_m_read_rsp_width_adapter:in_valid
-	wire  [107:0] rsp_mux_009_src_data;                                                            // rsp_mux_009:src_data -> eth1_tx_dma_m_read_rsp_width_adapter:in_data
-	wire          rsp_mux_009_src_ready;                                                           // eth1_tx_dma_m_read_rsp_width_adapter:in_ready -> rsp_mux_009:src_ready
-	wire   [11:0] rsp_mux_009_src_channel;                                                         // rsp_mux_009:src_channel -> eth1_tx_dma_m_read_rsp_width_adapter:in_channel
-	wire          rsp_mux_009_src_startofpacket;                                                   // rsp_mux_009:src_startofpacket -> eth1_tx_dma_m_read_rsp_width_adapter:in_startofpacket
-	wire          rsp_mux_009_src_endofpacket;                                                     // rsp_mux_009:src_endofpacket -> eth1_tx_dma_m_read_rsp_width_adapter:in_endofpacket
-	wire          eth1_tx_dma_m_read_rsp_width_adapter_src_valid;                                  // eth1_tx_dma_m_read_rsp_width_adapter:out_valid -> eth1_tx_dma_m_read_agent:rp_valid
-	wire   [80:0] eth1_tx_dma_m_read_rsp_width_adapter_src_data;                                   // eth1_tx_dma_m_read_rsp_width_adapter:out_data -> eth1_tx_dma_m_read_agent:rp_data
-	wire          eth1_tx_dma_m_read_rsp_width_adapter_src_ready;                                  // eth1_tx_dma_m_read_agent:rp_ready -> eth1_tx_dma_m_read_rsp_width_adapter:out_ready
-	wire   [11:0] eth1_tx_dma_m_read_rsp_width_adapter_src_channel;                                // eth1_tx_dma_m_read_rsp_width_adapter:out_channel -> eth1_tx_dma_m_read_agent:rp_channel
-	wire          eth1_tx_dma_m_read_rsp_width_adapter_src_startofpacket;                          // eth1_tx_dma_m_read_rsp_width_adapter:out_startofpacket -> eth1_tx_dma_m_read_agent:rp_startofpacket
-	wire          eth1_tx_dma_m_read_rsp_width_adapter_src_endofpacket;                            // eth1_tx_dma_m_read_rsp_width_adapter:out_endofpacket -> eth1_tx_dma_m_read_agent:rp_endofpacket
 	wire          rsp_mux_010_src_valid;                                                           // rsp_mux_010:src_valid -> eth0_rx_dma_m_write_rsp_width_adapter:in_valid
 	wire  [107:0] rsp_mux_010_src_data;                                                            // rsp_mux_010:src_data -> eth0_rx_dma_m_write_rsp_width_adapter:in_data
 	wire          rsp_mux_010_src_ready;                                                           // eth0_rx_dma_m_write_rsp_width_adapter:in_ready -> rsp_mux_010:src_ready
@@ -590,30 +590,6 @@ module ECE385_mm_interconnect_2 (
 	wire   [11:0] eth1_rx_dma_m_write_rsp_width_adapter_src_channel;                               // eth1_rx_dma_m_write_rsp_width_adapter:out_channel -> eth1_rx_dma_m_write_agent:rp_channel
 	wire          eth1_rx_dma_m_write_rsp_width_adapter_src_startofpacket;                         // eth1_rx_dma_m_write_rsp_width_adapter:out_startofpacket -> eth1_rx_dma_m_write_agent:rp_startofpacket
 	wire          eth1_rx_dma_m_write_rsp_width_adapter_src_endofpacket;                           // eth1_rx_dma_m_write_rsp_width_adapter:out_endofpacket -> eth1_rx_dma_m_write_agent:rp_endofpacket
-	wire          router_008_src_valid;                                                            // router_008:src_valid -> eth0_tx_dma_m_read_cmd_width_adapter:in_valid
-	wire   [80:0] router_008_src_data;                                                             // router_008:src_data -> eth0_tx_dma_m_read_cmd_width_adapter:in_data
-	wire          router_008_src_ready;                                                            // eth0_tx_dma_m_read_cmd_width_adapter:in_ready -> router_008:src_ready
-	wire   [11:0] router_008_src_channel;                                                          // router_008:src_channel -> eth0_tx_dma_m_read_cmd_width_adapter:in_channel
-	wire          router_008_src_startofpacket;                                                    // router_008:src_startofpacket -> eth0_tx_dma_m_read_cmd_width_adapter:in_startofpacket
-	wire          router_008_src_endofpacket;                                                      // router_008:src_endofpacket -> eth0_tx_dma_m_read_cmd_width_adapter:in_endofpacket
-	wire          eth0_tx_dma_m_read_cmd_width_adapter_src_valid;                                  // eth0_tx_dma_m_read_cmd_width_adapter:out_valid -> cmd_demux_008:sink_valid
-	wire  [107:0] eth0_tx_dma_m_read_cmd_width_adapter_src_data;                                   // eth0_tx_dma_m_read_cmd_width_adapter:out_data -> cmd_demux_008:sink_data
-	wire          eth0_tx_dma_m_read_cmd_width_adapter_src_ready;                                  // cmd_demux_008:sink_ready -> eth0_tx_dma_m_read_cmd_width_adapter:out_ready
-	wire   [11:0] eth0_tx_dma_m_read_cmd_width_adapter_src_channel;                                // eth0_tx_dma_m_read_cmd_width_adapter:out_channel -> cmd_demux_008:sink_channel
-	wire          eth0_tx_dma_m_read_cmd_width_adapter_src_startofpacket;                          // eth0_tx_dma_m_read_cmd_width_adapter:out_startofpacket -> cmd_demux_008:sink_startofpacket
-	wire          eth0_tx_dma_m_read_cmd_width_adapter_src_endofpacket;                            // eth0_tx_dma_m_read_cmd_width_adapter:out_endofpacket -> cmd_demux_008:sink_endofpacket
-	wire          router_009_src_valid;                                                            // router_009:src_valid -> eth1_tx_dma_m_read_cmd_width_adapter:in_valid
-	wire   [80:0] router_009_src_data;                                                             // router_009:src_data -> eth1_tx_dma_m_read_cmd_width_adapter:in_data
-	wire          router_009_src_ready;                                                            // eth1_tx_dma_m_read_cmd_width_adapter:in_ready -> router_009:src_ready
-	wire   [11:0] router_009_src_channel;                                                          // router_009:src_channel -> eth1_tx_dma_m_read_cmd_width_adapter:in_channel
-	wire          router_009_src_startofpacket;                                                    // router_009:src_startofpacket -> eth1_tx_dma_m_read_cmd_width_adapter:in_startofpacket
-	wire          router_009_src_endofpacket;                                                      // router_009:src_endofpacket -> eth1_tx_dma_m_read_cmd_width_adapter:in_endofpacket
-	wire          eth1_tx_dma_m_read_cmd_width_adapter_src_valid;                                  // eth1_tx_dma_m_read_cmd_width_adapter:out_valid -> cmd_demux_009:sink_valid
-	wire  [107:0] eth1_tx_dma_m_read_cmd_width_adapter_src_data;                                   // eth1_tx_dma_m_read_cmd_width_adapter:out_data -> cmd_demux_009:sink_data
-	wire          eth1_tx_dma_m_read_cmd_width_adapter_src_ready;                                  // cmd_demux_009:sink_ready -> eth1_tx_dma_m_read_cmd_width_adapter:out_ready
-	wire   [11:0] eth1_tx_dma_m_read_cmd_width_adapter_src_channel;                                // eth1_tx_dma_m_read_cmd_width_adapter:out_channel -> cmd_demux_009:sink_channel
-	wire          eth1_tx_dma_m_read_cmd_width_adapter_src_startofpacket;                          // eth1_tx_dma_m_read_cmd_width_adapter:out_startofpacket -> cmd_demux_009:sink_startofpacket
-	wire          eth1_tx_dma_m_read_cmd_width_adapter_src_endofpacket;                            // eth1_tx_dma_m_read_cmd_width_adapter:out_endofpacket -> cmd_demux_009:sink_endofpacket
 	wire          router_010_src_valid;                                                            // router_010:src_valid -> eth0_rx_dma_m_write_cmd_width_adapter:in_valid
 	wire   [80:0] router_010_src_data;                                                             // router_010:src_data -> eth0_rx_dma_m_write_cmd_width_adapter:in_data
 	wire          router_010_src_ready;                                                            // eth0_rx_dma_m_write_cmd_width_adapter:in_ready -> router_010:src_ready
@@ -1128,11 +1104,11 @@ module ECE385_mm_interconnect_2 (
 
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (32),
-		.AV_DATA_W                   (8),
+		.AV_DATA_W                   (32),
 		.AV_BURSTCOUNT_W             (1),
-		.AV_BYTEENABLE_W             (1),
+		.AV_BYTEENABLE_W             (4),
 		.UAV_ADDRESS_W               (32),
-		.UAV_BURSTCOUNT_W            (1),
+		.UAV_BURSTCOUNT_W            (3),
 		.USE_READ                    (1),
 		.USE_WRITE                   (0),
 		.USE_BEGINBURSTTRANSFER      (0),
@@ -1143,7 +1119,7 @@ module ECE385_mm_interconnect_2 (
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
 		.USE_WRITERESPONSE           (0),
-		.AV_SYMBOLS_PER_WORD         (1),
+		.AV_SYMBOLS_PER_WORD         (4),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
 		.AV_CONSTANT_BURST_BEHAVIOR  (0),
@@ -1170,12 +1146,12 @@ module ECE385_mm_interconnect_2 (
 		.av_readdata            (eth0_tx_dma_m_read_readdata),                                           //                          .readdata
 		.av_readdatavalid       (eth0_tx_dma_m_read_readdatavalid),                                      //                          .readdatavalid
 		.av_burstcount          (1'b1),                                                                  //               (terminated)
-		.av_byteenable          (1'b1),                                                                  //               (terminated)
+		.av_byteenable          (4'b1111),                                                               //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                  //               (terminated)
 		.av_begintransfer       (1'b0),                                                                  //               (terminated)
 		.av_chipselect          (1'b0),                                                                  //               (terminated)
 		.av_write               (1'b0),                                                                  //               (terminated)
-		.av_writedata           (8'b00000000),                                                           //               (terminated)
+		.av_writedata           (32'b00000000000000000000000000000000),                                  //               (terminated)
 		.av_lock                (1'b0),                                                                  //               (terminated)
 		.av_debugaccess         (1'b0),                                                                  //               (terminated)
 		.uav_clken              (),                                                                      //               (terminated)
@@ -1188,11 +1164,11 @@ module ECE385_mm_interconnect_2 (
 
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (32),
-		.AV_DATA_W                   (8),
+		.AV_DATA_W                   (32),
 		.AV_BURSTCOUNT_W             (1),
-		.AV_BYTEENABLE_W             (1),
+		.AV_BYTEENABLE_W             (4),
 		.UAV_ADDRESS_W               (32),
-		.UAV_BURSTCOUNT_W            (1),
+		.UAV_BURSTCOUNT_W            (3),
 		.USE_READ                    (1),
 		.USE_WRITE                   (0),
 		.USE_BEGINBURSTTRANSFER      (0),
@@ -1203,7 +1179,7 @@ module ECE385_mm_interconnect_2 (
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
 		.USE_WRITERESPONSE           (0),
-		.AV_SYMBOLS_PER_WORD         (1),
+		.AV_SYMBOLS_PER_WORD         (4),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
 		.AV_CONSTANT_BURST_BEHAVIOR  (0),
@@ -1230,12 +1206,12 @@ module ECE385_mm_interconnect_2 (
 		.av_readdata            (eth1_tx_dma_m_read_readdata),                                           //                          .readdata
 		.av_readdatavalid       (eth1_tx_dma_m_read_readdatavalid),                                      //                          .readdatavalid
 		.av_burstcount          (1'b1),                                                                  //               (terminated)
-		.av_byteenable          (1'b1),                                                                  //               (terminated)
+		.av_byteenable          (4'b1111),                                                               //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                  //               (terminated)
 		.av_begintransfer       (1'b0),                                                                  //               (terminated)
 		.av_chipselect          (1'b0),                                                                  //               (terminated)
 		.av_write               (1'b0),                                                                  //               (terminated)
-		.av_writedata           (8'b00000000),                                                           //               (terminated)
+		.av_writedata           (32'b00000000000000000000000000000000),                                  //               (terminated)
 		.av_lock                (1'b0),                                                                  //               (terminated)
 		.av_debugaccess         (1'b0),                                                                  //               (terminated)
 		.uav_clken              (),                                                                      //               (terminated)
@@ -1367,7 +1343,7 @@ module ECE385_mm_interconnect_2 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (14),
+		.AV_ADDRESS_W                   (16),
 		.AV_DATA_W                      (32),
 		.UAV_DATA_W                     (32),
 		.AV_BURSTCOUNT_W                (1),
@@ -2079,51 +2055,51 @@ module ECE385_mm_interconnect_2 (
 	);
 
 	altera_merlin_master_agent #(
-		.PKT_ORI_BURST_SIZE_H      (80),
-		.PKT_ORI_BURST_SIZE_L      (78),
-		.PKT_RESPONSE_STATUS_H     (77),
-		.PKT_RESPONSE_STATUS_L     (76),
-		.PKT_QOS_H                 (59),
-		.PKT_QOS_L                 (59),
-		.PKT_DATA_SIDEBAND_H       (57),
-		.PKT_DATA_SIDEBAND_L       (57),
-		.PKT_ADDR_SIDEBAND_H       (56),
-		.PKT_ADDR_SIDEBAND_L       (56),
-		.PKT_BURST_TYPE_H          (55),
-		.PKT_BURST_TYPE_L          (54),
-		.PKT_CACHE_H               (75),
-		.PKT_CACHE_L               (72),
-		.PKT_THREAD_ID_H           (68),
-		.PKT_THREAD_ID_L           (68),
-		.PKT_BURST_SIZE_H          (53),
-		.PKT_BURST_SIZE_L          (51),
-		.PKT_TRANS_EXCLUSIVE       (46),
-		.PKT_TRANS_LOCK            (45),
-		.PKT_BEGIN_BURST           (58),
-		.PKT_PROTECTION_H          (71),
-		.PKT_PROTECTION_L          (69),
-		.PKT_BURSTWRAP_H           (50),
-		.PKT_BURSTWRAP_L           (50),
-		.PKT_BYTE_CNT_H            (49),
-		.PKT_BYTE_CNT_L            (47),
-		.PKT_ADDR_H                (40),
-		.PKT_ADDR_L                (9),
-		.PKT_TRANS_COMPRESSED_READ (41),
-		.PKT_TRANS_POSTED          (42),
-		.PKT_TRANS_WRITE           (43),
-		.PKT_TRANS_READ            (44),
-		.PKT_DATA_H                (7),
+		.PKT_ORI_BURST_SIZE_H      (107),
+		.PKT_ORI_BURST_SIZE_L      (105),
+		.PKT_RESPONSE_STATUS_H     (104),
+		.PKT_RESPONSE_STATUS_L     (103),
+		.PKT_QOS_H                 (86),
+		.PKT_QOS_L                 (86),
+		.PKT_DATA_SIDEBAND_H       (84),
+		.PKT_DATA_SIDEBAND_L       (84),
+		.PKT_ADDR_SIDEBAND_H       (83),
+		.PKT_ADDR_SIDEBAND_L       (83),
+		.PKT_BURST_TYPE_H          (82),
+		.PKT_BURST_TYPE_L          (81),
+		.PKT_CACHE_H               (102),
+		.PKT_CACHE_L               (99),
+		.PKT_THREAD_ID_H           (95),
+		.PKT_THREAD_ID_L           (95),
+		.PKT_BURST_SIZE_H          (80),
+		.PKT_BURST_SIZE_L          (78),
+		.PKT_TRANS_EXCLUSIVE       (73),
+		.PKT_TRANS_LOCK            (72),
+		.PKT_BEGIN_BURST           (85),
+		.PKT_PROTECTION_H          (98),
+		.PKT_PROTECTION_L          (96),
+		.PKT_BURSTWRAP_H           (77),
+		.PKT_BURSTWRAP_L           (77),
+		.PKT_BYTE_CNT_H            (76),
+		.PKT_BYTE_CNT_L            (74),
+		.PKT_ADDR_H                (67),
+		.PKT_ADDR_L                (36),
+		.PKT_TRANS_COMPRESSED_READ (68),
+		.PKT_TRANS_POSTED          (69),
+		.PKT_TRANS_WRITE           (70),
+		.PKT_TRANS_READ            (71),
+		.PKT_DATA_H                (31),
 		.PKT_DATA_L                (0),
-		.PKT_BYTEEN_H              (8),
-		.PKT_BYTEEN_L              (8),
-		.PKT_SRC_ID_H              (63),
-		.PKT_SRC_ID_L              (60),
-		.PKT_DEST_ID_H             (67),
-		.PKT_DEST_ID_L             (64),
-		.ST_DATA_W                 (81),
+		.PKT_BYTEEN_H              (35),
+		.PKT_BYTEEN_L              (32),
+		.PKT_SRC_ID_H              (90),
+		.PKT_SRC_ID_L              (87),
+		.PKT_DEST_ID_H             (94),
+		.PKT_DEST_ID_L             (91),
+		.ST_DATA_W                 (108),
 		.ST_CHANNEL_W              (12),
-		.AV_BURSTCOUNT_W           (1),
-		.SUPPRESS_0_BYTEEN_RSP     (1),
+		.AV_BURSTCOUNT_W           (3),
+		.SUPPRESS_0_BYTEEN_RSP     (0),
 		.ID                        (5),
 		.BURSTWRAP_VALUE           (1),
 		.CACHE_VALUE               (0),
@@ -2149,62 +2125,62 @@ module ECE385_mm_interconnect_2 (
 		.cp_startofpacket      (eth0_tx_dma_m_read_agent_cp_startofpacket),                             //          .startofpacket
 		.cp_endofpacket        (eth0_tx_dma_m_read_agent_cp_endofpacket),                               //          .endofpacket
 		.cp_ready              (eth0_tx_dma_m_read_agent_cp_ready),                                     //          .ready
-		.rp_valid              (eth0_tx_dma_m_read_rsp_width_adapter_src_valid),                        //        rp.valid
-		.rp_data               (eth0_tx_dma_m_read_rsp_width_adapter_src_data),                         //          .data
-		.rp_channel            (eth0_tx_dma_m_read_rsp_width_adapter_src_channel),                      //          .channel
-		.rp_startofpacket      (eth0_tx_dma_m_read_rsp_width_adapter_src_startofpacket),                //          .startofpacket
-		.rp_endofpacket        (eth0_tx_dma_m_read_rsp_width_adapter_src_endofpacket),                  //          .endofpacket
-		.rp_ready              (eth0_tx_dma_m_read_rsp_width_adapter_src_ready),                        //          .ready
+		.rp_valid              (rsp_mux_008_src_valid),                                                 //        rp.valid
+		.rp_data               (rsp_mux_008_src_data),                                                  //          .data
+		.rp_channel            (rsp_mux_008_src_channel),                                               //          .channel
+		.rp_startofpacket      (rsp_mux_008_src_startofpacket),                                         //          .startofpacket
+		.rp_endofpacket        (rsp_mux_008_src_endofpacket),                                           //          .endofpacket
+		.rp_ready              (rsp_mux_008_src_ready),                                                 //          .ready
 		.av_response           (),                                                                      // (terminated)
 		.av_writeresponsevalid ()                                                                       // (terminated)
 	);
 
 	altera_merlin_master_agent #(
-		.PKT_ORI_BURST_SIZE_H      (80),
-		.PKT_ORI_BURST_SIZE_L      (78),
-		.PKT_RESPONSE_STATUS_H     (77),
-		.PKT_RESPONSE_STATUS_L     (76),
-		.PKT_QOS_H                 (59),
-		.PKT_QOS_L                 (59),
-		.PKT_DATA_SIDEBAND_H       (57),
-		.PKT_DATA_SIDEBAND_L       (57),
-		.PKT_ADDR_SIDEBAND_H       (56),
-		.PKT_ADDR_SIDEBAND_L       (56),
-		.PKT_BURST_TYPE_H          (55),
-		.PKT_BURST_TYPE_L          (54),
-		.PKT_CACHE_H               (75),
-		.PKT_CACHE_L               (72),
-		.PKT_THREAD_ID_H           (68),
-		.PKT_THREAD_ID_L           (68),
-		.PKT_BURST_SIZE_H          (53),
-		.PKT_BURST_SIZE_L          (51),
-		.PKT_TRANS_EXCLUSIVE       (46),
-		.PKT_TRANS_LOCK            (45),
-		.PKT_BEGIN_BURST           (58),
-		.PKT_PROTECTION_H          (71),
-		.PKT_PROTECTION_L          (69),
-		.PKT_BURSTWRAP_H           (50),
-		.PKT_BURSTWRAP_L           (50),
-		.PKT_BYTE_CNT_H            (49),
-		.PKT_BYTE_CNT_L            (47),
-		.PKT_ADDR_H                (40),
-		.PKT_ADDR_L                (9),
-		.PKT_TRANS_COMPRESSED_READ (41),
-		.PKT_TRANS_POSTED          (42),
-		.PKT_TRANS_WRITE           (43),
-		.PKT_TRANS_READ            (44),
-		.PKT_DATA_H                (7),
+		.PKT_ORI_BURST_SIZE_H      (107),
+		.PKT_ORI_BURST_SIZE_L      (105),
+		.PKT_RESPONSE_STATUS_H     (104),
+		.PKT_RESPONSE_STATUS_L     (103),
+		.PKT_QOS_H                 (86),
+		.PKT_QOS_L                 (86),
+		.PKT_DATA_SIDEBAND_H       (84),
+		.PKT_DATA_SIDEBAND_L       (84),
+		.PKT_ADDR_SIDEBAND_H       (83),
+		.PKT_ADDR_SIDEBAND_L       (83),
+		.PKT_BURST_TYPE_H          (82),
+		.PKT_BURST_TYPE_L          (81),
+		.PKT_CACHE_H               (102),
+		.PKT_CACHE_L               (99),
+		.PKT_THREAD_ID_H           (95),
+		.PKT_THREAD_ID_L           (95),
+		.PKT_BURST_SIZE_H          (80),
+		.PKT_BURST_SIZE_L          (78),
+		.PKT_TRANS_EXCLUSIVE       (73),
+		.PKT_TRANS_LOCK            (72),
+		.PKT_BEGIN_BURST           (85),
+		.PKT_PROTECTION_H          (98),
+		.PKT_PROTECTION_L          (96),
+		.PKT_BURSTWRAP_H           (77),
+		.PKT_BURSTWRAP_L           (77),
+		.PKT_BYTE_CNT_H            (76),
+		.PKT_BYTE_CNT_L            (74),
+		.PKT_ADDR_H                (67),
+		.PKT_ADDR_L                (36),
+		.PKT_TRANS_COMPRESSED_READ (68),
+		.PKT_TRANS_POSTED          (69),
+		.PKT_TRANS_WRITE           (70),
+		.PKT_TRANS_READ            (71),
+		.PKT_DATA_H                (31),
 		.PKT_DATA_L                (0),
-		.PKT_BYTEEN_H              (8),
-		.PKT_BYTEEN_L              (8),
-		.PKT_SRC_ID_H              (63),
-		.PKT_SRC_ID_L              (60),
-		.PKT_DEST_ID_H             (67),
-		.PKT_DEST_ID_L             (64),
-		.ST_DATA_W                 (81),
+		.PKT_BYTEEN_H              (35),
+		.PKT_BYTEEN_L              (32),
+		.PKT_SRC_ID_H              (90),
+		.PKT_SRC_ID_L              (87),
+		.PKT_DEST_ID_H             (94),
+		.PKT_DEST_ID_L             (91),
+		.ST_DATA_W                 (108),
 		.ST_CHANNEL_W              (12),
-		.AV_BURSTCOUNT_W           (1),
-		.SUPPRESS_0_BYTEEN_RSP     (1),
+		.AV_BURSTCOUNT_W           (3),
+		.SUPPRESS_0_BYTEEN_RSP     (0),
 		.ID                        (11),
 		.BURSTWRAP_VALUE           (1),
 		.CACHE_VALUE               (0),
@@ -2230,12 +2206,12 @@ module ECE385_mm_interconnect_2 (
 		.cp_startofpacket      (eth1_tx_dma_m_read_agent_cp_startofpacket),                             //          .startofpacket
 		.cp_endofpacket        (eth1_tx_dma_m_read_agent_cp_endofpacket),                               //          .endofpacket
 		.cp_ready              (eth1_tx_dma_m_read_agent_cp_ready),                                     //          .ready
-		.rp_valid              (eth1_tx_dma_m_read_rsp_width_adapter_src_valid),                        //        rp.valid
-		.rp_data               (eth1_tx_dma_m_read_rsp_width_adapter_src_data),                         //          .data
-		.rp_channel            (eth1_tx_dma_m_read_rsp_width_adapter_src_channel),                      //          .channel
-		.rp_startofpacket      (eth1_tx_dma_m_read_rsp_width_adapter_src_startofpacket),                //          .startofpacket
-		.rp_endofpacket        (eth1_tx_dma_m_read_rsp_width_adapter_src_endofpacket),                  //          .endofpacket
-		.rp_ready              (eth1_tx_dma_m_read_rsp_width_adapter_src_ready),                        //          .ready
+		.rp_valid              (rsp_mux_009_src_valid),                                                 //        rp.valid
+		.rp_data               (rsp_mux_009_src_data),                                                  //          .data
+		.rp_channel            (rsp_mux_009_src_channel),                                               //          .channel
+		.rp_startofpacket      (rsp_mux_009_src_startofpacket),                                         //          .startofpacket
+		.rp_endofpacket        (rsp_mux_009_src_endofpacket),                                           //          .endofpacket
+		.rp_ready              (rsp_mux_009_src_ready),                                                 //          .ready
 		.av_response           (),                                                                      // (terminated)
 		.av_writeresponsevalid ()                                                                       // (terminated)
 	);
@@ -2655,7 +2631,7 @@ module ECE385_mm_interconnect_2 (
 		.src_endofpacket    (router_007_src_endofpacket)                           //          .endofpacket
 	);
 
-	ECE385_mm_interconnect_2_router_008 router_008 (
+	ECE385_mm_interconnect_2_router router_008 (
 		.sink_ready         (eth0_tx_dma_m_read_agent_cp_ready),             //      sink.ready
 		.sink_valid         (eth0_tx_dma_m_read_agent_cp_valid),             //          .valid
 		.sink_data          (eth0_tx_dma_m_read_agent_cp_data),              //          .data
@@ -2671,7 +2647,7 @@ module ECE385_mm_interconnect_2 (
 		.src_endofpacket    (router_008_src_endofpacket)                     //          .endofpacket
 	);
 
-	ECE385_mm_interconnect_2_router_008 router_009 (
+	ECE385_mm_interconnect_2_router router_009 (
 		.sink_ready         (eth1_tx_dma_m_read_agent_cp_ready),             //      sink.ready
 		.sink_valid         (eth1_tx_dma_m_read_agent_cp_valid),             //          .valid
 		.sink_data          (eth1_tx_dma_m_read_agent_cp_data),              //          .data
@@ -2687,7 +2663,7 @@ module ECE385_mm_interconnect_2 (
 		.src_endofpacket    (router_009_src_endofpacket)                     //          .endofpacket
 	);
 
-	ECE385_mm_interconnect_2_router_008 router_010 (
+	ECE385_mm_interconnect_2_router_010 router_010 (
 		.sink_ready         (eth0_rx_dma_m_write_agent_cp_ready),            //      sink.ready
 		.sink_valid         (eth0_rx_dma_m_write_agent_cp_valid),            //          .valid
 		.sink_data          (eth0_rx_dma_m_write_agent_cp_data),             //          .data
@@ -2703,7 +2679,7 @@ module ECE385_mm_interconnect_2 (
 		.src_endofpacket    (router_010_src_endofpacket)                     //          .endofpacket
 	);
 
-	ECE385_mm_interconnect_2_router_008 router_011 (
+	ECE385_mm_interconnect_2_router_010 router_011 (
 		.sink_ready         (eth1_rx_dma_m_write_agent_cp_ready),            //      sink.ready
 		.sink_valid         (eth1_rx_dma_m_write_agent_cp_valid),            //          .valid
 		.sink_data          (eth1_rx_dma_m_write_agent_cp_data),             //          .data
@@ -2872,37 +2848,37 @@ module ECE385_mm_interconnect_2 (
 	);
 
 	ECE385_mm_interconnect_2_cmd_demux cmd_demux_008 (
-		.clk                (clk_0_clk_clk),                                          //       clk.clk
-		.reset              (eth0_rx_dma_reset_reset_bridge_in_reset_reset),          // clk_reset.reset
-		.sink_ready         (eth0_tx_dma_m_read_cmd_width_adapter_src_ready),         //      sink.ready
-		.sink_channel       (eth0_tx_dma_m_read_cmd_width_adapter_src_channel),       //          .channel
-		.sink_data          (eth0_tx_dma_m_read_cmd_width_adapter_src_data),          //          .data
-		.sink_startofpacket (eth0_tx_dma_m_read_cmd_width_adapter_src_startofpacket), //          .startofpacket
-		.sink_endofpacket   (eth0_tx_dma_m_read_cmd_width_adapter_src_endofpacket),   //          .endofpacket
-		.sink_valid         (eth0_tx_dma_m_read_cmd_width_adapter_src_valid),         //          .valid
-		.src0_ready         (cmd_demux_008_src0_ready),                               //      src0.ready
-		.src0_valid         (cmd_demux_008_src0_valid),                               //          .valid
-		.src0_data          (cmd_demux_008_src0_data),                                //          .data
-		.src0_channel       (cmd_demux_008_src0_channel),                             //          .channel
-		.src0_startofpacket (cmd_demux_008_src0_startofpacket),                       //          .startofpacket
-		.src0_endofpacket   (cmd_demux_008_src0_endofpacket)                          //          .endofpacket
+		.clk                (clk_0_clk_clk),                                 //       clk.clk
+		.reset              (eth0_rx_dma_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_008_src_ready),                          //      sink.ready
+		.sink_channel       (router_008_src_channel),                        //          .channel
+		.sink_data          (router_008_src_data),                           //          .data
+		.sink_startofpacket (router_008_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_008_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_008_src_valid),                          //          .valid
+		.src0_ready         (cmd_demux_008_src0_ready),                      //      src0.ready
+		.src0_valid         (cmd_demux_008_src0_valid),                      //          .valid
+		.src0_data          (cmd_demux_008_src0_data),                       //          .data
+		.src0_channel       (cmd_demux_008_src0_channel),                    //          .channel
+		.src0_startofpacket (cmd_demux_008_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (cmd_demux_008_src0_endofpacket)                 //          .endofpacket
 	);
 
 	ECE385_mm_interconnect_2_cmd_demux cmd_demux_009 (
-		.clk                (clk_0_clk_clk),                                          //       clk.clk
-		.reset              (eth0_rx_dma_reset_reset_bridge_in_reset_reset),          // clk_reset.reset
-		.sink_ready         (eth1_tx_dma_m_read_cmd_width_adapter_src_ready),         //      sink.ready
-		.sink_channel       (eth1_tx_dma_m_read_cmd_width_adapter_src_channel),       //          .channel
-		.sink_data          (eth1_tx_dma_m_read_cmd_width_adapter_src_data),          //          .data
-		.sink_startofpacket (eth1_tx_dma_m_read_cmd_width_adapter_src_startofpacket), //          .startofpacket
-		.sink_endofpacket   (eth1_tx_dma_m_read_cmd_width_adapter_src_endofpacket),   //          .endofpacket
-		.sink_valid         (eth1_tx_dma_m_read_cmd_width_adapter_src_valid),         //          .valid
-		.src0_ready         (cmd_demux_009_src0_ready),                               //      src0.ready
-		.src0_valid         (cmd_demux_009_src0_valid),                               //          .valid
-		.src0_data          (cmd_demux_009_src0_data),                                //          .data
-		.src0_channel       (cmd_demux_009_src0_channel),                             //          .channel
-		.src0_startofpacket (cmd_demux_009_src0_startofpacket),                       //          .startofpacket
-		.src0_endofpacket   (cmd_demux_009_src0_endofpacket)                          //          .endofpacket
+		.clk                (clk_0_clk_clk),                                 //       clk.clk
+		.reset              (eth0_rx_dma_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_009_src_ready),                          //      sink.ready
+		.sink_channel       (router_009_src_channel),                        //          .channel
+		.sink_data          (router_009_src_data),                           //          .data
+		.sink_startofpacket (router_009_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_009_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_009_src_valid),                          //          .valid
+		.src0_ready         (cmd_demux_009_src0_ready),                      //      src0.ready
+		.src0_valid         (cmd_demux_009_src0_valid),                      //          .valid
+		.src0_data          (cmd_demux_009_src0_data),                       //          .data
+		.src0_channel       (cmd_demux_009_src0_channel),                    //          .channel
+		.src0_startofpacket (cmd_demux_009_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (cmd_demux_009_src0_endofpacket)                 //          .endofpacket
 	);
 
 	ECE385_mm_interconnect_2_cmd_demux cmd_demux_010 (
@@ -3357,138 +3333,6 @@ module ECE385_mm_interconnect_2 (
 		.CONSTANT_BURST_SIZE           (1),
 		.PACKING                       (1),
 		.ENABLE_ADDRESS_ALIGNMENT      (0)
-	) eth0_tx_dma_m_read_rsp_width_adapter (
-		.clk                  (clk_0_clk_clk),                                          //       clk.clk
-		.reset                (eth0_rx_dma_reset_reset_bridge_in_reset_reset),          // clk_reset.reset
-		.in_valid             (rsp_mux_008_src_valid),                                  //      sink.valid
-		.in_channel           (rsp_mux_008_src_channel),                                //          .channel
-		.in_startofpacket     (rsp_mux_008_src_startofpacket),                          //          .startofpacket
-		.in_endofpacket       (rsp_mux_008_src_endofpacket),                            //          .endofpacket
-		.in_ready             (rsp_mux_008_src_ready),                                  //          .ready
-		.in_data              (rsp_mux_008_src_data),                                   //          .data
-		.out_endofpacket      (eth0_tx_dma_m_read_rsp_width_adapter_src_endofpacket),   //       src.endofpacket
-		.out_data             (eth0_tx_dma_m_read_rsp_width_adapter_src_data),          //          .data
-		.out_channel          (eth0_tx_dma_m_read_rsp_width_adapter_src_channel),       //          .channel
-		.out_valid            (eth0_tx_dma_m_read_rsp_width_adapter_src_valid),         //          .valid
-		.out_ready            (eth0_tx_dma_m_read_rsp_width_adapter_src_ready),         //          .ready
-		.out_startofpacket    (eth0_tx_dma_m_read_rsp_width_adapter_src_startofpacket), //          .startofpacket
-		.in_command_size_data (3'b000)                                                  // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (67),
-		.IN_PKT_ADDR_L                 (36),
-		.IN_PKT_DATA_H                 (31),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (35),
-		.IN_PKT_BYTEEN_L               (32),
-		.IN_PKT_BYTE_CNT_H             (76),
-		.IN_PKT_BYTE_CNT_L             (74),
-		.IN_PKT_TRANS_COMPRESSED_READ  (68),
-		.IN_PKT_TRANS_WRITE            (70),
-		.IN_PKT_BURSTWRAP_H            (77),
-		.IN_PKT_BURSTWRAP_L            (77),
-		.IN_PKT_BURST_SIZE_H           (80),
-		.IN_PKT_BURST_SIZE_L           (78),
-		.IN_PKT_RESPONSE_STATUS_H      (104),
-		.IN_PKT_RESPONSE_STATUS_L      (103),
-		.IN_PKT_TRANS_EXCLUSIVE        (73),
-		.IN_PKT_BURST_TYPE_H           (82),
-		.IN_PKT_BURST_TYPE_L           (81),
-		.IN_PKT_ORI_BURST_SIZE_L       (105),
-		.IN_PKT_ORI_BURST_SIZE_H       (107),
-		.IN_ST_DATA_W                  (108),
-		.OUT_PKT_ADDR_H                (40),
-		.OUT_PKT_ADDR_L                (9),
-		.OUT_PKT_DATA_H                (7),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (8),
-		.OUT_PKT_BYTEEN_L              (8),
-		.OUT_PKT_BYTE_CNT_H            (49),
-		.OUT_PKT_BYTE_CNT_L            (47),
-		.OUT_PKT_TRANS_COMPRESSED_READ (41),
-		.OUT_PKT_BURST_SIZE_H          (53),
-		.OUT_PKT_BURST_SIZE_L          (51),
-		.OUT_PKT_RESPONSE_STATUS_H     (77),
-		.OUT_PKT_RESPONSE_STATUS_L     (76),
-		.OUT_PKT_TRANS_EXCLUSIVE       (46),
-		.OUT_PKT_BURST_TYPE_H          (55),
-		.OUT_PKT_BURST_TYPE_L          (54),
-		.OUT_PKT_ORI_BURST_SIZE_L      (78),
-		.OUT_PKT_ORI_BURST_SIZE_H      (80),
-		.OUT_ST_DATA_W                 (81),
-		.ST_CHANNEL_W                  (12),
-		.OPTIMIZE_FOR_RSP              (1),
-		.RESPONSE_PATH                 (1),
-		.CONSTANT_BURST_SIZE           (1),
-		.PACKING                       (1),
-		.ENABLE_ADDRESS_ALIGNMENT      (0)
-	) eth1_tx_dma_m_read_rsp_width_adapter (
-		.clk                  (clk_0_clk_clk),                                          //       clk.clk
-		.reset                (eth0_rx_dma_reset_reset_bridge_in_reset_reset),          // clk_reset.reset
-		.in_valid             (rsp_mux_009_src_valid),                                  //      sink.valid
-		.in_channel           (rsp_mux_009_src_channel),                                //          .channel
-		.in_startofpacket     (rsp_mux_009_src_startofpacket),                          //          .startofpacket
-		.in_endofpacket       (rsp_mux_009_src_endofpacket),                            //          .endofpacket
-		.in_ready             (rsp_mux_009_src_ready),                                  //          .ready
-		.in_data              (rsp_mux_009_src_data),                                   //          .data
-		.out_endofpacket      (eth1_tx_dma_m_read_rsp_width_adapter_src_endofpacket),   //       src.endofpacket
-		.out_data             (eth1_tx_dma_m_read_rsp_width_adapter_src_data),          //          .data
-		.out_channel          (eth1_tx_dma_m_read_rsp_width_adapter_src_channel),       //          .channel
-		.out_valid            (eth1_tx_dma_m_read_rsp_width_adapter_src_valid),         //          .valid
-		.out_ready            (eth1_tx_dma_m_read_rsp_width_adapter_src_ready),         //          .ready
-		.out_startofpacket    (eth1_tx_dma_m_read_rsp_width_adapter_src_startofpacket), //          .startofpacket
-		.in_command_size_data (3'b000)                                                  // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (67),
-		.IN_PKT_ADDR_L                 (36),
-		.IN_PKT_DATA_H                 (31),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (35),
-		.IN_PKT_BYTEEN_L               (32),
-		.IN_PKT_BYTE_CNT_H             (76),
-		.IN_PKT_BYTE_CNT_L             (74),
-		.IN_PKT_TRANS_COMPRESSED_READ  (68),
-		.IN_PKT_TRANS_WRITE            (70),
-		.IN_PKT_BURSTWRAP_H            (77),
-		.IN_PKT_BURSTWRAP_L            (77),
-		.IN_PKT_BURST_SIZE_H           (80),
-		.IN_PKT_BURST_SIZE_L           (78),
-		.IN_PKT_RESPONSE_STATUS_H      (104),
-		.IN_PKT_RESPONSE_STATUS_L      (103),
-		.IN_PKT_TRANS_EXCLUSIVE        (73),
-		.IN_PKT_BURST_TYPE_H           (82),
-		.IN_PKT_BURST_TYPE_L           (81),
-		.IN_PKT_ORI_BURST_SIZE_L       (105),
-		.IN_PKT_ORI_BURST_SIZE_H       (107),
-		.IN_ST_DATA_W                  (108),
-		.OUT_PKT_ADDR_H                (40),
-		.OUT_PKT_ADDR_L                (9),
-		.OUT_PKT_DATA_H                (7),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (8),
-		.OUT_PKT_BYTEEN_L              (8),
-		.OUT_PKT_BYTE_CNT_H            (49),
-		.OUT_PKT_BYTE_CNT_L            (47),
-		.OUT_PKT_TRANS_COMPRESSED_READ (41),
-		.OUT_PKT_BURST_SIZE_H          (53),
-		.OUT_PKT_BURST_SIZE_L          (51),
-		.OUT_PKT_RESPONSE_STATUS_H     (77),
-		.OUT_PKT_RESPONSE_STATUS_L     (76),
-		.OUT_PKT_TRANS_EXCLUSIVE       (46),
-		.OUT_PKT_BURST_TYPE_H          (55),
-		.OUT_PKT_BURST_TYPE_L          (54),
-		.OUT_PKT_ORI_BURST_SIZE_L      (78),
-		.OUT_PKT_ORI_BURST_SIZE_H      (80),
-		.OUT_ST_DATA_W                 (81),
-		.ST_CHANNEL_W                  (12),
-		.OPTIMIZE_FOR_RSP              (1),
-		.RESPONSE_PATH                 (1),
-		.CONSTANT_BURST_SIZE           (1),
-		.PACKING                       (1),
-		.ENABLE_ADDRESS_ALIGNMENT      (0)
 	) eth0_rx_dma_m_write_rsp_width_adapter (
 		.clk                  (clk_0_clk_clk),                                           //       clk.clk
 		.reset                (eth0_rx_dma_reset_reset_bridge_in_reset_reset),           // clk_reset.reset
@@ -3571,138 +3415,6 @@ module ECE385_mm_interconnect_2 (
 		.out_ready            (eth1_rx_dma_m_write_rsp_width_adapter_src_ready),         //          .ready
 		.out_startofpacket    (eth1_rx_dma_m_write_rsp_width_adapter_src_startofpacket), //          .startofpacket
 		.in_command_size_data (3'b000)                                                   // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (40),
-		.IN_PKT_ADDR_L                 (9),
-		.IN_PKT_DATA_H                 (7),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (8),
-		.IN_PKT_BYTEEN_L               (8),
-		.IN_PKT_BYTE_CNT_H             (49),
-		.IN_PKT_BYTE_CNT_L             (47),
-		.IN_PKT_TRANS_COMPRESSED_READ  (41),
-		.IN_PKT_TRANS_WRITE            (43),
-		.IN_PKT_BURSTWRAP_H            (50),
-		.IN_PKT_BURSTWRAP_L            (50),
-		.IN_PKT_BURST_SIZE_H           (53),
-		.IN_PKT_BURST_SIZE_L           (51),
-		.IN_PKT_RESPONSE_STATUS_H      (77),
-		.IN_PKT_RESPONSE_STATUS_L      (76),
-		.IN_PKT_TRANS_EXCLUSIVE        (46),
-		.IN_PKT_BURST_TYPE_H           (55),
-		.IN_PKT_BURST_TYPE_L           (54),
-		.IN_PKT_ORI_BURST_SIZE_L       (78),
-		.IN_PKT_ORI_BURST_SIZE_H       (80),
-		.IN_ST_DATA_W                  (81),
-		.OUT_PKT_ADDR_H                (67),
-		.OUT_PKT_ADDR_L                (36),
-		.OUT_PKT_DATA_H                (31),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (35),
-		.OUT_PKT_BYTEEN_L              (32),
-		.OUT_PKT_BYTE_CNT_H            (76),
-		.OUT_PKT_BYTE_CNT_L            (74),
-		.OUT_PKT_TRANS_COMPRESSED_READ (68),
-		.OUT_PKT_BURST_SIZE_H          (80),
-		.OUT_PKT_BURST_SIZE_L          (78),
-		.OUT_PKT_RESPONSE_STATUS_H     (104),
-		.OUT_PKT_RESPONSE_STATUS_L     (103),
-		.OUT_PKT_TRANS_EXCLUSIVE       (73),
-		.OUT_PKT_BURST_TYPE_H          (82),
-		.OUT_PKT_BURST_TYPE_L          (81),
-		.OUT_PKT_ORI_BURST_SIZE_L      (105),
-		.OUT_PKT_ORI_BURST_SIZE_H      (107),
-		.OUT_ST_DATA_W                 (108),
-		.ST_CHANNEL_W                  (12),
-		.OPTIMIZE_FOR_RSP              (0),
-		.RESPONSE_PATH                 (0),
-		.CONSTANT_BURST_SIZE           (1),
-		.PACKING                       (1),
-		.ENABLE_ADDRESS_ALIGNMENT      (0)
-	) eth0_tx_dma_m_read_cmd_width_adapter (
-		.clk                  (clk_0_clk_clk),                                          //       clk.clk
-		.reset                (eth0_rx_dma_reset_reset_bridge_in_reset_reset),          // clk_reset.reset
-		.in_valid             (router_008_src_valid),                                   //      sink.valid
-		.in_channel           (router_008_src_channel),                                 //          .channel
-		.in_startofpacket     (router_008_src_startofpacket),                           //          .startofpacket
-		.in_endofpacket       (router_008_src_endofpacket),                             //          .endofpacket
-		.in_ready             (router_008_src_ready),                                   //          .ready
-		.in_data              (router_008_src_data),                                    //          .data
-		.out_endofpacket      (eth0_tx_dma_m_read_cmd_width_adapter_src_endofpacket),   //       src.endofpacket
-		.out_data             (eth0_tx_dma_m_read_cmd_width_adapter_src_data),          //          .data
-		.out_channel          (eth0_tx_dma_m_read_cmd_width_adapter_src_channel),       //          .channel
-		.out_valid            (eth0_tx_dma_m_read_cmd_width_adapter_src_valid),         //          .valid
-		.out_ready            (eth0_tx_dma_m_read_cmd_width_adapter_src_ready),         //          .ready
-		.out_startofpacket    (eth0_tx_dma_m_read_cmd_width_adapter_src_startofpacket), //          .startofpacket
-		.in_command_size_data (3'b000)                                                  // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (40),
-		.IN_PKT_ADDR_L                 (9),
-		.IN_PKT_DATA_H                 (7),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (8),
-		.IN_PKT_BYTEEN_L               (8),
-		.IN_PKT_BYTE_CNT_H             (49),
-		.IN_PKT_BYTE_CNT_L             (47),
-		.IN_PKT_TRANS_COMPRESSED_READ  (41),
-		.IN_PKT_TRANS_WRITE            (43),
-		.IN_PKT_BURSTWRAP_H            (50),
-		.IN_PKT_BURSTWRAP_L            (50),
-		.IN_PKT_BURST_SIZE_H           (53),
-		.IN_PKT_BURST_SIZE_L           (51),
-		.IN_PKT_RESPONSE_STATUS_H      (77),
-		.IN_PKT_RESPONSE_STATUS_L      (76),
-		.IN_PKT_TRANS_EXCLUSIVE        (46),
-		.IN_PKT_BURST_TYPE_H           (55),
-		.IN_PKT_BURST_TYPE_L           (54),
-		.IN_PKT_ORI_BURST_SIZE_L       (78),
-		.IN_PKT_ORI_BURST_SIZE_H       (80),
-		.IN_ST_DATA_W                  (81),
-		.OUT_PKT_ADDR_H                (67),
-		.OUT_PKT_ADDR_L                (36),
-		.OUT_PKT_DATA_H                (31),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (35),
-		.OUT_PKT_BYTEEN_L              (32),
-		.OUT_PKT_BYTE_CNT_H            (76),
-		.OUT_PKT_BYTE_CNT_L            (74),
-		.OUT_PKT_TRANS_COMPRESSED_READ (68),
-		.OUT_PKT_BURST_SIZE_H          (80),
-		.OUT_PKT_BURST_SIZE_L          (78),
-		.OUT_PKT_RESPONSE_STATUS_H     (104),
-		.OUT_PKT_RESPONSE_STATUS_L     (103),
-		.OUT_PKT_TRANS_EXCLUSIVE       (73),
-		.OUT_PKT_BURST_TYPE_H          (82),
-		.OUT_PKT_BURST_TYPE_L          (81),
-		.OUT_PKT_ORI_BURST_SIZE_L      (105),
-		.OUT_PKT_ORI_BURST_SIZE_H      (107),
-		.OUT_ST_DATA_W                 (108),
-		.ST_CHANNEL_W                  (12),
-		.OPTIMIZE_FOR_RSP              (0),
-		.RESPONSE_PATH                 (0),
-		.CONSTANT_BURST_SIZE           (1),
-		.PACKING                       (1),
-		.ENABLE_ADDRESS_ALIGNMENT      (0)
-	) eth1_tx_dma_m_read_cmd_width_adapter (
-		.clk                  (clk_0_clk_clk),                                          //       clk.clk
-		.reset                (eth0_rx_dma_reset_reset_bridge_in_reset_reset),          // clk_reset.reset
-		.in_valid             (router_009_src_valid),                                   //      sink.valid
-		.in_channel           (router_009_src_channel),                                 //          .channel
-		.in_startofpacket     (router_009_src_startofpacket),                           //          .startofpacket
-		.in_endofpacket       (router_009_src_endofpacket),                             //          .endofpacket
-		.in_ready             (router_009_src_ready),                                   //          .ready
-		.in_data              (router_009_src_data),                                    //          .data
-		.out_endofpacket      (eth1_tx_dma_m_read_cmd_width_adapter_src_endofpacket),   //       src.endofpacket
-		.out_data             (eth1_tx_dma_m_read_cmd_width_adapter_src_data),          //          .data
-		.out_channel          (eth1_tx_dma_m_read_cmd_width_adapter_src_channel),       //          .channel
-		.out_valid            (eth1_tx_dma_m_read_cmd_width_adapter_src_valid),         //          .valid
-		.out_ready            (eth1_tx_dma_m_read_cmd_width_adapter_src_ready),         //          .ready
-		.out_startofpacket    (eth1_tx_dma_m_read_cmd_width_adapter_src_startofpacket), //          .startofpacket
-		.in_command_size_data (3'b000)                                                  // (terminated)
 	);
 
 	altera_merlin_width_adapter #(

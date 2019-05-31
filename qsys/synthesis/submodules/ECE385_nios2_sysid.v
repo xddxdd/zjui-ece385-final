@@ -49,7 +49,7 @@ module ECE385_nios2_sysid (
 
   wire    [ 31: 0] readdata;
   //control_slave, which is an e_avalon_slave
-  assign readdata = address ? 1559285076 : 0;
+  assign readdata = address ? 1559323102 : 0;
 
 endmodule
 

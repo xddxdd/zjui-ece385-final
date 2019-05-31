@@ -208,7 +208,7 @@ logic [1:0] hpi_addr;
 logic [15:0] hpi_data_in, hpi_data_out;
 logic hpi_r, hpi_w, hpi_cs, hpi_reset;
 hpi_io_intf hpi_io_inst(
-	.Clk(CLOCK_50), .Reset(~RESET),
+	.Clk(CLOCK_50), .Reset(~RESET_USB),
     
 	// signals connected to NIOS II
     .from_sw_address(hpi_addr),
@@ -267,7 +267,7 @@ hexdriver hexdrv7 (
    .Out(HEX7)
 );
 
-logic ETH_CLK_125, ETH_CLK_25, ETH_CLK_2_5;
+logic ETH_CLK_125;
 
 // Ethernet 0 external logic
 
@@ -276,10 +276,16 @@ assign ETH0_MDIO_IN = ENET0_MDIO;
 assign ENET0_MDIO = ETH0_MDIO_OEN ? 1'bZ : ETH0_MDIO_OUT;
 
 assign ENET0_RST_N = RESET;
+assign ENET0_TX_ER = 1'b0;
 
 logic ETH0_CLK_TX, ETH0_CLK_RX;
+
+logic [31:0] ETH0_TX_FIFO_DATA;
+logic [1:0] ETH0_TX_FIFO_EMPTY;
+logic ETH0_TX_FIFO_VALID, ETH0_TX_FIFO_READY, ETH0_TX_FIFO_SOP, ETH0_TX_FIFO_EOP;
+
 logic [7:0] ETH0_TX_DATA;
-logic ETH0_TX_VALID, ETH0_TX_READY, ETH0_TX_EOP;
+logic ETH0_TX_VALID, ETH0_TX_READY, ETH0_TX_SOP, ETH0_TX_EOP;
 
 logic [7:0] ETH0_RX_DATA;
 logic ETH0_RX_VALID, ETH0_RX_EOP, ETH0_RX_SOP;
@@ -326,10 +332,16 @@ assign ETH1_MDIO_IN = ENET1_MDIO;
 assign ENET1_MDIO = ETH1_MDIO_OEN ? 1'bZ : ETH1_MDIO_OUT;
 
 assign ENET1_RST_N = RESET;
+assign ENET1_TX_ER = 1'b1;
 
 logic ETH1_CLK_TX, ETH1_CLK_RX;
+
+logic [31:0] ETH1_TX_FIFO_DATA;
+logic [1:0] ETH1_TX_FIFO_EMPTY;
+logic ETH1_TX_FIFO_VALID, ETH1_TX_FIFO_READY, ETH1_TX_FIFO_SOP, ETH1_TX_FIFO_EOP;
+
 logic [7:0] ETH1_TX_DATA;
-logic ETH1_TX_VALID, ETH1_TX_READY, ETH1_TX_EOP;
+logic ETH1_TX_VALID, ETH1_TX_READY, ETH1_TX_SOP, ETH1_TX_EOP;
 
 logic [7:0] ETH1_RX_DATA;
 logic ETH1_RX_VALID, ETH1_RX_EOP, ETH1_RX_SOP;
@@ -348,7 +360,6 @@ eth_mac_1g_rgmii #(
     .tx_axis_tvalid(ETH1_TX_VALID),
     .tx_axis_tready(ETH1_TX_READY),
     .tx_axis_tlast(ETH1_TX_EOP),
-    .tx_axis_tuser(1'b0),
 
     .rx_clk(ETH1_CLK_RX),
     .rx_rst(~RESET),
@@ -435,10 +446,6 @@ generate
 	end
 endgenerate
 
-// Hardware Random Number Generator
-logic [31:0] random;
-hwrng rng(.clk(CLOCK_50), .reset(~RESET), .random);
-
 // Wolfson 8731 Music chip
 logic [15:0] WM8731_LDATA, WM8731_RDATA;
 logic WM8731_DATA_OVER;
@@ -476,8 +483,6 @@ ECE385 ECE385_sys(
 	.io_led_red_export(LEDR),
 	.io_switches_export(SW),
 	.io_hex_export(HEX_EXPORT),
-	.io_vga_sync_export(VGA_VS),
-	.io_hwrng_export(random),
 	
 	.sdram_addr(DRAM_ADDR),
 	.sdram_ba(DRAM_BA),
@@ -589,7 +594,8 @@ ECE385 ECE385_sys(
 	.vga_sprite_params_pass_read(VGA_entities_manager_read),
 	.vga_sprite_params_pass_readdata(VGA_entities_manager_readdata),
 	.vga_sprite_params_pass_writedata(VGA_entities_manager_writedata),
-	
+		
+	.nios2_pll_ethernet_clk(ETH_CLK_125),
 	.eth0_mdio_mdc(ENET0_MDC),
 	.eth0_mdio_mdio_in(ETH0_MDIO_IN),
 	.eth0_mdio_mdio_out(ETH0_MDIO_OUT),
@@ -604,13 +610,29 @@ ECE385 ECE385_sys(
 	.eth0_rx_fifo_in_clk_clk(ETH0_CLK_RX),
 	.eth0_rx_fifo_in_clk_reset_reset_n(RESET),
 	
-	.eth0_tx_fifo_out_data(ETH0_TX_DATA),
-	.eth0_tx_fifo_out_valid(ETH0_TX_VALID),
-	.eth0_tx_fifo_out_ready(ETH0_TX_READY),
-	.eth0_tx_fifo_out_endofpacket(ETH0_TX_EOP),
+	.eth0_tx_fifo_out_data(ETH0_TX_FIFO_DATA),
+	.eth0_tx_fifo_out_valid(ETH0_TX_FIFO_VALID),
+	.eth0_tx_fifo_out_ready(ETH0_TX_FIFO_READY),
+	.eth0_tx_fifo_out_startofpacket(ETH0_TX_FIFO_SOP),
+	.eth0_tx_fifo_out_endofpacket(ETH0_TX_FIFO_EOP),
+	.eth0_tx_fifo_out_empty(ETH0_TX_FIFO_EMPTY),
 	.eth0_tx_fifo_out_clk_clk(ETH0_CLK_TX),
 	.eth0_tx_fifo_out_clk_reset_reset_n(RESET),
-	
+
+	.eth0_tx_dma_buffer_in_0_data(ETH0_TX_FIFO_DATA),
+	.eth0_tx_dma_buffer_in_0_valid(ETH0_TX_FIFO_VALID),
+	.eth0_tx_dma_buffer_in_0_ready(ETH0_TX_FIFO_READY),
+	.eth0_tx_dma_buffer_in_0_startofpacket(ETH0_TX_FIFO_SOP),
+	.eth0_tx_dma_buffer_in_0_endofpacket(ETH0_TX_FIFO_EOP),
+	.eth0_tx_dma_buffer_in_0_empty(ETH0_TX_FIFO_EMPTY),
+	.eth0_tx_dma_buffer_in_clk_0_clk(ETH0_CLK_TX),
+	.eth0_tx_dma_buffer_in_rst_0_reset(~RESET),
+	.eth0_tx_dma_buffer_out_0_data(ETH0_TX_DATA),
+	.eth0_tx_dma_buffer_out_0_valid(ETH0_TX_VALID),
+	.eth0_tx_dma_buffer_out_0_ready(ETH0_TX_READY),
+	.eth0_tx_dma_buffer_out_0_startofpacket(ETH0_TX_SOP),
+	.eth0_tx_dma_buffer_out_0_endofpacket(ETH0_TX_EOP),
+		
 	.eth1_mdio_mdc(ENET1_MDC),
 	.eth1_mdio_mdio_in(ETH1_MDIO_IN),
 	.eth1_mdio_mdio_out(ETH1_MDIO_OUT),
@@ -625,16 +647,28 @@ ECE385 ECE385_sys(
 	.eth1_rx_fifo_in_clk_clk(ETH1_CLK_RX),
 	.eth1_rx_fifo_in_clk_reset_reset_n(RESET),
 	
-	.eth1_tx_fifo_out_data(ETH1_TX_DATA),
-	.eth1_tx_fifo_out_valid(ETH1_TX_VALID),
-	.eth1_tx_fifo_out_ready(ETH1_TX_READY),
-	.eth1_tx_fifo_out_endofpacket(ETH1_TX_EOP),
+	.eth1_tx_fifo_out_data(ETH1_TX_FIFO_DATA),
+	.eth1_tx_fifo_out_valid(ETH1_TX_FIFO_VALID),
+	.eth1_tx_fifo_out_ready(ETH1_TX_FIFO_READY),
+	.eth1_tx_fifo_out_startofpacket(ETH1_TX_FIFO_SOP),
+	.eth1_tx_fifo_out_endofpacket(ETH1_TX_FIFO_EOP),
+	.eth1_tx_fifo_out_empty(ETH1_TX_FIFO_EMPTY),
 	.eth1_tx_fifo_out_clk_clk(ETH1_CLK_TX),
 	.eth1_tx_fifo_out_clk_reset_reset_n(RESET),
-	
-	.eth_pll_125_clk(ETH_CLK_125),
-	.eth_pll_25_clk(ETH_CLK_25),
-	.eth_pll_2_5_clk(ETH_CLK_2_5),
+
+	.eth1_tx_dma_buffer_in_0_data(ETH1_TX_FIFO_DATA),
+	.eth1_tx_dma_buffer_in_0_valid(ETH1_TX_FIFO_VALID),
+	.eth1_tx_dma_buffer_in_0_ready(ETH1_TX_FIFO_READY),
+	.eth1_tx_dma_buffer_in_0_startofpacket(ETH1_TX_FIFO_SOP),
+	.eth1_tx_dma_buffer_in_0_endofpacket(ETH1_TX_FIFO_EOP),
+	.eth1_tx_dma_buffer_in_0_empty(ETH1_TX_FIFO_EMPTY),
+	.eth1_tx_dma_buffer_in_clk_0_clk(ETH1_CLK_TX),
+	.eth1_tx_dma_buffer_in_rst_0_reset(~RESET),
+	.eth1_tx_dma_buffer_out_0_data(ETH1_TX_DATA),
+	.eth1_tx_dma_buffer_out_0_valid(ETH1_TX_VALID),
+	.eth1_tx_dma_buffer_out_0_ready(ETH1_TX_READY),
+	.eth1_tx_dma_buffer_out_0_startofpacket(ETH1_TX_SOP),
+	.eth1_tx_dma_buffer_out_0_endofpacket(ETH1_TX_EOP),
 
     .otg_hpi_address_export(hpi_addr),
     .otg_hpi_data_in_port(hpi_data_in),

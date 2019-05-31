@@ -6,7 +6,7 @@
 module ECE385 (
 		input  wire        audio_mem_clk2_clk,                             //                          audio_mem_clk2.clk
 		input  wire        audio_mem_reset2_reset,                         //                        audio_mem_reset2.reset
-		input  wire [13:0] audio_mem_s2_address,                           //                            audio_mem_s2.address
+		input  wire [11:0] audio_mem_s2_address,                           //                            audio_mem_s2.address
 		input  wire        audio_mem_s2_chipselect,                        //                                        .chipselect
 		input  wire        audio_mem_s2_clken,                             //                                        .clken
 		input  wire        audio_mem_s2_write,                             //                                        .write
@@ -29,11 +29,25 @@ module ECE385 (
 		input  wire [2:0]  eth0_rx_fifo_in_error,                          //                                        .error
 		input  wire        eth0_rx_fifo_in_clk_clk,                        //                     eth0_rx_fifo_in_clk.clk
 		input  wire        eth0_rx_fifo_in_clk_reset_reset_n,              //               eth0_rx_fifo_in_clk_reset.reset_n
-		output wire [7:0]  eth0_tx_fifo_out_data,                          //                        eth0_tx_fifo_out.data
+		input  wire [31:0] eth0_tx_dma_buffer_in_0_data,                   //                 eth0_tx_dma_buffer_in_0.data
+		input  wire        eth0_tx_dma_buffer_in_0_valid,                  //                                        .valid
+		output wire        eth0_tx_dma_buffer_in_0_ready,                  //                                        .ready
+		input  wire        eth0_tx_dma_buffer_in_0_startofpacket,          //                                        .startofpacket
+		input  wire        eth0_tx_dma_buffer_in_0_endofpacket,            //                                        .endofpacket
+		input  wire [1:0]  eth0_tx_dma_buffer_in_0_empty,                  //                                        .empty
+		input  wire        eth0_tx_dma_buffer_in_clk_0_clk,                //             eth0_tx_dma_buffer_in_clk_0.clk
+		input  wire        eth0_tx_dma_buffer_in_rst_0_reset,              //             eth0_tx_dma_buffer_in_rst_0.reset
+		output wire [7:0]  eth0_tx_dma_buffer_out_0_data,                  //                eth0_tx_dma_buffer_out_0.data
+		output wire        eth0_tx_dma_buffer_out_0_valid,                 //                                        .valid
+		input  wire        eth0_tx_dma_buffer_out_0_ready,                 //                                        .ready
+		output wire        eth0_tx_dma_buffer_out_0_startofpacket,         //                                        .startofpacket
+		output wire        eth0_tx_dma_buffer_out_0_endofpacket,           //                                        .endofpacket
+		output wire [31:0] eth0_tx_fifo_out_data,                          //                        eth0_tx_fifo_out.data
 		output wire        eth0_tx_fifo_out_valid,                         //                                        .valid
 		input  wire        eth0_tx_fifo_out_ready,                         //                                        .ready
 		output wire        eth0_tx_fifo_out_startofpacket,                 //                                        .startofpacket
 		output wire        eth0_tx_fifo_out_endofpacket,                   //                                        .endofpacket
+		output wire [1:0]  eth0_tx_fifo_out_empty,                         //                                        .empty
 		input  wire        eth0_tx_fifo_out_clk_clk,                       //                    eth0_tx_fifo_out_clk.clk
 		input  wire        eth0_tx_fifo_out_clk_reset_reset_n,             //              eth0_tx_fifo_out_clk_reset.reset_n
 		output wire        eth1_mdio_mdc,                                  //                               eth1_mdio.mdc
@@ -49,24 +63,34 @@ module ECE385 (
 		input  wire [2:0]  eth1_rx_fifo_in_error,                          //                                        .error
 		input  wire        eth1_rx_fifo_in_clk_clk,                        //                     eth1_rx_fifo_in_clk.clk
 		input  wire        eth1_rx_fifo_in_clk_reset_reset_n,              //               eth1_rx_fifo_in_clk_reset.reset_n
-		output wire [7:0]  eth1_tx_fifo_out_data,                          //                        eth1_tx_fifo_out.data
+		input  wire [31:0] eth1_tx_dma_buffer_in_0_data,                   //                 eth1_tx_dma_buffer_in_0.data
+		input  wire        eth1_tx_dma_buffer_in_0_valid,                  //                                        .valid
+		output wire        eth1_tx_dma_buffer_in_0_ready,                  //                                        .ready
+		input  wire        eth1_tx_dma_buffer_in_0_startofpacket,          //                                        .startofpacket
+		input  wire        eth1_tx_dma_buffer_in_0_endofpacket,            //                                        .endofpacket
+		input  wire [1:0]  eth1_tx_dma_buffer_in_0_empty,                  //                                        .empty
+		input  wire        eth1_tx_dma_buffer_in_clk_0_clk,                //             eth1_tx_dma_buffer_in_clk_0.clk
+		input  wire        eth1_tx_dma_buffer_in_rst_0_reset,              //             eth1_tx_dma_buffer_in_rst_0.reset
+		output wire [7:0]  eth1_tx_dma_buffer_out_0_data,                  //                eth1_tx_dma_buffer_out_0.data
+		output wire        eth1_tx_dma_buffer_out_0_valid,                 //                                        .valid
+		input  wire        eth1_tx_dma_buffer_out_0_ready,                 //                                        .ready
+		output wire        eth1_tx_dma_buffer_out_0_startofpacket,         //                                        .startofpacket
+		output wire        eth1_tx_dma_buffer_out_0_endofpacket,           //                                        .endofpacket
+		output wire [31:0] eth1_tx_fifo_out_data,                          //                        eth1_tx_fifo_out.data
 		output wire        eth1_tx_fifo_out_valid,                         //                                        .valid
 		input  wire        eth1_tx_fifo_out_ready,                         //                                        .ready
 		output wire        eth1_tx_fifo_out_startofpacket,                 //                                        .startofpacket
 		output wire        eth1_tx_fifo_out_endofpacket,                   //                                        .endofpacket
+		output wire [1:0]  eth1_tx_fifo_out_empty,                         //                                        .empty
 		input  wire        eth1_tx_fifo_out_clk_clk,                       //                    eth1_tx_fifo_out_clk.clk
 		input  wire        eth1_tx_fifo_out_clk_reset_reset_n,             //              eth1_tx_fifo_out_clk_reset.reset_n
-		output wire        eth_pll_125_clk,                                //                             eth_pll_125.clk
-		output wire        eth_pll_25_clk,                                 //                              eth_pll_25.clk
-		output wire        eth_pll_2_5_clk,                                //                             eth_pll_2_5.clk
-		output wire        eth_pll_c3_conduit_export,                      //                      eth_pll_c3_conduit.export
 		output wire [31:0] io_hex_export,                                  //                                  io_hex.export
-		input  wire [31:0] io_hwrng_export,                                //                                io_hwrng.export
 		input  wire [3:0]  io_keys_export,                                 //                                 io_keys.export
 		output wire [8:0]  io_led_green_export,                            //                            io_led_green.export
 		output wire [17:0] io_led_red_export,                              //                              io_led_red.export
 		input  wire [17:0] io_switches_export,                             //                             io_switches.export
 		input  wire        io_vga_sync_export,                             //                             io_vga_sync.export
+		output wire        nios2_pll_ethernet_clk,                         //                      nios2_pll_ethernet.clk
 		output wire        nios2_pll_sdram_clk,                            //                         nios2_pll_sdram.clk
 		output wire        nios2_pll_vga_clk,                              //                           nios2_pll_vga.clk
 		output wire [1:0]  otg_hpi_address_export,                         //                         otg_hpi_address.export
@@ -187,10 +211,11 @@ module ECE385 (
 	wire         eth0_rx_fifo_out_endofpacket;                                    // eth0_rx_fifo:out_endofpacket -> eth0_rx_dma:in_endofpacket
 	wire   [2:0] eth0_rx_fifo_out_error;                                          // eth0_rx_fifo:out_error -> eth0_rx_dma:in_error
 	wire         eth0_tx_dma_out_valid;                                           // eth0_tx_dma:out_valid -> eth0_tx_fifo:in_valid
-	wire   [7:0] eth0_tx_dma_out_data;                                            // eth0_tx_dma:out_data -> eth0_tx_fifo:in_data
+	wire  [31:0] eth0_tx_dma_out_data;                                            // eth0_tx_dma:out_data -> eth0_tx_fifo:in_data
 	wire         eth0_tx_dma_out_ready;                                           // eth0_tx_fifo:in_ready -> eth0_tx_dma:out_ready
 	wire         eth0_tx_dma_out_startofpacket;                                   // eth0_tx_dma:out_startofpacket -> eth0_tx_fifo:in_startofpacket
 	wire         eth0_tx_dma_out_endofpacket;                                     // eth0_tx_dma:out_endofpacket -> eth0_tx_fifo:in_endofpacket
+	wire   [1:0] eth0_tx_dma_out_empty;                                           // eth0_tx_dma:out_empty -> eth0_tx_fifo:in_empty
 	wire         eth1_rx_fifo_out_valid;                                          // eth1_rx_fifo:out_valid -> eth1_rx_dma:in_valid
 	wire   [7:0] eth1_rx_fifo_out_data;                                           // eth1_rx_fifo:out_data -> eth1_rx_dma:in_data
 	wire         eth1_rx_fifo_out_ready;                                          // eth1_rx_dma:in_ready -> eth1_rx_fifo:out_ready
@@ -198,10 +223,11 @@ module ECE385 (
 	wire         eth1_rx_fifo_out_endofpacket;                                    // eth1_rx_fifo:out_endofpacket -> eth1_rx_dma:in_endofpacket
 	wire   [2:0] eth1_rx_fifo_out_error;                                          // eth1_rx_fifo:out_error -> eth1_rx_dma:in_error
 	wire         eth1_tx_dma_out_valid;                                           // eth1_tx_dma:out_valid -> eth1_tx_fifo:in_valid
-	wire   [7:0] eth1_tx_dma_out_data;                                            // eth1_tx_dma:out_data -> eth1_tx_fifo:in_data
+	wire  [31:0] eth1_tx_dma_out_data;                                            // eth1_tx_dma:out_data -> eth1_tx_fifo:in_data
 	wire         eth1_tx_dma_out_ready;                                           // eth1_tx_fifo:in_ready -> eth1_tx_dma:out_ready
 	wire         eth1_tx_dma_out_startofpacket;                                   // eth1_tx_dma:out_startofpacket -> eth1_tx_fifo:in_startofpacket
 	wire         eth1_tx_dma_out_endofpacket;                                     // eth1_tx_dma:out_endofpacket -> eth1_tx_fifo:in_endofpacket
+	wire   [1:0] eth1_tx_dma_out_empty;                                           // eth1_tx_dma:out_empty -> eth1_tx_fifo:in_empty
 	wire         nios2_pll_c2_clk;                                                // nios2_pll:c2 -> sram_multiplexer:CLK2
 	wire  [31:0] nios2_cpu_data_master_readdata;                                  // mm_interconnect_0:nios2_cpu_data_master_readdata -> nios2_cpu:d_readdata
 	wire         nios2_cpu_data_master_waitrequest;                               // mm_interconnect_0:nios2_cpu_data_master_waitrequest -> nios2_cpu:d_waitrequest
@@ -283,14 +309,9 @@ module ECE385 (
 	wire         mm_interconnect_0_nios2_pll_pll_slave_read;                      // mm_interconnect_0:nios2_pll_pll_slave_read -> nios2_pll:read
 	wire         mm_interconnect_0_nios2_pll_pll_slave_write;                     // mm_interconnect_0:nios2_pll_pll_slave_write -> nios2_pll:write
 	wire  [31:0] mm_interconnect_0_nios2_pll_pll_slave_writedata;                 // mm_interconnect_0:nios2_pll_pll_slave_writedata -> nios2_pll:writedata
-	wire  [31:0] mm_interconnect_0_eth_pll_pll_slave_readdata;                    // eth_pll:readdata -> mm_interconnect_0:eth_pll_pll_slave_readdata
-	wire   [1:0] mm_interconnect_0_eth_pll_pll_slave_address;                     // mm_interconnect_0:eth_pll_pll_slave_address -> eth_pll:address
-	wire         mm_interconnect_0_eth_pll_pll_slave_read;                        // mm_interconnect_0:eth_pll_pll_slave_read -> eth_pll:read
-	wire         mm_interconnect_0_eth_pll_pll_slave_write;                       // mm_interconnect_0:eth_pll_pll_slave_write -> eth_pll:write
-	wire  [31:0] mm_interconnect_0_eth_pll_pll_slave_writedata;                   // mm_interconnect_0:eth_pll_pll_slave_writedata -> eth_pll:writedata
 	wire         mm_interconnect_0_nios2_onchip_mem_s1_chipselect;                // mm_interconnect_0:nios2_onchip_mem_s1_chipselect -> nios2_onchip_mem:chipselect
 	wire  [31:0] mm_interconnect_0_nios2_onchip_mem_s1_readdata;                  // nios2_onchip_mem:readdata -> mm_interconnect_0:nios2_onchip_mem_s1_readdata
-	wire  [13:0] mm_interconnect_0_nios2_onchip_mem_s1_address;                   // mm_interconnect_0:nios2_onchip_mem_s1_address -> nios2_onchip_mem:address
+	wire  [15:0] mm_interconnect_0_nios2_onchip_mem_s1_address;                   // mm_interconnect_0:nios2_onchip_mem_s1_address -> nios2_onchip_mem:address
 	wire   [3:0] mm_interconnect_0_nios2_onchip_mem_s1_byteenable;                // mm_interconnect_0:nios2_onchip_mem_s1_byteenable -> nios2_onchip_mem:byteenable
 	wire         mm_interconnect_0_nios2_onchip_mem_s1_write;                     // mm_interconnect_0:nios2_onchip_mem_s1_write -> nios2_onchip_mem:write
 	wire  [31:0] mm_interconnect_0_nios2_onchip_mem_s1_writedata;                 // mm_interconnect_0:nios2_onchip_mem_s1_writedata -> nios2_onchip_mem:writedata
@@ -386,11 +407,9 @@ module ECE385 (
 	wire         mm_interconnect_0_vga_sprite_7_s1_write;                         // mm_interconnect_0:vga_sprite_7_s1_write -> vga_sprite_7:write
 	wire  [31:0] mm_interconnect_0_vga_sprite_7_s1_writedata;                     // mm_interconnect_0:vga_sprite_7_s1_writedata -> vga_sprite_7:writedata
 	wire         mm_interconnect_0_vga_sprite_7_s1_clken;                         // mm_interconnect_0:vga_sprite_7_s1_clken -> vga_sprite_7:clken
-	wire  [31:0] mm_interconnect_0_io_hwrng_s1_readdata;                          // io_hwrng:readdata -> mm_interconnect_0:io_hwrng_s1_readdata
-	wire   [1:0] mm_interconnect_0_io_hwrng_s1_address;                           // mm_interconnect_0:io_hwrng_s1_address -> io_hwrng:address
 	wire         mm_interconnect_0_audio_mem_s1_chipselect;                       // mm_interconnect_0:audio_mem_s1_chipselect -> audio_mem:chipselect
 	wire  [31:0] mm_interconnect_0_audio_mem_s1_readdata;                         // audio_mem:readdata -> mm_interconnect_0:audio_mem_s1_readdata
-	wire  [13:0] mm_interconnect_0_audio_mem_s1_address;                          // mm_interconnect_0:audio_mem_s1_address -> audio_mem:address
+	wire  [11:0] mm_interconnect_0_audio_mem_s1_address;                          // mm_interconnect_0:audio_mem_s1_address -> audio_mem:address
 	wire   [3:0] mm_interconnect_0_audio_mem_s1_byteenable;                       // mm_interconnect_0:audio_mem_s1_byteenable -> audio_mem:byteenable
 	wire         mm_interconnect_0_audio_mem_s1_write;                            // mm_interconnect_0:audio_mem_s1_write -> audio_mem:write
 	wire  [31:0] mm_interconnect_0_audio_mem_s1_writedata;                        // mm_interconnect_0:audio_mem_s1_writedata -> audio_mem:writedata
@@ -523,12 +542,12 @@ module ECE385 (
 	wire  [31:0] eth1_tx_dma_descriptor_write_address;                            // eth1_tx_dma:descriptor_write_address -> mm_interconnect_2:eth1_tx_dma_descriptor_write_address
 	wire         eth1_tx_dma_descriptor_write_write;                              // eth1_tx_dma:descriptor_write_write -> mm_interconnect_2:eth1_tx_dma_descriptor_write_write
 	wire  [31:0] eth1_tx_dma_descriptor_write_writedata;                          // eth1_tx_dma:descriptor_write_writedata -> mm_interconnect_2:eth1_tx_dma_descriptor_write_writedata
-	wire   [7:0] eth0_tx_dma_m_read_readdata;                                     // mm_interconnect_2:eth0_tx_dma_m_read_readdata -> eth0_tx_dma:m_read_readdata
+	wire  [31:0] eth0_tx_dma_m_read_readdata;                                     // mm_interconnect_2:eth0_tx_dma_m_read_readdata -> eth0_tx_dma:m_read_readdata
 	wire         eth0_tx_dma_m_read_waitrequest;                                  // mm_interconnect_2:eth0_tx_dma_m_read_waitrequest -> eth0_tx_dma:m_read_waitrequest
 	wire  [31:0] eth0_tx_dma_m_read_address;                                      // eth0_tx_dma:m_read_address -> mm_interconnect_2:eth0_tx_dma_m_read_address
 	wire         eth0_tx_dma_m_read_read;                                         // eth0_tx_dma:m_read_read -> mm_interconnect_2:eth0_tx_dma_m_read_read
 	wire         eth0_tx_dma_m_read_readdatavalid;                                // mm_interconnect_2:eth0_tx_dma_m_read_readdatavalid -> eth0_tx_dma:m_read_readdatavalid
-	wire   [7:0] eth1_tx_dma_m_read_readdata;                                     // mm_interconnect_2:eth1_tx_dma_m_read_readdata -> eth1_tx_dma:m_read_readdata
+	wire  [31:0] eth1_tx_dma_m_read_readdata;                                     // mm_interconnect_2:eth1_tx_dma_m_read_readdata -> eth1_tx_dma:m_read_readdata
 	wire         eth1_tx_dma_m_read_waitrequest;                                  // mm_interconnect_2:eth1_tx_dma_m_read_waitrequest -> eth1_tx_dma:m_read_waitrequest
 	wire  [31:0] eth1_tx_dma_m_read_address;                                      // eth1_tx_dma:m_read_address -> mm_interconnect_2:eth1_tx_dma_m_read_address
 	wire         eth1_tx_dma_m_read_read;                                         // eth1_tx_dma:m_read_read -> mm_interconnect_2:eth1_tx_dma_m_read_read
@@ -543,7 +562,7 @@ module ECE385 (
 	wire   [7:0] eth1_rx_dma_m_write_writedata;                                   // eth1_rx_dma:m_write_writedata -> mm_interconnect_2:eth1_rx_dma_m_write_writedata
 	wire         mm_interconnect_2_nios2_onchip_mem_s2_chipselect;                // mm_interconnect_2:nios2_onchip_mem_s2_chipselect -> nios2_onchip_mem:chipselect2
 	wire  [31:0] mm_interconnect_2_nios2_onchip_mem_s2_readdata;                  // nios2_onchip_mem:readdata2 -> mm_interconnect_2:nios2_onchip_mem_s2_readdata
-	wire  [13:0] mm_interconnect_2_nios2_onchip_mem_s2_address;                   // mm_interconnect_2:nios2_onchip_mem_s2_address -> nios2_onchip_mem:address2
+	wire  [15:0] mm_interconnect_2_nios2_onchip_mem_s2_address;                   // mm_interconnect_2:nios2_onchip_mem_s2_address -> nios2_onchip_mem:address2
 	wire   [3:0] mm_interconnect_2_nios2_onchip_mem_s2_byteenable;                // mm_interconnect_2:nios2_onchip_mem_s2_byteenable -> nios2_onchip_mem:byteenable2
 	wire         mm_interconnect_2_nios2_onchip_mem_s2_write;                     // mm_interconnect_2:nios2_onchip_mem_s2_write -> nios2_onchip_mem:write2
 	wire  [31:0] mm_interconnect_2_nios2_onchip_mem_s2_writedata;                 // mm_interconnect_2:nios2_onchip_mem_s2_writedata -> nios2_onchip_mem:writedata2
@@ -557,7 +576,7 @@ module ECE385 (
 	wire  [31:0] nios2_cpu_irq_irq;                                               // irq_mapper:sender_irq -> nios2_cpu:irq
 	wire         irq_mapper_001_receiver0_irq;                                    // usb_jtag_uart:av_irq -> irq_mapper_001:receiver0_irq
 	wire  [31:0] usb_nios2_cpu_irq_irq;                                           // irq_mapper_001:sender_irq -> usb_nios2_cpu:irq
-	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_mem:reset, audio_position:reset_n, audio_position_end:reset_n, eth0_mdio:reset, eth0_rx_dma:system_reset_n, eth0_rx_fifo:out_reset_n, eth0_tx_dma:system_reset_n, eth0_tx_fifo:in_reset_n, eth1_mdio:reset, eth1_rx_dma:system_reset_n, eth1_rx_fifo:out_reset_n, eth1_tx_dma:system_reset_n, eth1_tx_fifo:in_reset_n, eth_pll:reset, io_hex:reset_n, io_hwrng:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, mm_interconnect_2:eth0_rx_dma_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, sdram:reset_n, sram_multiplexer:RESET, usb_keycode:reset2, vga_background_offset:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_mem:reset, audio_position:reset_n, audio_position_end:reset_n, eth0_mdio:reset, eth0_rx_dma:system_reset_n, eth0_rx_fifo:out_reset_n, eth0_tx_dma:system_reset_n, eth0_tx_fifo:in_reset_n, eth1_mdio:reset, eth1_rx_dma:system_reset_n, eth1_rx_fifo:out_reset_n, eth1_tx_dma:system_reset_n, eth1_tx_fifo:in_reset_n, io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, mm_interconnect_0:nios2_jtag_uart_reset_reset_bridge_in_reset_reset, mm_interconnect_2:eth0_rx_dma_reset_reset_bridge_in_reset_reset, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, sdram:reset_n, sram_multiplexer:RESET, usb_keycode:reset2, vga_background_offset:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
 	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
 	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator:reset_req_in]
 	wire         nios2_cpu_debug_reset_request_reset;                             // nios2_cpu:debug_reset_request -> rst_controller_001:reset_in1
@@ -659,7 +678,7 @@ module ECE385 (
 	altera_avalon_dc_fifo #(
 		.SYMBOLS_PER_BEAT   (1),
 		.BITS_PER_SYMBOL    (8),
-		.FIFO_DEPTH         (2048),
+		.FIFO_DEPTH         (1024),
 		.CHANNEL_WIDTH      (0),
 		.ERROR_WIDTH        (3),
 		.USE_PACKETS        (1),
@@ -729,13 +748,47 @@ module ECE385 (
 		.out_valid                     (eth0_tx_dma_out_valid),                        //                 .valid
 		.out_ready                     (eth0_tx_dma_out_ready),                        //                 .ready
 		.out_endofpacket               (eth0_tx_dma_out_endofpacket),                  //                 .endofpacket
-		.out_startofpacket             (eth0_tx_dma_out_startofpacket)                 //                 .startofpacket
+		.out_startofpacket             (eth0_tx_dma_out_startofpacket),                //                 .startofpacket
+		.out_empty                     (eth0_tx_dma_out_empty)                         //                 .empty
+	);
+
+	ECE385_eth0_tx_dma_buffer #(
+		.inBitsPerSymbol (8),
+		.inUsePackets    (1),
+		.inDataWidth     (32),
+		.inChannelWidth  (0),
+		.inErrorWidth    (0),
+		.inUseEmptyPort  (1),
+		.inUseValid      (1),
+		.inUseReady      (1),
+		.inReadyLatency  (0),
+		.outDataWidth    (8),
+		.outChannelWidth (0),
+		.outErrorWidth   (0),
+		.outUseEmptyPort (0),
+		.outUseValid     (1),
+		.outUseReady     (1),
+		.outReadyLatency (0)
+	) eth0_tx_dma_buffer (
+		.in_clk_0_clk        (eth0_tx_dma_buffer_in_clk_0_clk),        // in_clk_0.clk
+		.in_rst_0_reset      (eth0_tx_dma_buffer_in_rst_0_reset),      // in_rst_0.reset
+		.in_0_data           (eth0_tx_dma_buffer_in_0_data),           //     in_0.data
+		.in_0_valid          (eth0_tx_dma_buffer_in_0_valid),          //         .valid
+		.in_0_ready          (eth0_tx_dma_buffer_in_0_ready),          //         .ready
+		.in_0_startofpacket  (eth0_tx_dma_buffer_in_0_startofpacket),  //         .startofpacket
+		.in_0_endofpacket    (eth0_tx_dma_buffer_in_0_endofpacket),    //         .endofpacket
+		.in_0_empty          (eth0_tx_dma_buffer_in_0_empty),          //         .empty
+		.out_0_data          (eth0_tx_dma_buffer_out_0_data),          //    out_0.data
+		.out_0_valid         (eth0_tx_dma_buffer_out_0_valid),         //         .valid
+		.out_0_ready         (eth0_tx_dma_buffer_out_0_ready),         //         .ready
+		.out_0_startofpacket (eth0_tx_dma_buffer_out_0_startofpacket), //         .startofpacket
+		.out_0_endofpacket   (eth0_tx_dma_buffer_out_0_endofpacket)    //         .endofpacket
 	);
 
 	altera_avalon_dc_fifo #(
-		.SYMBOLS_PER_BEAT   (1),
+		.SYMBOLS_PER_BEAT   (4),
 		.BITS_PER_SYMBOL    (8),
-		.FIFO_DEPTH         (2048),
+		.FIFO_DEPTH         (1024),
 		.CHANNEL_WIDTH      (0),
 		.ERROR_WIDTH        (0),
 		.USE_PACKETS        (1),
@@ -753,11 +806,13 @@ module ECE385 (
 		.in_ready          (eth0_tx_dma_out_ready),                //              .ready
 		.in_startofpacket  (eth0_tx_dma_out_startofpacket),        //              .startofpacket
 		.in_endofpacket    (eth0_tx_dma_out_endofpacket),          //              .endofpacket
+		.in_empty          (eth0_tx_dma_out_empty),                //              .empty
 		.out_data          (eth0_tx_fifo_out_data),                //           out.data
 		.out_valid         (eth0_tx_fifo_out_valid),               //              .valid
 		.out_ready         (eth0_tx_fifo_out_ready),               //              .ready
 		.out_startofpacket (eth0_tx_fifo_out_startofpacket),       //              .startofpacket
 		.out_endofpacket   (eth0_tx_fifo_out_endofpacket),         //              .endofpacket
+		.out_empty         (eth0_tx_fifo_out_empty),               //              .empty
 		.in_csr_address    (1'b0),                                 //   (terminated)
 		.in_csr_read       (1'b0),                                 //   (terminated)
 		.in_csr_write      (1'b0),                                 //   (terminated)
@@ -768,8 +823,6 @@ module ECE385 (
 		.out_csr_write     (1'b0),                                 //   (terminated)
 		.out_csr_readdata  (),                                     //   (terminated)
 		.out_csr_writedata (32'b00000000000000000000000000000000), //   (terminated)
-		.in_empty          (1'b0),                                 //   (terminated)
-		.out_empty         (),                                     //   (terminated)
 		.in_error          (1'b0),                                 //   (terminated)
 		.out_error         (),                                     //   (terminated)
 		.in_channel        (1'b0),                                 //   (terminated)
@@ -829,7 +882,7 @@ module ECE385 (
 	altera_avalon_dc_fifo #(
 		.SYMBOLS_PER_BEAT   (1),
 		.BITS_PER_SYMBOL    (8),
-		.FIFO_DEPTH         (2048),
+		.FIFO_DEPTH         (1024),
 		.CHANNEL_WIDTH      (0),
 		.ERROR_WIDTH        (3),
 		.USE_PACKETS        (1),
@@ -899,13 +952,47 @@ module ECE385 (
 		.out_valid                     (eth1_tx_dma_out_valid),                        //                 .valid
 		.out_ready                     (eth1_tx_dma_out_ready),                        //                 .ready
 		.out_endofpacket               (eth1_tx_dma_out_endofpacket),                  //                 .endofpacket
-		.out_startofpacket             (eth1_tx_dma_out_startofpacket)                 //                 .startofpacket
+		.out_startofpacket             (eth1_tx_dma_out_startofpacket),                //                 .startofpacket
+		.out_empty                     (eth1_tx_dma_out_empty)                         //                 .empty
+	);
+
+	ECE385_eth0_tx_dma_buffer #(
+		.inBitsPerSymbol (8),
+		.inUsePackets    (1),
+		.inDataWidth     (32),
+		.inChannelWidth  (0),
+		.inErrorWidth    (0),
+		.inUseEmptyPort  (1),
+		.inUseValid      (1),
+		.inUseReady      (1),
+		.inReadyLatency  (0),
+		.outDataWidth    (8),
+		.outChannelWidth (0),
+		.outErrorWidth   (0),
+		.outUseEmptyPort (0),
+		.outUseValid     (1),
+		.outUseReady     (1),
+		.outReadyLatency (0)
+	) eth1_tx_dma_buffer (
+		.in_clk_0_clk        (eth1_tx_dma_buffer_in_clk_0_clk),        // in_clk_0.clk
+		.in_rst_0_reset      (eth1_tx_dma_buffer_in_rst_0_reset),      // in_rst_0.reset
+		.in_0_data           (eth1_tx_dma_buffer_in_0_data),           //     in_0.data
+		.in_0_valid          (eth1_tx_dma_buffer_in_0_valid),          //         .valid
+		.in_0_ready          (eth1_tx_dma_buffer_in_0_ready),          //         .ready
+		.in_0_startofpacket  (eth1_tx_dma_buffer_in_0_startofpacket),  //         .startofpacket
+		.in_0_endofpacket    (eth1_tx_dma_buffer_in_0_endofpacket),    //         .endofpacket
+		.in_0_empty          (eth1_tx_dma_buffer_in_0_empty),          //         .empty
+		.out_0_data          (eth1_tx_dma_buffer_out_0_data),          //    out_0.data
+		.out_0_valid         (eth1_tx_dma_buffer_out_0_valid),         //         .valid
+		.out_0_ready         (eth1_tx_dma_buffer_out_0_ready),         //         .ready
+		.out_0_startofpacket (eth1_tx_dma_buffer_out_0_startofpacket), //         .startofpacket
+		.out_0_endofpacket   (eth1_tx_dma_buffer_out_0_endofpacket)    //         .endofpacket
 	);
 
 	altera_avalon_dc_fifo #(
-		.SYMBOLS_PER_BEAT   (1),
+		.SYMBOLS_PER_BEAT   (4),
 		.BITS_PER_SYMBOL    (8),
-		.FIFO_DEPTH         (2048),
+		.FIFO_DEPTH         (1024),
 		.CHANNEL_WIDTH      (0),
 		.ERROR_WIDTH        (0),
 		.USE_PACKETS        (1),
@@ -923,11 +1010,13 @@ module ECE385 (
 		.in_ready          (eth1_tx_dma_out_ready),                //              .ready
 		.in_startofpacket  (eth1_tx_dma_out_startofpacket),        //              .startofpacket
 		.in_endofpacket    (eth1_tx_dma_out_endofpacket),          //              .endofpacket
+		.in_empty          (eth1_tx_dma_out_empty),                //              .empty
 		.out_data          (eth1_tx_fifo_out_data),                //           out.data
 		.out_valid         (eth1_tx_fifo_out_valid),               //              .valid
 		.out_ready         (eth1_tx_fifo_out_ready),               //              .ready
 		.out_startofpacket (eth1_tx_fifo_out_startofpacket),       //              .startofpacket
 		.out_endofpacket   (eth1_tx_fifo_out_endofpacket),         //              .endofpacket
+		.out_empty         (eth1_tx_fifo_out_empty),               //              .empty
 		.in_csr_address    (1'b0),                                 //   (terminated)
 		.in_csr_read       (1'b0),                                 //   (terminated)
 		.in_csr_write      (1'b0),                                 //   (terminated)
@@ -938,40 +1027,11 @@ module ECE385 (
 		.out_csr_write     (1'b0),                                 //   (terminated)
 		.out_csr_readdata  (),                                     //   (terminated)
 		.out_csr_writedata (32'b00000000000000000000000000000000), //   (terminated)
-		.in_empty          (1'b0),                                 //   (terminated)
-		.out_empty         (),                                     //   (terminated)
 		.in_error          (1'b0),                                 //   (terminated)
 		.out_error         (),                                     //   (terminated)
 		.in_channel        (1'b0),                                 //   (terminated)
 		.out_channel       (),                                     //   (terminated)
 		.space_avail_data  ()                                      //   (terminated)
-	);
-
-	ECE385_eth_pll eth_pll (
-		.clk                (clk_clk),                                       //       inclk_interface.clk
-		.reset              (rst_controller_reset_out_reset),                // inclk_interface_reset.reset
-		.read               (mm_interconnect_0_eth_pll_pll_slave_read),      //             pll_slave.read
-		.write              (mm_interconnect_0_eth_pll_pll_slave_write),     //                      .write
-		.address            (mm_interconnect_0_eth_pll_pll_slave_address),   //                      .address
-		.readdata           (mm_interconnect_0_eth_pll_pll_slave_readdata),  //                      .readdata
-		.writedata          (mm_interconnect_0_eth_pll_pll_slave_writedata), //                      .writedata
-		.inclk0             (clk_clk),                                       //                inclk0.clk
-		.c0                 (eth_pll_125_clk),                               //                    c0.clk
-		.c1                 (eth_pll_25_clk),                                //                    c1.clk
-		.c2                 (eth_pll_2_5_clk),                               //                    c2.clk
-		.c3                 (eth_pll_c3_conduit_export),                     //            c3_conduit.export
-		.scandone           (),                                              //           (terminated)
-		.scandataout        (),                                              //           (terminated)
-		.areset             (1'b0),                                          //           (terminated)
-		.locked             (),                                              //           (terminated)
-		.phasedone          (),                                              //           (terminated)
-		.phasecounterselect (4'b0000),                                       //           (terminated)
-		.phaseupdown        (1'b0),                                          //           (terminated)
-		.phasestep          (1'b0),                                          //           (terminated)
-		.scanclk            (1'b0),                                          //           (terminated)
-		.scanclkena         (1'b0),                                          //           (terminated)
-		.scandata           (1'b0),                                          //           (terminated)
-		.configupdate       (1'b0)                                           //           (terminated)
 	);
 
 	ECE385_io_hex io_hex (
@@ -983,14 +1043,6 @@ module ECE385 (
 		.chipselect (mm_interconnect_0_io_hex_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_io_hex_s1_readdata),   //                    .readdata
 		.out_port   (io_hex_export)                           // external_connection.export
-	);
-
-	ECE385_audio_position io_hwrng (
-		.clk      (clk_clk),                                //                 clk.clk
-		.reset_n  (~rst_controller_reset_out_reset),        //               reset.reset_n
-		.address  (mm_interconnect_0_io_hwrng_s1_address),  //                  s1.address
-		.readdata (mm_interconnect_0_io_hwrng_s1_readdata), //                    .readdata
-		.in_port  (io_hwrng_export)                         // external_connection.export
 	);
 
 	ECE385_io_keys io_keys (
@@ -1111,7 +1163,7 @@ module ECE385 (
 		.readdata           (mm_interconnect_0_nios2_pll_pll_slave_readdata),  //                      .readdata
 		.writedata          (mm_interconnect_0_nios2_pll_pll_slave_writedata), //                      .writedata
 		.inclk0             (clk_clk),                                         //                inclk0.clk
-		.c0                 (),                                                //                    c0.clk
+		.c0                 (nios2_pll_ethernet_clk),                          //                    c0.clk
 		.c1                 (nios2_pll_sdram_clk),                             //                    c1.clk
 		.c2                 (nios2_pll_c2_clk),                                //                    c2.clk
 		.c3                 (nios2_pll_vga_clk),                               //                    c3.clk
@@ -1633,18 +1685,11 @@ module ECE385 (
 		.eth1_tx_dma_csr_readdata                          (mm_interconnect_0_eth1_tx_dma_csr_readdata),                      //                                            .readdata
 		.eth1_tx_dma_csr_writedata                         (mm_interconnect_0_eth1_tx_dma_csr_writedata),                     //                                            .writedata
 		.eth1_tx_dma_csr_chipselect                        (mm_interconnect_0_eth1_tx_dma_csr_chipselect),                    //                                            .chipselect
-		.eth_pll_pll_slave_address                         (mm_interconnect_0_eth_pll_pll_slave_address),                     //                           eth_pll_pll_slave.address
-		.eth_pll_pll_slave_write                           (mm_interconnect_0_eth_pll_pll_slave_write),                       //                                            .write
-		.eth_pll_pll_slave_read                            (mm_interconnect_0_eth_pll_pll_slave_read),                        //                                            .read
-		.eth_pll_pll_slave_readdata                        (mm_interconnect_0_eth_pll_pll_slave_readdata),                    //                                            .readdata
-		.eth_pll_pll_slave_writedata                       (mm_interconnect_0_eth_pll_pll_slave_writedata),                   //                                            .writedata
 		.io_hex_s1_address                                 (mm_interconnect_0_io_hex_s1_address),                             //                                   io_hex_s1.address
 		.io_hex_s1_write                                   (mm_interconnect_0_io_hex_s1_write),                               //                                            .write
 		.io_hex_s1_readdata                                (mm_interconnect_0_io_hex_s1_readdata),                            //                                            .readdata
 		.io_hex_s1_writedata                               (mm_interconnect_0_io_hex_s1_writedata),                           //                                            .writedata
 		.io_hex_s1_chipselect                              (mm_interconnect_0_io_hex_s1_chipselect),                          //                                            .chipselect
-		.io_hwrng_s1_address                               (mm_interconnect_0_io_hwrng_s1_address),                           //                                 io_hwrng_s1.address
-		.io_hwrng_s1_readdata                              (mm_interconnect_0_io_hwrng_s1_readdata),                          //                                            .readdata
 		.io_keys_s1_address                                (mm_interconnect_0_io_keys_s1_address),                            //                                  io_keys_s1.address
 		.io_keys_s1_readdata                               (mm_interconnect_0_io_keys_s1_readdata),                           //                                            .readdata
 		.io_led_green_s1_address                           (mm_interconnect_0_io_led_green_s1_address),                       //                             io_led_green_s1.address
