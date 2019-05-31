@@ -9,8 +9,7 @@
    <name preferredWidth="270" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Library/Basic Functions/DMA,Library/University Program,Library/Interface Protocols/PCI Express/QSYS Example Designs,Library/Interface Protocols,Library/University Program/Audio &amp; Video/Video,Project,Library/Interface Protocols/PCI Express,Library/Basic Functions/DMA/mSGDMA Sub-core,Library/Basic Functions,Library,Library/University Program/Audio &amp; Video" />
+ <library expandedCategories="Library,Project" />
  <window width="1938" height="1048" x="-9" y="-9" />
  <generation path="qsys" block_symbol_file="0" />
 </preferences>

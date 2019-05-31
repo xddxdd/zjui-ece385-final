@@ -1203,7 +1203,6 @@ set_global_assignment -name SYSTEMVERILOG_FILE hexdriver.sv
 set_global_assignment -name SYSTEMVERILOG_FILE project_top.sv
 set_global_assignment -name QIP_FILE qsys/synthesis/ECE385.qip
 set_global_assignment -name SDC_FILE ECE385.sdc
-set_global_assignment -name QIP_FILE eth_ddio.qip
 set_global_assignment -name SYSTEMVERILOG_FILE register.sv
 set_global_assignment -name SYSTEMVERILOG_FILE comp/vga/VGA_layer.sv
 set_global_assignment -name SYSTEMVERILOG_FILE comp/avalon_mm_passthrough/avalon_mm_passthrough.sv

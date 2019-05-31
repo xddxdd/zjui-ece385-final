@@ -17,11 +17,45 @@ module ECE385 (
 	eth0_mdio_mdio_out,
 	eth0_mdio_mdio_oen,
 	eth0_mdio_phy_addr,
+	eth0_rx_fifo_in_data,
+	eth0_rx_fifo_in_valid,
+	eth0_rx_fifo_in_ready,
+	eth0_rx_fifo_in_startofpacket,
+	eth0_rx_fifo_in_endofpacket,
+	eth0_rx_fifo_in_error,
+	eth0_rx_fifo_in_clk_clk,
+	eth0_rx_fifo_in_clk_reset_reset_n,
+	eth0_tx_fifo_out_data,
+	eth0_tx_fifo_out_valid,
+	eth0_tx_fifo_out_ready,
+	eth0_tx_fifo_out_startofpacket,
+	eth0_tx_fifo_out_endofpacket,
+	eth0_tx_fifo_out_clk_clk,
+	eth0_tx_fifo_out_clk_reset_reset_n,
 	eth1_mdio_mdc,
 	eth1_mdio_mdio_in,
 	eth1_mdio_mdio_out,
 	eth1_mdio_mdio_oen,
 	eth1_mdio_phy_addr,
+	eth1_rx_fifo_in_data,
+	eth1_rx_fifo_in_valid,
+	eth1_rx_fifo_in_ready,
+	eth1_rx_fifo_in_startofpacket,
+	eth1_rx_fifo_in_endofpacket,
+	eth1_rx_fifo_in_error,
+	eth1_rx_fifo_in_clk_clk,
+	eth1_rx_fifo_in_clk_reset_reset_n,
+	eth1_tx_fifo_out_data,
+	eth1_tx_fifo_out_valid,
+	eth1_tx_fifo_out_ready,
+	eth1_tx_fifo_out_startofpacket,
+	eth1_tx_fifo_out_endofpacket,
+	eth1_tx_fifo_out_clk_clk,
+	eth1_tx_fifo_out_clk_reset_reset_n,
+	eth_pll_125_clk,
+	eth_pll_25_clk,
+	eth_pll_2_5_clk,
+	eth_pll_c3_conduit_export,
 	io_hex_export,
 	io_hwrng_export,
 	io_keys_export,
@@ -139,43 +173,7 @@ module ECE385 (
 	vga_sprite_params_pass_readdata,
 	vga_sprite_params_pass_write,
 	vga_sprite_params_pass_writedata,
-	vga_sprite_params_reset_reset,
-	eth_pll_125_clk,
-	eth_pll_25_clk,
-	eth_pll_2_5_clk,
-	eth0_rx_fifo_in_clk_clk,
-	eth0_rx_fifo_in_clk_reset_reset_n,
-	eth0_rx_fifo_in_data,
-	eth0_rx_fifo_in_valid,
-	eth0_rx_fifo_in_ready,
-	eth0_rx_fifo_in_startofpacket,
-	eth0_rx_fifo_in_endofpacket,
-	eth0_rx_fifo_in_error,
-	eth0_tx_fifo_out_clk_clk,
-	eth0_tx_fifo_out_clk_reset_reset_n,
-	eth0_tx_fifo_out_data,
-	eth0_tx_fifo_out_valid,
-	eth0_tx_fifo_out_ready,
-	eth0_tx_fifo_out_startofpacket,
-	eth0_tx_fifo_out_endofpacket,
-	eth0_tx_fifo_out_error,
-	eth1_tx_fifo_out_clk_clk,
-	eth1_tx_fifo_out_clk_reset_reset_n,
-	eth1_tx_fifo_out_data,
-	eth1_tx_fifo_out_valid,
-	eth1_tx_fifo_out_ready,
-	eth1_tx_fifo_out_startofpacket,
-	eth1_tx_fifo_out_endofpacket,
-	eth1_tx_fifo_out_error,
-	eth1_rx_fifo_in_clk_clk,
-	eth1_rx_fifo_in_clk_reset_reset_n,
-	eth1_rx_fifo_in_data,
-	eth1_rx_fifo_in_valid,
-	eth1_rx_fifo_in_ready,
-	eth1_rx_fifo_in_startofpacket,
-	eth1_rx_fifo_in_endofpacket,
-	eth1_rx_fifo_in_error,
-	eth_pll_c3_conduit_export);	
+	vga_sprite_params_reset_reset);	
 
 	input		audio_mem_clk2_clk;
 	input		audio_mem_reset2_reset;
@@ -194,11 +192,45 @@ module ECE385 (
 	output		eth0_mdio_mdio_out;
 	output		eth0_mdio_mdio_oen;
 	input	[4:0]	eth0_mdio_phy_addr;
+	input	[7:0]	eth0_rx_fifo_in_data;
+	input		eth0_rx_fifo_in_valid;
+	output		eth0_rx_fifo_in_ready;
+	input		eth0_rx_fifo_in_startofpacket;
+	input		eth0_rx_fifo_in_endofpacket;
+	input	[2:0]	eth0_rx_fifo_in_error;
+	input		eth0_rx_fifo_in_clk_clk;
+	input		eth0_rx_fifo_in_clk_reset_reset_n;
+	output	[7:0]	eth0_tx_fifo_out_data;
+	output		eth0_tx_fifo_out_valid;
+	input		eth0_tx_fifo_out_ready;
+	output		eth0_tx_fifo_out_startofpacket;
+	output		eth0_tx_fifo_out_endofpacket;
+	input		eth0_tx_fifo_out_clk_clk;
+	input		eth0_tx_fifo_out_clk_reset_reset_n;
 	output		eth1_mdio_mdc;
 	input		eth1_mdio_mdio_in;
 	output		eth1_mdio_mdio_out;
 	output		eth1_mdio_mdio_oen;
 	input	[4:0]	eth1_mdio_phy_addr;
+	input	[7:0]	eth1_rx_fifo_in_data;
+	input		eth1_rx_fifo_in_valid;
+	output		eth1_rx_fifo_in_ready;
+	input		eth1_rx_fifo_in_startofpacket;
+	input		eth1_rx_fifo_in_endofpacket;
+	input	[2:0]	eth1_rx_fifo_in_error;
+	input		eth1_rx_fifo_in_clk_clk;
+	input		eth1_rx_fifo_in_clk_reset_reset_n;
+	output	[7:0]	eth1_tx_fifo_out_data;
+	output		eth1_tx_fifo_out_valid;
+	input		eth1_tx_fifo_out_ready;
+	output		eth1_tx_fifo_out_startofpacket;
+	output		eth1_tx_fifo_out_endofpacket;
+	input		eth1_tx_fifo_out_clk_clk;
+	input		eth1_tx_fifo_out_clk_reset_reset_n;
+	output		eth_pll_125_clk;
+	output		eth_pll_25_clk;
+	output		eth_pll_2_5_clk;
+	output		eth_pll_c3_conduit_export;
 	output	[31:0]	io_hex_export;
 	input	[31:0]	io_hwrng_export;
 	input	[3:0]	io_keys_export;
@@ -317,40 +349,4 @@ module ECE385 (
 	output		vga_sprite_params_pass_write;
 	output	[31:0]	vga_sprite_params_pass_writedata;
 	output		vga_sprite_params_reset_reset;
-	output		eth_pll_125_clk;
-	output		eth_pll_25_clk;
-	output		eth_pll_2_5_clk;
-	input		eth0_rx_fifo_in_clk_clk;
-	input		eth0_rx_fifo_in_clk_reset_reset_n;
-	input	[7:0]	eth0_rx_fifo_in_data;
-	input		eth0_rx_fifo_in_valid;
-	output		eth0_rx_fifo_in_ready;
-	input		eth0_rx_fifo_in_startofpacket;
-	input		eth0_rx_fifo_in_endofpacket;
-	input	[2:0]	eth0_rx_fifo_in_error;
-	input		eth0_tx_fifo_out_clk_clk;
-	input		eth0_tx_fifo_out_clk_reset_reset_n;
-	output	[7:0]	eth0_tx_fifo_out_data;
-	output		eth0_tx_fifo_out_valid;
-	input		eth0_tx_fifo_out_ready;
-	output		eth0_tx_fifo_out_startofpacket;
-	output		eth0_tx_fifo_out_endofpacket;
-	output	[1:0]	eth0_tx_fifo_out_error;
-	input		eth1_tx_fifo_out_clk_clk;
-	input		eth1_tx_fifo_out_clk_reset_reset_n;
-	output	[7:0]	eth1_tx_fifo_out_data;
-	output		eth1_tx_fifo_out_valid;
-	input		eth1_tx_fifo_out_ready;
-	output		eth1_tx_fifo_out_startofpacket;
-	output		eth1_tx_fifo_out_endofpacket;
-	output	[1:0]	eth1_tx_fifo_out_error;
-	input		eth1_rx_fifo_in_clk_clk;
-	input		eth1_rx_fifo_in_clk_reset_reset_n;
-	input	[7:0]	eth1_rx_fifo_in_data;
-	input		eth1_rx_fifo_in_valid;
-	output		eth1_rx_fifo_in_ready;
-	input		eth1_rx_fifo_in_startofpacket;
-	input		eth1_rx_fifo_in_endofpacket;
-	input	[2:0]	eth1_rx_fifo_in_error;
-	output		eth_pll_c3_conduit_export;
 endmodule

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="ECE385" kind="ECE385" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.05.30.20:58:13 -->
+ <!-- 2019.05.31.14:44:37 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1559221092</value>
+  <value>1559285076</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -7090,7 +7090,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.OUT_ERROR_WIDTH</name>
-   <value>2</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.READ_BLOCK_DATA_WIDTH</name>
@@ -7214,7 +7214,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="sourceErrorWidth">
    <type>int</type>
-   <value>2</value>
+   <value>0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -8904,12 +8904,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>startofpacket</role>
    </port>
-   <port>
-    <name>out_error</name>
-    <direction>Output</direction>
-    <width>2</width>
-    <role>error</role>
-   </port>
   </interface>
  </module>
  <module
@@ -8953,7 +8947,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="ERROR_WIDTH">
    <type>int</type>
-   <value>2</value>
+   <value>0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -9359,12 +9353,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>endofpacket</role>
    </port>
-   <port>
-    <name>in_error</name>
-    <direction>Input</direction>
-    <width>2</width>
-    <role>error</role>
-   </port>
   </interface>
   <interface name="out" kind="avalon_streaming_source" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -9513,12 +9501,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>1</width>
     <role>endofpacket</role>
-   </port>
-   <port>
-    <name>out_error</name>
-    <direction>Output</direction>
-    <width>2</width>
-    <role>error</role>
    </port>
   </interface>
  </module>
@@ -12660,7 +12642,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.OUT_ERROR_WIDTH</name>
-   <value>2</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.READ_BLOCK_DATA_WIDTH</name>
@@ -12784,7 +12766,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="sourceErrorWidth">
    <type>int</type>
-   <value>2</value>
+   <value>0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14474,12 +14456,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>startofpacket</role>
    </port>
-   <port>
-    <name>out_error</name>
-    <direction>Output</direction>
-    <width>2</width>
-    <role>error</role>
-   </port>
   </interface>
  </module>
  <module
@@ -14523,7 +14499,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="ERROR_WIDTH">
    <type>int</type>
-   <value>2</value>
+   <value>0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14929,12 +14905,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>endofpacket</role>
    </port>
-   <port>
-    <name>in_error</name>
-    <direction>Input</direction>
-    <width>2</width>
-    <role>error</role>
-   </port>
   </interface>
   <interface name="out" kind="avalon_streaming_source" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -15083,12 +15053,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>1</width>
     <role>endofpacket</role>
-   </port>
-   <port>
-    <name>out_error</name>
-    <direction>Output</direction>
-    <width>2</width>
-    <role>error</role>
    </port>
   </interface>
  </module>
@@ -30236,7 +30200,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1559221092</value>
+   <value>1559285076</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -30256,7 +30220,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1559221092</value>
+   <value>1559285076</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -30272,7 +30236,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1559221092</value>
+   <value>1559285076</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -44371,7 +44335,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1559221092</value>
+   <value>1559285076</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -44391,7 +44355,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1559221092</value>
+   <value>1559285076</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -44407,7 +44371,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1559221092</value>
+   <value>1559285076</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

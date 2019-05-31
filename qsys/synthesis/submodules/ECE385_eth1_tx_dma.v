@@ -1274,7 +1274,6 @@ module ECE385_eth1_tx_dma_m_read (
                                     read_go,
                                     source_stream_data,
                                     source_stream_endofpacket,
-                                    source_stream_error,
                                     source_stream_startofpacket,
                                     source_stream_valid,
                                     status_token_fifo_data,
@@ -1287,7 +1286,6 @@ module ECE385_eth1_tx_dma_m_read (
   output           read_go;
   output  [  7: 0] source_stream_data;
   output           source_stream_endofpacket;
-  output  [  1: 0] source_stream_error;
   output           source_stream_startofpacket;
   output           source_stream_valid;
   output  [ 23: 0] status_token_fifo_data;
@@ -1333,7 +1331,6 @@ reg     [ 15: 0] remaining_transactions;
 wire             single_transfer;
 wire    [  7: 0] source_stream_data;
 wire             source_stream_endofpacket;
-wire    [  1: 0] source_stream_error;
 reg              source_stream_startofpacket;
 wire             source_stream_valid;
 wire    [ 31: 0] start_address;
@@ -1347,7 +1344,6 @@ wire             t_eop;
 reg     [  8: 0] transactions_in_queue;
 reg     [ 15: 0] transactions_left_to_post;
 wire             tx_shift;
-  assign source_stream_error = 0;
   //m_read, which is an e_avalon_master
   //read_command_data_reg
   always @(posedge clk or negedge reset_n)
@@ -1587,10 +1583,10 @@ module ECE385_eth1_tx_dma_m_readfifo_m_readfifo (
 
   output           m_readfifo_empty;
   output           m_readfifo_full;
-  output  [ 11: 0] m_readfifo_q;
+  output  [  9: 0] m_readfifo_q;
   output  [  7: 0] m_readfifo_usedw;
   input            clk;
-  input   [ 11: 0] m_readfifo_data;
+  input   [  9: 0] m_readfifo_data;
   input            m_readfifo_rdreq;
   input            m_readfifo_wrreq;
   input            reset;
@@ -1598,7 +1594,7 @@ module ECE385_eth1_tx_dma_m_readfifo_m_readfifo (
 
 wire             m_readfifo_empty;
 wire             m_readfifo_full;
-wire    [ 11: 0] m_readfifo_q;
+wire    [  9: 0] m_readfifo_q;
 wire    [  7: 0] m_readfifo_usedw;
   scfifo ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo
     (
@@ -1618,7 +1614,7 @@ wire    [  7: 0] m_readfifo_usedw;
            ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_numwords = 256,
            ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_showahead = "OFF",
            ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_type = "scfifo",
-           ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_width = 12,
+           ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_width = 10,
            ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo.lpm_widthu = 8,
            ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo.overflow_checking = "ON",
            ECE385_eth1_tx_dma_m_readfifo_m_readfifo_m_readfifo.underflow_checking = "ON",
@@ -1643,7 +1639,6 @@ module ECE385_eth1_tx_dma_m_readfifo (
                                         reset_n,
                                         sink_stream_data,
                                         sink_stream_endofpacket,
-                                        sink_stream_error,
                                         sink_stream_startofpacket,
                                         sink_stream_valid,
                                         source_stream_ready,
@@ -1652,7 +1647,6 @@ module ECE385_eth1_tx_dma_m_readfifo (
                                         sink_stream_ready,
                                         source_stream_data,
                                         source_stream_endofpacket,
-                                        source_stream_error,
                                         source_stream_startofpacket,
                                         source_stream_valid
                                      )
@@ -1661,7 +1655,6 @@ module ECE385_eth1_tx_dma_m_readfifo (
   output           sink_stream_ready;
   output  [  7: 0] source_stream_data;
   output           source_stream_endofpacket;
-  output  [  1: 0] source_stream_error;
   output           source_stream_startofpacket;
   output           source_stream_valid;
   input            clk;
@@ -1669,7 +1662,6 @@ module ECE385_eth1_tx_dma_m_readfifo (
   input            reset_n;
   input   [  7: 0] sink_stream_data;
   input            sink_stream_endofpacket;
-  input   [  1: 0] sink_stream_error;
   input            sink_stream_startofpacket;
   input            sink_stream_valid;
   input            source_stream_ready;
@@ -1677,11 +1669,11 @@ module ECE385_eth1_tx_dma_m_readfifo (
 
 reg              delayed_m_readfifo_empty;
 wire             hold_condition;
-reg     [ 11: 0] m_readfifo_data;
+reg     [  9: 0] m_readfifo_data;
 wire             m_readfifo_empty;
 wire             m_readfifo_empty_fall;
 wire             m_readfifo_full;
-wire    [ 11: 0] m_readfifo_q;
+wire    [  9: 0] m_readfifo_q;
 wire             m_readfifo_rdreq;
 reg              m_readfifo_rdreq_delay;
 wire    [  7: 0] m_readfifo_usedw;
@@ -1692,9 +1684,6 @@ wire             source_stream_endofpacket;
 wire             source_stream_endofpacket_from_fifo;
 reg              source_stream_endofpacket_hold;
 wire             source_stream_endofpacket_sig;
-wire    [  1: 0] source_stream_error;
-reg     [  1: 0] source_stream_error_hold;
-wire    [  1: 0] source_stream_error_sig;
 wire             source_stream_startofpacket;
 wire             source_stream_valid;
 reg              source_stream_valid_reg;
@@ -1774,26 +1763,15 @@ reg              transmitted_eop;
     end
 
 
-  assign source_stream_error_sig = m_readfifo_q[9 : 8];
-  assign source_stream_error = source_stream_error_sig | source_stream_error_hold;
-  always @(posedge clk or negedge reset_n)
-    begin
-      if (reset_n == 0)
-          source_stream_error_hold <= 0;
-      else 
-        source_stream_error_hold <= hold_condition ? source_stream_error_sig : (source_stream_ready ? 0 : source_stream_error_hold);
-    end
-
-
   assign source_stream_data = m_readfifo_q[7 : 0];
-  assign source_stream_endofpacket_from_fifo = m_readfifo_q[10];
-  assign source_stream_startofpacket = m_readfifo_q[11];
+  assign source_stream_endofpacket_from_fifo = m_readfifo_q[8];
+  assign source_stream_startofpacket = m_readfifo_q[9];
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
           m_readfifo_data <= 0;
       else 
-        m_readfifo_data <= {sink_stream_startofpacket, sink_stream_endofpacket, sink_stream_error, sink_stream_data};
+        m_readfifo_data <= {sink_stream_startofpacket, sink_stream_endofpacket, sink_stream_data};
     end
 
 
@@ -2028,7 +2006,6 @@ module ECE385_eth1_tx_dma (
                              m_read_read,
                              out_data,
                              out_endofpacket,
-                             out_error,
                              out_startofpacket,
                              out_valid
                           )
@@ -2045,7 +2022,6 @@ module ECE385_eth1_tx_dma (
   output           m_read_read;
   output  [  7: 0] out_data;
   output           out_endofpacket;
-  output  [  1: 0] out_error;
   output           out_startofpacket;
   output           out_valid;
   input            clk;
@@ -2086,12 +2062,10 @@ wire    [ 31: 0] descriptor_write_address;
 wire             descriptor_write_write;
 wire    [ 31: 0] descriptor_write_writedata;
 wire             eop_to_fifo;
-wire    [  1: 0] error_to_fifo;
 wire    [ 31: 0] m_read_address;
 wire             m_read_read;
 wire    [  7: 0] out_data;
 wire             out_endofpacket;
-wire    [  1: 0] out_error;
 wire             out_startofpacket;
 wire             out_valid;
 wire    [ 58: 0] read_command_data;
@@ -2103,7 +2077,6 @@ reg              reset_n;
 wire             sop_to_fifo;
 wire    [  7: 0] source_stream_data;
 wire             source_stream_endofpacket;
-wire    [  1: 0] source_stream_error;
 wire             source_stream_ready;
 wire             source_stream_startofpacket;
 wire             source_stream_valid;
@@ -2211,7 +2184,6 @@ wire             valid_to_fifo;
       .reset_n                     (reset_n),
       .source_stream_data          (data_to_fifo),
       .source_stream_endofpacket   (eop_to_fifo),
-      .source_stream_error         (error_to_fifo),
       .source_stream_ready         (ready_from_fifo),
       .source_stream_startofpacket (sop_to_fifo),
       .source_stream_valid         (valid_to_fifo),
@@ -2227,13 +2199,11 @@ wire             valid_to_fifo;
       .reset_n                     (reset_n),
       .sink_stream_data            (data_to_fifo),
       .sink_stream_endofpacket     (eop_to_fifo),
-      .sink_stream_error           (error_to_fifo),
       .sink_stream_ready           (ready_from_fifo),
       .sink_stream_startofpacket   (sop_to_fifo),
       .sink_stream_valid           (valid_to_fifo),
       .source_stream_data          (source_stream_data),
       .source_stream_endofpacket   (source_stream_endofpacket),
-      .source_stream_error         (source_stream_error),
       .source_stream_ready         (source_stream_ready),
       .source_stream_startofpacket (source_stream_startofpacket),
       .source_stream_valid         (source_stream_valid)
@@ -2282,7 +2252,6 @@ wire             valid_to_fifo;
   //descriptor_write, which is an e_avalon_master
   //csr, which is an e_avalon_slave
   //m_read, which is an e_avalon_master
-  assign out_error = source_stream_error;
   //out, which is an e_atlantic_master
   assign out_data = source_stream_data;
   assign out_valid = source_stream_valid;

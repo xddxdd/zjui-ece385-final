@@ -65,7 +65,7 @@ module eth_mac_1g_rgmii #
     input  wire        rgmii_rx_clk,
     input  wire [3:0]  rgmii_rxd,
     input  wire        rgmii_rx_ctl,
-    input  wire        rgmii_tx_clk,
+    output wire        rgmii_tx_clk,
     output wire [3:0]  rgmii_txd,
     output wire        rgmii_tx_ctl,
 
@@ -95,14 +95,12 @@ wire        mac_gmii_tx_er;
 reg [1:0] speed_reg = 2'b10;
 reg mii_select_reg = 1'b0;
 
-(* srl_style = "register" *)
 reg [1:0] tx_mii_select_sync = 2'd0;
 
 always @(posedge tx_clk) begin
     tx_mii_select_sync <= {tx_mii_select_sync[0], mii_select_reg};
 end
 
-(* srl_style = "register" *)
 reg [1:0] rx_mii_select_sync = 2'd0;
 
 always @(posedge rx_clk) begin
@@ -116,7 +114,6 @@ always @(posedge rx_clk) begin
     rx_prescale <= rx_prescale + 3'd1;
 end
 
-(* srl_style = "register" *)
 reg [2:0] rx_prescale_sync = 3'd0;
 
 always @(posedge gtx_clk) begin

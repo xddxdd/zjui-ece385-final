@@ -1555,7 +1555,7 @@
   <parameter name="readBlockDataWidth" value="8" />
   <parameter name="readBurstcountWidth" value="4" />
   <parameter name="sinkErrorWidth" value="0" />
-  <parameter name="sourceErrorWidth" value="2" />
+  <parameter name="sourceErrorWidth" value="0" />
   <parameter name="transferMode" value="MEMORY_TO_STREAM" />
   <parameter name="writeBurstcountWidth" value="4" />
  </module>
@@ -1567,7 +1567,7 @@
   <parameter name="BITS_PER_SYMBOL" value="8" />
   <parameter name="CHANNEL_WIDTH" value="0" />
   <parameter name="ENABLE_EXPLICIT_MAXCHANNEL" value="false" />
-  <parameter name="ERROR_WIDTH" value="2" />
+  <parameter name="ERROR_WIDTH" value="0" />
   <parameter name="EXPLICIT_MAXCHANNEL" value="0" />
   <parameter name="FIFO_DEPTH" value="2048" />
   <parameter name="RD_SYNC_DEPTH" value="3" />
@@ -1636,7 +1636,7 @@
   <parameter name="readBlockDataWidth" value="8" />
   <parameter name="readBurstcountWidth" value="4" />
   <parameter name="sinkErrorWidth" value="3" />
-  <parameter name="sourceErrorWidth" value="2" />
+  <parameter name="sourceErrorWidth" value="0" />
   <parameter name="transferMode" value="MEMORY_TO_STREAM" />
   <parameter name="writeBurstcountWidth" value="4" />
  </module>
@@ -1648,7 +1648,7 @@
   <parameter name="BITS_PER_SYMBOL" value="8" />
   <parameter name="CHANNEL_WIDTH" value="0" />
   <parameter name="ENABLE_EXPLICIT_MAXCHANNEL" value="false" />
-  <parameter name="ERROR_WIDTH" value="2" />
+  <parameter name="ERROR_WIDTH" value="0" />
   <parameter name="EXPLICIT_MAXCHANNEL" value="0" />
   <parameter name="FIFO_DEPTH" value="2048" />
   <parameter name="RD_SYNC_DEPTH" value="3" />

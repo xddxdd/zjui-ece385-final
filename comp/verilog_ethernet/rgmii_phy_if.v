@@ -54,7 +54,7 @@ module rgmii_phy_if (
     input  wire        phy_rgmii_rx_clk,
     input  wire [3:0]  phy_rgmii_rxd,
     input  wire        phy_rgmii_rx_ctl,
-    input  wire        phy_rgmii_tx_clk,
+    output wire        phy_rgmii_tx_clk,
     output wire [3:0]  phy_rgmii_txd,
     output wire        phy_rgmii_tx_ctl,
 
@@ -184,19 +184,19 @@ always @* begin
     end
 end
 
-//wire phy_rgmii_tx_clk_new;
+wire phy_rgmii_tx_clk_new;
 wire [3:0] phy_rgmii_txd_new;
 wire phy_rgmii_tx_ctl_new;
 
-//oddr #(
-//    .WIDTH(1)
-//)
-//clk_oddr_inst (
-//    .clk(clk),
-//    .d1(rgmii_tx_clk_1),
-//    .d2(rgmii_tx_clk_2),
-//    .q(phy_rgmii_tx_clk)
-//);
+oddr #(
+    .WIDTH(1)
+)
+clk_oddr_inst (
+    .clk(clk),
+    .d1(rgmii_tx_clk_1),
+    .d2(rgmii_tx_clk_2),
+    .q(phy_rgmii_tx_clk)
+);
 
 oddr #(
     .WIDTH(5)

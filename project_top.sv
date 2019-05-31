@@ -277,21 +277,9 @@ assign ENET0_MDIO = ETH0_MDIO_OEN ? 1'bZ : ETH0_MDIO_OUT;
 
 assign ENET0_RST_N = RESET;
 
-logic ETH0_MODE_1G, ETH0_MODE_100M, ETH0_OUTPUT_CLK;
-
-assign ETH0_OUTPUT_CLK = ETH0_MODE_1G ? ETH_CLK_125 : ETH0_MODE_100M ? ETH_CLK_25 : ETH_CLK_2_5;
-
-eth_ddio ETH0_DDIO(
-	.datain_h(1'b1),
-	.datain_l(1'b0),
-	.outclock(ETH0_OUTPUT_CLK),
-	.dataout(ENET0_GTX_CLK)
-);
-
 logic ETH0_CLK_TX, ETH0_CLK_RX;
 logic [7:0] ETH0_TX_DATA;
 logic ETH0_TX_VALID, ETH0_TX_READY, ETH0_TX_EOP;
-logic [1:0] ETH0_TX_ERROR;
 
 logic [7:0] ETH0_RX_DATA;
 logic ETH0_RX_VALID, ETH0_RX_EOP, ETH0_RX_SOP;
@@ -310,8 +298,6 @@ eth_mac_1g_rgmii #(
     .tx_axis_tvalid(ETH0_TX_VALID),
     .tx_axis_tready(ETH0_TX_READY),
     .tx_axis_tlast(ETH0_TX_EOP),
-    .tx_axis_tuser(ETH0_TX_ERROR[0]),
-    .tx_error_underflow(ETH0_TX_ERROR[1]),
 
     .rx_clk(ETH0_CLK_RX),
     .rx_rst(~RESET),
@@ -326,11 +312,11 @@ eth_mac_1g_rgmii #(
     .rgmii_rx_clk(ENET0_RX_CLK),
     .rgmii_rxd(ENET0_RX_DATA),
     .rgmii_rx_ctl(ENET0_RX_DV),
-    .rgmii_tx_clk(ENET0_TX_CLK),
+    .rgmii_tx_clk(ENET0_GTX_CLK),
     .rgmii_txd(ENET0_TX_DATA),
     .rgmii_tx_ctl(ENET0_TX_EN),
 	
-    .speed({ETH0_MODE_1G, ETH0_MODE_100M})
+	.ifg_delay(8'd12)
 );
 
 // Ethernet 1 external logic
@@ -341,21 +327,9 @@ assign ENET1_MDIO = ETH1_MDIO_OEN ? 1'bZ : ETH1_MDIO_OUT;
 
 assign ENET1_RST_N = RESET;
 
-logic ETH1_MODE_1G, ETH1_MODE_100M, ETH1_OUTPUT_CLK;
-
-assign ETH1_OUTPUT_CLK = ETH1_MODE_1G ? ETH_CLK_125 : ETH1_MODE_100M ? ETH_CLK_25 : ETH_CLK_2_5;
-
-eth_ddio ETH1_DDIO(
-	.datain_h(1'b1),
-	.datain_l(1'b0),
-	.outclock(ETH1_OUTPUT_CLK),
-	.dataout(ENET1_GTX_CLK)
-);
-
 logic ETH1_CLK_TX, ETH1_CLK_RX;
 logic [7:0] ETH1_TX_DATA;
 logic ETH1_TX_VALID, ETH1_TX_READY, ETH1_TX_EOP;
-logic [1:0] ETH1_TX_ERROR;
 
 logic [7:0] ETH1_RX_DATA;
 logic ETH1_RX_VALID, ETH1_RX_EOP, ETH1_RX_SOP;
@@ -374,8 +348,7 @@ eth_mac_1g_rgmii #(
     .tx_axis_tvalid(ETH1_TX_VALID),
     .tx_axis_tready(ETH1_TX_READY),
     .tx_axis_tlast(ETH1_TX_EOP),
-    .tx_axis_tuser(ETH1_TX_ERROR[0]),
-    .tx_error_underflow(ETH1_TX_ERROR[1]),
+    .tx_axis_tuser(1'b0),
 
     .rx_clk(ETH1_CLK_RX),
     .rx_rst(~RESET),
@@ -390,11 +363,11 @@ eth_mac_1g_rgmii #(
     .rgmii_rx_clk(ENET1_RX_CLK),
     .rgmii_rxd(ENET1_RX_DATA),
     .rgmii_rx_ctl(ENET1_RX_DV),
-    .rgmii_tx_clk(ENET1_TX_CLK),
+    .rgmii_tx_clk(ENET1_GTX_CLK),
     .rgmii_txd(ENET1_TX_DATA),
     .rgmii_tx_ctl(ENET1_TX_EN),
 	
-    .speed({ETH1_MODE_1G, ETH1_MODE_100M})
+	.ifg_delay(8'd12)
 );
 
 // VGA Controller
@@ -633,8 +606,8 @@ ECE385 ECE385_sys(
 	
 	.eth0_tx_fifo_out_data(ETH0_TX_DATA),
 	.eth0_tx_fifo_out_valid(ETH0_TX_VALID),
+	.eth0_tx_fifo_out_ready(ETH0_TX_READY),
 	.eth0_tx_fifo_out_endofpacket(ETH0_TX_EOP),
-	.eth0_tx_fifo_out_error(ETH0_TX_ERROR),
 	.eth0_tx_fifo_out_clk_clk(ETH0_CLK_TX),
 	.eth0_tx_fifo_out_clk_reset_reset_n(RESET),
 	
@@ -646,7 +619,6 @@ ECE385 ECE385_sys(
 	
 	.eth1_rx_fifo_in_data(ETH1_RX_DATA),
 	.eth1_rx_fifo_in_valid(ETH1_RX_VALID),
-	.eth1_rx_fifo_in_ready(ETH1_RX_READY),
 	.eth1_rx_fifo_in_startofpacket(ETH1_RX_SOP),
 	.eth1_rx_fifo_in_endofpacket(ETH1_RX_EOP),
 	.eth1_rx_fifo_in_error(ETH1_RX_ERROR),
@@ -657,7 +629,6 @@ ECE385 ECE385_sys(
 	.eth1_tx_fifo_out_valid(ETH1_TX_VALID),
 	.eth1_tx_fifo_out_ready(ETH1_TX_READY),
 	.eth1_tx_fifo_out_endofpacket(ETH1_TX_EOP),
-	.eth1_tx_fifo_out_error(ETH1_TX_ERROR),
 	.eth1_tx_fifo_out_clk_clk(ETH1_CLK_TX),
 	.eth1_tx_fifo_out_clk_reset_reset_n(RESET),
 	

@@ -2,7 +2,7 @@ set_global_assignment -entity "ECE385" -library "ECE385" -name IP_TOOL_NAME "Qsy
 set_global_assignment -entity "ECE385" -library "ECE385" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "ECE385" -library "ECE385" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "ECE385" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../ECE385.sopcinfo"]
-set_global_assignment -entity "ECE385" -library "ECE385" -name SLD_INFO "QSYS_NAME ECE385 HAS_SOPCINFO 1 GENERATION_ID 1559221092"
+set_global_assignment -entity "ECE385" -library "ECE385" -name SLD_INFO "QSYS_NAME ECE385 HAS_SOPCINFO 1 GENERATION_ID 1559285076"
 set_global_assignment -library "ECE385" -name MISC_FILE [file join $::quartus(qip_path) "../ECE385.cmp"]
 set_global_assignment -library "ECE385" -name SLD_FILE [file join $::quartus(qip_path) "ECE385.regmap"]
 set_global_assignment -library "ECE385" -name SLD_FILE [file join $::quartus(qip_path) "ECE385.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_DISP
 set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU1OTIyMTA5Mg==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU1OTI4NTA3Ng==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0UxMTVGMjlDNw==::QXV0byBERVZJQ0U="
 set_global_assignment -entity "ECE385" -library "ECE385" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Nw==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -2659,7 +2659,7 @@ set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_CO
 set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "ZW5hYmxlVW5hbGlnbmVkVHJhbnNmZXJz::ZmFsc2U=::QWxsb3cgdW5hbGlnbmVkIHRyYW5zZmVycw=="
 set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "aW50ZXJuYWxGSUZPRGVwdGg=::Mg==::aW50ZXJuYWxGSUZPRGVwdGg="
 set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "cmVhZEJsb2NrRGF0YVdpZHRo::OA==::RGF0YSB3aWR0aA=="
-set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "c291cmNlRXJyb3JXaWR0aA==::Mg==::U291cmNlIGVycm9yIHdpZHRo"
+set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "c291cmNlRXJyb3JXaWR0aA==::MA==::U291cmNlIGVycm9yIHdpZHRo"
 set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "dHJhbnNmZXJNb2Rl::TUVNT1JZX1RPX1NUUkVBTQ==::VHJhbnNmZXIgbW9kZQ=="
 set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "ZGV2aWNlRmFtaWx5U3RyaW5n::Q3ljbG9uZSBJViBF::ZGV2aWNlRmFtaWx5U3RyaW5n"
 set_global_assignment -entity "ECE385_eth1_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "YWN0dWFsRGF0YVRyYW5zZmVyRklGT0RlcHRo::MjU2::RGF0YSB0cmFuc2ZlciBGSUZPIGRlcHRo"
@@ -2683,7 +2683,7 @@ set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_CO
 set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "ZW5hYmxlVW5hbGlnbmVkVHJhbnNmZXJz::ZmFsc2U=::QWxsb3cgdW5hbGlnbmVkIHRyYW5zZmVycw=="
 set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "aW50ZXJuYWxGSUZPRGVwdGg=::Mg==::aW50ZXJuYWxGSUZPRGVwdGg="
 set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "cmVhZEJsb2NrRGF0YVdpZHRo::OA==::RGF0YSB3aWR0aA=="
-set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "c291cmNlRXJyb3JXaWR0aA==::Mg==::U291cmNlIGVycm9yIHdpZHRo"
+set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "c291cmNlRXJyb3JXaWR0aA==::MA==::U291cmNlIGVycm9yIHdpZHRo"
 set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "dHJhbnNmZXJNb2Rl::TUVNT1JZX1RPX1NUUkVBTQ==::VHJhbnNmZXIgbW9kZQ=="
 set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "ZGV2aWNlRmFtaWx5U3RyaW5n::Q3ljbG9uZSBJViBF::ZGV2aWNlRmFtaWx5U3RyaW5n"
 set_global_assignment -entity "ECE385_eth0_tx_dma" -library "ECE385" -name IP_COMPONENT_PARAMETER "YWN0dWFsRGF0YVRyYW5zZmVyRklGT0RlcHRo::MjU2::RGF0YSB0cmFuc2ZlciBGSUZPIGRlcHRo"

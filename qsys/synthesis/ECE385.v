@@ -34,7 +34,6 @@ module ECE385 (
 		input  wire        eth0_tx_fifo_out_ready,                         //                                        .ready
 		output wire        eth0_tx_fifo_out_startofpacket,                 //                                        .startofpacket
 		output wire        eth0_tx_fifo_out_endofpacket,                   //                                        .endofpacket
-		output wire [1:0]  eth0_tx_fifo_out_error,                         //                                        .error
 		input  wire        eth0_tx_fifo_out_clk_clk,                       //                    eth0_tx_fifo_out_clk.clk
 		input  wire        eth0_tx_fifo_out_clk_reset_reset_n,             //              eth0_tx_fifo_out_clk_reset.reset_n
 		output wire        eth1_mdio_mdc,                                  //                               eth1_mdio.mdc
@@ -55,7 +54,6 @@ module ECE385 (
 		input  wire        eth1_tx_fifo_out_ready,                         //                                        .ready
 		output wire        eth1_tx_fifo_out_startofpacket,                 //                                        .startofpacket
 		output wire        eth1_tx_fifo_out_endofpacket,                   //                                        .endofpacket
-		output wire [1:0]  eth1_tx_fifo_out_error,                         //                                        .error
 		input  wire        eth1_tx_fifo_out_clk_clk,                       //                    eth1_tx_fifo_out_clk.clk
 		input  wire        eth1_tx_fifo_out_clk_reset_reset_n,             //              eth1_tx_fifo_out_clk_reset.reset_n
 		output wire        eth_pll_125_clk,                                //                             eth_pll_125.clk
@@ -193,7 +191,6 @@ module ECE385 (
 	wire         eth0_tx_dma_out_ready;                                           // eth0_tx_fifo:in_ready -> eth0_tx_dma:out_ready
 	wire         eth0_tx_dma_out_startofpacket;                                   // eth0_tx_dma:out_startofpacket -> eth0_tx_fifo:in_startofpacket
 	wire         eth0_tx_dma_out_endofpacket;                                     // eth0_tx_dma:out_endofpacket -> eth0_tx_fifo:in_endofpacket
-	wire   [1:0] eth0_tx_dma_out_error;                                           // eth0_tx_dma:out_error -> eth0_tx_fifo:in_error
 	wire         eth1_rx_fifo_out_valid;                                          // eth1_rx_fifo:out_valid -> eth1_rx_dma:in_valid
 	wire   [7:0] eth1_rx_fifo_out_data;                                           // eth1_rx_fifo:out_data -> eth1_rx_dma:in_data
 	wire         eth1_rx_fifo_out_ready;                                          // eth1_rx_dma:in_ready -> eth1_rx_fifo:out_ready
@@ -205,7 +202,6 @@ module ECE385 (
 	wire         eth1_tx_dma_out_ready;                                           // eth1_tx_fifo:in_ready -> eth1_tx_dma:out_ready
 	wire         eth1_tx_dma_out_startofpacket;                                   // eth1_tx_dma:out_startofpacket -> eth1_tx_fifo:in_startofpacket
 	wire         eth1_tx_dma_out_endofpacket;                                     // eth1_tx_dma:out_endofpacket -> eth1_tx_fifo:in_endofpacket
-	wire   [1:0] eth1_tx_dma_out_error;                                           // eth1_tx_dma:out_error -> eth1_tx_fifo:in_error
 	wire         nios2_pll_c2_clk;                                                // nios2_pll:c2 -> sram_multiplexer:CLK2
 	wire  [31:0] nios2_cpu_data_master_readdata;                                  // mm_interconnect_0:nios2_cpu_data_master_readdata -> nios2_cpu:d_readdata
 	wire         nios2_cpu_data_master_waitrequest;                               // mm_interconnect_0:nios2_cpu_data_master_waitrequest -> nios2_cpu:d_waitrequest
@@ -733,8 +729,7 @@ module ECE385 (
 		.out_valid                     (eth0_tx_dma_out_valid),                        //                 .valid
 		.out_ready                     (eth0_tx_dma_out_ready),                        //                 .ready
 		.out_endofpacket               (eth0_tx_dma_out_endofpacket),                  //                 .endofpacket
-		.out_startofpacket             (eth0_tx_dma_out_startofpacket),                //                 .startofpacket
-		.out_error                     (eth0_tx_dma_out_error)                         //                 .error
+		.out_startofpacket             (eth0_tx_dma_out_startofpacket)                 //                 .startofpacket
 	);
 
 	altera_avalon_dc_fifo #(
@@ -742,7 +737,7 @@ module ECE385 (
 		.BITS_PER_SYMBOL    (8),
 		.FIFO_DEPTH         (2048),
 		.CHANNEL_WIDTH      (0),
-		.ERROR_WIDTH        (2),
+		.ERROR_WIDTH        (0),
 		.USE_PACKETS        (1),
 		.USE_IN_FILL_LEVEL  (0),
 		.USE_OUT_FILL_LEVEL (0),
@@ -758,13 +753,11 @@ module ECE385 (
 		.in_ready          (eth0_tx_dma_out_ready),                //              .ready
 		.in_startofpacket  (eth0_tx_dma_out_startofpacket),        //              .startofpacket
 		.in_endofpacket    (eth0_tx_dma_out_endofpacket),          //              .endofpacket
-		.in_error          (eth0_tx_dma_out_error),                //              .error
 		.out_data          (eth0_tx_fifo_out_data),                //           out.data
 		.out_valid         (eth0_tx_fifo_out_valid),               //              .valid
 		.out_ready         (eth0_tx_fifo_out_ready),               //              .ready
 		.out_startofpacket (eth0_tx_fifo_out_startofpacket),       //              .startofpacket
 		.out_endofpacket   (eth0_tx_fifo_out_endofpacket),         //              .endofpacket
-		.out_error         (eth0_tx_fifo_out_error),               //              .error
 		.in_csr_address    (1'b0),                                 //   (terminated)
 		.in_csr_read       (1'b0),                                 //   (terminated)
 		.in_csr_write      (1'b0),                                 //   (terminated)
@@ -777,6 +770,8 @@ module ECE385 (
 		.out_csr_writedata (32'b00000000000000000000000000000000), //   (terminated)
 		.in_empty          (1'b0),                                 //   (terminated)
 		.out_empty         (),                                     //   (terminated)
+		.in_error          (1'b0),                                 //   (terminated)
+		.out_error         (),                                     //   (terminated)
 		.in_channel        (1'b0),                                 //   (terminated)
 		.out_channel       (),                                     //   (terminated)
 		.space_avail_data  ()                                      //   (terminated)
@@ -904,8 +899,7 @@ module ECE385 (
 		.out_valid                     (eth1_tx_dma_out_valid),                        //                 .valid
 		.out_ready                     (eth1_tx_dma_out_ready),                        //                 .ready
 		.out_endofpacket               (eth1_tx_dma_out_endofpacket),                  //                 .endofpacket
-		.out_startofpacket             (eth1_tx_dma_out_startofpacket),                //                 .startofpacket
-		.out_error                     (eth1_tx_dma_out_error)                         //                 .error
+		.out_startofpacket             (eth1_tx_dma_out_startofpacket)                 //                 .startofpacket
 	);
 
 	altera_avalon_dc_fifo #(
@@ -913,7 +907,7 @@ module ECE385 (
 		.BITS_PER_SYMBOL    (8),
 		.FIFO_DEPTH         (2048),
 		.CHANNEL_WIDTH      (0),
-		.ERROR_WIDTH        (2),
+		.ERROR_WIDTH        (0),
 		.USE_PACKETS        (1),
 		.USE_IN_FILL_LEVEL  (0),
 		.USE_OUT_FILL_LEVEL (0),
@@ -929,13 +923,11 @@ module ECE385 (
 		.in_ready          (eth1_tx_dma_out_ready),                //              .ready
 		.in_startofpacket  (eth1_tx_dma_out_startofpacket),        //              .startofpacket
 		.in_endofpacket    (eth1_tx_dma_out_endofpacket),          //              .endofpacket
-		.in_error          (eth1_tx_dma_out_error),                //              .error
 		.out_data          (eth1_tx_fifo_out_data),                //           out.data
 		.out_valid         (eth1_tx_fifo_out_valid),               //              .valid
 		.out_ready         (eth1_tx_fifo_out_ready),               //              .ready
 		.out_startofpacket (eth1_tx_fifo_out_startofpacket),       //              .startofpacket
 		.out_endofpacket   (eth1_tx_fifo_out_endofpacket),         //              .endofpacket
-		.out_error         (eth1_tx_fifo_out_error),               //              .error
 		.in_csr_address    (1'b0),                                 //   (terminated)
 		.in_csr_read       (1'b0),                                 //   (terminated)
 		.in_csr_write      (1'b0),                                 //   (terminated)
@@ -948,6 +940,8 @@ module ECE385 (
 		.out_csr_writedata (32'b00000000000000000000000000000000), //   (terminated)
 		.in_empty          (1'b0),                                 //   (terminated)
 		.out_empty         (),                                     //   (terminated)
+		.in_error          (1'b0),                                 //   (terminated)
+		.out_error         (),                                     //   (terminated)
 		.in_channel        (1'b0),                                 //   (terminated)
 		.out_channel       (),                                     //   (terminated)
 		.space_avail_data  ()                                      //   (terminated)

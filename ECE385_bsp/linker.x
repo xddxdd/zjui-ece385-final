@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Mon May 27 20:04:43 CST 2019
+ * Generated: Fri May 31 12:58:08 CST 2019
  */
 
 /*
@@ -50,33 +50,33 @@
 
 MEMORY
 {
+    audio_mem : ORIGIN = 0x410000, LENGTH = 65536
     reset : ORIGIN = 0x420000, LENGTH = 32
-    nios2_onchip_mem : ORIGIN = 0x420020, LENGTH = 131040
-    audio_mem : ORIGIN = 0x440000, LENGTH = 65536
-    vga_sprite_7 : ORIGIN = 0x450000, LENGTH = 8192
-    vga_sprite_6 : ORIGIN = 0x452000, LENGTH = 8192
-    vga_sprite_5 : ORIGIN = 0x454000, LENGTH = 8192
-    vga_sprite_4 : ORIGIN = 0x456000, LENGTH = 8192
-    vga_sprite_3 : ORIGIN = 0x458000, LENGTH = 8192
-    vga_sprite_2 : ORIGIN = 0x45a000, LENGTH = 8192
-    vga_sprite_1 : ORIGIN = 0x45c000, LENGTH = 8192
-    vga_sprite_0 : ORIGIN = 0x45e000, LENGTH = 8192
-    usb_keycode : ORIGIN = 0x461000, LENGTH = 1024
+    nios2_onchip_mem : ORIGIN = 0x420020, LENGTH = 65504
+    vga_sprite_7 : ORIGIN = 0x430000, LENGTH = 8192
+    vga_sprite_6 : ORIGIN = 0x432000, LENGTH = 8192
+    vga_sprite_5 : ORIGIN = 0x434000, LENGTH = 8192
+    vga_sprite_4 : ORIGIN = 0x436000, LENGTH = 8192
+    vga_sprite_3 : ORIGIN = 0x438000, LENGTH = 8192
+    vga_sprite_2 : ORIGIN = 0x43a000, LENGTH = 8192
+    vga_sprite_1 : ORIGIN = 0x43c000, LENGTH = 8192
+    vga_sprite_0 : ORIGIN = 0x43e000, LENGTH = 8192
+    usb_keycode : ORIGIN = 0x441000, LENGTH = 1024
     sdram : ORIGIN = 0x8000000, LENGTH = 134217728
 }
 
 /* Define symbols for each memory base-address */
+__alt_mem_audio_mem = 0x410000;
 __alt_mem_nios2_onchip_mem = 0x420000;
-__alt_mem_audio_mem = 0x440000;
-__alt_mem_vga_sprite_7 = 0x450000;
-__alt_mem_vga_sprite_6 = 0x452000;
-__alt_mem_vga_sprite_5 = 0x454000;
-__alt_mem_vga_sprite_4 = 0x456000;
-__alt_mem_vga_sprite_3 = 0x458000;
-__alt_mem_vga_sprite_2 = 0x45a000;
-__alt_mem_vga_sprite_1 = 0x45c000;
-__alt_mem_vga_sprite_0 = 0x45e000;
-__alt_mem_usb_keycode = 0x461000;
+__alt_mem_vga_sprite_7 = 0x430000;
+__alt_mem_vga_sprite_6 = 0x432000;
+__alt_mem_vga_sprite_5 = 0x434000;
+__alt_mem_vga_sprite_4 = 0x436000;
+__alt_mem_vga_sprite_3 = 0x438000;
+__alt_mem_vga_sprite_2 = 0x43a000;
+__alt_mem_vga_sprite_1 = 0x43c000;
+__alt_mem_vga_sprite_0 = 0x43e000;
+__alt_mem_usb_keycode = 0x441000;
 __alt_mem_sdram = 0x8000000;
 
 OUTPUT_FORMAT( "elf32-littlenios2",
@@ -337,7 +337,24 @@ SECTIONS
      *
      */
 
-    .nios2_onchip_mem LOADADDR (.bss) + SIZEOF (.bss) : AT ( LOADADDR (.bss) + SIZEOF (.bss) )
+    .audio_mem : AT ( LOADADDR (.bss) + SIZEOF (.bss) )
+    {
+        PROVIDE (_alt_partition_audio_mem_start = ABSOLUTE(.));
+        *(.audio_mem .audio_mem. audio_mem.*)
+        . = ALIGN(4);
+        PROVIDE (_alt_partition_audio_mem_end = ABSOLUTE(.));
+    } > audio_mem
+
+    PROVIDE (_alt_partition_audio_mem_load_addr = LOADADDR(.audio_mem));
+
+    /*
+     *
+     * This section's LMA is set to the .text region.
+     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
+     *
+     */
+
+    .nios2_onchip_mem LOADADDR (.audio_mem) + SIZEOF (.audio_mem) : AT ( LOADADDR (.audio_mem) + SIZEOF (.audio_mem) )
     {
         PROVIDE (_alt_partition_nios2_onchip_mem_start = ABSOLUTE(.));
         *(.nios2_onchip_mem .nios2_onchip_mem. nios2_onchip_mem.*)
@@ -357,24 +374,7 @@ SECTIONS
      *
      */
 
-    .audio_mem : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
-    {
-        PROVIDE (_alt_partition_audio_mem_start = ABSOLUTE(.));
-        *(.audio_mem .audio_mem. audio_mem.*)
-        . = ALIGN(4);
-        PROVIDE (_alt_partition_audio_mem_end = ABSOLUTE(.));
-    } > audio_mem
-
-    PROVIDE (_alt_partition_audio_mem_load_addr = LOADADDR(.audio_mem));
-
-    /*
-     *
-     * This section's LMA is set to the .text region.
-     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
-     *
-     */
-
-    .vga_sprite_7 : AT ( LOADADDR (.audio_mem) + SIZEOF (.audio_mem) )
+    .vga_sprite_7 : AT ( LOADADDR (.nios2_onchip_mem) + SIZEOF (.nios2_onchip_mem) )
     {
         PROVIDE (_alt_partition_vga_sprite_7_start = ABSOLUTE(.));
         *(.vga_sprite_7 .vga_sprite_7. vga_sprite_7.*)
@@ -584,7 +584,7 @@ SECTIONS
 /*
  * Don't override this, override the __alt_stack_* symbols instead.
  */
-__alt_data_end = 0x440000;
+__alt_data_end = 0x430000;
 
 /*
  * The next two symbols define the location of the default stack.  You can
@@ -600,4 +600,4 @@ PROVIDE( __alt_stack_limit   = __alt_stack_base );
  * Override this symbol to put the heap in a different memory.
  */
 PROVIDE( __alt_heap_start    = end );
-PROVIDE( __alt_heap_limit    = 0x440000 );
+PROVIDE( __alt_heap_limit    = 0x430000 );
