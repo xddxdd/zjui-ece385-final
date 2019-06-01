@@ -3,24 +3,46 @@
 #include "system.h"
 #include "ethernet.h"
 #include "gamelogic.h"
+#include "resources/resource.h"
+#include "vga.h"
+#include "comm.h"
 
 volatile int* io_led_red = (int*) IO_LED_RED_BASE;
 volatile int* io_led_green = (int*) IO_LED_GREEN_BASE;
 volatile int* io_hex = (int*) IO_HEX_BASE;
 volatile int* io_vga_sync = (int*) IO_VGA_SYNC_BASE;
+volatile int* io_vga_background_offset = (int*) VGA_BACKGROUND_OFFSET_BASE;
+volatile game_state_t game_state = GAME_OVER;
 
 int main(void) {
 	eth_init();
-
-	// Unnecessary, initialization can be done in loop
-//	game_init();
 
 	while(1) {
 		eth_loop();
 		*io_hex = eth0_ip();
 
-		if(!game_running) game_init();
-		game_loop();
+		switch(game_state) {
+		case PREPARE_GAME:
+			game_init();
+			vga_scroll_init();
+			break;
+		case IN_GAME:
+			game_loop();
+			vga_scroll(960, background);
+			break;
+		case GAME_OVER:
+			game_over();
+			game_state = GAME_OVER_WAIT_ENTER;
+			break;
+		case GAME_OVER_WAIT_ENTER:
+			for(int i = 0; i < 6; i++) {
+				if(keycode_comm->keycode[i] == 0x28) {
+					game_state = PREPARE_GAME;
+					break;
+				}
+			}
+			break;
+		}
 	}
 
 	return 0;

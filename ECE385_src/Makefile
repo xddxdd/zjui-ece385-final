@@ -188,7 +188,9 @@ C_SRCS += lwip/core/ipv6/nd6.c
 C_SRCS += lwip_port/compat.c
 C_SRCS += gamelogic.c
 C_SRCS += comm.c
-C_SRCS += resource.c
+C_SRCS += resources/vga_fonts.c
+C_SRCS += resources/resource.c
+C_SRCS += resources/chinese.c
 CXX_SRCS :=
 ASM_SRCS :=
 

@@ -5,6 +5,7 @@ module VGA_layer #(
 	input logic [LAYERS-1:0][15:0] VGA_SPRITE_PIXEL,
 						
 	output logic [7:0] VGA_R, VGA_G, VGA_B,
+	input logic [9:0] VGA_DrawY,
 	input logic [15:0] VGA_VAL
 );
 
@@ -46,7 +47,7 @@ logic [15:0] VGA_DISPLAY;
 assign VGA_R = {VGA_DISPLAY[4:0], VGA_DISPLAY[4:2]};
 assign VGA_G = {VGA_DISPLAY[10:5], VGA_DISPLAY[10:9]};
 assign VGA_B = {VGA_DISPLAY[15:11], VGA_DISPLAY[15:13]};
-assign VGA_DISPLAY = VGA_L3_ISOBJ[0] ? VGA_L3_PIXEL[0] : VGA_VAL;
+assign VGA_DISPLAY = (!VGA_L3_ISOBJ[0] || VGA_DrawY >= 448) ? VGA_VAL : VGA_L3_PIXEL[0];
 
 endmodule
 

@@ -4,18 +4,18 @@
 
 #include "main.h"
 #include "vga.h"
-#include "resource.h"
+#include "resources/resource.h"
 #include "comm.h"
 #include "rng.h"
 
 volatile uint32_t frame_count = 0;
-
 int player_plane_id = 0;
 volatile vga_sprite_info_t* player_plane_info = NULL;
-volatile int game_running = 0;
+volatile int player_score = 0;
 
 void game_init() {
 	vga_set(0, 0, VGA_WIDTH, VGA_HEIGHT, background);
+	vga_fill(0, VGA_HEIGHT, VGA_WIDTH, VGA_STATUSBAR_HEIGHT, 0x0000);
 	sprites_init(VGA_SPRITE_PLANE);
 	sprites_init(VGA_SPRITE_BULLET);
 
@@ -26,8 +26,8 @@ void game_init() {
 	// Create player's plane
 	do {
 		int id;
-		int width = 75;
-		int height = 48;
+		int width = planes[0].width;
+		int height = planes[0].height;
 		if(255 == (id = sprites_allocate(VGA_SPRITE_PLANE))) {
 			printf("ERR sprites_allocate");
 			break;
@@ -61,17 +61,29 @@ void game_init() {
 		player_plane_info = sprite_info;
 	} while(0);
 
-	game_running = 1;
+	player_score = 0;
+	vga_statusbar_string(0, (uint8_t*) "生命 18/18 积分 0");
+	game_state = IN_GAME;
 }
 
 void game_loop() {
-	if(!game_running) return;
+	if(game_state != IN_GAME) return;
+
 	static int io_vga_sync_prev = 0;
-	if(io_vga_sync_prev == 0 && *io_vga_sync == 1) {
+	if((!io_vga_sync_prev) && (*io_vga_sync)) {
 		// New frame occured, do job
 		frame_count++;
 
-		handle_player_plane_keyboard(player_plane_id, player_plane_info);
+		// Disallow moving when exploding
+		if(player_plane_info->type == 0) {
+			handle_player_plane_keyboard(player_plane_id, player_plane_info);
+		} else {
+			player_plane_info->vx = 0;
+			player_plane_info->vy = 0;
+			player_plane_info->ax = 0;
+			player_plane_info->ay = 0;
+		}
+
 		handle_enemy_planes_spawn();
 		handle_enemy_planes_firing();
 
@@ -81,10 +93,24 @@ void game_loop() {
 		sprites_collision_detect();
 
 		// Lubenweiniubi
-		player_plane_info->hp = PLAYER_PLANE_HP;
+//		player_plane_info->hp = PLAYER_PLANE_HP;
 
 		// Update player HP
 		*io_led_red = 0xffffffff << (PLAYER_PLANE_HP - player_plane_info->hp);
+
+		// Update statusbar
+		static int prev_hp = 0;
+		static int prev_score = 0;
+		if(prev_hp != player_plane_info->hp || prev_score != player_score) {
+			vga_statusbar_english(5, '0' + player_plane_info->hp / 10);
+			vga_statusbar_english(6, '0' + player_plane_info->hp % 10);
+
+			char* buf[61];
+			snprintf(buf, 60, "%d", player_score);
+			vga_statusbar_string(16, (uint8_t*) buf);
+		}
+		prev_hp = player_plane_info->hp;
+		prev_score = player_score;
 	}
 	io_vga_sync_prev = *io_vga_sync;
 }
@@ -93,7 +119,7 @@ void handle_player_plane_keyboard(int player_plane_id, volatile vga_sprite_info_
 	uint8_t pressed_up = 0, pressed_left = 0, pressed_down = 0, pressed_right = 0;
 	for(int i = 0; i < 2; i++) {
 		int keycode = keycode_comm->keycode[i];
-		if(i == 0) *io_hex = keycode;
+//		if(i == 0) *io_hex = keycode;
 		switch(keycode) {
 		case 0x1A:	// W
 		case 0x52:	// Up
@@ -162,8 +188,8 @@ void handle_player_plane_keyboard(int player_plane_id, volatile vga_sprite_info_
 			sprite_info->physical->x = player_plane_info->physical->x
 					+ (player_plane_info->physical->width << VGA_SPRITE_HW_SHIFT_BITS) / 2;
 			sprite_info->physical->y = player_plane_info->physical->y;
-			sprite_info->physical->bullet_radius = 2;
-			sprite_info->physical->bullet_color = 0x001f;
+			sprite_info->physical->bullet_radius = PLAYER_BULLET_RADIUS;
+			sprite_info->physical->bullet_color = PLAYER_BULLET_COLOR;
 			sprite_info->type = 0;
 			sprite_info->vx = PLAYER_BULLET_VX * (i - 1) + player_plane_info->vx;
 			sprite_info->vx_max = VGA_WIDTH << VGA_SPRITE_HW_SHIFT_BITS;
@@ -180,18 +206,20 @@ void handle_player_plane_keyboard(int player_plane_id, volatile vga_sprite_info_
 void handle_enemy_planes_spawn() {
 	static int next_frame_count = 0;
 	if(frame_count > next_frame_count) {
-		int id;
-		int width = 48;
-		int height = 33;
+		int res_id = rng_generate() % ENEMY_RESOURCE_NUM + ENEMY_RESOURCE_OFFSET;
+		const uint16_t* resource = planes[res_id].data;
+		int width = planes[res_id].width;
+		int height = planes[res_id].height;
 
+		int id;
 		if(255 == (id = sprites_allocate(VGA_SPRITE_PLANE))) {
 			printf("ERR sprites_allocate");
 			return;
 		}
-//		if(255 == sprites_load_data(VGA_SPRITE_PLANE, id, plane2, width * height)) {
-//			printf("ERR sprites_load_data");
-//			return;
-//		}
+		if(255 == sprites_load_data(VGA_SPRITE_PLANE, id, resource, width * height)) {
+			printf("ERR sprites_load_data");
+			return;
+		}
 		volatile vga_sprite_info_t* sprite_info = sprites_get(VGA_SPRITE_PLANE, id);
 		if(NULL == sprite_info) {
 			printf("ERR sprites_get");
@@ -265,11 +293,6 @@ void handle_enemy_planes_spawn() {
 		}
 		sprite_info->type = 1;
 		sprite_info->hp = ENEMY_PLANE_HP;
-//
-//		sprite_info->vx = rng_generate() % (2 * ENEMY_PLANE_VX) - ENEMY_PLANE_VX;
-//		sprite_info->vy = rng_generate() % (2 * ENEMY_PLANE_VY) - ENEMY_PLANE_VY;
-//		sprite_info->ax = rng_generate() % (2 * ENEMY_PLANE_AX) - ENEMY_PLANE_AX;
-//		sprite_info->ay = rng_generate() % (2 * ENEMY_PLANE_AY) - ENEMY_PLANE_AY;
 
 		sprite_info->physical->width = width;
 		sprite_info->physical->height = height;
@@ -302,18 +325,28 @@ void handle_enemy_planes_firing() {
 					+ (plane_info->physical->width << VGA_SPRITE_HW_SHIFT_BITS) / 2;
 			sprite_info->physical->y = plane_info->physical->y
 					+ (plane_info->physical->height << VGA_SPRITE_HW_SHIFT_BITS);
-			sprite_info->physical->bullet_radius = 2;
-			sprite_info->physical->bullet_color = 0xf800;
+			sprite_info->physical->bullet_radius = ENEMY_BULLET_RADIUS;
+			sprite_info->physical->bullet_color = ENEMY_BULLET_COLOR;
 			sprite_info->type = 1;
-			sprite_info->vx = ENEMY_BULLET_VX;
-			sprite_info->vy = ENEMY_BULLET_VY;
-			sprite_info->vx_max = VGA_WIDTH << VGA_SPRITE_HW_SHIFT_BITS;
-			sprite_info->vx_min = -(VGA_WIDTH << VGA_SPRITE_HW_SHIFT_BITS);
-			sprite_info->vy = ENEMY_BULLET_VY;
-			sprite_info->vy_max = VGA_HEIGHT << VGA_SPRITE_HW_SHIFT_BITS;
-			sprite_info->vy_min = -(VGA_HEIGHT << VGA_SPRITE_HW_SHIFT_BITS);
+			sprite_info->vx = ENEMY_BULLET_VX + plane_info->vx;
+			sprite_info->vy = ENEMY_BULLET_VY + plane_info->vy;
+			sprite_info->vx_max = ENEMY_BULLET_VMAX;
+			sprite_info->vx_min = -ENEMY_BULLET_VMAX;
+			sprite_info->vy_max = ENEMY_BULLET_VMAX;
+			sprite_info->vy_min = -ENEMY_BULLET_VMAX;
 			sprite_info->ax = ENEMY_BULLET_AX;
 			sprite_info->ay = ENEMY_BULLET_AY;
 		}
 	}
+}
+
+void game_over() {
+	vga_fill(0, 0, VGA_WIDTH, VGA_HEIGHT, 0x0000);
+	vga_fill(0, VGA_HEIGHT, VGA_WIDTH, VGA_STATUSBAR_HEIGHT, 0x0000);
+	sprites_init(VGA_SPRITE_PLANE);
+	sprites_init(VGA_SPRITE_BULLET);
+
+	char* buf[61];
+	snprintf(buf, 60, "游戏结束 积分 %d 按 Enter 继续 ", player_score);
+	vga_statusbar_string(0, (uint8_t*) buf);
 }

@@ -400,6 +400,7 @@ VGA_controller VGA(
 VGA_layer VGA_layer_manager(
 	.VGA_VAL,
 	.VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B),
+	.VGA_DrawY,
 	.VGA_SPRITE_ISOBJ, .VGA_SPRITE_PIXEL
 );
 
@@ -470,6 +471,18 @@ wm8731_buffer wm8731_buf(
 	.MEM_DATA(WM8731_MEM_DATA)
 );
 
+// VGA Scrolling & Statusbar
+logic [9:0] VGA_RealDrawY;
+always_comb begin
+	if(VGA_DrawY >= 448) begin
+		VGA_RealDrawY = VGA_DrawY;
+	end else if(VGA_DrawY + VGA_BG_OFFSET >= 448) begin
+		VGA_RealDrawY = VGA_DrawY + VGA_BG_OFFSET - 448;
+	end else begin
+		VGA_RealDrawY = VGA_DrawY + VGA_BG_OFFSET;
+	end
+end
+
 // Main system
 ECE385 ECE385_sys(
 	.clk_clk(CLOCK_50),
@@ -483,6 +496,7 @@ ECE385 ECE385_sys(
 	.io_led_red_export(LEDR),
 	.io_switches_export(SW),
 	.io_hex_export(HEX_EXPORT),
+	.io_vga_sync_export(VGA_VS),
 	
 	.sdram_addr(DRAM_ADDR),
 	.sdram_ba(DRAM_BA),
@@ -505,7 +519,7 @@ ECE385 ECE385_sys(
 	
 	.vga_vga_val(VGA_VAL),
 	.vga_vga_drawx(VGA_DrawX),
-	.vga_vga_drawy(VGA_DrawY + VGA_BG_OFFSET[9:0]),
+	.vga_vga_drawy(VGA_RealDrawY),
 	.vga_background_offset_export(VGA_BG_OFFSET),
 	.nios2_pll_vga_clk(VGA_CLK),
 	

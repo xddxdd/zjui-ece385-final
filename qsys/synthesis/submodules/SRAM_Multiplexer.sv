@@ -31,7 +31,7 @@ assign SRAM_LB_N = 1'b0;
 assign SRAM_UB_N = 1'b0;
 
 logic [19:0] VGA_ADDR;
-assign VGA_ADDR = (VGA_DrawY >= 480 ? (VGA_DrawY - 480) : VGA_DrawY) * 640 + VGA_DrawX;
+assign VGA_ADDR = VGA_DrawY * 640 + VGA_DrawX;
 
 logic CYCLE_EVEN;
 

@@ -3,6 +3,7 @@
 #include "vga.h"
 #include "main.h"
 #include "gamelogic.h"
+#include "resources/resource.h"
 
 vga_sprite_info_t vga_planes_info[N_PLANES];
 uint16_t* vga_planes_sprite_data[N_PLANES] = {
@@ -108,22 +109,7 @@ uint8_t sprites_visible(vga_entity_manage_t* vga_entity_type, uint8_t id) {
 	if(id >= vga_entity_type->max_size) return 0;
 	if(!vga_entity_type->info_arr[id].used) return 0;
 
-	if(vga_entity_type == VGA_SPRITE_PLANE) {
-		// Plane x, y: left-top corner
-		if(vga_entity_type->info_arr[id].physical->x >= VGA_SPRITE_WIDTH) return 0;
-		if(vga_entity_type->info_arr[id].physical->y >= VGA_SPRITE_HEIGHT) return 0;
-
-		if(vga_entity_type->info_arr[id].physical->x + (vga_entity_type->info_arr[id].physical->width << VGA_SPRITE_HW_SHIFT_BITS)
-				< 0) {
-			return 0;
-		}
-		if(vga_entity_type->info_arr[id].physical->y + (vga_entity_type->info_arr[id].physical->height << VGA_SPRITE_HW_SHIFT_BITS)
-				< 0) {
-			return 0;
-		}
-
-		return 1;
-	} else if(vga_entity_type == VGA_SPRITE_BULLET) {
+	if(vga_entity_type == VGA_SPRITE_BULLET) {
 		// Bullet x, y: center of bullet
 		if(vga_entity_type->info_arr[id].physical->x - (vga_entity_type->info_arr[id].physical->bullet_radius << VGA_SPRITE_HW_SHIFT_BITS)
 				>= VGA_SPRITE_WIDTH) {
@@ -145,7 +131,20 @@ uint8_t sprites_visible(vga_entity_manage_t* vga_entity_type, uint8_t id) {
 
 		return 1;
 	} else {
-		return 0;
+		// Plane x, y: left-top corner
+		if(vga_entity_type->info_arr[id].physical->x >= VGA_SPRITE_WIDTH) return 0;
+		if(vga_entity_type->info_arr[id].physical->y >= VGA_SPRITE_HEIGHT) return 0;
+
+		if(vga_entity_type->info_arr[id].physical->x + (vga_entity_type->info_arr[id].physical->width << VGA_SPRITE_HW_SHIFT_BITS)
+				< 0) {
+			return 0;
+		}
+		if(vga_entity_type->info_arr[id].physical->y + (vga_entity_type->info_arr[id].physical->height << VGA_SPRITE_HW_SHIFT_BITS)
+				< 0) {
+			return 0;
+		}
+
+		return 1;
 	}
 }
 
@@ -235,6 +234,36 @@ uint8_t sprites_tick(vga_entity_manage_t* vga_entity_type) {
 			continue;
 		}
 
+		if(vga_entity_type->info_arr[i].type == 2) {
+			if(vga_entity_type != VGA_SPRITE_PLANE) continue;
+
+			// Special processing for explosion
+			int prev_id, next_id;
+
+			// Slowdown player's plane's explosion
+			if(i == player_plane_id) {
+				prev_id = vga_entity_type->info_arr[i].frame_created / PLAYER_PLANE_EXPLOSION_SLOWDOWN_RATIO;
+				vga_entity_type->info_arr[i].frame_created++;
+				next_id = vga_entity_type->info_arr[i].frame_created / PLAYER_PLANE_EXPLOSION_SLOWDOWN_RATIO;
+			} else {
+				prev_id = vga_entity_type->info_arr[i].frame_created / ENEMY_PLANE_EXPLOSION_SLOWDOWN_RATIO;
+				vga_entity_type->info_arr[i].frame_created++;
+				next_id = vga_entity_type->info_arr[i].frame_created / ENEMY_PLANE_EXPLOSION_SLOWDOWN_RATIO;
+			}
+
+			// Remove whenn explosion is over
+			if(!explosion_sequence[next_id]) {
+				if(i == player_plane_id) {
+					// Player's plane exploded
+					game_state = GAME_OVER;
+				}
+				sprites_deallocate(VGA_SPRITE_PLANE, i);
+			} else if(explosion_sequence[next_id] != explosion_sequence[prev_id]) {
+				// Set the sprite to new explosion frame
+				sprites_load_data(VGA_SPRITE_PLANE, i, explosion_sequence[next_id], 32 * 32);
+			}
+		}
+
 		vga_entity_type->info_arr[i].physical->x += vga_entity_type->info_arr[i].vx;
 		vga_entity_type->info_arr[i].physical->y += vga_entity_type->info_arr[i].vy;
 
@@ -252,6 +281,7 @@ uint8_t sprites_tick(vga_entity_manage_t* vga_entity_type) {
 		if(vga_entity_type->info_arr[i].vy > vga_entity_type->info_arr[i].vy_max) {
 			vga_entity_type->info_arr[i].vy = vga_entity_type->info_arr[i].vy_max;
 		}
+
 		processed++;
 	}
 	return processed;
@@ -282,44 +312,47 @@ int32_t sprites_collision_detect() {
 				// Collision happened
 				if(plane_info->type == 0) {
 					// First plane is friendly, remove second plane
-					sprites_deallocate(VGA_SPRITE_PLANE, j);
-					// TODO: Set the plane on explosion
+					player_score += PLAYER_SCORE_PER_CRASH;
+					// Set the plane on explosion
+					plane2_info->type = 2;
+					plane2_info->frame_created = 0;
+					plane2_info->physical->width = 32;
+					plane2_info->physical->height = 32;
+					plane2_info->physical->x += 8;
+					sprites_load_data(VGA_SPRITE_PLANE, j, explosion_sequence[0], 32 * 32);
 
 					// Deal damage to first plane
 					if((--plane_info->hp) == 0) {
-						if(plane_info->type != 0) {
-							sprites_deallocate(VGA_SPRITE_PLANE, i);
-						} else {
-							// Update player HP
-							*io_led_red = 0;
-
-							sprites_deallocate(VGA_SPRITE_PLANE, i);
-
-							// TODO: end the game
-							while(1);
-						}
+						// Set the plane on explosion
+						plane_info->type = 2;
+						plane_info->frame_created = 0;
+						plane_info->physical->width = 32;
+						plane_info->physical->height = 32;
+						plane_info->physical->x += 8;
+						sprites_load_data(VGA_SPRITE_PLANE, i, explosion_sequence[0], 32 * 32);
 					}
 
 					collided++;
 				} else {
 					// Second plane is friendly, remove first plane
-					sprites_deallocate(VGA_SPRITE_PLANE, i);
-					// TODO: Set the plane on explosion
+					player_score += PLAYER_SCORE_PER_CRASH;
+					// Set the plane on explosion
+					plane_info->type = 2;
+					plane_info->frame_created = 0;
+					plane_info->physical->width = 32;
+					plane_info->physical->height = 32;
+					plane_info->physical->x += 8;
+					sprites_load_data(VGA_SPRITE_PLANE, i, explosion_sequence[0], 32 * 32);
 
 					// Deal damage to second plane
 					if((--plane2_info->hp) == 0) {
-						if(plane2_info->type != 0) {
-							sprites_deallocate(VGA_SPRITE_PLANE, j);
-						} else {
-							// Update player HP
-							*io_led_red = 0;
-
-							sprites_deallocate(VGA_SPRITE_PLANE, j);
-
-							// End the game
-							game_running = 0;
-							return collided;
-						}
+						// Set the plane on explosion
+						plane2_info->type = 2;
+						plane2_info->frame_created = 0;
+						plane2_info->physical->width = 32;
+						plane2_info->physical->height = 32;
+						plane2_info->physical->x += 8;
+						sprites_load_data(VGA_SPRITE_PLANE, j, explosion_sequence[0], 32 * 32);
 					}
 
 					collided++;
@@ -343,20 +376,22 @@ int32_t sprites_collision_detect() {
 				// Collision happened
 				// Remove the bullet
 				sprites_deallocate(VGA_SPRITE_BULLET, j);
-				// TODO: Set the plane on explosion
 				// Remove the plane
 				if((--plane_info->hp) == 0) {
+					// Set the plane on explosion
+					plane_info->type = 2;
+					plane_info->frame_created = 0;
+					plane_info->physical->width = 32;
+					plane_info->physical->height = 32;
+					plane_info->physical->x += 8;
+					sprites_load_data(VGA_SPRITE_PLANE, i, explosion_sequence[0], 32 * 32);
+
 					if(plane_info->type != 0) {
-						sprites_deallocate(VGA_SPRITE_PLANE, i);
-					} else {
-						// Update player HP
-						*io_led_red = 0;
-
-						sprites_deallocate(VGA_SPRITE_PLANE, i);
-
-						// End the game
-						game_running = 0;
-						return collided;
+						player_score += PLAYER_SCORE_PER_KILL;
+					}
+				} else {
+					if(plane_info->type != 0) {
+						player_score += PLAYER_SCORE_PER_HIT;
 					}
 				}
 

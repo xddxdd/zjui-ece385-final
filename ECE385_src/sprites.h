@@ -67,6 +67,9 @@ extern vga_entity_manage_t vga_bullets;
 #define VGA_SPRITE_WIDTH (VGA_WIDTH << VGA_SPRITE_HW_SHIFT_BITS)
 #define VGA_SPRITE_HEIGHT (VGA_HEIGHT << VGA_SPRITE_HW_SHIFT_BITS)
 
+#define PLAYER_PLANE_EXPLOSION_SLOWDOWN_RATIO 8
+#define ENEMY_PLANE_EXPLOSION_SLOWDOWN_RATIO 2
+
 void sprites_init(vga_entity_manage_t* vga_entity_type);
 uint8_t sprites_allocate(vga_entity_manage_t* vga_entity_type);
 volatile vga_sprite_info_t* sprites_get(vga_entity_manage_t* vga_entity_type, uint8_t id);

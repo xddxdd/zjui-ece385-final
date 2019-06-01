@@ -558,7 +558,7 @@ USB_HOT_PLUG:
 		// The first two keycodes are stored in 0x051E. Other keycodes are in 
 		// subsequent addresses.
 		keycode = UsbRead(0x051e);
-		alt_printf("\nfirst two keycode values are %x\n",keycode);
+//		alt_printf("\nfirst two keycode values are %x\n",keycode);
 		// We only need the first keycode, which is at the lower byte of keycode.
 		// Send the keycode to hardware via PIO.
 		keycode_comm->keycode[0] = keycode & 0xff;
