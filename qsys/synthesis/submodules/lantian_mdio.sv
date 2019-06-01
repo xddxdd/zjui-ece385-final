@@ -388,6 +388,8 @@ always_comb begin
 		R_REG_ADDR_4: begin mdio_oen = 1'b0; mdio_out = avalon_slave_address[0]; end
 		R_TA_0:       begin mdio_oen = 1'b1; end
 		R_TA_1:       begin mdio_oen = 1'b0; mdio_out = 1'b0; end
+		
+		default: ;
 	endcase
 end
 
