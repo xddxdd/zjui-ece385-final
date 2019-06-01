@@ -12,6 +12,7 @@ volatile uint32_t frame_count = 0;
 
 int player_plane_id = 0;
 volatile vga_sprite_info_t* player_plane_info = NULL;
+volatile int game_running = 0;
 
 void game_init() {
 	vga_set(0, 0, VGA_WIDTH, VGA_HEIGHT, background);
@@ -60,14 +61,11 @@ void game_init() {
 		player_plane_info = sprite_info;
 	} while(0);
 
-	while(1) {
-		while(*io_vga_sync == 0);	// Wait for VSync == 1
-
-		while(*io_vga_sync == 1);	// Wait for VSync == 0
-	}
+	game_running = 1;
 }
 
 void game_loop() {
+	if(!game_running) return;
 	static int io_vga_sync_prev = 0;
 	if(io_vga_sync_prev == 0 && *io_vga_sync == 1) {
 		// New frame occured, do job

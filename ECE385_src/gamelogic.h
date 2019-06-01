@@ -30,6 +30,7 @@
 #include <stdint.h>
 
 extern volatile uint32_t frame_count;
+extern volatile int game_running;
 
 void game_init();
 void game_loop();

@@ -316,8 +316,9 @@ int32_t sprites_collision_detect() {
 
 							sprites_deallocate(VGA_SPRITE_PLANE, j);
 
-							// TODO: end the game
-							while(1);
+							// End the game
+							game_running = 0;
+							return collided;
 						}
 					}
 
@@ -353,8 +354,9 @@ int32_t sprites_collision_detect() {
 
 						sprites_deallocate(VGA_SPRITE_PLANE, i);
 
-						// TODO: end the game
-						while(1);
+						// End the game
+						game_running = 0;
+						return collided;
 					}
 				}
 
