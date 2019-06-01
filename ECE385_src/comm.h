@@ -15,4 +15,6 @@ typedef struct {
 	alt_u8 keycode[6];
 } keycode_comm_t;
 
+extern volatile keycode_comm_t* keycode_comm;
+
 #endif /* COMM_H_ */

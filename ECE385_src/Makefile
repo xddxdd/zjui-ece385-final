@@ -186,6 +186,9 @@ C_SRCS += lwip/core/ipv6/ip6_frag.c
 C_SRCS += lwip/core/ipv6/mld6.c
 C_SRCS += lwip/core/ipv6/nd6.c
 C_SRCS += lwip_port/compat.c
+C_SRCS += gamelogic.c
+C_SRCS += comm.c
+C_SRCS += resource.c
 CXX_SRCS :=
 ASM_SRCS :=
 

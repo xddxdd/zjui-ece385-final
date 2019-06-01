@@ -1,6 +1,6 @@
 #include "resource.h"
 
-extern const sprite_data_t planes[] = {
+const sprite_data_t planes[] = {
 		{75, 48, plane},
 		{48, 33, plane2},
 };

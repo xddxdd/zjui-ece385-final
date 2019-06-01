@@ -2,6 +2,7 @@
 #include "system.h"
 #include "vga.h"
 #include "main.h"
+#include "gamelogic.h"
 
 vga_sprite_info_t vga_planes_info[N_PLANES];
 uint16_t* vga_planes_sprite_data[N_PLANES] = {
