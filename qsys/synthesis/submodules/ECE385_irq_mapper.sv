@@ -20,9 +20,9 @@
 // Altera IRQ Mapper
 //
 // Parameters
-//   NUM_RCVRS        : 6
+//   NUM_RCVRS        : 7
 //   SENDER_IRW_WIDTH : 32
-//   IRQ_MAP          : 0:2,1:3,2:4,3:5,4:0,5:1
+//   IRQ_MAP          : 0:2,1:3,2:4,3:5,4:6,5:0,6:1
 //
 // -------------------------------------------------------
 
@@ -45,6 +45,7 @@ module ECE385_irq_mapper
     input                receiver3_irq,
     input                receiver4_irq,
     input                receiver5_irq,
+    input                receiver6_irq,
 
     // -------------------
     // Command Source (Output)
@@ -60,8 +61,9 @@ module ECE385_irq_mapper
         sender_irq[3] = receiver1_irq;
         sender_irq[4] = receiver2_irq;
         sender_irq[5] = receiver3_irq;
-        sender_irq[0] = receiver4_irq;
-        sender_irq[1] = receiver5_irq;
+        sender_irq[6] = receiver4_irq;
+        sender_irq[0] = receiver5_irq;
+        sender_irq[1] = receiver6_irq;
     end
 
 endmodule

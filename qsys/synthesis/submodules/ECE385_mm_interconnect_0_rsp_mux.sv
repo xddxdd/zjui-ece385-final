@@ -39,13 +39,13 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         ECE385_mm_interconnect_0_rsp_mux
-//   NUM_INPUTS:          34
-//   ARBITRATION_SHARES:  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+//   NUM_INPUTS:          35
+//   ARBITRATION_SHARES:  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 //   ARBITRATION_SCHEME   "no-arb"
 //   PIPELINE_ARB:        0
-//   PKT_TRANS_LOCK:      68 (arbitration locking enabled)
-//   ST_DATA_W:           110
-//   ST_CHANNEL_W:        34
+//   PKT_TRANS_LOCK:      72 (arbitration locking enabled)
+//   ST_DATA_W:           114
+//   ST_CHANNEL_W:        35
 // ------------------------------------------
 
 module ECE385_mm_interconnect_0_rsp_mux
@@ -54,250 +54,257 @@ module ECE385_mm_interconnect_0_rsp_mux
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [110-1   : 0]  sink0_data,
-    input [34-1: 0]  sink0_channel,
+    input [114-1   : 0]  sink0_data,
+    input [35-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
-    input [110-1   : 0]  sink1_data,
-    input [34-1: 0]  sink1_channel,
+    input [114-1   : 0]  sink1_data,
+    input [35-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
 
     input                       sink2_valid,
-    input [110-1   : 0]  sink2_data,
-    input [34-1: 0]  sink2_channel,
+    input [114-1   : 0]  sink2_data,
+    input [35-1: 0]  sink2_channel,
     input                       sink2_startofpacket,
     input                       sink2_endofpacket,
     output                      sink2_ready,
 
     input                       sink3_valid,
-    input [110-1   : 0]  sink3_data,
-    input [34-1: 0]  sink3_channel,
+    input [114-1   : 0]  sink3_data,
+    input [35-1: 0]  sink3_channel,
     input                       sink3_startofpacket,
     input                       sink3_endofpacket,
     output                      sink3_ready,
 
     input                       sink4_valid,
-    input [110-1   : 0]  sink4_data,
-    input [34-1: 0]  sink4_channel,
+    input [114-1   : 0]  sink4_data,
+    input [35-1: 0]  sink4_channel,
     input                       sink4_startofpacket,
     input                       sink4_endofpacket,
     output                      sink4_ready,
 
     input                       sink5_valid,
-    input [110-1   : 0]  sink5_data,
-    input [34-1: 0]  sink5_channel,
+    input [114-1   : 0]  sink5_data,
+    input [35-1: 0]  sink5_channel,
     input                       sink5_startofpacket,
     input                       sink5_endofpacket,
     output                      sink5_ready,
 
     input                       sink6_valid,
-    input [110-1   : 0]  sink6_data,
-    input [34-1: 0]  sink6_channel,
+    input [114-1   : 0]  sink6_data,
+    input [35-1: 0]  sink6_channel,
     input                       sink6_startofpacket,
     input                       sink6_endofpacket,
     output                      sink6_ready,
 
     input                       sink7_valid,
-    input [110-1   : 0]  sink7_data,
-    input [34-1: 0]  sink7_channel,
+    input [114-1   : 0]  sink7_data,
+    input [35-1: 0]  sink7_channel,
     input                       sink7_startofpacket,
     input                       sink7_endofpacket,
     output                      sink7_ready,
 
     input                       sink8_valid,
-    input [110-1   : 0]  sink8_data,
-    input [34-1: 0]  sink8_channel,
+    input [114-1   : 0]  sink8_data,
+    input [35-1: 0]  sink8_channel,
     input                       sink8_startofpacket,
     input                       sink8_endofpacket,
     output                      sink8_ready,
 
     input                       sink9_valid,
-    input [110-1   : 0]  sink9_data,
-    input [34-1: 0]  sink9_channel,
+    input [114-1   : 0]  sink9_data,
+    input [35-1: 0]  sink9_channel,
     input                       sink9_startofpacket,
     input                       sink9_endofpacket,
     output                      sink9_ready,
 
     input                       sink10_valid,
-    input [110-1   : 0]  sink10_data,
-    input [34-1: 0]  sink10_channel,
+    input [114-1   : 0]  sink10_data,
+    input [35-1: 0]  sink10_channel,
     input                       sink10_startofpacket,
     input                       sink10_endofpacket,
     output                      sink10_ready,
 
     input                       sink11_valid,
-    input [110-1   : 0]  sink11_data,
-    input [34-1: 0]  sink11_channel,
+    input [114-1   : 0]  sink11_data,
+    input [35-1: 0]  sink11_channel,
     input                       sink11_startofpacket,
     input                       sink11_endofpacket,
     output                      sink11_ready,
 
     input                       sink12_valid,
-    input [110-1   : 0]  sink12_data,
-    input [34-1: 0]  sink12_channel,
+    input [114-1   : 0]  sink12_data,
+    input [35-1: 0]  sink12_channel,
     input                       sink12_startofpacket,
     input                       sink12_endofpacket,
     output                      sink12_ready,
 
     input                       sink13_valid,
-    input [110-1   : 0]  sink13_data,
-    input [34-1: 0]  sink13_channel,
+    input [114-1   : 0]  sink13_data,
+    input [35-1: 0]  sink13_channel,
     input                       sink13_startofpacket,
     input                       sink13_endofpacket,
     output                      sink13_ready,
 
     input                       sink14_valid,
-    input [110-1   : 0]  sink14_data,
-    input [34-1: 0]  sink14_channel,
+    input [114-1   : 0]  sink14_data,
+    input [35-1: 0]  sink14_channel,
     input                       sink14_startofpacket,
     input                       sink14_endofpacket,
     output                      sink14_ready,
 
     input                       sink15_valid,
-    input [110-1   : 0]  sink15_data,
-    input [34-1: 0]  sink15_channel,
+    input [114-1   : 0]  sink15_data,
+    input [35-1: 0]  sink15_channel,
     input                       sink15_startofpacket,
     input                       sink15_endofpacket,
     output                      sink15_ready,
 
     input                       sink16_valid,
-    input [110-1   : 0]  sink16_data,
-    input [34-1: 0]  sink16_channel,
+    input [114-1   : 0]  sink16_data,
+    input [35-1: 0]  sink16_channel,
     input                       sink16_startofpacket,
     input                       sink16_endofpacket,
     output                      sink16_ready,
 
     input                       sink17_valid,
-    input [110-1   : 0]  sink17_data,
-    input [34-1: 0]  sink17_channel,
+    input [114-1   : 0]  sink17_data,
+    input [35-1: 0]  sink17_channel,
     input                       sink17_startofpacket,
     input                       sink17_endofpacket,
     output                      sink17_ready,
 
     input                       sink18_valid,
-    input [110-1   : 0]  sink18_data,
-    input [34-1: 0]  sink18_channel,
+    input [114-1   : 0]  sink18_data,
+    input [35-1: 0]  sink18_channel,
     input                       sink18_startofpacket,
     input                       sink18_endofpacket,
     output                      sink18_ready,
 
     input                       sink19_valid,
-    input [110-1   : 0]  sink19_data,
-    input [34-1: 0]  sink19_channel,
+    input [114-1   : 0]  sink19_data,
+    input [35-1: 0]  sink19_channel,
     input                       sink19_startofpacket,
     input                       sink19_endofpacket,
     output                      sink19_ready,
 
     input                       sink20_valid,
-    input [110-1   : 0]  sink20_data,
-    input [34-1: 0]  sink20_channel,
+    input [114-1   : 0]  sink20_data,
+    input [35-1: 0]  sink20_channel,
     input                       sink20_startofpacket,
     input                       sink20_endofpacket,
     output                      sink20_ready,
 
     input                       sink21_valid,
-    input [110-1   : 0]  sink21_data,
-    input [34-1: 0]  sink21_channel,
+    input [114-1   : 0]  sink21_data,
+    input [35-1: 0]  sink21_channel,
     input                       sink21_startofpacket,
     input                       sink21_endofpacket,
     output                      sink21_ready,
 
     input                       sink22_valid,
-    input [110-1   : 0]  sink22_data,
-    input [34-1: 0]  sink22_channel,
+    input [114-1   : 0]  sink22_data,
+    input [35-1: 0]  sink22_channel,
     input                       sink22_startofpacket,
     input                       sink22_endofpacket,
     output                      sink22_ready,
 
     input                       sink23_valid,
-    input [110-1   : 0]  sink23_data,
-    input [34-1: 0]  sink23_channel,
+    input [114-1   : 0]  sink23_data,
+    input [35-1: 0]  sink23_channel,
     input                       sink23_startofpacket,
     input                       sink23_endofpacket,
     output                      sink23_ready,
 
     input                       sink24_valid,
-    input [110-1   : 0]  sink24_data,
-    input [34-1: 0]  sink24_channel,
+    input [114-1   : 0]  sink24_data,
+    input [35-1: 0]  sink24_channel,
     input                       sink24_startofpacket,
     input                       sink24_endofpacket,
     output                      sink24_ready,
 
     input                       sink25_valid,
-    input [110-1   : 0]  sink25_data,
-    input [34-1: 0]  sink25_channel,
+    input [114-1   : 0]  sink25_data,
+    input [35-1: 0]  sink25_channel,
     input                       sink25_startofpacket,
     input                       sink25_endofpacket,
     output                      sink25_ready,
 
     input                       sink26_valid,
-    input [110-1   : 0]  sink26_data,
-    input [34-1: 0]  sink26_channel,
+    input [114-1   : 0]  sink26_data,
+    input [35-1: 0]  sink26_channel,
     input                       sink26_startofpacket,
     input                       sink26_endofpacket,
     output                      sink26_ready,
 
     input                       sink27_valid,
-    input [110-1   : 0]  sink27_data,
-    input [34-1: 0]  sink27_channel,
+    input [114-1   : 0]  sink27_data,
+    input [35-1: 0]  sink27_channel,
     input                       sink27_startofpacket,
     input                       sink27_endofpacket,
     output                      sink27_ready,
 
     input                       sink28_valid,
-    input [110-1   : 0]  sink28_data,
-    input [34-1: 0]  sink28_channel,
+    input [114-1   : 0]  sink28_data,
+    input [35-1: 0]  sink28_channel,
     input                       sink28_startofpacket,
     input                       sink28_endofpacket,
     output                      sink28_ready,
 
     input                       sink29_valid,
-    input [110-1   : 0]  sink29_data,
-    input [34-1: 0]  sink29_channel,
+    input [114-1   : 0]  sink29_data,
+    input [35-1: 0]  sink29_channel,
     input                       sink29_startofpacket,
     input                       sink29_endofpacket,
     output                      sink29_ready,
 
     input                       sink30_valid,
-    input [110-1   : 0]  sink30_data,
-    input [34-1: 0]  sink30_channel,
+    input [114-1   : 0]  sink30_data,
+    input [35-1: 0]  sink30_channel,
     input                       sink30_startofpacket,
     input                       sink30_endofpacket,
     output                      sink30_ready,
 
     input                       sink31_valid,
-    input [110-1   : 0]  sink31_data,
-    input [34-1: 0]  sink31_channel,
+    input [114-1   : 0]  sink31_data,
+    input [35-1: 0]  sink31_channel,
     input                       sink31_startofpacket,
     input                       sink31_endofpacket,
     output                      sink31_ready,
 
     input                       sink32_valid,
-    input [110-1   : 0]  sink32_data,
-    input [34-1: 0]  sink32_channel,
+    input [114-1   : 0]  sink32_data,
+    input [35-1: 0]  sink32_channel,
     input                       sink32_startofpacket,
     input                       sink32_endofpacket,
     output                      sink32_ready,
 
     input                       sink33_valid,
-    input [110-1   : 0]  sink33_data,
-    input [34-1: 0]  sink33_channel,
+    input [114-1   : 0]  sink33_data,
+    input [35-1: 0]  sink33_channel,
     input                       sink33_startofpacket,
     input                       sink33_endofpacket,
     output                      sink33_ready,
+
+    input                       sink34_valid,
+    input [114-1   : 0]  sink34_data,
+    input [35-1: 0]  sink34_channel,
+    input                       sink34_startofpacket,
+    input                       sink34_endofpacket,
+    output                      sink34_ready,
 
 
     // ----------------------
     // Source
     // ----------------------
     output                      src_valid,
-    output [110-1    : 0] src_data,
-    output [34-1 : 0] src_channel,
+    output [114-1    : 0] src_data,
+    output [35-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -308,13 +315,13 @@ module ECE385_mm_interconnect_0_rsp_mux
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 110 + 34 + 2;
-    localparam NUM_INPUTS       = 34;
+    localparam PAYLOAD_W        = 114 + 35 + 2;
+    localparam NUM_INPUTS       = 35;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 0;
-    localparam ST_DATA_W        = 110;
-    localparam ST_CHANNEL_W     = 34;
-    localparam PKT_TRANS_LOCK   = 68;
+    localparam ST_DATA_W        = 114;
+    localparam ST_CHANNEL_W     = 35;
+    localparam PKT_TRANS_LOCK   = 72;
 
     // ------------------------------------------
     // Signals
@@ -363,6 +370,7 @@ module ECE385_mm_interconnect_0_rsp_mux
     wire [PAYLOAD_W - 1 : 0] sink31_payload;
     wire [PAYLOAD_W - 1 : 0] sink32_payload;
     wire [PAYLOAD_W - 1 : 0] sink33_payload;
+    wire [PAYLOAD_W - 1 : 0] sink34_payload;
 
     assign valid[0] = sink0_valid;
     assign valid[1] = sink1_valid;
@@ -398,6 +406,7 @@ module ECE385_mm_interconnect_0_rsp_mux
     assign valid[31] = sink31_valid;
     assign valid[32] = sink32_valid;
     assign valid[33] = sink33_valid;
+    assign valid[34] = sink34_valid;
 
 
     // ------------------------------------------
@@ -407,40 +416,41 @@ module ECE385_mm_interconnect_0_rsp_mux
     // ------------------------------------------
     reg [NUM_INPUTS - 1 : 0] lock;
     always @* begin
-      lock[0] = sink0_data[68];
-      lock[1] = sink1_data[68];
-      lock[2] = sink2_data[68];
-      lock[3] = sink3_data[68];
-      lock[4] = sink4_data[68];
-      lock[5] = sink5_data[68];
-      lock[6] = sink6_data[68];
-      lock[7] = sink7_data[68];
-      lock[8] = sink8_data[68];
-      lock[9] = sink9_data[68];
-      lock[10] = sink10_data[68];
-      lock[11] = sink11_data[68];
-      lock[12] = sink12_data[68];
-      lock[13] = sink13_data[68];
-      lock[14] = sink14_data[68];
-      lock[15] = sink15_data[68];
-      lock[16] = sink16_data[68];
-      lock[17] = sink17_data[68];
-      lock[18] = sink18_data[68];
-      lock[19] = sink19_data[68];
-      lock[20] = sink20_data[68];
-      lock[21] = sink21_data[68];
-      lock[22] = sink22_data[68];
-      lock[23] = sink23_data[68];
-      lock[24] = sink24_data[68];
-      lock[25] = sink25_data[68];
-      lock[26] = sink26_data[68];
-      lock[27] = sink27_data[68];
-      lock[28] = sink28_data[68];
-      lock[29] = sink29_data[68];
-      lock[30] = sink30_data[68];
-      lock[31] = sink31_data[68];
-      lock[32] = sink32_data[68];
-      lock[33] = sink33_data[68];
+      lock[0] = sink0_data[72];
+      lock[1] = sink1_data[72];
+      lock[2] = sink2_data[72];
+      lock[3] = sink3_data[72];
+      lock[4] = sink4_data[72];
+      lock[5] = sink5_data[72];
+      lock[6] = sink6_data[72];
+      lock[7] = sink7_data[72];
+      lock[8] = sink8_data[72];
+      lock[9] = sink9_data[72];
+      lock[10] = sink10_data[72];
+      lock[11] = sink11_data[72];
+      lock[12] = sink12_data[72];
+      lock[13] = sink13_data[72];
+      lock[14] = sink14_data[72];
+      lock[15] = sink15_data[72];
+      lock[16] = sink16_data[72];
+      lock[17] = sink17_data[72];
+      lock[18] = sink18_data[72];
+      lock[19] = sink19_data[72];
+      lock[20] = sink20_data[72];
+      lock[21] = sink21_data[72];
+      lock[22] = sink22_data[72];
+      lock[23] = sink23_data[72];
+      lock[24] = sink24_data[72];
+      lock[25] = sink25_data[72];
+      lock[26] = sink26_data[72];
+      lock[27] = sink27_data[72];
+      lock[28] = sink28_data[72];
+      lock[29] = sink29_data[72];
+      lock[30] = sink30_data[72];
+      lock[31] = sink31_data[72];
+      lock[32] = sink32_data[72];
+      lock[33] = sink33_data[72];
+      lock[34] = sink34_data[72];
     end
 
     assign last_cycle = src_valid & src_ready & src_endofpacket & ~(|(lock & grant));
@@ -505,6 +515,7 @@ module ECE385_mm_interconnect_0_rsp_mux
     // 31      |      1       |  0
     // 32      |      1       |  0
     // 33      |      1       |  0
+    // 34      |      1       |  0
      wire [SHARE_COUNTER_W - 1 : 0] share_0 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_1 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_2 = 1'd0;
@@ -539,6 +550,7 @@ module ECE385_mm_interconnect_0_rsp_mux
      wire [SHARE_COUNTER_W - 1 : 0] share_31 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_32 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_33 = 1'd0;
+     wire [SHARE_COUNTER_W - 1 : 0] share_34 = 1'd0;
 
     // ------------------------------------------
     // Choose the share value corresponding to the grant.
@@ -579,7 +591,8 @@ module ECE385_mm_interconnect_0_rsp_mux
     share_30 & { SHARE_COUNTER_W {next_grant[30]} } |
     share_31 & { SHARE_COUNTER_W {next_grant[31]} } |
     share_32 & { SHARE_COUNTER_W {next_grant[32]} } |
-    share_33 & { SHARE_COUNTER_W {next_grant[33]} };
+    share_33 & { SHARE_COUNTER_W {next_grant[33]} } |
+    share_34 & { SHARE_COUNTER_W {next_grant[34]} };
     end
 
     // ------------------------------------------
@@ -709,11 +722,14 @@ module ECE385_mm_interconnect_0_rsp_mux
 
     wire final_packet_33 = 1'b1;
 
+    wire final_packet_34 = 1'b1;
+
 
     // ------------------------------------------
     // Concatenate all final_packet signals (wire or reg) into a handy vector.
     // ------------------------------------------
     wire [NUM_INPUTS - 1 : 0] final_packet = {
+    final_packet_34,
     final_packet_33,
     final_packet_32,
     final_packet_31,
@@ -865,6 +881,7 @@ module ECE385_mm_interconnect_0_rsp_mux
     assign sink31_ready = src_ready && grant[31];
     assign sink32_ready = src_ready && grant[32];
     assign sink33_ready = src_ready && grant[33];
+    assign sink34_ready = src_ready && grant[34];
 
     assign src_valid = |(grant & valid);
 
@@ -903,7 +920,8 @@ module ECE385_mm_interconnect_0_rsp_mux
       sink30_payload & {PAYLOAD_W {grant[30]} } |
       sink31_payload & {PAYLOAD_W {grant[31]} } |
       sink32_payload & {PAYLOAD_W {grant[32]} } |
-      sink33_payload & {PAYLOAD_W {grant[33]} };
+      sink33_payload & {PAYLOAD_W {grant[33]} } |
+      sink34_payload & {PAYLOAD_W {grant[34]} };
     end
 
     // ------------------------------------------
@@ -978,6 +996,8 @@ module ECE385_mm_interconnect_0_rsp_mux
     sink32_startofpacket,sink32_endofpacket};
     assign sink33_payload = {sink33_channel,sink33_data,
     sink33_startofpacket,sink33_endofpacket};
+    assign sink34_payload = {sink34_channel,sink34_data,
+    sink34_startofpacket,sink34_endofpacket};
 
     assign {src_channel,src_data,src_startofpacket,src_endofpacket} = src_payload;
 endmodule
