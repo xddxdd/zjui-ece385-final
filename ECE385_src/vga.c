@@ -137,7 +137,7 @@ void vga_statusbar_english(int pos, uint8_t c) {
 }
 
 void vga_statusbar_chinese(int pos, const uint8_t* c) {
-	vga_chinese(pos * 16, VGA_HEIGHT, *c);
+	vga_chinese(pos * 16, VGA_HEIGHT, c);
 }
 
 void vga_statusbar_string(int pos, const uint8_t* c) {

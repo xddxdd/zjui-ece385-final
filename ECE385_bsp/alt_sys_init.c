@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Fri May 31 12:58:08 CST 2019
+ * Generated: Mon Jun 03 23:49:18 CST 2019
  */
 
 /*
@@ -74,7 +74,9 @@ ALTERA_AVALON_SGDMA_INSTANCE ( ETH0_RX_DMA, eth0_rx_dma);
 ALTERA_AVALON_SGDMA_INSTANCE ( ETH0_TX_DMA, eth0_tx_dma);
 ALTERA_AVALON_SGDMA_INSTANCE ( ETH1_RX_DMA, eth1_rx_dma);
 ALTERA_AVALON_SGDMA_INSTANCE ( ETH1_TX_DMA, eth1_tx_dma);
+ALTERA_AVALON_SGDMA_INSTANCE ( NIOS2_DMA, nios2_dma);
 ALTERA_AVALON_SYSID_QSYS_INSTANCE ( NIOS2_SYSID, nios2_sysid);
+ALTERA_AVALON_TIMER_INSTANCE ( AUDIO_TIMER, audio_timer);
 ALTERA_AVALON_TIMER_INSTANCE ( NIOS2_TIMER, nios2_timer);
 
 /*
@@ -98,11 +100,13 @@ void alt_irq_init ( const void* base )
 
 void alt_sys_init( void )
 {
+    ALTERA_AVALON_TIMER_INIT ( AUDIO_TIMER, audio_timer);
     ALTERA_AVALON_TIMER_INIT ( NIOS2_TIMER, nios2_timer);
     ALTERA_AVALON_JTAG_UART_INIT ( NIOS2_JTAG_UART, nios2_jtag_uart);
     ALTERA_AVALON_SGDMA_INIT ( ETH0_RX_DMA, eth0_rx_dma);
     ALTERA_AVALON_SGDMA_INIT ( ETH0_TX_DMA, eth0_tx_dma);
     ALTERA_AVALON_SGDMA_INIT ( ETH1_RX_DMA, eth1_rx_dma);
     ALTERA_AVALON_SGDMA_INIT ( ETH1_TX_DMA, eth1_tx_dma);
+    ALTERA_AVALON_SGDMA_INIT ( NIOS2_DMA, nios2_dma);
     ALTERA_AVALON_SYSID_QSYS_INIT ( NIOS2_SYSID, nios2_sysid);
 }

@@ -1,16 +1,5 @@
 
 module ECE385 (
-	audio_mem_clk2_clk,
-	audio_mem_reset2_reset,
-	audio_mem_s2_address,
-	audio_mem_s2_chipselect,
-	audio_mem_s2_clken,
-	audio_mem_s2_write,
-	audio_mem_s2_readdata,
-	audio_mem_s2_writedata,
-	audio_mem_s2_byteenable,
-	audio_position_export,
-	audio_position_end_export,
 	clk_clk,
 	eth0_mdio_mdc,
 	eth0_mdio_mdio_in,
@@ -197,19 +186,9 @@ module ECE385 (
 	vga_sprite_params_pass_readdata,
 	vga_sprite_params_pass_write,
 	vga_sprite_params_pass_writedata,
-	vga_sprite_params_reset_reset);	
+	vga_sprite_params_reset_reset,
+	audio_pio_export);	
 
-	input		audio_mem_clk2_clk;
-	input		audio_mem_reset2_reset;
-	input	[11:0]	audio_mem_s2_address;
-	input		audio_mem_s2_chipselect;
-	input		audio_mem_s2_clken;
-	input		audio_mem_s2_write;
-	output	[31:0]	audio_mem_s2_readdata;
-	input	[31:0]	audio_mem_s2_writedata;
-	input	[3:0]	audio_mem_s2_byteenable;
-	input	[31:0]	audio_position_export;
-	output	[31:0]	audio_position_end_export;
 	input		clk_clk;
 	output		eth0_mdio_mdc;
 	input		eth0_mdio_mdio_in;
@@ -397,4 +376,5 @@ module ECE385 (
 	output		vga_sprite_params_pass_write;
 	output	[31:0]	vga_sprite_params_pass_writedata;
 	output		vga_sprite_params_reset_reset;
+	output	[31:0]	audio_pio_export;
 endmodule

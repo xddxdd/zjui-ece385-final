@@ -449,7 +449,8 @@ endgenerate
 
 // Wolfson 8731 Music chip
 logic [15:0] WM8731_LDATA, WM8731_RDATA;
-logic WM8731_DATA_OVER;
+logic WM8731_DATA_OVER, WM8731_DATA_OVER_PREV;
+logic WM8731_READY;
 wm8731 wm8731_inst(
 	.clk(CLOCK_50), .Reset(~RESET), .INIT(1'b1),
 	
@@ -461,15 +462,15 @@ wm8731 wm8731_inst(
 	.data_over(WM8731_DATA_OVER),
 );
 
-logic [31:0] WM8731_MEM_ADDR_END, WM8731_MEM_ADDR, WM8731_MEM_DATA;
-wm8731_buffer wm8731_buf(
-	.Clk(CLOCK_50), .Reset(~RESET),
-	.data_over(WM8731_DATA_OVER),
-	.LDATA(WM8731_LDATA), .RDATA(WM8731_RDATA),
-	.MEM_ADDR_END(WM8731_MEM_ADDR_END),
-	.MEM_ADDR(WM8731_MEM_ADDR),
-	.MEM_DATA(WM8731_MEM_DATA)
-);
+//always_ff @ (posedge CLOCK_50) begin
+//	if(~RESET) begin
+//		WM8731_DATA_OVER_PREV <= 1'b0;
+//	end else begin
+//		WM8731_DATA_OVER_PREV <= WM8731_DATA_OVER;
+//	end
+//end
+//
+//assign WM8731_READY = (WM8731_DATA_OVER == 1'b1) && (WM8731_DATA_OVER_PREV == 1'b0);
 
 // VGA Scrolling & Statusbar
 logic [9:0] VGA_RealDrawY;
@@ -692,17 +693,22 @@ ECE385 ECE385_sys(
     .otg_hpi_w_export(hpi_w),
     .otg_hpi_reset_export(hpi_reset),
 
-	.audio_mem_clk2_clk(CLOCK_50),
-	.audio_mem_reset2_reset(~RESET),
-	.audio_mem_s2_address(WM8731_MEM_ADDR[13:0]),
-	.audio_mem_s2_chipselect(1'b1),
-	.audio_mem_s2_clken(1'b1),
-	.audio_mem_s2_write(1'b0),
-	.audio_mem_s2_readdata(WM8731_MEM_DATA),
-	.audio_mem_s2_writedata(32'b0),
-	.audio_mem_s2_byteenable(4'b1111),
-	.audio_position_export(WM8731_MEM_ADDR),
-	.audio_position_end_export(WM8731_MEM_ADDR_END)
+//	.audio_mem_clk2_clk(CLOCK_50),
+//	.audio_mem_reset2_reset(~RESET),
+//	.audio_mem_s2_address(WM8731_MEM_ADDR[13:0]),
+//	.audio_mem_s2_chipselect(1'b1),
+//	.audio_mem_s2_clken(1'b1),
+//	.audio_mem_s2_write(1'b0),
+//	.audio_mem_s2_readdata(WM8731_MEM_DATA),
+//	.audio_mem_s2_writedata(32'b0),
+//	.audio_mem_s2_byteenable(4'b1111),
+//	.audio_position_export(WM8731_MEM_ADDR),
+//	.audio_position_end_export(WM8731_MEM_ADDR_END)
+//
+//	.audio_fifo_out_data({WM8731_RDATA, WM8731_LDATA}),
+//	.audio_fifo_out_ready(WM8731_READY)
+
+	.audio_pio_export({WM8731_RDATA, WM8731_LDATA})
 );
 	
 endmodule

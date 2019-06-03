@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jun 1, 2019 1:21:31 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1559323291810</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jun 3, 2019 11:49:16 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1559576956269</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\xuyh0\Desktop\zjui-ece385\final\ECE385_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\ECE385.sopcinfo</SopcDesignFile>
@@ -900,181 +900,181 @@
         </Setting>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_7</slaveDescriptor>
-                <addressRange>0x00000000 - 0x00001FFF</addressRange>
-                <addressSpan>8192</addressSpan>
+                <addressRange>0x00000000 - 0x00000FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_6</slaveDescriptor>
-                <addressRange>0x00002000 - 0x00003FFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>audio_mem</slaveDescriptor>
-                <addressRange>0x00004000 - 0x00007FFF</addressRange>
-                <addressSpan>16384</addressSpan>
+                <addressRange>0x00001000 - 0x00001FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_5</slaveDescriptor>
-                <addressRange>0x00008000 - 0x00009FFF</addressRange>
-                <addressSpan>8192</addressSpan>
+                <addressRange>0x00002000 - 0x00002FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_4</slaveDescriptor>
-                <addressRange>0x0000A000 - 0x0000BFFF</addressRange>
-                <addressSpan>8192</addressSpan>
+                <addressRange>0x00003000 - 0x00003FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_3</slaveDescriptor>
-                <addressRange>0x0000C000 - 0x0000DFFF</addressRange>
-                <addressSpan>8192</addressSpan>
+                <addressRange>0x00004000 - 0x00004FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_2</slaveDescriptor>
-                <addressRange>0x0000E000 - 0x0000FFFF</addressRange>
-                <addressSpan>8192</addressSpan>
+                <addressRange>0x00005000 - 0x00005FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_1</slaveDescriptor>
-                <addressRange>0x00010000 - 0x00011FFF</addressRange>
-                <addressSpan>8192</addressSpan>
+                <addressRange>0x00006000 - 0x00006FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_0</slaveDescriptor>
-                <addressRange>0x00012000 - 0x00013FFF</addressRange>
-                <addressSpan>8192</addressSpan>
+                <addressRange>0x00007000 - 0x00007FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>usb_keycode</slaveDescriptor>
-                <addressRange>0x00015000 - 0x000153FF</addressRange>
+                <addressRange>0x00009000 - 0x000093FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>vga_sprite_params</slaveDescriptor>
-                <addressRange>0x00015400 - 0x000157FF</addressRange>
+                <addressRange>0x00009400 - 0x000097FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>eth0_mdio</slaveDescriptor>
-                <addressRange>0x00015800 - 0x0001587F</addressRange>
+                <addressRange>0x00009800 - 0x0000987F</addressRange>
                 <addressSpan>128</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>eth1_mdio</slaveDescriptor>
-                <addressRange>0x00015880 - 0x000158FF</addressRange>
+                <addressRange>0x00009880 - 0x000098FF</addressRange>
                 <addressSpan>128</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>nios2_dma</slaveDescriptor>
+                <addressRange>0x00009900 - 0x0000993F</addressRange>
+                <addressSpan>64</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>eth1_tx_dma</slaveDescriptor>
-                <addressRange>0x00015900 - 0x0001593F</addressRange>
+                <addressRange>0x00009940 - 0x0000997F</addressRange>
                 <addressSpan>64</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>eth1_rx_dma</slaveDescriptor>
-                <addressRange>0x00015940 - 0x0001597F</addressRange>
+                <addressRange>0x00009980 - 0x000099BF</addressRange>
                 <addressSpan>64</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>eth0_tx_dma</slaveDescriptor>
-                <addressRange>0x00015980 - 0x000159BF</addressRange>
+                <addressRange>0x000099C0 - 0x000099FF</addressRange>
                 <addressSpan>64</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>eth0_rx_dma</slaveDescriptor>
-                <addressRange>0x000159C0 - 0x000159FF</addressRange>
+                <addressRange>0x00009A00 - 0x00009A3F</addressRange>
                 <addressSpan>64</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>audio_timer</slaveDescriptor>
+                <addressRange>0x00009A40 - 0x00009A5F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes>timer</attributes>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>io_hex</slaveDescriptor>
-                <addressRange>0x00015A00 - 0x00015A1F</addressRange>
+                <addressRange>0x00009A60 - 0x00009A7F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_green</slaveDescriptor>
-                <addressRange>0x00015A20 - 0x00015A3F</addressRange>
+                <addressRange>0x00009A80 - 0x00009A9F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_timer</slaveDescriptor>
-                <addressRange>0x00015A40 - 0x00015A5F</addressRange>
+                <addressRange>0x00009AA0 - 0x00009ABF</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_led_red</slaveDescriptor>
-                <addressRange>0x00015A60 - 0x00015A7F</addressRange>
+                <addressRange>0x00009AC0 - 0x00009ADF</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>audio_pio</slaveDescriptor>
+                <addressRange>0x00009AF0 - 0x00009AFF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>vga_background_offset</slaveDescriptor>
-                <addressRange>0x00015A90 - 0x00015A9F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>audio_position</slaveDescriptor>
-                <addressRange>0x00015AA0 - 0x00015AAF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>audio_position_end</slaveDescriptor>
-                <addressRange>0x00015AB0 - 0x00015ABF</addressRange>
+                <addressRange>0x00009B00 - 0x00009B0F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_vga_sync</slaveDescriptor>
-                <addressRange>0x00015AD0 - 0x00015ADF</addressRange>
+                <addressRange>0x00009B10 - 0x00009B1F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_switches</slaveDescriptor>
-                <addressRange>0x00015AE0 - 0x00015AEF</addressRange>
+                <addressRange>0x00009B20 - 0x00009B2F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>io_keys</slaveDescriptor>
-                <addressRange>0x00015AF0 - 0x00015AFF</addressRange>
+                <addressRange>0x00009B30 - 0x00009B3F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_pll</slaveDescriptor>
-                <addressRange>0x00015B00 - 0x00015B0F</addressRange>
+                <addressRange>0x00009B40 - 0x00009B4F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_sysid</slaveDescriptor>
-                <addressRange>0x00015B18 - 0x00015B1F</addressRange>
+                <addressRange>0x00009B58 - 0x00009B5F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>nios2_jtag_uart</slaveDescriptor>
-                <addressRange>0x00015B20 - 0x00015B27</addressRange>
+                <addressRange>0x00009B60 - 0x00009B67</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
 # SOPC Builder design path: ../ECE385.sopcinfo
 #
-# Generated: Sat Jun 01 01:21:32 CST 2019
+# Generated: Mon Jun 03 20:40:29 CST 2019
 
 # DO NOT MODIFY THIS FILE
 #
@@ -47,34 +47,31 @@
 # by allowing GDB to cache memory contents on the host.
 
 # vga_sprite_7
-memory 0x0 0x2000 cache
+memory 0x0 0x1000 cache
 
 # vga_sprite_6
-memory 0x2000 0x4000 cache
-
-# audio_mem
-memory 0x4000 0x8000 cache
+memory 0x1000 0x2000 cache
 
 # vga_sprite_5
-memory 0x8000 0xa000 cache
+memory 0x2000 0x3000 cache
 
 # vga_sprite_4
-memory 0xa000 0xc000 cache
+memory 0x3000 0x4000 cache
 
 # vga_sprite_3
-memory 0xc000 0xe000 cache
+memory 0x4000 0x5000 cache
 
 # vga_sprite_2
-memory 0xe000 0x10000 cache
+memory 0x5000 0x6000 cache
 
 # vga_sprite_1
-memory 0x10000 0x12000 cache
+memory 0x6000 0x7000 cache
 
 # vga_sprite_0
-memory 0x12000 0x14000 cache
+memory 0x7000 0x8000 cache
 
 # usb_keycode
-memory 0x15000 0x15400 cache
+memory 0x9000 0x9400 cache
 
 # nios2_onchip_mem
 memory 0x40000 0x80000 cache

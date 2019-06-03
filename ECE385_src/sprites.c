@@ -4,6 +4,7 @@
 #include "main.h"
 #include "gamelogic.h"
 #include "resources/resource.h"
+#include "memcpy_dma.h"
 
 vga_sprite_info_t vga_planes_info[N_PLANES];
 uint16_t* vga_planes_sprite_data[N_PLANES] = {
@@ -156,9 +157,10 @@ uint8_t sprites_load_data(vga_entity_manage_t* vga_entity_type, uint8_t id, cons
 
 	volatile uint16_t* target = vga_entity_type->info_arr[id].sprite_data;
 	// TODO: use faster methods, such as DMA?
-	for(int i = 0; i < pixel_count; i++) {
-		target[i] = src[i];
-	}
+//	for(int i = 0; i < pixel_count; i++) {
+//		target[i] = src[i];
+//	}
+	memcpy_dma(target, src, pixel_count * sizeof(uint16_t));
 	return 0;
 }
 

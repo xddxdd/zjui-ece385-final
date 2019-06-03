@@ -191,6 +191,9 @@ C_SRCS += comm.c
 C_SRCS += resources/vga_fonts.c
 C_SRCS += resources/resource.c
 C_SRCS += resources/chinese.c
+C_SRCS += memcpy_dma.c
+C_SRCS += resources/music.c
+C_SRCS += audio.c
 CXX_SRCS :=
 ASM_SRCS :=
 

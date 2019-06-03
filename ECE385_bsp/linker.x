@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Sat Jun 01 01:21:32 CST 2019
+ * Generated: Mon Jun 03 20:40:29 CST 2019
  */
 
 /*
@@ -50,16 +50,15 @@
 
 MEMORY
 {
-    vga_sprite_7 : ORIGIN = 0x0, LENGTH = 8192
-    vga_sprite_6 : ORIGIN = 0x2000, LENGTH = 8192
-    audio_mem : ORIGIN = 0x4000, LENGTH = 16384
-    vga_sprite_5 : ORIGIN = 0x8000, LENGTH = 8192
-    vga_sprite_4 : ORIGIN = 0xa000, LENGTH = 8192
-    vga_sprite_3 : ORIGIN = 0xc000, LENGTH = 8192
-    vga_sprite_2 : ORIGIN = 0xe000, LENGTH = 8192
-    vga_sprite_1 : ORIGIN = 0x10000, LENGTH = 8192
-    vga_sprite_0 : ORIGIN = 0x12000, LENGTH = 8192
-    usb_keycode : ORIGIN = 0x15000, LENGTH = 1024
+    vga_sprite_7 : ORIGIN = 0x0, LENGTH = 4096
+    vga_sprite_6 : ORIGIN = 0x1000, LENGTH = 4096
+    vga_sprite_5 : ORIGIN = 0x2000, LENGTH = 4096
+    vga_sprite_4 : ORIGIN = 0x3000, LENGTH = 4096
+    vga_sprite_3 : ORIGIN = 0x4000, LENGTH = 4096
+    vga_sprite_2 : ORIGIN = 0x5000, LENGTH = 4096
+    vga_sprite_1 : ORIGIN = 0x6000, LENGTH = 4096
+    vga_sprite_0 : ORIGIN = 0x7000, LENGTH = 4096
+    usb_keycode : ORIGIN = 0x9000, LENGTH = 1024
     reset : ORIGIN = 0x40000, LENGTH = 32
     nios2_onchip_mem : ORIGIN = 0x40020, LENGTH = 262112
     sdram : ORIGIN = 0x8000000, LENGTH = 134217728
@@ -67,15 +66,14 @@ MEMORY
 
 /* Define symbols for each memory base-address */
 __alt_mem_vga_sprite_7 = 0x0;
-__alt_mem_vga_sprite_6 = 0x2000;
-__alt_mem_audio_mem = 0x4000;
-__alt_mem_vga_sprite_5 = 0x8000;
-__alt_mem_vga_sprite_4 = 0xa000;
-__alt_mem_vga_sprite_3 = 0xc000;
-__alt_mem_vga_sprite_2 = 0xe000;
-__alt_mem_vga_sprite_1 = 0x10000;
-__alt_mem_vga_sprite_0 = 0x12000;
-__alt_mem_usb_keycode = 0x15000;
+__alt_mem_vga_sprite_6 = 0x1000;
+__alt_mem_vga_sprite_5 = 0x2000;
+__alt_mem_vga_sprite_4 = 0x3000;
+__alt_mem_vga_sprite_3 = 0x4000;
+__alt_mem_vga_sprite_2 = 0x5000;
+__alt_mem_vga_sprite_1 = 0x6000;
+__alt_mem_vga_sprite_0 = 0x7000;
+__alt_mem_usb_keycode = 0x9000;
 __alt_mem_nios2_onchip_mem = 0x40000;
 __alt_mem_sdram = 0x8000000;
 
@@ -379,24 +377,7 @@ SECTIONS
      *
      */
 
-    .audio_mem : AT ( LOADADDR (.vga_sprite_6) + SIZEOF (.vga_sprite_6) )
-    {
-        PROVIDE (_alt_partition_audio_mem_start = ABSOLUTE(.));
-        *(.audio_mem .audio_mem. audio_mem.*)
-        . = ALIGN(4);
-        PROVIDE (_alt_partition_audio_mem_end = ABSOLUTE(.));
-    } > audio_mem
-
-    PROVIDE (_alt_partition_audio_mem_load_addr = LOADADDR(.audio_mem));
-
-    /*
-     *
-     * This section's LMA is set to the .text region.
-     * crt0 will copy to this section's specified mapped region virtual memory address (VMA)
-     *
-     */
-
-    .vga_sprite_5 : AT ( LOADADDR (.audio_mem) + SIZEOF (.audio_mem) )
+    .vga_sprite_5 : AT ( LOADADDR (.vga_sprite_6) + SIZEOF (.vga_sprite_6) )
     {
         PROVIDE (_alt_partition_vga_sprite_5_start = ABSOLUTE(.));
         *(.vga_sprite_5 .vga_sprite_5. vga_sprite_5.*)

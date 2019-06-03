@@ -6,16 +6,22 @@
 #include "resources/resource.h"
 #include "vga.h"
 #include "comm.h"
+#include "audio.h"
+#include "resources/music.h"
 
 volatile int* io_led_red = (int*) IO_LED_RED_BASE;
 volatile int* io_led_green = (int*) IO_LED_GREEN_BASE;
 volatile int* io_hex = (int*) IO_HEX_BASE;
 volatile int* io_vga_sync = (int*) IO_VGA_SYNC_BASE;
 volatile int* io_vga_background_offset = (int*) VGA_BACKGROUND_OFFSET_BASE;
-volatile game_state_t game_state = GAME_OVER;
+volatile game_state_t game_state = PREPARE_GAME;
 
 int main(void) {
 	eth_init();
+
+	audio_init();
+	audio_len = MUSIC_LEN / 4;
+	audio_src = (uint32_t*) music_data;
 
 	while(1) {
 		eth_loop();

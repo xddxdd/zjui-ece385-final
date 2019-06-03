@@ -4,17 +4,7 @@
 
 `timescale 1 ps / 1 ps
 module ECE385 (
-		input  wire        audio_mem_clk2_clk,                             //                          audio_mem_clk2.clk
-		input  wire        audio_mem_reset2_reset,                         //                        audio_mem_reset2.reset
-		input  wire [11:0] audio_mem_s2_address,                           //                            audio_mem_s2.address
-		input  wire        audio_mem_s2_chipselect,                        //                                        .chipselect
-		input  wire        audio_mem_s2_clken,                             //                                        .clken
-		input  wire        audio_mem_s2_write,                             //                                        .write
-		output wire [31:0] audio_mem_s2_readdata,                          //                                        .readdata
-		input  wire [31:0] audio_mem_s2_writedata,                         //                                        .writedata
-		input  wire [3:0]  audio_mem_s2_byteenable,                        //                                        .byteenable
-		input  wire [31:0] audio_position_export,                          //                          audio_position.export
-		output wire [31:0] audio_position_end_export,                      //                      audio_position_end.export
+		output wire [31:0] audio_pio_export,                               //                               audio_pio.export
 		input  wire        clk_clk,                                        //                                     clk.clk
 		output wire        eth0_mdio_mdc,                                  //                               eth0_mdio.mdc
 		input  wire        eth0_mdio_mdio_in,                              //                                        .mdio_in
@@ -423,25 +413,21 @@ module ECE385 (
 	wire         mm_interconnect_0_vga_sprite_7_s1_write;                         // mm_interconnect_0:vga_sprite_7_s1_write -> vga_sprite_7:write
 	wire  [31:0] mm_interconnect_0_vga_sprite_7_s1_writedata;                     // mm_interconnect_0:vga_sprite_7_s1_writedata -> vga_sprite_7:writedata
 	wire         mm_interconnect_0_vga_sprite_7_s1_clken;                         // mm_interconnect_0:vga_sprite_7_s1_clken -> vga_sprite_7:clken
-	wire         mm_interconnect_0_audio_mem_s1_chipselect;                       // mm_interconnect_0:audio_mem_s1_chipselect -> audio_mem:chipselect
-	wire  [31:0] mm_interconnect_0_audio_mem_s1_readdata;                         // audio_mem:readdata -> mm_interconnect_0:audio_mem_s1_readdata
-	wire  [11:0] mm_interconnect_0_audio_mem_s1_address;                          // mm_interconnect_0:audio_mem_s1_address -> audio_mem:address
-	wire   [3:0] mm_interconnect_0_audio_mem_s1_byteenable;                       // mm_interconnect_0:audio_mem_s1_byteenable -> audio_mem:byteenable
-	wire         mm_interconnect_0_audio_mem_s1_write;                            // mm_interconnect_0:audio_mem_s1_write -> audio_mem:write
-	wire  [31:0] mm_interconnect_0_audio_mem_s1_writedata;                        // mm_interconnect_0:audio_mem_s1_writedata -> audio_mem:writedata
-	wire         mm_interconnect_0_audio_mem_s1_clken;                            // mm_interconnect_0:audio_mem_s1_clken -> audio_mem:clken
-	wire         mm_interconnect_0_audio_position_end_s1_chipselect;              // mm_interconnect_0:audio_position_end_s1_chipselect -> audio_position_end:chipselect
-	wire  [31:0] mm_interconnect_0_audio_position_end_s1_readdata;                // audio_position_end:readdata -> mm_interconnect_0:audio_position_end_s1_readdata
-	wire   [1:0] mm_interconnect_0_audio_position_end_s1_address;                 // mm_interconnect_0:audio_position_end_s1_address -> audio_position_end:address
-	wire         mm_interconnect_0_audio_position_end_s1_write;                   // mm_interconnect_0:audio_position_end_s1_write -> audio_position_end:write_n
-	wire  [31:0] mm_interconnect_0_audio_position_end_s1_writedata;               // mm_interconnect_0:audio_position_end_s1_writedata -> audio_position_end:writedata
-	wire  [31:0] mm_interconnect_0_audio_position_s1_readdata;                    // audio_position:readdata -> mm_interconnect_0:audio_position_s1_readdata
-	wire   [1:0] mm_interconnect_0_audio_position_s1_address;                     // mm_interconnect_0:audio_position_s1_address -> audio_position:address
 	wire         mm_interconnect_0_vga_background_offset_s1_chipselect;           // mm_interconnect_0:vga_background_offset_s1_chipselect -> vga_background_offset:chipselect
 	wire  [31:0] mm_interconnect_0_vga_background_offset_s1_readdata;             // vga_background_offset:readdata -> mm_interconnect_0:vga_background_offset_s1_readdata
 	wire   [1:0] mm_interconnect_0_vga_background_offset_s1_address;              // mm_interconnect_0:vga_background_offset_s1_address -> vga_background_offset:address
 	wire         mm_interconnect_0_vga_background_offset_s1_write;                // mm_interconnect_0:vga_background_offset_s1_write -> vga_background_offset:write_n
 	wire  [31:0] mm_interconnect_0_vga_background_offset_s1_writedata;            // mm_interconnect_0:vga_background_offset_s1_writedata -> vga_background_offset:writedata
+	wire         mm_interconnect_0_audio_pio_s1_chipselect;                       // mm_interconnect_0:audio_pio_s1_chipselect -> audio_pio:chipselect
+	wire  [31:0] mm_interconnect_0_audio_pio_s1_readdata;                         // audio_pio:readdata -> mm_interconnect_0:audio_pio_s1_readdata
+	wire   [1:0] mm_interconnect_0_audio_pio_s1_address;                          // mm_interconnect_0:audio_pio_s1_address -> audio_pio:address
+	wire         mm_interconnect_0_audio_pio_s1_write;                            // mm_interconnect_0:audio_pio_s1_write -> audio_pio:write_n
+	wire  [31:0] mm_interconnect_0_audio_pio_s1_writedata;                        // mm_interconnect_0:audio_pio_s1_writedata -> audio_pio:writedata
+	wire         mm_interconnect_0_audio_timer_s1_chipselect;                     // mm_interconnect_0:audio_timer_s1_chipselect -> audio_timer:chipselect
+	wire  [15:0] mm_interconnect_0_audio_timer_s1_readdata;                       // audio_timer:readdata -> mm_interconnect_0:audio_timer_s1_readdata
+	wire   [2:0] mm_interconnect_0_audio_timer_s1_address;                        // mm_interconnect_0:audio_timer_s1_address -> audio_timer:address
+	wire         mm_interconnect_0_audio_timer_s1_write;                          // mm_interconnect_0:audio_timer_s1_write -> audio_timer:write_n
+	wire  [15:0] mm_interconnect_0_audio_timer_s1_writedata;                      // mm_interconnect_0:audio_timer_s1_writedata -> audio_timer:writedata
 	wire         mm_interconnect_0_usb_keycode_s2_chipselect;                     // mm_interconnect_0:usb_keycode_s2_chipselect -> usb_keycode:chipselect2
 	wire  [31:0] mm_interconnect_0_usb_keycode_s2_readdata;                       // usb_keycode:readdata2 -> mm_interconnect_0:usb_keycode_s2_readdata
 	wire   [7:0] mm_interconnect_0_usb_keycode_s2_address;                        // mm_interconnect_0:usb_keycode_s2_address -> usb_keycode:address2
@@ -599,57 +585,37 @@ module ECE385 (
 	wire         irq_mapper_receiver4_irq;                                        // nios2_dma:csr_irq -> irq_mapper:receiver4_irq
 	wire         irq_mapper_receiver5_irq;                                        // nios2_jtag_uart:av_irq -> irq_mapper:receiver5_irq
 	wire         irq_mapper_receiver6_irq;                                        // nios2_timer:irq -> irq_mapper:receiver6_irq
+	wire         irq_mapper_receiver7_irq;                                        // audio_timer:irq -> irq_mapper:receiver7_irq
 	wire  [31:0] nios2_cpu_irq_irq;                                               // irq_mapper:sender_irq -> nios2_cpu:irq
 	wire         irq_mapper_001_receiver0_irq;                                    // usb_jtag_uart:av_irq -> irq_mapper_001:receiver0_irq
 	wire  [31:0] usb_nios2_cpu_irq_irq;                                           // irq_mapper_001:sender_irq -> usb_nios2_cpu:irq
-	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_mem:reset, audio_position:reset_n, audio_position_end:reset_n, eth0_mdio:reset, eth0_rx_dma:system_reset_n, eth0_rx_fifo:out_reset_n, eth0_tx_dma:system_reset_n, eth0_tx_fifo:in_reset_n, eth1_mdio:reset, eth1_rx_dma:system_reset_n, eth1_rx_fifo:out_reset_n, eth1_tx_dma:system_reset_n, eth1_tx_fifo:in_reset_n, io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, mm_interconnect_0:nios2_dma_reset_reset_bridge_in_reset_reset, mm_interconnect_2:eth0_rx_dma_reset_reset_bridge_in_reset_reset, nios2_dma:system_reset_n, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, sdram:reset_n, sram_multiplexer:RESET, usb_keycode:reset2, vga_background_offset:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
+	wire         rst_controller_reset_out_reset;                                  // rst_controller:reset_out -> [audio_pio:reset_n, audio_timer:reset_n, eth0_mdio:reset, eth0_rx_dma:system_reset_n, eth0_rx_fifo:out_reset_n, eth0_tx_dma:system_reset_n, eth0_tx_fifo:in_reset_n, eth1_mdio:reset, eth1_rx_dma:system_reset_n, eth1_rx_fifo:out_reset_n, eth1_tx_dma:system_reset_n, eth1_tx_fifo:in_reset_n, io_hex:reset_n, io_keys:reset_n, io_led_green:reset_n, io_led_red:reset_n, io_switches:reset_n, io_vga_sync:reset_n, mm_interconnect_0:nios2_dma_reset_reset_bridge_in_reset_reset, mm_interconnect_2:eth0_rx_dma_reset_reset_bridge_in_reset_reset, nios2_dma:system_reset_n, nios2_jtag_uart:rst_n, nios2_onchip_mem:reset, nios2_pll:reset, nios2_sysid:reset_n, nios2_timer:reset_n, sdram:reset_n, sram_multiplexer:RESET, usb_keycode:reset2, vga_background_offset:reset_n, vga_sprite_0:reset, vga_sprite_1:reset, vga_sprite_2:reset, vga_sprite_3:reset, vga_sprite_4:reset, vga_sprite_5:reset, vga_sprite_6:reset, vga_sprite_7:reset, vga_sprite_params:RESET]
 	wire         rst_controller_001_reset_out_reset;                              // rst_controller_001:reset_out -> [irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, nios2_cpu:reset_n]
 	wire         rst_controller_001_reset_out_reset_req;                          // rst_controller_001:reset_req -> [nios2_cpu:reset_req, rst_translator:reset_req_in]
 	wire         nios2_cpu_debug_reset_request_reset;                             // nios2_cpu:debug_reset_request -> rst_controller_001:reset_in1
 	wire         rst_controller_002_reset_out_reset;                              // rst_controller_002:reset_out -> [irq_mapper_001:reset, mm_interconnect_1:usb_nios2_cpu_reset_reset_bridge_in_reset_reset, rst_translator_001:in_reset, usb_hpi_address:reset_n, usb_hpi_cs:reset_n, usb_hpi_data:reset_n, usb_hpi_r:reset_n, usb_hpi_reset:reset_n, usb_hpi_w:reset_n, usb_jtag_uart:rst_n, usb_keycode:reset, usb_nios2_cpu:reset_n, usb_nios2_onchip_mem:reset, usb_nios2_sysid:reset_n]
 	wire         rst_controller_002_reset_out_reset_req;                          // rst_controller_002:reset_req -> [rst_translator_001:reset_req_in, usb_nios2_cpu:reset_req]
 
-	ECE385_audio_mem audio_mem (
-		.clk         (clk_clk),                                   //   clk1.clk
-		.address     (mm_interconnect_0_audio_mem_s1_address),    //     s1.address
-		.clken       (mm_interconnect_0_audio_mem_s1_clken),      //       .clken
-		.chipselect  (mm_interconnect_0_audio_mem_s1_chipselect), //       .chipselect
-		.write       (mm_interconnect_0_audio_mem_s1_write),      //       .write
-		.readdata    (mm_interconnect_0_audio_mem_s1_readdata),   //       .readdata
-		.writedata   (mm_interconnect_0_audio_mem_s1_writedata),  //       .writedata
-		.byteenable  (mm_interconnect_0_audio_mem_s1_byteenable), //       .byteenable
-		.reset       (rst_controller_reset_out_reset),            // reset1.reset
-		.address2    (audio_mem_s2_address),                      //     s2.address
-		.chipselect2 (audio_mem_s2_chipselect),                   //       .chipselect
-		.clken2      (audio_mem_s2_clken),                        //       .clken
-		.write2      (audio_mem_s2_write),                        //       .write
-		.readdata2   (audio_mem_s2_readdata),                     //       .readdata
-		.writedata2  (audio_mem_s2_writedata),                    //       .writedata
-		.byteenable2 (audio_mem_s2_byteenable),                   //       .byteenable
-		.clk2        (audio_mem_clk2_clk),                        //   clk2.clk
-		.reset2      (audio_mem_reset2_reset),                    // reset2.reset
-		.reset_req   (1'b0),                                      // (terminated)
-		.freeze      (1'b0),                                      // (terminated)
-		.reset_req2  (1'b0)                                       // (terminated)
+	ECE385_audio_pio audio_pio (
+		.clk        (clk_clk),                                   //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),           //               reset.reset_n
+		.address    (mm_interconnect_0_audio_pio_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_audio_pio_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_audio_pio_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_audio_pio_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_audio_pio_s1_readdata),   //                    .readdata
+		.out_port   (audio_pio_export)                           // external_connection.export
 	);
 
-	ECE385_audio_position audio_position (
-		.clk      (clk_clk),                                      //                 clk.clk
-		.reset_n  (~rst_controller_reset_out_reset),              //               reset.reset_n
-		.address  (mm_interconnect_0_audio_position_s1_address),  //                  s1.address
-		.readdata (mm_interconnect_0_audio_position_s1_readdata), //                    .readdata
-		.in_port  (audio_position_export)                         // external_connection.export
-	);
-
-	ECE385_audio_position_end audio_position_end (
-		.clk        (clk_clk),                                            //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),                    //               reset.reset_n
-		.address    (mm_interconnect_0_audio_position_end_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_audio_position_end_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_audio_position_end_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_audio_position_end_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_audio_position_end_s1_readdata),   //                    .readdata
-		.out_port   (audio_position_end_export)                           // external_connection.export
+	ECE385_audio_timer audio_timer (
+		.clk        (clk_clk),                                     //   clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),             // reset.reset_n
+		.address    (mm_interconnect_0_audio_timer_s1_address),    //    s1.address
+		.writedata  (mm_interconnect_0_audio_timer_s1_writedata),  //      .writedata
+		.readdata   (mm_interconnect_0_audio_timer_s1_readdata),   //      .readdata
+		.chipselect (mm_interconnect_0_audio_timer_s1_chipselect), //      .chipselect
+		.write_n    (~mm_interconnect_0_audio_timer_s1_write),     //      .write_n
+		.irq        (irq_mapper_receiver7_irq)                     //   irq.irq
 	);
 
 	lantian_mdio #(
@@ -1454,7 +1420,7 @@ module ECE385 (
 		.address  (mm_interconnect_1_usb_nios2_sysid_control_slave_address)   //              .address
 	);
 
-	ECE385_audio_position_end vga_background_offset (
+	ECE385_audio_pio vga_background_offset (
 		.clk        (clk_clk),                                               //                 clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),                       //               reset.reset_n
 		.address    (mm_interconnect_0_vga_background_offset_s1_address),    //                  s1.address
@@ -1702,20 +1668,16 @@ module ECE385 (
 		.nios2_dma_m_write_byteenable                  (nios2_dma_m_write_byteenable),                                    //                                      .byteenable
 		.nios2_dma_m_write_write                       (nios2_dma_m_write_write),                                         //                                      .write
 		.nios2_dma_m_write_writedata                   (nios2_dma_m_write_writedata),                                     //                                      .writedata
-		.audio_mem_s1_address                          (mm_interconnect_0_audio_mem_s1_address),                          //                          audio_mem_s1.address
-		.audio_mem_s1_write                            (mm_interconnect_0_audio_mem_s1_write),                            //                                      .write
-		.audio_mem_s1_readdata                         (mm_interconnect_0_audio_mem_s1_readdata),                         //                                      .readdata
-		.audio_mem_s1_writedata                        (mm_interconnect_0_audio_mem_s1_writedata),                        //                                      .writedata
-		.audio_mem_s1_byteenable                       (mm_interconnect_0_audio_mem_s1_byteenable),                       //                                      .byteenable
-		.audio_mem_s1_chipselect                       (mm_interconnect_0_audio_mem_s1_chipselect),                       //                                      .chipselect
-		.audio_mem_s1_clken                            (mm_interconnect_0_audio_mem_s1_clken),                            //                                      .clken
-		.audio_position_s1_address                     (mm_interconnect_0_audio_position_s1_address),                     //                     audio_position_s1.address
-		.audio_position_s1_readdata                    (mm_interconnect_0_audio_position_s1_readdata),                    //                                      .readdata
-		.audio_position_end_s1_address                 (mm_interconnect_0_audio_position_end_s1_address),                 //                 audio_position_end_s1.address
-		.audio_position_end_s1_write                   (mm_interconnect_0_audio_position_end_s1_write),                   //                                      .write
-		.audio_position_end_s1_readdata                (mm_interconnect_0_audio_position_end_s1_readdata),                //                                      .readdata
-		.audio_position_end_s1_writedata               (mm_interconnect_0_audio_position_end_s1_writedata),               //                                      .writedata
-		.audio_position_end_s1_chipselect              (mm_interconnect_0_audio_position_end_s1_chipselect),              //                                      .chipselect
+		.audio_pio_s1_address                          (mm_interconnect_0_audio_pio_s1_address),                          //                          audio_pio_s1.address
+		.audio_pio_s1_write                            (mm_interconnect_0_audio_pio_s1_write),                            //                                      .write
+		.audio_pio_s1_readdata                         (mm_interconnect_0_audio_pio_s1_readdata),                         //                                      .readdata
+		.audio_pio_s1_writedata                        (mm_interconnect_0_audio_pio_s1_writedata),                        //                                      .writedata
+		.audio_pio_s1_chipselect                       (mm_interconnect_0_audio_pio_s1_chipselect),                       //                                      .chipselect
+		.audio_timer_s1_address                        (mm_interconnect_0_audio_timer_s1_address),                        //                        audio_timer_s1.address
+		.audio_timer_s1_write                          (mm_interconnect_0_audio_timer_s1_write),                          //                                      .write
+		.audio_timer_s1_readdata                       (mm_interconnect_0_audio_timer_s1_readdata),                       //                                      .readdata
+		.audio_timer_s1_writedata                      (mm_interconnect_0_audio_timer_s1_writedata),                      //                                      .writedata
+		.audio_timer_s1_chipselect                     (mm_interconnect_0_audio_timer_s1_chipselect),                     //                                      .chipselect
 		.eth0_mdio_avalon_slave_address                (mm_interconnect_0_eth0_mdio_avalon_slave_address),                //                eth0_mdio_avalon_slave.address
 		.eth0_mdio_avalon_slave_write                  (mm_interconnect_0_eth0_mdio_avalon_slave_write),                  //                                      .write
 		.eth0_mdio_avalon_slave_read                   (mm_interconnect_0_eth0_mdio_avalon_slave_read),                   //                                      .read
@@ -2065,6 +2027,7 @@ module ECE385 (
 		.receiver4_irq (irq_mapper_receiver4_irq),           // receiver4.irq
 		.receiver5_irq (irq_mapper_receiver5_irq),           // receiver5.irq
 		.receiver6_irq (irq_mapper_receiver6_irq),           // receiver6.irq
+		.receiver7_irq (irq_mapper_receiver7_irq),           // receiver7.irq
 		.sender_irq    (nios2_cpu_irq_irq)                   //    sender.irq
 	);
 
