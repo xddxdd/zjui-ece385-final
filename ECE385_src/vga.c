@@ -10,24 +10,26 @@ void vga_erase(int x, int y, int width, int height) {
 
 void vga_fill(int x, int y, int width, int height, uint16_t color) {
 	int y_max = y + height;
-	int x_max = x + width;
+//	int x_max = x + width;
 	for(int dy = y; dy < y_max; dy++) {
-		int* vga_ptr = VGA_FRAMEBUFFER + dy * VGA_WIDTH;
-		for(int dx = x; dx < x_max; dx++) {
-			vga_ptr[dx] = color;
-		}
+		uint16_t* vga_ptr = ((uint16_t*) VGA_FRAMEBUFFER) + dy * VGA_WIDTH;
+//		for(int dx = x; dx < x_max; dx++) {
+//			vga_ptr[dx] = color;
+//		}
+		memset16_dma(vga_ptr + x, color, width * sizeof(uint16_t));
 	}
 }
 
 void vga_set(int x, int y, int width, int height, const uint16_t* src) {
 	int y_max = y + height;
-	int x_max = x + width;
+//	int x_max = x + width;
 	for(int dy = y; dy < y_max; dy++) {
-		int* vga_ptr = VGA_FRAMEBUFFER + dy * VGA_WIDTH;
-		const uint16_t* src_ptr = src + (dy-y) * width;
-		for(int dx = x; dx < x_max; dx++) {
-			vga_ptr[dx] = src[(dy-y) * width + dx-x];
-		}
+		uint16_t* vga_ptr = ((uint16_t*) VGA_FRAMEBUFFER) + dy * VGA_WIDTH;
+//		const uint16_t* src_ptr = src + (dy-y) * width;
+//		for(int dx = x; dx < x_max; dx++) {
+//			vga_ptr[dx] = src[(dy-y) * width + dx-x];
+//		}
+		memcpy_dma(vga_ptr + x, src + (dy-y) * width, width * sizeof(uint16_t));
 	}
 }
 
@@ -52,11 +54,13 @@ void vga_scroll(int height, const uint16_t* src) {
 		*io_vga_background_offset = bg_offset;
 
 		// Replace the line
-		int* fb_end = VGA_FRAMEBUFFER + (bg_offset+1) * VGA_WIDTH;
-		const uint16_t* bg_pos = src + bg_scanline * VGA_WIDTH;
-		for(int* fb = VGA_FRAMEBUFFER + bg_offset * VGA_WIDTH; fb < fb_end; fb++) {
-			*fb = *(bg_pos++);
-		}
+//		uint16_t* fb_end = VGA_FRAMEBUFFER + (bg_offset+1) * VGA_WIDTH;
+//		const uint16_t* bg_pos = src + bg_scanline * VGA_WIDTH;
+//		for(uint16_t* fb = VGA_FRAMEBUFFER + bg_offset * VGA_WIDTH; fb < fb_end; fb++) {
+//			*fb = *(bg_pos++);
+//		}
+
+		memcpy_dma(((uint16_t*) VGA_FRAMEBUFFER) + bg_offset * VGA_WIDTH, src + bg_scanline * VGA_WIDTH, VGA_WIDTH * sizeof(uint16_t));
 
 		// Move scanline by 1
 		bg_scanline--;
@@ -102,11 +106,11 @@ uint16_t utf8_len(const uint8_t* c) {
 }
 
 void vga_english(int x, int y, uint8_t c) {
-	for(int dy = 0; dy < 32; dy++) {
-		uint8_t d = font_data[(uint8_t) c][dy / 2];
-		for(int dx = 0; dx < 16; dx++) {
-			int* target = VGA_FRAMEBUFFER + (y + dy) * VGA_WIDTH + x + dx;
-			if(d & (1 << (7 - dx / 2))) {
+	for(int dy = 0; dy < 16; dy++) {
+		uint8_t d = font_data[(uint8_t) c][dy];
+		for(int dx = 0; dx < 8; dx++) {
+			uint16_t* target = ((uint16_t*) VGA_FRAMEBUFFER) + (y + dy) * VGA_WIDTH + x + dx;
+			if(d & (1 << (7 - dx))) {
 				*target = 0xffff;
 			} else {
 				*target = 0x0000;
@@ -115,15 +119,27 @@ void vga_english(int x, int y, uint8_t c) {
 	}
 }
 
+void vga_english_transparent(int x, int y, uint8_t c) {
+	for(int dy = 0; dy < 16; dy++) {
+		uint8_t d = font_data[(uint8_t) c][dy];
+		for(int dx = 0; dx < 8; dx++) {
+			uint16_t* target = ((uint16_t*) VGA_FRAMEBUFFER) + (y + dy) * VGA_WIDTH + x + dx;
+			if(d & (1 << (7 - dx))) {
+				*target = 0xffff;
+			}
+		}
+	}
+}
+
 void vga_chinese(int x, int y, const uint8_t* c) {
 	uint16_t code = utf8_to_code(c);
 	if(code >= CHINESE_ENCODE_START && code <= CHINESE_ENCODE_END) {
-		for(int dy = 0; dy < 32; dy++) {
-			int chinese_pos = ((code - CHINESE_ENCODE_START) * 16 + dy / 2) * 2;
+		for(int dy = 0; dy < 16; dy++) {
+			int chinese_pos = ((code - CHINESE_ENCODE_START) * 16 + dy) * 2;
 			uint16_t d = (((uint16_t) chinese_font[chinese_pos]) << 8) | chinese_font[chinese_pos+1];
-			for(int dx = 0; dx < 32; dx++) {
-				int* target = VGA_FRAMEBUFFER + (y + dy) * VGA_WIDTH + x + dx;
-				if(d & (1 << (15 - dx / 2))) {
+			for(int dx = 0; dx < 16; dx++) {
+				uint16_t* target = ((uint16_t*) VGA_FRAMEBUFFER) + (y + dy) * VGA_WIDTH + x + dx;
+				if(d & (1 << (15 - dx))) {
 					*target = 0xffff;
 				} else {
 					*target = 0x0000;
@@ -133,30 +149,107 @@ void vga_chinese(int x, int y, const uint8_t* c) {
 	}
 }
 
+void vga_chinese_transparent(int x, int y, const uint8_t* c) {
+	uint16_t code = utf8_to_code(c);
+	if(code >= CHINESE_ENCODE_START && code <= CHINESE_ENCODE_END) {
+		for(int dy = 0; dy < 16; dy++) {
+			int chinese_pos = ((code - CHINESE_ENCODE_START) * 16 + dy) * 2;
+			uint16_t d = (((uint16_t) chinese_font[chinese_pos]) << 8) | chinese_font[chinese_pos+1];
+			for(int dx = 0; dx < 16; dx++) {
+				uint16_t* target = ((uint16_t*) VGA_FRAMEBUFFER) + (y + dy) * VGA_WIDTH + x + dx;
+				if(d & (1 << (15 - dx))) {
+					*target = 0xffff;
+				}
+			}
+		}
+	}
+}
+
+void vga_string(int x, int y, const uint8_t* c) {
+	const uint8_t* ptr = c;
+	int pos_x = 0, pos_y = 0;
+	while(*ptr) {
+		if(*ptr == '\n') {
+			pos_y++;
+			pos_x = 0;
+			ptr += 1;
+			continue;
+		} else if(*ptr == '\r') {
+			ptr += 1;
+			continue;
+		}
+		uint16_t len = utf8_len(ptr);
+		if(len > 1) {
+			if(x + pos_x * 8 + 16 >= VGA_WIDTH) {
+				pos_y++;
+				pos_x = 0;
+			}
+			vga_chinese(x + pos_x * 8, y + pos_y * 16, ptr);
+			pos_x += 2;
+		} else {
+			if(x + pos_x * 8 + 8 >= VGA_WIDTH) {
+				pos_y++;
+				pos_x = 0;
+			}
+			vga_english(x + pos_x * 8, y + pos_y * 16, *ptr);
+			pos_x += 1;
+		}
+		ptr += len;
+	}
+}
+
+void vga_string_transparent(int x, int y, const uint8_t* c) {
+	const uint8_t* ptr = c;
+	int pos_x = 0, pos_y = 0;
+	while(*ptr) {
+		if(*ptr == '\n') {
+			pos_y++;
+			pos_x = 0;
+			ptr += 1;
+			continue;
+		} else if(*ptr == '\r') {
+			ptr += 1;
+			continue;
+		}
+		uint16_t len = utf8_len(ptr);
+		if(len > 1) {
+			if(x + pos_x * 8 + 16 >= VGA_WIDTH) {
+				pos_y++;
+				pos_x = 0;
+			}
+			vga_chinese_transparent(x + pos_x * 8, y + pos_y * 16, ptr);
+			pos_x += 2;
+		} else {
+			if(x + pos_x * 8 + 8 >= VGA_WIDTH) {
+				pos_y++;
+				pos_x = 0;
+			}
+			vga_english_transparent(x + pos_x * 8, y + pos_y * 16, *ptr);
+			pos_x += 1;
+		}
+		ptr += len;
+	}
+}
+
 void vga_statusbar_english(int pos, uint8_t c) {
-	vga_english(pos * 16, VGA_HEIGHT, c);
+	vga_english(pos * 8, VGA_HEIGHT, c);
 }
 
 void vga_statusbar_chinese(int pos, const uint8_t* c) {
-	vga_chinese(pos * 16, VGA_HEIGHT, c);
+	vga_chinese(pos * 8, VGA_HEIGHT, c);
 }
 
 void vga_statusbar_string(int pos, const uint8_t* c) {
 	const uint8_t* ptr = c;
 	while(*ptr) {
 		uint16_t len = utf8_len(ptr);
-//		printf("%d %d %x %x %x\n", pos, len, *ptr, *(ptr+1), *(ptr+2));
 		if(len > 1) {
-			vga_chinese(pos * 16, VGA_HEIGHT, ptr);
+			vga_chinese(pos * 8, VGA_HEIGHT, ptr);
 			pos += 2;
 		} else {
-			vga_english(pos * 16, VGA_HEIGHT, *ptr);
+			vga_english(pos * 8, VGA_HEIGHT, *ptr);
 			pos += 1;
 		}
 		ptr += len;
-		if(pos >= 40) break;
 	}
-//	while(pos < 40) {
-//		vga_statusbar_english(pos++, ' ');
-//	}
 }

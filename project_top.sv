@@ -465,10 +465,10 @@ wm8731 wm8731_inst(
 // VGA Scrolling & Statusbar
 logic [9:0] VGA_RealDrawY;
 always_comb begin
-	if(VGA_DrawY >= 448) begin
+	if(VGA_DrawY >= 464) begin
 		VGA_RealDrawY = VGA_DrawY;
-	end else if(VGA_DrawY + VGA_BG_OFFSET >= 448) begin
-		VGA_RealDrawY = VGA_DrawY + VGA_BG_OFFSET - 448;
+	end else if(VGA_DrawY + VGA_BG_OFFSET >= 464) begin
+		VGA_RealDrawY = VGA_DrawY + VGA_BG_OFFSET - 464;
 	end else begin
 		VGA_RealDrawY = VGA_DrawY + VGA_BG_OFFSET;
 	end

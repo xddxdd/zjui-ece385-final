@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jun 3, 2019 11:49:16 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1559576956269</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jun 4, 2019 5:31:28 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1559640688370</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\xuyh0\Desktop\zjui-ece385\final\ECE385_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\ECE385.sopcinfo</SopcDesignFile>
@@ -1086,8 +1086,8 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sram_multiplexer</slaveDescriptor>
-                <addressRange>0x00400000 - 0x007FFFFF</addressRange>
-                <addressSpan>4194304</addressSpan>
+                <addressRange>0x00400000 - 0x005FFFFF</addressRange>
+                <addressSpan>2097152</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>

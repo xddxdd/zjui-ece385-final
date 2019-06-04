@@ -69,10 +69,33 @@ void game_init() {
 void game_loop() {
 	if(game_state != IN_GAME) return;
 
+	if(esc_pressed()) {
+		game_state = GAME_OVER;
+		return;
+	}
+
+	if(p_pressed()) {
+		player_plane_info->hp = PLAYER_PLANE_HP;
+	}
+
 	static int io_vga_sync_prev = 0;
 	if((!io_vga_sync_prev) && (*io_vga_sync)) {
 		// New frame occured, do job
 		frame_count++;
+
+		// Update statusbar
+		static int prev_hp = 0;
+		static int prev_score = 0;
+		if(prev_hp != player_plane_info->hp || prev_score != player_score) {
+			vga_statusbar_english(5, '0' + player_plane_info->hp / 10);
+			vga_statusbar_english(6, '0' + player_plane_info->hp % 10);
+
+			char* buf[61];
+			snprintf(buf, 60, "%d", player_score);
+			vga_statusbar_string(16, (uint8_t*) buf);
+		}
+		prev_hp = player_plane_info->hp;
+		prev_score = player_score;
 
 		// Disallow moving when exploding
 		if(player_plane_info->type == 0) {
@@ -96,21 +119,7 @@ void game_loop() {
 //		player_plane_info->hp = PLAYER_PLANE_HP;
 
 		// Update player HP
-		*io_led_red = 0xffffffff << (PLAYER_PLANE_HP - player_plane_info->hp);
-
-		// Update statusbar
-		static int prev_hp = 0;
-		static int prev_score = 0;
-		if(prev_hp != player_plane_info->hp || prev_score != player_score) {
-			vga_statusbar_english(5, '0' + player_plane_info->hp / 10);
-			vga_statusbar_english(6, '0' + player_plane_info->hp % 10);
-
-			char* buf[61];
-			snprintf(buf, 60, "%d", player_score);
-			vga_statusbar_string(16, (uint8_t*) buf);
-		}
-		prev_hp = player_plane_info->hp;
-		prev_score = player_score;
+		*io_led_red = 0xffffffff << (18 - player_plane_info->hp);
 	}
 	io_vga_sync_prev = *io_vga_sync;
 }
@@ -347,6 +356,6 @@ void game_over() {
 	sprites_init(VGA_SPRITE_BULLET);
 
 	char* buf[61];
-	snprintf(buf, 60, "游戏结束 积分 %d 按 Enter 继续 ", player_score);
+	snprintf(buf, 60, "游戏结束 积分 %d 正在上传积分榜", player_score);
 	vga_statusbar_string(0, (uint8_t*) buf);
 }

@@ -1,5 +1,8 @@
 #include "sound_explosion.h"
 
+#ifdef NO_ACTUAL_DATA
+uint8_t explosion_data[1] __attribute__((section(".resources")));
+#else
 uint8_t explosion_data[EXPLOSION_LEN] __attribute__((section(".resources"))) = {
 		255,127,255,127,255,127,255,127,255,127,255,127,134,125,192,126,46,92,154,89,68,76,18,86,143,64,76,59,209,36,
 		176,27,191,10,188,16,14,10,157,22,94,20,69,30,49,29,252,35,93,30,47,32,153,19,226,13,107,1,64,1,
@@ -536,3 +539,5 @@ uint8_t explosion_data[EXPLOSION_LEN] __attribute__((section(".resources"))) = {
 		0,128,0,128,0,128,0,128,0,128,0,128,0,128,0,128,233,129,124,152,0,128,0,128,0,128,3,130,18,136,
 		0,128,0,128,0,128,0,128,0,128,
 };
+#endif
+

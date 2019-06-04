@@ -9,8 +9,7 @@
    <name preferredWidth="270" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Library/Processors and Peripherals,Project,Library,Library/Processors and Peripherals/Peripherals" />
- <window width="1938" height="1048" x="-9" y="-9" />
+ <library expandedCategories="Library,Project" />
+ <window width="1920" height="1030" x="0" y="0" />
  <generation path="qsys" block_symbol_file="0" />
 </preferences>

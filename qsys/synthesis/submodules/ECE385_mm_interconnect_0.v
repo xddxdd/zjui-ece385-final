@@ -151,8 +151,8 @@ module ECE385_mm_interconnect_0 (
 		output wire [19:0] sram_multiplexer_avl_address,                  //                  sram_multiplexer_avl.address
 		output wire        sram_multiplexer_avl_write,                    //                                      .write
 		output wire        sram_multiplexer_avl_read,                     //                                      .read
-		input  wire [31:0] sram_multiplexer_avl_readdata,                 //                                      .readdata
-		output wire [31:0] sram_multiplexer_avl_writedata,                //                                      .writedata
+		input  wire [15:0] sram_multiplexer_avl_readdata,                 //                                      .readdata
+		output wire [15:0] sram_multiplexer_avl_writedata,                //                                      .writedata
 		output wire [7:0]  usb_keycode_s2_address,                        //                        usb_keycode_s2.address
 		output wire        usb_keycode_s2_write,                          //                                      .write
 		input  wire [31:0] usb_keycode_s2_readdata,                       //                                      .readdata
@@ -371,33 +371,27 @@ module ECE385_mm_interconnect_0 (
 	wire   [33:0] cmd_mux_002_src_channel;                                                         // cmd_mux_002:src_channel -> eth0_mdio_avalon_slave_agent:cp_channel
 	wire          cmd_mux_002_src_startofpacket;                                                   // cmd_mux_002:src_startofpacket -> eth0_mdio_avalon_slave_agent:cp_startofpacket
 	wire          cmd_mux_002_src_endofpacket;                                                     // cmd_mux_002:src_endofpacket -> eth0_mdio_avalon_slave_agent:cp_endofpacket
-	wire   [31:0] sram_multiplexer_avl_agent_m0_readdata;                                          // sram_multiplexer_avl_translator:uav_readdata -> sram_multiplexer_avl_agent:m0_readdata
+	wire   [15:0] sram_multiplexer_avl_agent_m0_readdata;                                          // sram_multiplexer_avl_translator:uav_readdata -> sram_multiplexer_avl_agent:m0_readdata
 	wire          sram_multiplexer_avl_agent_m0_waitrequest;                                       // sram_multiplexer_avl_translator:uav_waitrequest -> sram_multiplexer_avl_agent:m0_waitrequest
 	wire          sram_multiplexer_avl_agent_m0_debugaccess;                                       // sram_multiplexer_avl_agent:m0_debugaccess -> sram_multiplexer_avl_translator:uav_debugaccess
 	wire   [31:0] sram_multiplexer_avl_agent_m0_address;                                           // sram_multiplexer_avl_agent:m0_address -> sram_multiplexer_avl_translator:uav_address
-	wire    [3:0] sram_multiplexer_avl_agent_m0_byteenable;                                        // sram_multiplexer_avl_agent:m0_byteenable -> sram_multiplexer_avl_translator:uav_byteenable
+	wire    [1:0] sram_multiplexer_avl_agent_m0_byteenable;                                        // sram_multiplexer_avl_agent:m0_byteenable -> sram_multiplexer_avl_translator:uav_byteenable
 	wire          sram_multiplexer_avl_agent_m0_read;                                              // sram_multiplexer_avl_agent:m0_read -> sram_multiplexer_avl_translator:uav_read
 	wire          sram_multiplexer_avl_agent_m0_readdatavalid;                                     // sram_multiplexer_avl_translator:uav_readdatavalid -> sram_multiplexer_avl_agent:m0_readdatavalid
 	wire          sram_multiplexer_avl_agent_m0_lock;                                              // sram_multiplexer_avl_agent:m0_lock -> sram_multiplexer_avl_translator:uav_lock
-	wire   [31:0] sram_multiplexer_avl_agent_m0_writedata;                                         // sram_multiplexer_avl_agent:m0_writedata -> sram_multiplexer_avl_translator:uav_writedata
+	wire   [15:0] sram_multiplexer_avl_agent_m0_writedata;                                         // sram_multiplexer_avl_agent:m0_writedata -> sram_multiplexer_avl_translator:uav_writedata
 	wire          sram_multiplexer_avl_agent_m0_write;                                             // sram_multiplexer_avl_agent:m0_write -> sram_multiplexer_avl_translator:uav_write
-	wire    [2:0] sram_multiplexer_avl_agent_m0_burstcount;                                        // sram_multiplexer_avl_agent:m0_burstcount -> sram_multiplexer_avl_translator:uav_burstcount
+	wire    [1:0] sram_multiplexer_avl_agent_m0_burstcount;                                        // sram_multiplexer_avl_agent:m0_burstcount -> sram_multiplexer_avl_translator:uav_burstcount
 	wire          sram_multiplexer_avl_agent_rf_source_valid;                                      // sram_multiplexer_avl_agent:rf_source_valid -> sram_multiplexer_avl_agent_rsp_fifo:in_valid
-	wire  [114:0] sram_multiplexer_avl_agent_rf_source_data;                                       // sram_multiplexer_avl_agent:rf_source_data -> sram_multiplexer_avl_agent_rsp_fifo:in_data
+	wire   [96:0] sram_multiplexer_avl_agent_rf_source_data;                                       // sram_multiplexer_avl_agent:rf_source_data -> sram_multiplexer_avl_agent_rsp_fifo:in_data
 	wire          sram_multiplexer_avl_agent_rf_source_ready;                                      // sram_multiplexer_avl_agent_rsp_fifo:in_ready -> sram_multiplexer_avl_agent:rf_source_ready
 	wire          sram_multiplexer_avl_agent_rf_source_startofpacket;                              // sram_multiplexer_avl_agent:rf_source_startofpacket -> sram_multiplexer_avl_agent_rsp_fifo:in_startofpacket
 	wire          sram_multiplexer_avl_agent_rf_source_endofpacket;                                // sram_multiplexer_avl_agent:rf_source_endofpacket -> sram_multiplexer_avl_agent_rsp_fifo:in_endofpacket
 	wire          sram_multiplexer_avl_agent_rsp_fifo_out_valid;                                   // sram_multiplexer_avl_agent_rsp_fifo:out_valid -> sram_multiplexer_avl_agent:rf_sink_valid
-	wire  [114:0] sram_multiplexer_avl_agent_rsp_fifo_out_data;                                    // sram_multiplexer_avl_agent_rsp_fifo:out_data -> sram_multiplexer_avl_agent:rf_sink_data
+	wire   [96:0] sram_multiplexer_avl_agent_rsp_fifo_out_data;                                    // sram_multiplexer_avl_agent_rsp_fifo:out_data -> sram_multiplexer_avl_agent:rf_sink_data
 	wire          sram_multiplexer_avl_agent_rsp_fifo_out_ready;                                   // sram_multiplexer_avl_agent:rf_sink_ready -> sram_multiplexer_avl_agent_rsp_fifo:out_ready
 	wire          sram_multiplexer_avl_agent_rsp_fifo_out_startofpacket;                           // sram_multiplexer_avl_agent_rsp_fifo:out_startofpacket -> sram_multiplexer_avl_agent:rf_sink_startofpacket
 	wire          sram_multiplexer_avl_agent_rsp_fifo_out_endofpacket;                             // sram_multiplexer_avl_agent_rsp_fifo:out_endofpacket -> sram_multiplexer_avl_agent:rf_sink_endofpacket
-	wire          cmd_mux_003_src_valid;                                                           // cmd_mux_003:src_valid -> sram_multiplexer_avl_agent:cp_valid
-	wire  [113:0] cmd_mux_003_src_data;                                                            // cmd_mux_003:src_data -> sram_multiplexer_avl_agent:cp_data
-	wire          cmd_mux_003_src_ready;                                                           // sram_multiplexer_avl_agent:cp_ready -> cmd_mux_003:src_ready
-	wire   [33:0] cmd_mux_003_src_channel;                                                         // cmd_mux_003:src_channel -> sram_multiplexer_avl_agent:cp_channel
-	wire          cmd_mux_003_src_startofpacket;                                                   // cmd_mux_003:src_startofpacket -> sram_multiplexer_avl_agent:cp_startofpacket
-	wire          cmd_mux_003_src_endofpacket;                                                     // cmd_mux_003:src_endofpacket -> sram_multiplexer_avl_agent:cp_endofpacket
 	wire   [31:0] vga_sprite_params_avl_agent_m0_readdata;                                         // vga_sprite_params_avl_translator:uav_readdata -> vga_sprite_params_avl_agent:m0_readdata
 	wire          vga_sprite_params_avl_agent_m0_waitrequest;                                      // vga_sprite_params_avl_translator:uav_waitrequest -> vga_sprite_params_avl_agent:m0_waitrequest
 	wire          vga_sprite_params_avl_agent_m0_debugaccess;                                      // vga_sprite_params_avl_agent:m0_debugaccess -> vga_sprite_params_avl_translator:uav_debugaccess
@@ -1280,16 +1274,10 @@ module ECE385_mm_interconnect_0 (
 	wire          router_006_src_startofpacket;                                                    // router_006:src_startofpacket -> rsp_demux_002:sink_startofpacket
 	wire          router_006_src_endofpacket;                                                      // router_006:src_endofpacket -> rsp_demux_002:sink_endofpacket
 	wire          sram_multiplexer_avl_agent_rp_valid;                                             // sram_multiplexer_avl_agent:rp_valid -> router_007:sink_valid
-	wire  [113:0] sram_multiplexer_avl_agent_rp_data;                                              // sram_multiplexer_avl_agent:rp_data -> router_007:sink_data
+	wire   [95:0] sram_multiplexer_avl_agent_rp_data;                                              // sram_multiplexer_avl_agent:rp_data -> router_007:sink_data
 	wire          sram_multiplexer_avl_agent_rp_ready;                                             // router_007:sink_ready -> sram_multiplexer_avl_agent:rp_ready
 	wire          sram_multiplexer_avl_agent_rp_startofpacket;                                     // sram_multiplexer_avl_agent:rp_startofpacket -> router_007:sink_startofpacket
 	wire          sram_multiplexer_avl_agent_rp_endofpacket;                                       // sram_multiplexer_avl_agent:rp_endofpacket -> router_007:sink_endofpacket
-	wire          router_007_src_valid;                                                            // router_007:src_valid -> rsp_demux_003:sink_valid
-	wire  [113:0] router_007_src_data;                                                             // router_007:src_data -> rsp_demux_003:sink_data
-	wire          router_007_src_ready;                                                            // rsp_demux_003:sink_ready -> router_007:src_ready
-	wire   [33:0] router_007_src_channel;                                                          // router_007:src_channel -> rsp_demux_003:sink_channel
-	wire          router_007_src_startofpacket;                                                    // router_007:src_startofpacket -> rsp_demux_003:sink_startofpacket
-	wire          router_007_src_endofpacket;                                                      // router_007:src_endofpacket -> rsp_demux_003:sink_endofpacket
 	wire          vga_sprite_params_avl_agent_rp_valid;                                            // vga_sprite_params_avl_agent:rp_valid -> router_008:sink_valid
 	wire  [113:0] vga_sprite_params_avl_agent_rp_data;                                             // vga_sprite_params_avl_agent:rp_data -> router_008:sink_data
 	wire          vga_sprite_params_avl_agent_rp_ready;                                            // router_008:sink_ready -> vga_sprite_params_avl_agent:rp_ready
@@ -1643,6 +1631,12 @@ module ECE385_mm_interconnect_0 (
 	wire   [33:0] nios2_dma_m_read_limiter_rsp_src_channel;                                        // nios2_dma_m_read_limiter:rsp_src_channel -> nios2_dma_m_read_agent:rp_channel
 	wire          nios2_dma_m_read_limiter_rsp_src_startofpacket;                                  // nios2_dma_m_read_limiter:rsp_src_startofpacket -> nios2_dma_m_read_agent:rp_startofpacket
 	wire          nios2_dma_m_read_limiter_rsp_src_endofpacket;                                    // nios2_dma_m_read_limiter:rsp_src_endofpacket -> nios2_dma_m_read_agent:rp_endofpacket
+	wire          sram_multiplexer_avl_burst_adapter_source0_valid;                                // sram_multiplexer_avl_burst_adapter:source0_valid -> sram_multiplexer_avl_agent:cp_valid
+	wire   [95:0] sram_multiplexer_avl_burst_adapter_source0_data;                                 // sram_multiplexer_avl_burst_adapter:source0_data -> sram_multiplexer_avl_agent:cp_data
+	wire          sram_multiplexer_avl_burst_adapter_source0_ready;                                // sram_multiplexer_avl_agent:cp_ready -> sram_multiplexer_avl_burst_adapter:source0_ready
+	wire   [33:0] sram_multiplexer_avl_burst_adapter_source0_channel;                              // sram_multiplexer_avl_burst_adapter:source0_channel -> sram_multiplexer_avl_agent:cp_channel
+	wire          sram_multiplexer_avl_burst_adapter_source0_startofpacket;                        // sram_multiplexer_avl_burst_adapter:source0_startofpacket -> sram_multiplexer_avl_agent:cp_startofpacket
+	wire          sram_multiplexer_avl_burst_adapter_source0_endofpacket;                          // sram_multiplexer_avl_burst_adapter:source0_endofpacket -> sram_multiplexer_avl_agent:cp_endofpacket
 	wire          cmd_demux_src0_valid;                                                            // cmd_demux:src0_valid -> cmd_mux:sink0_valid
 	wire  [113:0] cmd_demux_src0_data;                                                             // cmd_demux:src0_data -> cmd_mux:sink0_data
 	wire          cmd_demux_src0_ready;                                                            // cmd_mux:sink0_ready -> cmd_demux:src0_ready
@@ -2807,6 +2801,30 @@ module ECE385_mm_interconnect_0 (
 	wire   [33:0] rsp_demux_033_src2_channel;                                                      // rsp_demux_033:src2_channel -> rsp_mux_002:sink26_channel
 	wire          rsp_demux_033_src2_startofpacket;                                                // rsp_demux_033:src2_startofpacket -> rsp_mux_002:sink26_startofpacket
 	wire          rsp_demux_033_src2_endofpacket;                                                  // rsp_demux_033:src2_endofpacket -> rsp_mux_002:sink26_endofpacket
+	wire          router_007_src_valid;                                                            // router_007:src_valid -> sram_multiplexer_avl_rsp_width_adapter:in_valid
+	wire   [95:0] router_007_src_data;                                                             // router_007:src_data -> sram_multiplexer_avl_rsp_width_adapter:in_data
+	wire          router_007_src_ready;                                                            // sram_multiplexer_avl_rsp_width_adapter:in_ready -> router_007:src_ready
+	wire   [33:0] router_007_src_channel;                                                          // router_007:src_channel -> sram_multiplexer_avl_rsp_width_adapter:in_channel
+	wire          router_007_src_startofpacket;                                                    // router_007:src_startofpacket -> sram_multiplexer_avl_rsp_width_adapter:in_startofpacket
+	wire          router_007_src_endofpacket;                                                      // router_007:src_endofpacket -> sram_multiplexer_avl_rsp_width_adapter:in_endofpacket
+	wire          sram_multiplexer_avl_rsp_width_adapter_src_valid;                                // sram_multiplexer_avl_rsp_width_adapter:out_valid -> rsp_demux_003:sink_valid
+	wire  [113:0] sram_multiplexer_avl_rsp_width_adapter_src_data;                                 // sram_multiplexer_avl_rsp_width_adapter:out_data -> rsp_demux_003:sink_data
+	wire          sram_multiplexer_avl_rsp_width_adapter_src_ready;                                // rsp_demux_003:sink_ready -> sram_multiplexer_avl_rsp_width_adapter:out_ready
+	wire   [33:0] sram_multiplexer_avl_rsp_width_adapter_src_channel;                              // sram_multiplexer_avl_rsp_width_adapter:out_channel -> rsp_demux_003:sink_channel
+	wire          sram_multiplexer_avl_rsp_width_adapter_src_startofpacket;                        // sram_multiplexer_avl_rsp_width_adapter:out_startofpacket -> rsp_demux_003:sink_startofpacket
+	wire          sram_multiplexer_avl_rsp_width_adapter_src_endofpacket;                          // sram_multiplexer_avl_rsp_width_adapter:out_endofpacket -> rsp_demux_003:sink_endofpacket
+	wire          cmd_mux_003_src_valid;                                                           // cmd_mux_003:src_valid -> sram_multiplexer_avl_cmd_width_adapter:in_valid
+	wire  [113:0] cmd_mux_003_src_data;                                                            // cmd_mux_003:src_data -> sram_multiplexer_avl_cmd_width_adapter:in_data
+	wire          cmd_mux_003_src_ready;                                                           // sram_multiplexer_avl_cmd_width_adapter:in_ready -> cmd_mux_003:src_ready
+	wire   [33:0] cmd_mux_003_src_channel;                                                         // cmd_mux_003:src_channel -> sram_multiplexer_avl_cmd_width_adapter:in_channel
+	wire          cmd_mux_003_src_startofpacket;                                                   // cmd_mux_003:src_startofpacket -> sram_multiplexer_avl_cmd_width_adapter:in_startofpacket
+	wire          cmd_mux_003_src_endofpacket;                                                     // cmd_mux_003:src_endofpacket -> sram_multiplexer_avl_cmd_width_adapter:in_endofpacket
+	wire          sram_multiplexer_avl_cmd_width_adapter_src_valid;                                // sram_multiplexer_avl_cmd_width_adapter:out_valid -> sram_multiplexer_avl_burst_adapter:sink0_valid
+	wire   [95:0] sram_multiplexer_avl_cmd_width_adapter_src_data;                                 // sram_multiplexer_avl_cmd_width_adapter:out_data -> sram_multiplexer_avl_burst_adapter:sink0_data
+	wire          sram_multiplexer_avl_cmd_width_adapter_src_ready;                                // sram_multiplexer_avl_burst_adapter:sink0_ready -> sram_multiplexer_avl_cmd_width_adapter:out_ready
+	wire   [33:0] sram_multiplexer_avl_cmd_width_adapter_src_channel;                              // sram_multiplexer_avl_cmd_width_adapter:out_channel -> sram_multiplexer_avl_burst_adapter:sink0_channel
+	wire          sram_multiplexer_avl_cmd_width_adapter_src_startofpacket;                        // sram_multiplexer_avl_cmd_width_adapter:out_startofpacket -> sram_multiplexer_avl_burst_adapter:sink0_startofpacket
+	wire          sram_multiplexer_avl_cmd_width_adapter_src_endofpacket;                          // sram_multiplexer_avl_cmd_width_adapter:out_endofpacket -> sram_multiplexer_avl_burst_adapter:sink0_endofpacket
 	wire   [33:0] nios2_dma_m_read_limiter_cmd_valid_data;                                         // nios2_dma_m_read_limiter:cmd_src_valid -> cmd_demux_001:sink_valid
 	wire          nios2_jtag_uart_avalon_jtag_slave_agent_rdata_fifo_src_valid;                    // nios2_jtag_uart_avalon_jtag_slave_agent:rdata_fifo_src_valid -> avalon_st_adapter:in_0_valid
 	wire   [33:0] nios2_jtag_uart_avalon_jtag_slave_agent_rdata_fifo_src_data;                     // nios2_jtag_uart_avalon_jtag_slave_agent:rdata_fifo_src_data -> avalon_st_adapter:in_0_data
@@ -2830,10 +2848,10 @@ module ECE385_mm_interconnect_0 (
 	wire          avalon_st_adapter_002_out_0_ready;                                               // eth0_mdio_avalon_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter_002:out_0_ready
 	wire    [0:0] avalon_st_adapter_002_out_0_error;                                               // avalon_st_adapter_002:out_0_error -> eth0_mdio_avalon_slave_agent:rdata_fifo_sink_error
 	wire          sram_multiplexer_avl_agent_rdata_fifo_src_valid;                                 // sram_multiplexer_avl_agent:rdata_fifo_src_valid -> avalon_st_adapter_003:in_0_valid
-	wire   [33:0] sram_multiplexer_avl_agent_rdata_fifo_src_data;                                  // sram_multiplexer_avl_agent:rdata_fifo_src_data -> avalon_st_adapter_003:in_0_data
+	wire   [17:0] sram_multiplexer_avl_agent_rdata_fifo_src_data;                                  // sram_multiplexer_avl_agent:rdata_fifo_src_data -> avalon_st_adapter_003:in_0_data
 	wire          sram_multiplexer_avl_agent_rdata_fifo_src_ready;                                 // avalon_st_adapter_003:in_0_ready -> sram_multiplexer_avl_agent:rdata_fifo_src_ready
 	wire          avalon_st_adapter_003_out_0_valid;                                               // avalon_st_adapter_003:out_0_valid -> sram_multiplexer_avl_agent:rdata_fifo_sink_valid
-	wire   [33:0] avalon_st_adapter_003_out_0_data;                                                // avalon_st_adapter_003:out_0_data -> sram_multiplexer_avl_agent:rdata_fifo_sink_data
+	wire   [17:0] avalon_st_adapter_003_out_0_data;                                                // avalon_st_adapter_003:out_0_data -> sram_multiplexer_avl_agent:rdata_fifo_sink_data
 	wire          avalon_st_adapter_003_out_0_ready;                                               // sram_multiplexer_avl_agent:rdata_fifo_sink_ready -> avalon_st_adapter_003:out_0_ready
 	wire    [0:0] avalon_st_adapter_003_out_0_error;                                               // avalon_st_adapter_003:out_0_error -> sram_multiplexer_avl_agent:rdata_fifo_sink_error
 	wire          vga_sprite_params_avl_agent_rdata_fifo_src_valid;                                // vga_sprite_params_avl_agent:rdata_fifo_src_valid -> avalon_st_adapter_004:in_0_valid
@@ -3481,20 +3499,20 @@ module ECE385_mm_interconnect_0 (
 
 	altera_merlin_slave_translator #(
 		.AV_ADDRESS_W                   (20),
-		.AV_DATA_W                      (32),
-		.UAV_DATA_W                     (32),
+		.AV_DATA_W                      (16),
+		.UAV_DATA_W                     (16),
 		.AV_BURSTCOUNT_W                (1),
-		.AV_BYTEENABLE_W                (4),
-		.UAV_BYTEENABLE_W               (4),
+		.AV_BYTEENABLE_W                (2),
+		.UAV_BYTEENABLE_W               (2),
 		.UAV_ADDRESS_W                  (32),
-		.UAV_BURSTCOUNT_W               (3),
+		.UAV_BURSTCOUNT_W               (2),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (0),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
-		.AV_SYMBOLS_PER_WORD            (4),
+		.AV_SYMBOLS_PER_WORD            (2),
 		.AV_ADDRESS_SYMBOLS             (0),
 		.AV_BURSTCOUNT_SYMBOLS          (0),
 		.AV_CONSTANT_BURST_BEHAVIOR     (0),
@@ -6163,92 +6181,92 @@ module ECE385_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_agent #(
-		.PKT_ORI_BURST_SIZE_H      (113),
-		.PKT_ORI_BURST_SIZE_L      (111),
-		.PKT_RESPONSE_STATUS_H     (110),
-		.PKT_RESPONSE_STATUS_L     (109),
-		.PKT_BURST_SIZE_H          (82),
-		.PKT_BURST_SIZE_L          (80),
-		.PKT_TRANS_LOCK            (72),
-		.PKT_BEGIN_BURST           (87),
-		.PKT_PROTECTION_H          (104),
-		.PKT_PROTECTION_L          (102),
-		.PKT_BURSTWRAP_H           (79),
-		.PKT_BURSTWRAP_L           (77),
-		.PKT_BYTE_CNT_H            (76),
-		.PKT_BYTE_CNT_L            (74),
-		.PKT_ADDR_H                (67),
-		.PKT_ADDR_L                (36),
-		.PKT_TRANS_COMPRESSED_READ (68),
-		.PKT_TRANS_POSTED          (69),
-		.PKT_TRANS_WRITE           (70),
-		.PKT_TRANS_READ            (71),
-		.PKT_DATA_H                (31),
+		.PKT_ORI_BURST_SIZE_H      (95),
+		.PKT_ORI_BURST_SIZE_L      (93),
+		.PKT_RESPONSE_STATUS_H     (92),
+		.PKT_RESPONSE_STATUS_L     (91),
+		.PKT_BURST_SIZE_H          (64),
+		.PKT_BURST_SIZE_L          (62),
+		.PKT_TRANS_LOCK            (54),
+		.PKT_BEGIN_BURST           (69),
+		.PKT_PROTECTION_H          (86),
+		.PKT_PROTECTION_L          (84),
+		.PKT_BURSTWRAP_H           (61),
+		.PKT_BURSTWRAP_L           (59),
+		.PKT_BYTE_CNT_H            (58),
+		.PKT_BYTE_CNT_L            (56),
+		.PKT_ADDR_H                (49),
+		.PKT_ADDR_L                (18),
+		.PKT_TRANS_COMPRESSED_READ (50),
+		.PKT_TRANS_POSTED          (51),
+		.PKT_TRANS_WRITE           (52),
+		.PKT_TRANS_READ            (53),
+		.PKT_DATA_H                (15),
 		.PKT_DATA_L                (0),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_SRC_ID_H              (94),
-		.PKT_SRC_ID_L              (89),
-		.PKT_DEST_ID_H             (100),
-		.PKT_DEST_ID_L             (95),
+		.PKT_BYTEEN_H              (17),
+		.PKT_BYTEEN_L              (16),
+		.PKT_SRC_ID_H              (76),
+		.PKT_SRC_ID_L              (71),
+		.PKT_DEST_ID_H             (82),
+		.PKT_DEST_ID_L             (77),
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (34),
-		.ST_DATA_W                 (114),
-		.AVS_BURSTCOUNT_W          (3),
-		.SUPPRESS_0_BYTEEN_CMD     (0),
+		.ST_DATA_W                 (96),
+		.AVS_BURSTCOUNT_W          (2),
+		.SUPPRESS_0_BYTEEN_CMD     (1),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
 	) sram_multiplexer_avl_agent (
-		.clk                     (clk_0_clk_clk),                                         //             clk.clk
-		.reset                   (nios2_dma_reset_reset_bridge_in_reset_reset),           //       clk_reset.reset
-		.m0_address              (sram_multiplexer_avl_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (sram_multiplexer_avl_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (sram_multiplexer_avl_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (sram_multiplexer_avl_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (sram_multiplexer_avl_agent_m0_lock),                    //                .lock
-		.m0_readdata             (sram_multiplexer_avl_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (sram_multiplexer_avl_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (sram_multiplexer_avl_agent_m0_read),                    //                .read
-		.m0_waitrequest          (sram_multiplexer_avl_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (sram_multiplexer_avl_agent_m0_writedata),               //                .writedata
-		.m0_write                (sram_multiplexer_avl_agent_m0_write),                   //                .write
-		.rp_endofpacket          (sram_multiplexer_avl_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (sram_multiplexer_avl_agent_rp_ready),                   //                .ready
-		.rp_valid                (sram_multiplexer_avl_agent_rp_valid),                   //                .valid
-		.rp_data                 (sram_multiplexer_avl_agent_rp_data),                    //                .data
-		.rp_startofpacket        (sram_multiplexer_avl_agent_rp_startofpacket),           //                .startofpacket
-		.cp_ready                (cmd_mux_003_src_ready),                                 //              cp.ready
-		.cp_valid                (cmd_mux_003_src_valid),                                 //                .valid
-		.cp_data                 (cmd_mux_003_src_data),                                  //                .data
-		.cp_startofpacket        (cmd_mux_003_src_startofpacket),                         //                .startofpacket
-		.cp_endofpacket          (cmd_mux_003_src_endofpacket),                           //                .endofpacket
-		.cp_channel              (cmd_mux_003_src_channel),                               //                .channel
-		.rf_sink_ready           (sram_multiplexer_avl_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (sram_multiplexer_avl_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (sram_multiplexer_avl_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (sram_multiplexer_avl_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (sram_multiplexer_avl_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (sram_multiplexer_avl_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (sram_multiplexer_avl_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (sram_multiplexer_avl_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (sram_multiplexer_avl_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (sram_multiplexer_avl_agent_rf_source_data),             //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_003_out_0_ready),                     // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_003_out_0_valid),                     //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_003_out_0_data),                      //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_003_out_0_error),                     //                .error
-		.rdata_fifo_src_ready    (sram_multiplexer_avl_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (sram_multiplexer_avl_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (sram_multiplexer_avl_agent_rdata_fifo_src_data),        //                .data
-		.m0_response             (2'b00),                                                 //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                   //     (terminated)
+		.clk                     (clk_0_clk_clk),                                            //             clk.clk
+		.reset                   (nios2_dma_reset_reset_bridge_in_reset_reset),              //       clk_reset.reset
+		.m0_address              (sram_multiplexer_avl_agent_m0_address),                    //              m0.address
+		.m0_burstcount           (sram_multiplexer_avl_agent_m0_burstcount),                 //                .burstcount
+		.m0_byteenable           (sram_multiplexer_avl_agent_m0_byteenable),                 //                .byteenable
+		.m0_debugaccess          (sram_multiplexer_avl_agent_m0_debugaccess),                //                .debugaccess
+		.m0_lock                 (sram_multiplexer_avl_agent_m0_lock),                       //                .lock
+		.m0_readdata             (sram_multiplexer_avl_agent_m0_readdata),                   //                .readdata
+		.m0_readdatavalid        (sram_multiplexer_avl_agent_m0_readdatavalid),              //                .readdatavalid
+		.m0_read                 (sram_multiplexer_avl_agent_m0_read),                       //                .read
+		.m0_waitrequest          (sram_multiplexer_avl_agent_m0_waitrequest),                //                .waitrequest
+		.m0_writedata            (sram_multiplexer_avl_agent_m0_writedata),                  //                .writedata
+		.m0_write                (sram_multiplexer_avl_agent_m0_write),                      //                .write
+		.rp_endofpacket          (sram_multiplexer_avl_agent_rp_endofpacket),                //              rp.endofpacket
+		.rp_ready                (sram_multiplexer_avl_agent_rp_ready),                      //                .ready
+		.rp_valid                (sram_multiplexer_avl_agent_rp_valid),                      //                .valid
+		.rp_data                 (sram_multiplexer_avl_agent_rp_data),                       //                .data
+		.rp_startofpacket        (sram_multiplexer_avl_agent_rp_startofpacket),              //                .startofpacket
+		.cp_ready                (sram_multiplexer_avl_burst_adapter_source0_ready),         //              cp.ready
+		.cp_valid                (sram_multiplexer_avl_burst_adapter_source0_valid),         //                .valid
+		.cp_data                 (sram_multiplexer_avl_burst_adapter_source0_data),          //                .data
+		.cp_startofpacket        (sram_multiplexer_avl_burst_adapter_source0_startofpacket), //                .startofpacket
+		.cp_endofpacket          (sram_multiplexer_avl_burst_adapter_source0_endofpacket),   //                .endofpacket
+		.cp_channel              (sram_multiplexer_avl_burst_adapter_source0_channel),       //                .channel
+		.rf_sink_ready           (sram_multiplexer_avl_agent_rsp_fifo_out_ready),            //         rf_sink.ready
+		.rf_sink_valid           (sram_multiplexer_avl_agent_rsp_fifo_out_valid),            //                .valid
+		.rf_sink_startofpacket   (sram_multiplexer_avl_agent_rsp_fifo_out_startofpacket),    //                .startofpacket
+		.rf_sink_endofpacket     (sram_multiplexer_avl_agent_rsp_fifo_out_endofpacket),      //                .endofpacket
+		.rf_sink_data            (sram_multiplexer_avl_agent_rsp_fifo_out_data),             //                .data
+		.rf_source_ready         (sram_multiplexer_avl_agent_rf_source_ready),               //       rf_source.ready
+		.rf_source_valid         (sram_multiplexer_avl_agent_rf_source_valid),               //                .valid
+		.rf_source_startofpacket (sram_multiplexer_avl_agent_rf_source_startofpacket),       //                .startofpacket
+		.rf_source_endofpacket   (sram_multiplexer_avl_agent_rf_source_endofpacket),         //                .endofpacket
+		.rf_source_data          (sram_multiplexer_avl_agent_rf_source_data),                //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_003_out_0_ready),                        // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_003_out_0_valid),                        //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_003_out_0_data),                         //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_003_out_0_error),                        //                .error
+		.rdata_fifo_src_ready    (sram_multiplexer_avl_agent_rdata_fifo_src_ready),          //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (sram_multiplexer_avl_agent_rdata_fifo_src_valid),          //                .valid
+		.rdata_fifo_src_data     (sram_multiplexer_avl_agent_rdata_fifo_src_data),           //                .data
+		.m0_response             (2'b00),                                                    //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                      //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
-		.BITS_PER_SYMBOL     (115),
+		.BITS_PER_SYMBOL     (97),
 		.FIFO_DEPTH          (2),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
@@ -10149,7 +10167,7 @@ module ECE385_mm_interconnect_0 (
 		.src_endofpacket    (router_006_src_endofpacket)                     //          .endofpacket
 	);
 
-	ECE385_mm_interconnect_0_router_004 router_007 (
+	ECE385_mm_interconnect_0_router_007 router_007 (
 		.sink_ready         (sram_multiplexer_avl_agent_rp_ready),         //      sink.ready
 		.sink_valid         (sram_multiplexer_avl_agent_rp_valid),         //          .valid
 		.sink_data          (sram_multiplexer_avl_agent_rp_data),          //          .data
@@ -10693,6 +10711,56 @@ module ECE385_mm_interconnect_0 (
 		.rsp_src_startofpacket  (nios2_dma_m_read_limiter_rsp_src_startofpacket), //          .startofpacket
 		.rsp_src_endofpacket    (nios2_dma_m_read_limiter_rsp_src_endofpacket),   //          .endofpacket
 		.cmd_src_valid          (nios2_dma_m_read_limiter_cmd_valid_data)         // cmd_valid.data
+	);
+
+	altera_merlin_burst_adapter #(
+		.PKT_ADDR_H                (49),
+		.PKT_ADDR_L                (18),
+		.PKT_BEGIN_BURST           (69),
+		.PKT_BYTE_CNT_H            (58),
+		.PKT_BYTE_CNT_L            (56),
+		.PKT_BYTEEN_H              (17),
+		.PKT_BYTEEN_L              (16),
+		.PKT_BURST_SIZE_H          (64),
+		.PKT_BURST_SIZE_L          (62),
+		.PKT_BURST_TYPE_H          (66),
+		.PKT_BURST_TYPE_L          (65),
+		.PKT_BURSTWRAP_H           (61),
+		.PKT_BURSTWRAP_L           (59),
+		.PKT_TRANS_COMPRESSED_READ (50),
+		.PKT_TRANS_WRITE           (52),
+		.PKT_TRANS_READ            (53),
+		.OUT_NARROW_SIZE           (0),
+		.IN_NARROW_SIZE            (0),
+		.OUT_FIXED                 (0),
+		.OUT_COMPLETE_WRAP         (0),
+		.ST_DATA_W                 (96),
+		.ST_CHANNEL_W              (34),
+		.OUT_BYTE_CNT_H            (57),
+		.OUT_BURSTWRAP_H           (61),
+		.COMPRESSED_READ_SUPPORT   (0),
+		.BYTEENABLE_SYNTHESIS      (1),
+		.PIPE_INPUTS               (0),
+		.NO_WRAP_SUPPORT           (0),
+		.INCOMPLETE_WRAP_SUPPORT   (0),
+		.BURSTWRAP_CONST_MASK      (7),
+		.BURSTWRAP_CONST_VALUE     (7),
+		.ADAPTER_VERSION           ("13.1")
+	) sram_multiplexer_avl_burst_adapter (
+		.clk                   (clk_0_clk_clk),                                            //       cr0.clk
+		.reset                 (nios2_dma_reset_reset_bridge_in_reset_reset),              // cr0_reset.reset
+		.sink0_valid           (sram_multiplexer_avl_cmd_width_adapter_src_valid),         //     sink0.valid
+		.sink0_data            (sram_multiplexer_avl_cmd_width_adapter_src_data),          //          .data
+		.sink0_channel         (sram_multiplexer_avl_cmd_width_adapter_src_channel),       //          .channel
+		.sink0_startofpacket   (sram_multiplexer_avl_cmd_width_adapter_src_startofpacket), //          .startofpacket
+		.sink0_endofpacket     (sram_multiplexer_avl_cmd_width_adapter_src_endofpacket),   //          .endofpacket
+		.sink0_ready           (sram_multiplexer_avl_cmd_width_adapter_src_ready),         //          .ready
+		.source0_valid         (sram_multiplexer_avl_burst_adapter_source0_valid),         //   source0.valid
+		.source0_data          (sram_multiplexer_avl_burst_adapter_source0_data),          //          .data
+		.source0_channel       (sram_multiplexer_avl_burst_adapter_source0_channel),       //          .channel
+		.source0_startofpacket (sram_multiplexer_avl_burst_adapter_source0_startofpacket), //          .startofpacket
+		.source0_endofpacket   (sram_multiplexer_avl_burst_adapter_source0_endofpacket),   //          .endofpacket
+		.source0_ready         (sram_multiplexer_avl_burst_adapter_source0_ready)          //          .ready
 	);
 
 	ECE385_mm_interconnect_0_cmd_demux cmd_demux (
@@ -12365,32 +12433,32 @@ module ECE385_mm_interconnect_0 (
 	);
 
 	ECE385_mm_interconnect_0_rsp_demux rsp_demux_003 (
-		.clk                (clk_0_clk_clk),                               //       clk.clk
-		.reset              (nios2_dma_reset_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_007_src_ready),                        //      sink.ready
-		.sink_channel       (router_007_src_channel),                      //          .channel
-		.sink_data          (router_007_src_data),                         //          .data
-		.sink_startofpacket (router_007_src_startofpacket),                //          .startofpacket
-		.sink_endofpacket   (router_007_src_endofpacket),                  //          .endofpacket
-		.sink_valid         (router_007_src_valid),                        //          .valid
-		.src0_ready         (rsp_demux_003_src0_ready),                    //      src0.ready
-		.src0_valid         (rsp_demux_003_src0_valid),                    //          .valid
-		.src0_data          (rsp_demux_003_src0_data),                     //          .data
-		.src0_channel       (rsp_demux_003_src0_channel),                  //          .channel
-		.src0_startofpacket (rsp_demux_003_src0_startofpacket),            //          .startofpacket
-		.src0_endofpacket   (rsp_demux_003_src0_endofpacket),              //          .endofpacket
-		.src1_ready         (rsp_demux_003_src1_ready),                    //      src1.ready
-		.src1_valid         (rsp_demux_003_src1_valid),                    //          .valid
-		.src1_data          (rsp_demux_003_src1_data),                     //          .data
-		.src1_channel       (rsp_demux_003_src1_channel),                  //          .channel
-		.src1_startofpacket (rsp_demux_003_src1_startofpacket),            //          .startofpacket
-		.src1_endofpacket   (rsp_demux_003_src1_endofpacket),              //          .endofpacket
-		.src2_ready         (rsp_demux_003_src2_ready),                    //      src2.ready
-		.src2_valid         (rsp_demux_003_src2_valid),                    //          .valid
-		.src2_data          (rsp_demux_003_src2_data),                     //          .data
-		.src2_channel       (rsp_demux_003_src2_channel),                  //          .channel
-		.src2_startofpacket (rsp_demux_003_src2_startofpacket),            //          .startofpacket
-		.src2_endofpacket   (rsp_demux_003_src2_endofpacket)               //          .endofpacket
+		.clk                (clk_0_clk_clk),                                            //       clk.clk
+		.reset              (nios2_dma_reset_reset_bridge_in_reset_reset),              // clk_reset.reset
+		.sink_ready         (sram_multiplexer_avl_rsp_width_adapter_src_ready),         //      sink.ready
+		.sink_channel       (sram_multiplexer_avl_rsp_width_adapter_src_channel),       //          .channel
+		.sink_data          (sram_multiplexer_avl_rsp_width_adapter_src_data),          //          .data
+		.sink_startofpacket (sram_multiplexer_avl_rsp_width_adapter_src_startofpacket), //          .startofpacket
+		.sink_endofpacket   (sram_multiplexer_avl_rsp_width_adapter_src_endofpacket),   //          .endofpacket
+		.sink_valid         (sram_multiplexer_avl_rsp_width_adapter_src_valid),         //          .valid
+		.src0_ready         (rsp_demux_003_src0_ready),                                 //      src0.ready
+		.src0_valid         (rsp_demux_003_src0_valid),                                 //          .valid
+		.src0_data          (rsp_demux_003_src0_data),                                  //          .data
+		.src0_channel       (rsp_demux_003_src0_channel),                               //          .channel
+		.src0_startofpacket (rsp_demux_003_src0_startofpacket),                         //          .startofpacket
+		.src0_endofpacket   (rsp_demux_003_src0_endofpacket),                           //          .endofpacket
+		.src1_ready         (rsp_demux_003_src1_ready),                                 //      src1.ready
+		.src1_valid         (rsp_demux_003_src1_valid),                                 //          .valid
+		.src1_data          (rsp_demux_003_src1_data),                                  //          .data
+		.src1_channel       (rsp_demux_003_src1_channel),                               //          .channel
+		.src1_startofpacket (rsp_demux_003_src1_startofpacket),                         //          .startofpacket
+		.src1_endofpacket   (rsp_demux_003_src1_endofpacket),                           //          .endofpacket
+		.src2_ready         (rsp_demux_003_src2_ready),                                 //      src2.ready
+		.src2_valid         (rsp_demux_003_src2_valid),                                 //          .valid
+		.src2_data          (rsp_demux_003_src2_data),                                  //          .data
+		.src2_channel       (rsp_demux_003_src2_channel),                               //          .channel
+		.src2_startofpacket (rsp_demux_003_src2_startofpacket),                         //          .startofpacket
+		.src2_endofpacket   (rsp_demux_003_src2_endofpacket)                            //          .endofpacket
 	);
 
 	ECE385_mm_interconnect_0_rsp_demux rsp_demux_004 (
@@ -13859,6 +13927,138 @@ module ECE385_mm_interconnect_0 (
 		.sink4_endofpacket   (rsp_demux_014_src3_endofpacket)               //          .endofpacket
 	);
 
+	altera_merlin_width_adapter #(
+		.IN_PKT_ADDR_H                 (49),
+		.IN_PKT_ADDR_L                 (18),
+		.IN_PKT_DATA_H                 (15),
+		.IN_PKT_DATA_L                 (0),
+		.IN_PKT_BYTEEN_H               (17),
+		.IN_PKT_BYTEEN_L               (16),
+		.IN_PKT_BYTE_CNT_H             (58),
+		.IN_PKT_BYTE_CNT_L             (56),
+		.IN_PKT_TRANS_COMPRESSED_READ  (50),
+		.IN_PKT_TRANS_WRITE            (52),
+		.IN_PKT_BURSTWRAP_H            (61),
+		.IN_PKT_BURSTWRAP_L            (59),
+		.IN_PKT_BURST_SIZE_H           (64),
+		.IN_PKT_BURST_SIZE_L           (62),
+		.IN_PKT_RESPONSE_STATUS_H      (92),
+		.IN_PKT_RESPONSE_STATUS_L      (91),
+		.IN_PKT_TRANS_EXCLUSIVE        (55),
+		.IN_PKT_BURST_TYPE_H           (66),
+		.IN_PKT_BURST_TYPE_L           (65),
+		.IN_PKT_ORI_BURST_SIZE_L       (93),
+		.IN_PKT_ORI_BURST_SIZE_H       (95),
+		.IN_ST_DATA_W                  (96),
+		.OUT_PKT_ADDR_H                (67),
+		.OUT_PKT_ADDR_L                (36),
+		.OUT_PKT_DATA_H                (31),
+		.OUT_PKT_DATA_L                (0),
+		.OUT_PKT_BYTEEN_H              (35),
+		.OUT_PKT_BYTEEN_L              (32),
+		.OUT_PKT_BYTE_CNT_H            (76),
+		.OUT_PKT_BYTE_CNT_L            (74),
+		.OUT_PKT_TRANS_COMPRESSED_READ (68),
+		.OUT_PKT_BURST_SIZE_H          (82),
+		.OUT_PKT_BURST_SIZE_L          (80),
+		.OUT_PKT_RESPONSE_STATUS_H     (110),
+		.OUT_PKT_RESPONSE_STATUS_L     (109),
+		.OUT_PKT_TRANS_EXCLUSIVE       (73),
+		.OUT_PKT_BURST_TYPE_H          (84),
+		.OUT_PKT_BURST_TYPE_L          (83),
+		.OUT_PKT_ORI_BURST_SIZE_L      (111),
+		.OUT_PKT_ORI_BURST_SIZE_H      (113),
+		.OUT_ST_DATA_W                 (114),
+		.ST_CHANNEL_W                  (34),
+		.OPTIMIZE_FOR_RSP              (1),
+		.RESPONSE_PATH                 (1),
+		.CONSTANT_BURST_SIZE           (1),
+		.PACKING                       (1),
+		.ENABLE_ADDRESS_ALIGNMENT      (0)
+	) sram_multiplexer_avl_rsp_width_adapter (
+		.clk                  (clk_0_clk_clk),                                            //       clk.clk
+		.reset                (nios2_dma_reset_reset_bridge_in_reset_reset),              // clk_reset.reset
+		.in_valid             (router_007_src_valid),                                     //      sink.valid
+		.in_channel           (router_007_src_channel),                                   //          .channel
+		.in_startofpacket     (router_007_src_startofpacket),                             //          .startofpacket
+		.in_endofpacket       (router_007_src_endofpacket),                               //          .endofpacket
+		.in_ready             (router_007_src_ready),                                     //          .ready
+		.in_data              (router_007_src_data),                                      //          .data
+		.out_endofpacket      (sram_multiplexer_avl_rsp_width_adapter_src_endofpacket),   //       src.endofpacket
+		.out_data             (sram_multiplexer_avl_rsp_width_adapter_src_data),          //          .data
+		.out_channel          (sram_multiplexer_avl_rsp_width_adapter_src_channel),       //          .channel
+		.out_valid            (sram_multiplexer_avl_rsp_width_adapter_src_valid),         //          .valid
+		.out_ready            (sram_multiplexer_avl_rsp_width_adapter_src_ready),         //          .ready
+		.out_startofpacket    (sram_multiplexer_avl_rsp_width_adapter_src_startofpacket), //          .startofpacket
+		.in_command_size_data (3'b000)                                                    // (terminated)
+	);
+
+	altera_merlin_width_adapter #(
+		.IN_PKT_ADDR_H                 (67),
+		.IN_PKT_ADDR_L                 (36),
+		.IN_PKT_DATA_H                 (31),
+		.IN_PKT_DATA_L                 (0),
+		.IN_PKT_BYTEEN_H               (35),
+		.IN_PKT_BYTEEN_L               (32),
+		.IN_PKT_BYTE_CNT_H             (76),
+		.IN_PKT_BYTE_CNT_L             (74),
+		.IN_PKT_TRANS_COMPRESSED_READ  (68),
+		.IN_PKT_TRANS_WRITE            (70),
+		.IN_PKT_BURSTWRAP_H            (79),
+		.IN_PKT_BURSTWRAP_L            (77),
+		.IN_PKT_BURST_SIZE_H           (82),
+		.IN_PKT_BURST_SIZE_L           (80),
+		.IN_PKT_RESPONSE_STATUS_H      (110),
+		.IN_PKT_RESPONSE_STATUS_L      (109),
+		.IN_PKT_TRANS_EXCLUSIVE        (73),
+		.IN_PKT_BURST_TYPE_H           (84),
+		.IN_PKT_BURST_TYPE_L           (83),
+		.IN_PKT_ORI_BURST_SIZE_L       (111),
+		.IN_PKT_ORI_BURST_SIZE_H       (113),
+		.IN_ST_DATA_W                  (114),
+		.OUT_PKT_ADDR_H                (49),
+		.OUT_PKT_ADDR_L                (18),
+		.OUT_PKT_DATA_H                (15),
+		.OUT_PKT_DATA_L                (0),
+		.OUT_PKT_BYTEEN_H              (17),
+		.OUT_PKT_BYTEEN_L              (16),
+		.OUT_PKT_BYTE_CNT_H            (58),
+		.OUT_PKT_BYTE_CNT_L            (56),
+		.OUT_PKT_TRANS_COMPRESSED_READ (50),
+		.OUT_PKT_BURST_SIZE_H          (64),
+		.OUT_PKT_BURST_SIZE_L          (62),
+		.OUT_PKT_RESPONSE_STATUS_H     (92),
+		.OUT_PKT_RESPONSE_STATUS_L     (91),
+		.OUT_PKT_TRANS_EXCLUSIVE       (55),
+		.OUT_PKT_BURST_TYPE_H          (66),
+		.OUT_PKT_BURST_TYPE_L          (65),
+		.OUT_PKT_ORI_BURST_SIZE_L      (93),
+		.OUT_PKT_ORI_BURST_SIZE_H      (95),
+		.OUT_ST_DATA_W                 (96),
+		.ST_CHANNEL_W                  (34),
+		.OPTIMIZE_FOR_RSP              (0),
+		.RESPONSE_PATH                 (0),
+		.CONSTANT_BURST_SIZE           (1),
+		.PACKING                       (1),
+		.ENABLE_ADDRESS_ALIGNMENT      (0)
+	) sram_multiplexer_avl_cmd_width_adapter (
+		.clk                  (clk_0_clk_clk),                                            //       clk.clk
+		.reset                (nios2_dma_reset_reset_bridge_in_reset_reset),              // clk_reset.reset
+		.in_valid             (cmd_mux_003_src_valid),                                    //      sink.valid
+		.in_channel           (cmd_mux_003_src_channel),                                  //          .channel
+		.in_startofpacket     (cmd_mux_003_src_startofpacket),                            //          .startofpacket
+		.in_endofpacket       (cmd_mux_003_src_endofpacket),                              //          .endofpacket
+		.in_ready             (cmd_mux_003_src_ready),                                    //          .ready
+		.in_data              (cmd_mux_003_src_data),                                     //          .data
+		.out_endofpacket      (sram_multiplexer_avl_cmd_width_adapter_src_endofpacket),   //       src.endofpacket
+		.out_data             (sram_multiplexer_avl_cmd_width_adapter_src_data),          //          .data
+		.out_channel          (sram_multiplexer_avl_cmd_width_adapter_src_channel),       //          .channel
+		.out_valid            (sram_multiplexer_avl_cmd_width_adapter_src_valid),         //          .valid
+		.out_ready            (sram_multiplexer_avl_cmd_width_adapter_src_ready),         //          .ready
+		.out_startofpacket    (sram_multiplexer_avl_cmd_width_adapter_src_startofpacket), //          .startofpacket
+		.in_command_size_data (3'b000)                                                    // (terminated)
+	);
+
 	ECE385_mm_interconnect_0_avalon_st_adapter #(
 		.inBitsPerSymbol (34),
 		.inUsePackets    (0),
@@ -13946,17 +14146,17 @@ module ECE385_mm_interconnect_0 (
 		.out_0_error    (avalon_st_adapter_002_out_0_error)                  //         .error
 	);
 
-	ECE385_mm_interconnect_0_avalon_st_adapter #(
-		.inBitsPerSymbol (34),
+	ECE385_mm_interconnect_0_avalon_st_adapter_003 #(
+		.inBitsPerSymbol (18),
 		.inUsePackets    (0),
-		.inDataWidth     (34),
+		.inDataWidth     (18),
 		.inChannelWidth  (0),
 		.inErrorWidth    (0),
 		.inUseEmptyPort  (0),
 		.inUseValid      (1),
 		.inUseReady      (1),
 		.inReadyLatency  (0),
-		.outDataWidth    (34),
+		.outDataWidth    (18),
 		.outChannelWidth (0),
 		.outErrorWidth   (1),
 		.outUseEmptyPort (0),

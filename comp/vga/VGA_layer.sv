@@ -47,7 +47,7 @@ logic [15:0] VGA_DISPLAY;
 assign VGA_R = {VGA_DISPLAY[4:0], VGA_DISPLAY[4:2]};
 assign VGA_G = {VGA_DISPLAY[10:5], VGA_DISPLAY[10:9]};
 assign VGA_B = {VGA_DISPLAY[15:11], VGA_DISPLAY[15:13]};
-assign VGA_DISPLAY = (!VGA_L3_ISOBJ[0] || VGA_DrawY >= 448) ? VGA_VAL : VGA_L3_PIXEL[0];
+assign VGA_DISPLAY = (!VGA_L3_ISOBJ[0] || VGA_DrawY >= 464) ? VGA_VAL : VGA_L3_PIXEL[0];
 
 endmodule
 

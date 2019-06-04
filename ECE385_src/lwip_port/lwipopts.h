@@ -16,7 +16,7 @@
 
 #define LWIP_TCP                   1
 
-#define LWIP_SINGLE_NETIF          0
+#define LWIP_SINGLE_NETIF          1
 
 #define NO_SYS                     1
 #define LWIP_SOCKET                (NO_SYS==0)
@@ -37,11 +37,11 @@
 
 #define LWIP_NUM_NETIF_CLIENT_DATA (LWIP_MDNS_RESPONDER)
 
-#define LWIP_HAVE_LOOPIF           0
-#define LWIP_NETIF_LOOPBACK        0
-#define LWIP_LOOPBACK_MAX_PBUFS    0
+#define LWIP_HAVE_LOOPIF           1
+#define LWIP_NETIF_LOOPBACK        1
+#define LWIP_LOOPBACK_MAX_PBUFS    1
 
-#define TCP_LISTEN_BACKLOG         0
+#define TCP_LISTEN_BACKLOG         1
 
 #define LWIP_COMPAT_SOCKETS        1
 #define LWIP_SO_RCVTIMEO           0
@@ -97,12 +97,12 @@
 
 /* MEM_SIZE: the size of the heap memory. If the application will send
 a lot of data that needs to be copied, this should be set high. */
-#define MEM_SIZE                1600
+#define MEM_SIZE                10240
 
 /* MEMP_NUM_PBUF: the number of memp struct pbufs. If the application
    sends a lot of data out of ROM (or other static memory), this
    should be set high. */
-#define MEMP_NUM_PBUF           4
+#define MEMP_NUM_PBUF           16
 /* MEMP_NUM_RAW_PCB: the number of UDP protocol control blocks. One
    per active RAW "connection". */
 #define MEMP_NUM_RAW_PCB        3
@@ -125,19 +125,19 @@ a lot of data that needs to be copied, this should be set high. */
 /* The following four are used only with the sequential API and can be
    set to 0 if the application only will use the raw API. */
 /* MEMP_NUM_NETBUF: the number of struct netbufs. */
-#define MEMP_NUM_NETBUF         0
+#define MEMP_NUM_NETBUF         2
 /* MEMP_NUM_NETCONN: the number of struct netconns. */
-#define MEMP_NUM_NETCONN        0
+#define MEMP_NUM_NETCONN        10
 /* MEMP_NUM_TCPIP_MSG_*: the number of struct tcpip_msg, which is used
    for sequential API communication and incoming packets. Used in
    src/api/tcpip.c. */
-#define MEMP_NUM_TCPIP_MSG_API   0
-#define MEMP_NUM_TCPIP_MSG_INPKT 0
+#define MEMP_NUM_TCPIP_MSG_API   16
+#define MEMP_NUM_TCPIP_MSG_INPKT 16
 
 
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */
-#define PBUF_POOL_SIZE          32
+#define PBUF_POOL_SIZE          50
 
 /* PBUF_POOL_BUFSIZE: the size of each pbuf in the pbuf pool. */
 #define PBUF_POOL_BUFSIZE       256
@@ -209,7 +209,6 @@ a lot of data that needs to be copied, this should be set high. */
 #define MEMP_NUM_REASSDATA      IP_REASS_MAX_PBUFS
 #define IP_FRAG                 1
 #define IPV6_FRAG_COPYHEADER    1
-#define IP_DEFAULT_TTL          233
 
 /* ---------- ICMP options ---------- */
 #define ICMP_TTL                233
@@ -287,16 +286,5 @@ a lot of data that needs to be copied, this should be set high. */
 #define MD5_SUPPORT             0      /* Set > 0 for MD5 (see also CHAP) */
 
 #endif /* PPP_SUPPORT */
-
-#define CHECKSUM_GEN_IP         0
-#define CHECKSUM_GEN_UDP        0
-#define CHECKSUM_GEN_TCP        0
-#define CHECKSUM_GEN_ICMP       0
-#define CHECKSUM_GEN_ICMP6      0
-#define CHECKSUM_CHECK_IP       0
-#define CHECKSUM_CHECK_UDP      0
-#define CHECKSUM_CHECK_TCP      0
-#define CHECKSUM_CHECK_ICMP     0
-#define CHECKSUM_CHECK_ICMP6    0
 
 #endif /* LWIP_PORT_LWIPOPTS_H_ */

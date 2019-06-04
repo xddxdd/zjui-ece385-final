@@ -260,11 +260,11 @@ module ECE385 (
 	wire         mm_interconnect_0_eth0_mdio_avalon_slave_read;                   // mm_interconnect_0:eth0_mdio_avalon_slave_read -> eth0_mdio:avalon_slave_read
 	wire         mm_interconnect_0_eth0_mdio_avalon_slave_write;                  // mm_interconnect_0:eth0_mdio_avalon_slave_write -> eth0_mdio:avalon_slave_write
 	wire  [31:0] mm_interconnect_0_eth0_mdio_avalon_slave_writedata;              // mm_interconnect_0:eth0_mdio_avalon_slave_writedata -> eth0_mdio:avalon_slave_writedata
-	wire  [31:0] mm_interconnect_0_sram_multiplexer_avl_readdata;                 // sram_multiplexer:AVL_READDATA -> mm_interconnect_0:sram_multiplexer_avl_readdata
+	wire  [15:0] mm_interconnect_0_sram_multiplexer_avl_readdata;                 // sram_multiplexer:AVL_READDATA -> mm_interconnect_0:sram_multiplexer_avl_readdata
 	wire  [19:0] mm_interconnect_0_sram_multiplexer_avl_address;                  // mm_interconnect_0:sram_multiplexer_avl_address -> sram_multiplexer:AVL_ADDR
 	wire         mm_interconnect_0_sram_multiplexer_avl_read;                     // mm_interconnect_0:sram_multiplexer_avl_read -> sram_multiplexer:AVL_READ
 	wire         mm_interconnect_0_sram_multiplexer_avl_write;                    // mm_interconnect_0:sram_multiplexer_avl_write -> sram_multiplexer:AVL_WRITE
-	wire  [31:0] mm_interconnect_0_sram_multiplexer_avl_writedata;                // mm_interconnect_0:sram_multiplexer_avl_writedata -> sram_multiplexer:AVL_WRITEDATA
+	wire  [15:0] mm_interconnect_0_sram_multiplexer_avl_writedata;                // mm_interconnect_0:sram_multiplexer_avl_writedata -> sram_multiplexer:AVL_WRITEDATA
 	wire  [31:0] mm_interconnect_0_vga_sprite_params_avl_readdata;                // vga_sprite_params:AVL_READDATA -> mm_interconnect_0:vga_sprite_params_avl_readdata
 	wire   [7:0] mm_interconnect_0_vga_sprite_params_avl_address;                 // mm_interconnect_0:vga_sprite_params_avl_address -> vga_sprite_params:AVL_ADDR
 	wire         mm_interconnect_0_vga_sprite_params_avl_read;                    // mm_interconnect_0:vga_sprite_params_avl_read -> vga_sprite_params:AVL_READ

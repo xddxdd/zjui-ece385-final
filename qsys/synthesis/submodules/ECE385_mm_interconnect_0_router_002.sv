@@ -159,7 +159,7 @@ module ECE385_mm_interconnect_0_router_002
     localparam PAD22 = log2ceil(64'h9b50 - 64'h9b40); 
     localparam PAD23 = log2ceil(64'h9b68 - 64'h9b60); 
     localparam PAD24 = log2ceil(64'h80000 - 64'h40000); 
-    localparam PAD25 = log2ceil(64'h800000 - 64'h400000); 
+    localparam PAD25 = log2ceil(64'h600000 - 64'h400000); 
     localparam PAD26 = log2ceil(64'h10000000 - 64'h8000000); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
@@ -364,7 +364,7 @@ module ECE385_mm_interconnect_0_router_002
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 17;
     end
 
-    // ( 0x400000 .. 0x800000 )
+    // ( 0x400000 .. 0x600000 )
     if ( {address[RG:PAD25],{PAD25{1'b0}}} == 28'h400000   ) begin
             src_channel = 34'b000000000000000000000001000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 22;

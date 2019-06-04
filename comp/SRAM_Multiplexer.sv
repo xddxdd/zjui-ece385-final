@@ -9,8 +9,8 @@ module SRAM_Multiplexer(
 	input  logic AVL_READ,					// Avalon-MM Read
 	input  logic AVL_WRITE,					// Avalon-MM Write
 	input  logic [19:0] AVL_ADDR,			// Avalon-MM Address
-	input  logic [31:0] AVL_WRITEDATA,	// Avalon-MM Write Data
-	output logic [31:0] AVL_READDATA,	// Avalon-MM Read Data
+	input  logic [15:0] AVL_WRITEDATA,	// Avalon-MM Write Data
+	output logic [15:0] AVL_READDATA,	// Avalon-MM Read Data
 	
 	// VGA Controller Instructions
 	input logic [9:0] VGA_DrawX, VGA_DrawY,
@@ -19,7 +19,7 @@ module SRAM_Multiplexer(
 	// SRAM Signals
 	output logic    [19:0]		SRAM_ADDR,
 	output logic          		SRAM_CE_N,
-	inout logic    [15:0]		SRAM_DQ,
+	inout logic     [15:0]		SRAM_DQ,
 	output logic          		SRAM_LB_N,
 	output logic          		SRAM_OE_N,
 	output logic          		SRAM_UB_N,
@@ -57,17 +57,14 @@ always_ff @ (posedge CLK2) begin
 	SRAM_OE_N <= SRAM_OE_N_CANDIDATE;
 end
 
-logic [15:0] AVL_READDATA_LOW;
-
 always_ff @ (posedge CLK2) begin
 	if(CYCLE_EVEN) begin
-		AVL_READDATA_LOW <= SRAM_DQ;
+		AVL_READDATA <= SRAM_DQ;
 	end else begin
 		VGA_VAL <= SRAM_DQ;
 	end
 end
 
-assign AVL_READDATA = {16'b0, AVL_READDATA_LOW};
-assign SRAM_DQ = SRAM_WE_N ? 1'bZ : AVL_WRITEDATA[15:0];
+assign SRAM_DQ = SRAM_WE_N ? 1'bZ : AVL_WRITEDATA;
 			
 endmodule

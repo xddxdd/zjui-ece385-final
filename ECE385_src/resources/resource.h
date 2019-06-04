@@ -3,6 +3,46 @@
 
 #include <stdint.h>
 
+//#define NO_ACTUAL_DATA
+
+typedef struct {
+	const uint16_t width;
+	const uint16_t height;
+	const uint16_t* data;
+} sprite_data_t;
+
+#ifdef NO_ACTUAL_DATA
+
+extern const uint16_t plane[1];
+extern const uint16_t enemy0[1];
+extern const uint16_t enemy1[1];
+extern const uint16_t enemy2[1];
+extern const uint16_t explosion0[1];
+extern const uint16_t explosion1[1];
+extern const uint16_t explosion2[1];
+extern const uint16_t explosion3[1];
+extern const uint16_t explosion4[1];
+extern const uint16_t explosion5[1];
+extern const uint16_t explosion6[1];
+extern const uint16_t explosion7[1];
+extern const uint16_t explosion8[1];
+extern const uint16_t explosion9[1];
+extern const uint16_t explosion10[1];
+extern const uint16_t explosion11[1];
+extern const uint16_t explosion12[1];
+extern const uint16_t explosion13[1];
+extern const uint16_t explosion14[1];
+extern const uint16_t explosion15[1];
+extern const uint16_t explosion16[1];
+extern const uint16_t explosion17[1];
+extern const uint16_t explosion18[1];
+extern const uint16_t explosion19[1];
+extern const uint16_t explosion20[1];
+extern const uint16_t explosion21[1];
+extern const uint16_t background[1];
+
+#else
+
 extern const uint16_t plane[48 * 32];
 extern const uint16_t enemy0[48 * 32];
 extern const uint16_t enemy1[48 * 32];
@@ -29,13 +69,9 @@ extern const uint16_t explosion18[32 * 32];
 extern const uint16_t explosion19[32 * 32];
 extern const uint16_t explosion20[32 * 32];
 extern const uint16_t explosion21[32 * 32];
-extern const uint16_t background[640 * 960];
+extern const uint16_t background[640 * 1125];
 
-typedef struct {
-	const uint16_t width;
-	const uint16_t height;
-	const uint16_t* data;
-} sprite_data_t;
+#endif
 
 extern const sprite_data_t planes[];
 extern const uint16_t* explosion_sequence[];

@@ -195,6 +195,10 @@ C_SRCS += memcpy_dma.c
 C_SRCS += resources/music.c
 C_SRCS += audio.c
 C_SRCS += resources/sound_explosion.c
+C_SRCS += lwip/apps/http/http_client.c
+C_SRCS += httpc.c
+C_SRCS += main_menu.c
+C_SRCS += scoreboard.c
 CXX_SRCS :=
 ASM_SRCS :=
 

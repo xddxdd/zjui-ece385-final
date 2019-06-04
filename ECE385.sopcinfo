@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="ECE385" kind="ECE385" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.06.03.23:26:18 -->
+ <!-- 2019.06.04.17:21:18 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1559575577</value>
+  <value>1559640077</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -21246,7 +21246,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='vga_sprite_7.s1' start='0x0' end='0x1000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_6.s1' start='0x1000' end='0x2000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_5.s1' start='0x2000' end='0x3000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_4.s1' start='0x3000' end='0x4000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_3.s1' start='0x4000' end='0x5000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_2.s1' start='0x5000' end='0x6000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_1.s1' start='0x6000' end='0x7000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_0.s1' start='0x7000' end='0x8000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x8800' end='0x9000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='usb_keycode.s2' start='0x9000' end='0x9400' type='altera_avalon_onchip_memory2.s2' /><slave name='vga_sprite_params.avl' start='0x9400' end='0x9800' type='avalon_mm_passthrough.avl' /><slave name='eth0_mdio.avalon_slave' start='0x9800' end='0x9880' type='lantian_mdio.avalon_slave' /><slave name='eth1_mdio.avalon_slave' start='0x9880' end='0x9900' type='lantian_mdio.avalon_slave' /><slave name='nios2_dma.csr' start='0x9900' end='0x9940' type='altera_avalon_sgdma.csr' /><slave name='eth1_tx_dma.csr' start='0x9940' end='0x9980' type='altera_avalon_sgdma.csr' /><slave name='eth1_rx_dma.csr' start='0x9980' end='0x99C0' type='altera_avalon_sgdma.csr' /><slave name='eth0_tx_dma.csr' start='0x99C0' end='0x9A00' type='altera_avalon_sgdma.csr' /><slave name='eth0_rx_dma.csr' start='0x9A00' end='0x9A40' type='altera_avalon_sgdma.csr' /><slave name='audio_timer.s1' start='0x9A40' end='0x9A60' type='altera_avalon_timer.s1' /><slave name='io_hex.s1' start='0x9A60' end='0x9A80' type='altera_avalon_pio.s1' /><slave name='io_led_green.s1' start='0x9A80' end='0x9AA0' type='altera_avalon_pio.s1' /><slave name='nios2_timer.s1' start='0x9AA0' end='0x9AC0' type='altera_avalon_timer.s1' /><slave name='io_led_red.s1' start='0x9AC0' end='0x9AE0' type='altera_avalon_pio.s1' /><slave name='audio_pio.s1' start='0x9AF0' end='0x9B00' type='altera_avalon_pio.s1' /><slave name='vga_background_offset.s1' start='0x9B00' end='0x9B10' type='altera_avalon_pio.s1' /><slave name='io_vga_sync.s1' start='0x9B10' end='0x9B20' type='altera_avalon_pio.s1' /><slave name='io_switches.s1' start='0x9B20' end='0x9B30' type='altera_avalon_pio.s1' /><slave name='io_keys.s1' start='0x9B30' end='0x9B40' type='altera_avalon_pio.s1' /><slave name='nios2_pll.pll_slave' start='0x9B40' end='0x9B50' type='altpll.pll_slave' /><slave name='nios2_sysid.control_slave' start='0x9B58' end='0x9B60' type='altera_avalon_sysid_qsys.control_slave' /><slave name='nios2_jtag_uart.avalon_jtag_slave' start='0x9B60' end='0x9B68' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='nios2_onchip_mem.s1' start='0x40000' end='0x80000' type='altera_avalon_onchip_memory2.s1' /><slave name='sram_multiplexer.avl' start='0x400000' end='0x800000' type='sram_multiplexer.avl' /><slave name='sdram.s1' start='0x8000000' end='0x10000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='vga_sprite_7.s1' start='0x0' end='0x1000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_6.s1' start='0x1000' end='0x2000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_5.s1' start='0x2000' end='0x3000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_4.s1' start='0x3000' end='0x4000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_3.s1' start='0x4000' end='0x5000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_2.s1' start='0x5000' end='0x6000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_1.s1' start='0x6000' end='0x7000' type='altera_avalon_onchip_memory2.s1' /><slave name='vga_sprite_0.s1' start='0x7000' end='0x8000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x8800' end='0x9000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='usb_keycode.s2' start='0x9000' end='0x9400' type='altera_avalon_onchip_memory2.s2' /><slave name='vga_sprite_params.avl' start='0x9400' end='0x9800' type='avalon_mm_passthrough.avl' /><slave name='eth0_mdio.avalon_slave' start='0x9800' end='0x9880' type='lantian_mdio.avalon_slave' /><slave name='eth1_mdio.avalon_slave' start='0x9880' end='0x9900' type='lantian_mdio.avalon_slave' /><slave name='nios2_dma.csr' start='0x9900' end='0x9940' type='altera_avalon_sgdma.csr' /><slave name='eth1_tx_dma.csr' start='0x9940' end='0x9980' type='altera_avalon_sgdma.csr' /><slave name='eth1_rx_dma.csr' start='0x9980' end='0x99C0' type='altera_avalon_sgdma.csr' /><slave name='eth0_tx_dma.csr' start='0x99C0' end='0x9A00' type='altera_avalon_sgdma.csr' /><slave name='eth0_rx_dma.csr' start='0x9A00' end='0x9A40' type='altera_avalon_sgdma.csr' /><slave name='audio_timer.s1' start='0x9A40' end='0x9A60' type='altera_avalon_timer.s1' /><slave name='io_hex.s1' start='0x9A60' end='0x9A80' type='altera_avalon_pio.s1' /><slave name='io_led_green.s1' start='0x9A80' end='0x9AA0' type='altera_avalon_pio.s1' /><slave name='nios2_timer.s1' start='0x9AA0' end='0x9AC0' type='altera_avalon_timer.s1' /><slave name='io_led_red.s1' start='0x9AC0' end='0x9AE0' type='altera_avalon_pio.s1' /><slave name='audio_pio.s1' start='0x9AF0' end='0x9B00' type='altera_avalon_pio.s1' /><slave name='vga_background_offset.s1' start='0x9B00' end='0x9B10' type='altera_avalon_pio.s1' /><slave name='io_vga_sync.s1' start='0x9B10' end='0x9B20' type='altera_avalon_pio.s1' /><slave name='io_switches.s1' start='0x9B20' end='0x9B30' type='altera_avalon_pio.s1' /><slave name='io_keys.s1' start='0x9B30' end='0x9B40' type='altera_avalon_pio.s1' /><slave name='nios2_pll.pll_slave' start='0x9B40' end='0x9B50' type='altpll.pll_slave' /><slave name='nios2_sysid.control_slave' start='0x9B58' end='0x9B60' type='altera_avalon_sysid_qsys.control_slave' /><slave name='nios2_jtag_uart.avalon_jtag_slave' start='0x9B60' end='0x9B68' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='nios2_onchip_mem.s1' start='0x40000' end='0x80000' type='altera_avalon_onchip_memory2.s1' /><slave name='sram_multiplexer.avl' start='0x400000' end='0x600000' type='sram_multiplexer.avl' /><slave name='sdram.s1' start='0x8000000' end='0x10000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -21942,7 +21942,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>avl</slaveName>
     <name>sram_multiplexer.avl</name>
     <baseAddress>4194304</baseAddress>
-    <span>4194304</span>
+    <span>2097152</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -24922,7 +24922,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>avl</slaveName>
     <name>sram_multiplexer.avl</name>
     <baseAddress>4194304</baseAddress>
-    <span>4194304</span>
+    <span>2097152</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -25463,7 +25463,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>avl</slaveName>
     <name>sram_multiplexer.avl</name>
     <baseAddress>4194304</baseAddress>
-    <span>4194304</span>
+    <span>2097152</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -29788,7 +29788,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1559575577</value>
+   <value>1559640077</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -29808,7 +29808,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1559575577</value>
+   <value>1559640077</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -29824,7 +29824,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1559575577</value>
+   <value>1559640077</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -32133,7 +32133,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>4194304</value>
+    <value>2097152</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -32444,13 +32444,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>AVL_WRITEDATA</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>16</width>
     <role>writedata</role>
    </port>
    <port>
     <name>AVL_READDATA</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>16</width>
     <role>readdata</role>
    </port>
    <port>
@@ -43923,7 +43923,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1559575577</value>
+   <value>1559640077</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -43943,7 +43943,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1559575577</value>
+   <value>1559640077</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -43959,7 +43959,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1559575577</value>
+   <value>1559640077</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
