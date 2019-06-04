@@ -4,6 +4,8 @@
 #include "altera_avalon_timer_regs.h"
 #include <stdio.h>
 
+#include "resources/sound_explosion.h"
+
 //#include "memcpy_dma.h"
 
 //#include "altera_avalon_sgdma.h"
@@ -29,24 +31,26 @@
 //	return alt_avalon_sgdma_check_descriptor_status(&audio_descriptor);
 //}
 
-volatile int* audio_pio = (int*) AUDIO_PIO_BASE;
-volatile int audio_pos = 0;
-volatile int audio_len = 0;
-volatile uint32_t* audio_src = NULL;
+volatile uint32_t* audio_pio = (uint32_t*) AUDIO_PIO_BASE;
+volatile uint32_t audio_pos = 0;
+volatile uint32_t audio_len = 0;
+volatile uint16_t* audio_src = NULL;
 volatile int* audio_timer_ptr = (int*) AUDIO_TIMER_BASE;
+
+volatile uint32_t explosion_pos = EXPLOSION_LEN / 2;
+volatile uint16_t* explosion_src = (uint16_t*) explosion_data;
 
 void audio_init() {
 	IOWR_ALTERA_AVALON_TIMER_CONTROL(audio_timer_ptr,
 			ALTERA_AVALON_TIMER_CONTROL_ITO_MSK | ALTERA_AVALON_TIMER_CONTROL_CONT_MSK
 	);
-	printf("reg: %x\n", IORD_ALTERA_AVALON_TIMER_CONTROL(audio_timer_ptr));
 	IOWR_ALTERA_AVALON_TIMER_STATUS(audio_timer_ptr, 0);
-	printf("audio_init: %d\n", alt_ic_isr_register(
+	alt_ic_isr_register(
 			AUDIO_TIMER_IRQ_INTERRUPT_CONTROLLER_ID,
 			AUDIO_TIMER_IRQ,
 			audio_interrupt,
 			(int*) audio_timer_ptr,
-			NULL)
+			NULL
 	);
 }
 
@@ -58,5 +62,13 @@ void audio_interrupt(void *context) {
 	if(++audio_pos >= audio_len) {
 		audio_pos = 0;
 	}
-	*audio_pio = audio_src[audio_pos];
+	uint16_t sound = audio_src[audio_pos];
+
+	if(explosion_pos < EXPLOSION_LEN / 2) {
+		uint16_t explosion_sound = explosion_src[explosion_pos++];
+		*audio_pio = (((uint32_t) explosion_sound) << 16) | sound;
+	} else {
+		*audio_pio = (((uint32_t) sound) << 16) | sound;
+	}
+
 }

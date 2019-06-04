@@ -194,6 +194,7 @@ C_SRCS += resources/chinese.c
 C_SRCS += memcpy_dma.c
 C_SRCS += resources/music.c
 C_SRCS += audio.c
+C_SRCS += resources/sound_explosion.c
 CXX_SRCS :=
 ASM_SRCS :=
 

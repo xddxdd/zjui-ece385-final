@@ -4,7 +4,7 @@
  * Machine generated for CPU 'usb_nios2_cpu' in SOPC Builder design 'ECE385'
  * SOPC Builder design path: ../ECE385.sopcinfo
  *
- * Generated: Mon Jun 03 19:36:32 CST 2019
+ * Generated: Tue Jun 04 15:34:37 CST 2019
  */
 
 /*
@@ -437,7 +437,7 @@
 #define USB_NIOS2_SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define USB_NIOS2_SYSID_NAME "/dev/usb_nios2_sysid"
 #define USB_NIOS2_SYSID_SPAN 8
-#define USB_NIOS2_SYSID_TIMESTAMP 1559561459
+#define USB_NIOS2_SYSID_TIMESTAMP 1559575577
 #define USB_NIOS2_SYSID_TYPE "altera_avalon_sysid_qsys"
 
 #endif /* __SYSTEM_H_ */

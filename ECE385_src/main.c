@@ -20,8 +20,8 @@ int main(void) {
 	eth_init();
 
 	audio_init();
-	audio_len = MUSIC_LEN / 4;
-	audio_src = (uint32_t*) music_data;
+	audio_len = MUSIC_LEN / 2;
+	audio_src = (uint16_t*) music_data;
 
 	while(1) {
 		eth_loop();
@@ -29,21 +29,30 @@ int main(void) {
 
 		switch(game_state) {
 		case PREPARE_GAME:
-			game_init();
 			vga_scroll_init();
+			game_init();
 			break;
 		case IN_GAME:
-			game_loop();
 			vga_scroll(960, background);
+			game_loop();
 			break;
 		case GAME_OVER:
 			game_over();
-			game_state = GAME_OVER_WAIT_ENTER;
+			game_state = GAME_OVER_WAIT_ENTER_PRESS;
 			break;
-		case GAME_OVER_WAIT_ENTER:
+		case GAME_OVER_WAIT_ENTER_PRESS:
 			for(int i = 0; i < 6; i++) {
 				if(keycode_comm->keycode[i] == 0x28) {
-					game_state = PREPARE_GAME;
+					game_state = GAME_OVER_WAIT_ENTER_RELEASE;
+					break;
+				}
+			}
+			break;
+		case GAME_OVER_WAIT_ENTER_RELEASE:
+			game_state = PREPARE_GAME;
+			for(int i = 0; i < 6; i++) {
+				if(keycode_comm->keycode[i] == 0x28) {
+					game_state = GAME_OVER_WAIT_ENTER_RELEASE;
 					break;
 				}
 			}

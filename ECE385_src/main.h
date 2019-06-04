@@ -13,7 +13,8 @@ typedef enum {
 	PREPARE_GAME = 0,
 	IN_GAME = 1,
 	GAME_OVER = 2,
-	GAME_OVER_WAIT_ENTER = 3,
+	GAME_OVER_WAIT_ENTER_PRESS = 3,
+	GAME_OVER_WAIT_ENTER_RELEASE = 4,
 } game_state_t;
 
 extern volatile game_state_t game_state;

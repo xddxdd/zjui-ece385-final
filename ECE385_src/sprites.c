@@ -5,6 +5,7 @@
 #include "gamelogic.h"
 #include "resources/resource.h"
 #include "memcpy_dma.h"
+#include "audio.h"
 
 vga_sprite_info_t vga_planes_info[N_PLANES];
 uint16_t* vga_planes_sprite_data[N_PLANES] = {
@@ -322,6 +323,7 @@ int32_t sprites_collision_detect() {
 					plane2_info->physical->height = 32;
 					plane2_info->physical->x += 8;
 					sprites_load_data(VGA_SPRITE_PLANE, j, explosion_sequence[0], 32 * 32);
+					explosion_pos = 0;
 
 					// Deal damage to first plane
 					if((--plane_info->hp) == 0) {
@@ -345,6 +347,7 @@ int32_t sprites_collision_detect() {
 					plane_info->physical->height = 32;
 					plane_info->physical->x += 8;
 					sprites_load_data(VGA_SPRITE_PLANE, i, explosion_sequence[0], 32 * 32);
+					explosion_pos = 0;
 
 					// Deal damage to second plane
 					if((--plane2_info->hp) == 0) {
@@ -387,6 +390,7 @@ int32_t sprites_collision_detect() {
 					plane_info->physical->height = 32;
 					plane_info->physical->x += 8;
 					sprites_load_data(VGA_SPRITE_PLANE, i, explosion_sequence[0], 32 * 32);
+					explosion_pos = 0;
 
 					if(plane_info->type != 0) {
 						player_score += PLAYER_SCORE_PER_KILL;

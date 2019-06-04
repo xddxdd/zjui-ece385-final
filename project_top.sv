@@ -462,16 +462,6 @@ wm8731 wm8731_inst(
 	.data_over(WM8731_DATA_OVER),
 );
 
-//always_ff @ (posedge CLOCK_50) begin
-//	if(~RESET) begin
-//		WM8731_DATA_OVER_PREV <= 1'b0;
-//	end else begin
-//		WM8731_DATA_OVER_PREV <= WM8731_DATA_OVER;
-//	end
-//end
-//
-//assign WM8731_READY = (WM8731_DATA_OVER == 1'b1) && (WM8731_DATA_OVER_PREV == 1'b0);
-
 // VGA Scrolling & Statusbar
 logic [9:0] VGA_RealDrawY;
 always_comb begin
@@ -692,21 +682,6 @@ ECE385 ECE385_sys(
     .otg_hpi_r_export(hpi_r),
     .otg_hpi_w_export(hpi_w),
     .otg_hpi_reset_export(hpi_reset),
-
-//	.audio_mem_clk2_clk(CLOCK_50),
-//	.audio_mem_reset2_reset(~RESET),
-//	.audio_mem_s2_address(WM8731_MEM_ADDR[13:0]),
-//	.audio_mem_s2_chipselect(1'b1),
-//	.audio_mem_s2_clken(1'b1),
-//	.audio_mem_s2_write(1'b0),
-//	.audio_mem_s2_readdata(WM8731_MEM_DATA),
-//	.audio_mem_s2_writedata(32'b0),
-//	.audio_mem_s2_byteenable(4'b1111),
-//	.audio_position_export(WM8731_MEM_ADDR),
-//	.audio_position_end_export(WM8731_MEM_ADDR_END)
-//
-//	.audio_fifo_out_data({WM8731_RDATA, WM8731_LDATA}),
-//	.audio_fifo_out_ready(WM8731_READY)
 
 	.audio_pio_export({WM8731_RDATA, WM8731_LDATA})
 );

@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 
-#define MUSIC_LEN 8992082
+#define MUSIC_LEN 5040018
 
-uint8_t music_data[MUSIC_LEN];
+extern uint8_t music_data[MUSIC_LEN];
 
 #endif /* RESOURCES_MUSIC_H_ */

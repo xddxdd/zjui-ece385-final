@@ -9,9 +9,11 @@
 //void audio_send(uint8_t* src, int pos, int len);
 //int audio_sending();
 
-extern volatile int audio_pos;
-extern volatile int audio_len;
-extern volatile uint32_t* audio_src;
+extern volatile uint32_t audio_pos;
+extern volatile uint32_t audio_len;
+extern volatile uint16_t* audio_src;
+
+extern volatile uint32_t explosion_pos;
 
 void audio_init();
 void audio_interrupt(void *context);

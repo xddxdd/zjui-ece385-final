@@ -1,5 +1,6 @@
 #include "vga.h"
 #include "main.h"
+#include "memcpy_dma.h"
 #include "resources/vga_fonts.h"
 #include "resources/chinese.h"
 
@@ -23,7 +24,7 @@ void vga_set(int x, int y, int width, int height, const uint16_t* src) {
 	int x_max = x + width;
 	for(int dy = y; dy < y_max; dy++) {
 		int* vga_ptr = VGA_FRAMEBUFFER + dy * VGA_WIDTH;
-//		const uint16_t* src_ptr = src + (dy-y) * width;
+		const uint16_t* src_ptr = src + (dy-y) * width;
 		for(int dx = x; dx < x_max; dx++) {
 			vga_ptr[dx] = src[(dy-y) * width + dx-x];
 		}
