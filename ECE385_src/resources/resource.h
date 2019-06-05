@@ -9,6 +9,7 @@ typedef struct {
 	const uint16_t width;
 	const uint16_t height;
 	const uint16_t* data;
+	const uint16_t bullet_color;
 } sprite_data_t;
 
 #ifdef NO_ACTUAL_DATA
@@ -16,6 +17,9 @@ typedef struct {
 extern const uint16_t enemy0[1];
 extern const uint16_t enemy1[1];
 extern const uint16_t enemy2[1];
+extern const uint16_t enemy3[1];
+extern const uint16_t enemy4[1];
+extern const uint16_t enemy5[1];
 extern const uint16_t explosion0[1];
 extern const uint16_t explosion1[1];
 extern const uint16_t explosion2[1];
@@ -37,7 +41,6 @@ extern const uint16_t explosion17[1];
 extern const uint16_t explosion18[1];
 extern const uint16_t explosion19[1];
 extern const uint16_t explosion20[1];
-extern const uint16_t explosion21[1];
 extern const uint16_t background[1];
 
 #else
@@ -45,6 +48,9 @@ extern const uint16_t background[1];
 extern const uint16_t enemy0[48 * 32];
 extern const uint16_t enemy1[48 * 32];
 extern const uint16_t enemy2[48 * 32];
+extern const uint16_t enemy3[48 * 32];
+extern const uint16_t enemy4[48 * 32];
+extern const uint16_t enemy5[48 * 32];
 extern const uint16_t explosion0[32 * 32];
 extern const uint16_t explosion1[32 * 32];
 extern const uint16_t explosion2[32 * 32];
@@ -66,7 +72,6 @@ extern const uint16_t explosion17[32 * 32];
 extern const uint16_t explosion18[32 * 32];
 extern const uint16_t explosion19[32 * 32];
 extern const uint16_t explosion20[32 * 32];
-extern const uint16_t explosion21[32 * 32];
 extern const uint16_t background[640 * 1125];
 
 #endif
@@ -74,6 +79,6 @@ extern const uint16_t background[640 * 1125];
 extern const sprite_data_t enemies[];
 extern const uint16_t* explosion_sequence[];
 
-#define ENEMY_RESOURCE_NUM 3
+#define ENEMY_RESOURCE_NUM 6
 
 #endif

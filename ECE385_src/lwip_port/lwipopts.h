@@ -225,8 +225,8 @@ a lot of data that needs to be copied, this should be set high. */
 
 
 /* ---------- AUTOIP options ------- */
-#define LWIP_AUTOIP            (LWIP_DHCP)
-#define LWIP_DHCP_AUTOIP_COOP  (LWIP_DHCP && LWIP_AUTOIP)
+#define LWIP_AUTOIP             0
+#define LWIP_DHCP_AUTOIP_COOP   0
 
 
 /* ---------- UDP options ---------- */

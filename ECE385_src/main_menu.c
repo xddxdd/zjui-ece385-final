@@ -10,7 +10,7 @@ volatile vga_sprite_info_t* main_menu_pointer = NULL;
 main_menu_options menu_current_option = MENU_PLAY;
 
 void main_menu_init() {
-	printf("main_menu_init\n");
+//	printf("main_menu_init\n");
 	*io_vga_background_offset = 0;
 	vga_set(0, 0, VGA_WIDTH, VGA_HEIGHT, main_menu_bg);
 	vga_fill(0, VGA_HEIGHT, VGA_WIDTH, VGA_STATUSBAR_HEIGHT, 0x0000);
@@ -21,12 +21,12 @@ void main_menu_init() {
 	do {
 		int id;
 		if(255 == (id = sprites_allocate(VGA_SPRITE_BULLET))) {
-			printf("ERR sprites_allocate\n");
+//			printf("ERR sprites_allocate\n");
 			break;
 		}
 		main_menu_pointer = sprites_get(VGA_SPRITE_BULLET, id);
 		if(NULL == main_menu_pointer) {
-			printf("ERR sprites_get\n");
+//			printf("ERR sprites_get\n");
 			break;
 		}
 		main_menu_pointer->physical->x = 0;

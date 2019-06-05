@@ -102,26 +102,32 @@ int main(void) {
 				char buf[256];
 				if(httpc_success(&http_score_upload)) {
 					snprintf(buf, 255, "游戏结束 积分 %d 上传成功 按 Enter 继续", player_score);
+					game_state = GAME_OVER_WAIT_ENTER_PRESS;
 				} else {
 					snprintf(buf, 255, "游戏结束 积分 %d 上传失败 按 Enter 继续 按 R 重试", player_score);
+					game_state = GAME_OVER_WAIT_ENTER_PRESS_OR_R_PRESS;
 				}
 				vga_statusbar_string(0, (uint8_t*) buf);
 			} while(0);
-			game_state = GAME_OVER_WAIT_ENTER_PRESS;
 			break;
 		case GAME_OVER_WAIT_ENTER_PRESS:
 			if(enter_pressed()) {
-				game_state = GAME_OVER_WAIT_ENTER_RELEASE;
+				game_state = GAME_OVER_WAIT_ENTER_RELEASE_TO_SCOREBOARD;
 			}
 			break;
 		case GAME_OVER_WAIT_ENTER_PRESS_OR_R_PRESS:
 			if(enter_pressed()) {
-				game_state = GAME_OVER_WAIT_ENTER_RELEASE;
+				game_state = GAME_OVER_WAIT_ENTER_RELEASE_TO_MENU;
 			} else if(r_pressed()) {
 				game_state = GAME_OVER_WAIT_R_RELEASE;
 			}
 			break;
-		case GAME_OVER_WAIT_ENTER_RELEASE:
+		case GAME_OVER_WAIT_ENTER_RELEASE_TO_SCOREBOARD:
+			if(!enter_pressed()) {
+				game_state = SCOREBOARD_PREPARE;
+			}
+			break;
+		case GAME_OVER_WAIT_ENTER_RELEASE_TO_MENU:
 			if(!enter_pressed()) {
 				game_state = MAIN_MENU_PREPARE;
 			}

@@ -43,7 +43,7 @@ end
 
 assign VGA_Pixel = AVL_ReadData[15:0];
 //assign VGA_Pixel = 16'h0000;
-assign VGA_isObject = (AVL_ReadData[15:0] != 16'hF81F) && VGA_isInObject_prev;
+assign VGA_isObject = (AVL_ReadData[15:0] != 16'h0000) && VGA_isInObject_prev;
 //assign VGA_isObject = VGA_isInObject_prev;
 
 endmodule

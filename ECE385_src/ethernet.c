@@ -70,10 +70,10 @@ void eth_loop() {
 	static int eth0_prev_state = 0;
 	int eth0_state = eth0_mdio[0x01] & 0x04;
 	if(eth0_state && !eth0_prev_state) {
-		printf("eth0 up\n");
+//		printf("eth0 up\n");
 		netif_set_link_up(&eth0_if);
 	} else if(!eth0_state && eth0_prev_state) {
-		printf("eth0 down\n");
+//		printf("eth0 down\n");
 		netif_set_link_down(&eth0_if);
 	}
 	eth0_prev_state = eth0_state;
@@ -96,10 +96,10 @@ void eth_loop() {
 //	static int eth1_prev_state = 0;
 //	int eth1_state = eth1_mdio[0x01] & 0x04;
 //	if(eth1_state && !eth1_prev_state) {
-//		printf("eth1 up\n");
+////	printf("eth1 up\n");
 //		netif_set_link_up(&eth1_if);
 //	} else if(!eth1_state && eth1_prev_state) {
-//		printf("eth1 down\n");
+////	printf("eth1 down\n");
 //		netif_set_link_down(&eth1_if);
 //	}
 //	eth1_prev_state = eth1_state;
@@ -133,7 +133,7 @@ err_t eth0_init(struct netif *netif) {
 	eth0_dma_tx_dev = alt_avalon_sgdma_open ("/dev/eth0_tx_dma");
 	eth0_dma_rx_dev = alt_avalon_sgdma_open ("/dev/eth0_rx_dma");
 	do {
-		printf("Initializing eth0\n");
+//		printf("Initializing eth0\n");
 //		eth0_mdio[0x09] &= 0xfcff;
 		eth0_mdio[0x10] |= 0x0060;
 		eth0_mdio[0x14] |= 0x0082;
@@ -178,7 +178,7 @@ err_t eth0_tx(struct netif *netif, struct pbuf *p) {
 //	eth1_dma_tx_dev = alt_avalon_sgdma_open ("/dev/eth1_tx_dma");
 //	eth1_dma_rx_dev = alt_avalon_sgdma_open ("/dev/eth1_rx_dma");
 //	do {
-//		printf("Initializing eth1\n");
+////		printf("Initializing eth1\n");
 ////		eth1_mdio[0x09] &= 0xfcff;
 //		eth1_mdio[0x10] |= 0x0060;
 //		eth1_mdio[0x14] |= 0x0082;

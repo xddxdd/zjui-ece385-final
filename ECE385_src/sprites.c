@@ -47,6 +47,7 @@ void sprites_init(vga_entity_manage_t* vga_entity_type) {
 		vga_entity_type->info_arr[i].physical->y = 0;
 		vga_entity_type->info_arr[i].physical->width = 0;
 		vga_entity_type->info_arr[i].physical->height = 0;
+		vga_entity_type->info_arr[i].bullet_color = 0;
 		if(vga_entity_type->mmap_sprite_data) {
 			vga_entity_type->info_arr[i].sprite_data = vga_entity_type->mmap_sprite_data[i];
 		} else {
@@ -70,6 +71,7 @@ uint8_t sprites_allocate(vga_entity_manage_t* vga_entity_type) {
 			vga_entity_type->info_arr[i].physical->y = 0;
 			vga_entity_type->info_arr[i].physical->width = 0;
 			vga_entity_type->info_arr[i].physical->height = 0;
+			vga_entity_type->info_arr[i].bullet_color = 0;
 			if(vga_entity_type->mmap_sprite_data) {
 				vga_entity_type->info_arr[i].sprite_data = vga_entity_type->mmap_sprite_data[i];
 			} else {
@@ -99,6 +101,7 @@ uint8_t sprites_deallocate(vga_entity_manage_t* vga_entity_type, uint8_t id) {
 	vga_entity_type->info_arr[id].physical->y = 0;
 	vga_entity_type->info_arr[id].physical->width = 0;	// Alternatively, bullet_radius
 	vga_entity_type->info_arr[id].physical->height = 0;	// Alternatively, bullet_color
+	vga_entity_type->info_arr[id].frame_created = 0;
 
 	// Release entity
 	vga_entity_type->info_arr[id].used = 0;
@@ -232,7 +235,9 @@ uint8_t sprites_tick(vga_entity_manage_t* vga_entity_type) {
 		if(!vga_entity_type->info_arr[i].used) continue;
 
 		// If sprite fly off screen, deallocate immediately
-		if(!sprites_visible(vga_entity_type, i)) {
+		if(!sprites_visible(vga_entity_type, i)
+				&& !(vga_entity_type == VGA_SPRITE_PLANE
+						&& i == player_plane_id)) {
 			sprites_deallocate(vga_entity_type, i);
 			continue;
 		}
@@ -335,7 +340,7 @@ int32_t sprites_collision_detect() {
 						plane_info->physical->x += 8;
 						sprites_load_data(VGA_SPRITE_PLANE, i, explosion_sequence[0], 32 * 32);
 					}
-
+					sound_hit_pos = 0;
 					collided++;
 				} else {
 					// Second plane is friendly, remove first plane
@@ -360,6 +365,7 @@ int32_t sprites_collision_detect() {
 						sprites_load_data(VGA_SPRITE_PLANE, j, explosion_sequence[0], 32 * 32);
 					}
 
+					sound_hit_pos = 0;
 					collided++;
 				}
 			}
@@ -383,6 +389,10 @@ int32_t sprites_collision_detect() {
 				sprites_deallocate(VGA_SPRITE_BULLET, j);
 				// Remove the plane
 				if((--plane_info->hp) == 0) {
+					if(plane_info->type == 1) {
+						player_score += PLAYER_SCORE_PER_KILL;
+					}
+
 					// Set the plane on explosion
 					plane_info->type = 2;
 					plane_info->frame_created = 0;
@@ -391,13 +401,11 @@ int32_t sprites_collision_detect() {
 					plane_info->physical->x += 8;
 					sprites_load_data(VGA_SPRITE_PLANE, i, explosion_sequence[0], 32 * 32);
 					explosion_pos = 0;
-
-					if(plane_info->type != 0) {
-						player_score += PLAYER_SCORE_PER_KILL;
-					}
 				} else {
-					if(plane_info->type != 0) {
+					if(plane_info->type == 1) {
 						player_score += PLAYER_SCORE_PER_HIT;
+					} else if(plane_info->type == 0) {
+						sound_hit_pos = 0;
 					}
 				}
 

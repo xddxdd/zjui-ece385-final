@@ -11,9 +11,10 @@
 
 extern volatile uint32_t audio_pos;
 extern volatile uint32_t audio_len;
-extern volatile uint16_t* audio_src;
+extern volatile int16_t* audio_src;
 
 extern volatile uint32_t explosion_pos;
+extern volatile uint32_t sound_hit_pos;
 
 void audio_init();
 void audio_interrupt(void *context);

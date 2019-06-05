@@ -30,7 +30,7 @@ void httpc_request_finish(void *arg, httpc_result_t httpc_result, u32_t rx_conte
 	httpc_request* result = (httpc_request*) arg;
 	result->processing = 0;
 	if(rx_content_len != -1 && rx_content_len != result->len) {
-		printf("RX Content-Length mismatch: expect %lu, actual %lu\n", rx_content_len, result->len);
+//		printf("RX Content-Length mismatch: expect %lu, actual %lu\n", rx_content_len, result->len);
 		result->error = 1;
 	} else {
 		result->error = err;

@@ -202,6 +202,7 @@ C_SRCS += scoreboard.c
 C_SRCS += resources/main_menu_bg.c
 C_SRCS += resources/plane_player.c
 C_SRCS += resources/scoreboard_bg.c
+C_SRCS += resources/sound_hit.c
 CXX_SRCS :=
 ASM_SRCS :=
 

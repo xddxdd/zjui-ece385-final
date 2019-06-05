@@ -44,6 +44,7 @@ typedef struct {
 	// for planes of player & enemy, times of collisions until death
 	// for explo~sion, frame ticks until death
 	int32_t frame_created;	// frame at which sprite is created
+	uint16_t bullet_color;
 } vga_sprite_info_t;
 
 // Data structure for operations against different types of sprites.
