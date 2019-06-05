@@ -11,13 +11,14 @@
 #include "lwip/apps/http_client.h"
 #include <stdint.h>
 
-#define HTTPC_ANNOUNCEMENT_UPDATE_INTERVAL 60
-#define HTTPC_ANNOUNCEMENT_REQUEST_INTERVAL 10
+#define HTTPC_TIMEOUT 10
 
 typedef struct {
 	uint32_t processing;
 	err_t error;
-	char data[2048];
+	uint32_t request_start;
+	uint32_t len;
+	char data[4096];
 } httpc_request;
 
 err_t httpc_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err);

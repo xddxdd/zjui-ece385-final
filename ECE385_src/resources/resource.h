@@ -13,7 +13,6 @@ typedef struct {
 
 #ifdef NO_ACTUAL_DATA
 
-extern const uint16_t plane[1];
 extern const uint16_t enemy0[1];
 extern const uint16_t enemy1[1];
 extern const uint16_t enemy2[1];
@@ -43,7 +42,6 @@ extern const uint16_t background[1];
 
 #else
 
-extern const uint16_t plane[48 * 32];
 extern const uint16_t enemy0[48 * 32];
 extern const uint16_t enemy1[48 * 32];
 extern const uint16_t enemy2[48 * 32];
@@ -73,10 +71,9 @@ extern const uint16_t background[640 * 1125];
 
 #endif
 
-extern const sprite_data_t planes[];
+extern const sprite_data_t enemies[];
 extern const uint16_t* explosion_sequence[];
 
-#define ENEMY_RESOURCE_OFFSET 1
 #define ENEMY_RESOURCE_NUM 3
 
 #endif

@@ -11,7 +11,6 @@
 #include "httpc.h"
 #include "main_menu.h"
 #include "scoreboard.h"
-#include <time.h>
 
 volatile int* io_led_red = (int*) IO_LED_RED_BASE;
 volatile int* io_led_green = (int*) IO_LED_GREEN_BASE;
@@ -21,7 +20,6 @@ volatile int* io_vga_background_offset = (int*) VGA_BACKGROUND_OFFSET_BASE;
 volatile game_state_t game_state = MAIN_MENU_PREPARE;
 
 httpc_request http_score_upload __attribute__((section(".resources")));
-int http_game_over_upload_score_begin = 0;
 
 int enter_pressed() {
 	for(int i = 0; i < 6; i++) {
@@ -88,25 +86,20 @@ int main(void) {
 			do {
 				http_score_upload.processing = 0;
 				http_score_upload.error = 0;
-				char* buf[256];
-				snprintf(buf, 60, "/hello.txt?score=%d", player_score);
-				httpc_send_request("192-168-137-1.xip.lantian.pub", 80, (const char*) buf, &http_score_upload);
+				char buf[256];
+				snprintf(buf, 60, "/zjui-ece385-scoreboard/index.php?score=%d", player_score);
+				httpc_send_request("lab.lantian.pub", 80, (const char*) buf, &http_score_upload);
 			} while(0);
-			http_game_over_upload_score_begin = clock();
 			game_state = GAME_OVER_UPLOAD_SCORE_PROCESSING;
 			break;
 		case GAME_OVER_UPLOAD_SCORE_PROCESSING:
 			if(!httpc_processing(&http_score_upload)) {
 				game_state = GAME_OVER_UPLOAD_SCORE_FINISH;
-			} else if(clock() - http_game_over_upload_score_begin > CLOCKS_PER_SEC * 10) {
-				game_state = GAME_OVER_UPLOAD_SCORE_FINISH;
-				http_score_upload.processing = 0;
-				http_score_upload.error = 1;
 			}
 			break;
 		case GAME_OVER_UPLOAD_SCORE_FINISH:
 			do {
-				char* buf[256];
+				char buf[256];
 				if(httpc_success(&http_score_upload)) {
 					snprintf(buf, 255, "游戏结束 积分 %d 上传成功 按 Enter 继续", player_score);
 				} else {
