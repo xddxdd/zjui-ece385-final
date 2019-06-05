@@ -332,7 +332,7 @@ assign ETH1_MDIO_IN = ENET1_MDIO;
 assign ENET1_MDIO = ETH1_MDIO_OEN ? 1'bZ : ETH1_MDIO_OUT;
 
 assign ENET1_RST_N = RESET;
-assign ENET1_TX_ER = 1'b1;
+assign ENET1_TX_ER = 1'b0;
 
 logic ETH1_CLK_TX, ETH1_CLK_RX;
 
