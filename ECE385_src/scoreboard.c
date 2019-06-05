@@ -30,7 +30,7 @@ void scoreboard_loop() {
 	if(!scoreboard_shown && !httpc_processing(&scoreboard_request)) {
 		if(httpc_success(&scoreboard_request)) {
 			vga_set(0, 0, VGA_WIDTH, VGA_HEIGHT, scoreboard_bg);
-			vga_string_transparent(128, 128, (uint8_t*) scoreboard_request.data);
+			vga_string_transparent(16, 160, (uint8_t*) scoreboard_request.data);
 			vga_fill(0, VGA_HEIGHT, VGA_WIDTH, VGA_STATUSBAR_HEIGHT, 0x0000);
 			vga_statusbar_string(0, (uint8_t*) "加载成功 按 R 刷新 Esc 返回");
 		} else {
