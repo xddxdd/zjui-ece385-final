@@ -40,7 +40,17 @@ Features
     - Presents MDIO registers as Avalon-MM slave peripheral
   - Software part is based on lwIP [(https://savannah.nongnu.org/projects/lwip/)](https://savannah.nongnu.org/projects/lwip/)
     - Adapted to work on NIOS-II processor
+    - Works, but with minor instabilities
 - USB support
   - Separate NIOS-II processor for USB processing
     - Communicate with main processor via dual-port on chip memory
     - Allow separate reset (to workaround buggy keyboards)
+
+How to Run
+----------
+
+1. Compile the SystemVerilog code and program it onto a DE2-115 development board.
+2. Compile the C code in `ECE385_usb_src` folder and program it onto the **second** NIOS-II core in the circuit. That is the CPU for USB communication.
+3. Plug in the keyboard, press the second button to the right to reset the USB CPU, until the keyboard works (console prints out all the way to step 9).
+4. Compile the C code in `ECE385_src` folder and program it onto the **first** NIOS-II core. That is the CPU for main game logic.
+5. Plug in VGA, Ethernet and sound cable and start playing.
