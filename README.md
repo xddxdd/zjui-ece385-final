@@ -15,6 +15,8 @@ This is the final project for my ECE 385 course taken at ZJU-UIUC Institute (sam
 
 This project is completed together by me and my teammate in this course.
 
+A more detailed writeup is at https://lantian.pub/en/article/modify-computer/cyclone-iv-fpga-development-bugs-resolve.lantian
+
 Features
 --------
 
